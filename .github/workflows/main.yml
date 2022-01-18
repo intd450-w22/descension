@@ -119,8 +119,8 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
         projectPath: 
           - intd-450-prototype
-        customImage: 
-          - unityci/editor:2020.3.26f1-base-0
+        # customImage: 
+        #   - unityci/editor:2020.3.26f1-base-0
         buildsPath:
           - build        
     steps:
@@ -143,7 +143,7 @@ jobs:
           unityVersion: auto
           allowDirtyBuild: true
           targetPlatform: ${{ matrix.targetPlatform }}          
-          customImage: ${{ matrix.customImage }}          
+          # customImage: ${{ matrix.customImage }}          
           projectPath: ${{ matrix.projectPath }}
           buildsPath: ${{ matrix.buildsPath }}
           buildName: ${{ matrix.buildName }}
