@@ -142,7 +142,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           unityVersion: auto
           customImage: ${{ matrix.customImage }}          
-          projectPatch: ${{ matrix.projectPath }}
+          projectPath: ${{ matrix.projectPath }}
           buildsPath: ${{ matrix.buildsPath }}
           buildName: ${{ matrix.buildName }}
 
