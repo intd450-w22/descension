@@ -64,7 +64,7 @@ jobs:
           path: ${{ steps.tests.outputs.artifactsPath }}
 
 #  buildWebGL:
-#    needs: testRunner
+#    needs: testAllModes
 #    name: Build for WebGL
 #    runs-on: ubuntu-latest
 #    strategy:
@@ -108,7 +108,7 @@ jobs:
 #          path: build/WebGL
 #
   buildWindows:
-    needs: testRunner
+    needs: testAllModes
     name: Build for Windows
     runs-on: ubuntu-latest
     steps:
@@ -136,7 +136,7 @@ jobs:
           path: build/StandaloneWindows64
 #
 #  buildAndroid:
-#    needs: testRunner
+#    needs: testAllModes
 #    name: Build for Android
 #    runs-on: ubuntu-latest
 #    strategy:
