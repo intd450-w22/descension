@@ -68,7 +68,7 @@ jobs:
 
   build:
     needs: testAllModes
-    name: Build for Windows
+    name: Build for ${{ matrix.targetPlatform}}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

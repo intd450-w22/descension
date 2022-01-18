@@ -70,7 +70,7 @@ jobs:
           path: ${{ steps.tests.outputs.artifactsPath }}
 
   buildWindows:
-    # needs: testAllModes
+    needs: testAllModes
     name: Build for Windows
     runs-on: ubuntu-latest
     strategy:
