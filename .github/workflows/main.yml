@@ -1,6 +1,6 @@
-name: GameCI Template
+name: Unity CI
 
-on: push
+on: [push, pull_request]
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -14,48 +14,54 @@ jobs:
         if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
         run: exit 1
 
-  testRunner:
-   needs: checkLicense
-   name: Test all modes
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout code
-       uses: actions/checkout@v2
+  testAllModes:
+    needs: checkLicense
+    name: Test in ${{ matrix.testMode }}
+    runs-on: ubuntu-latest       
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath: 
+          - prototype
+        customImage: 
+          - unityci/editor:2020.3.26f1-base-0
+        testMode:
+          - playmode
+          - editmode
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          lfs: true      
 
-     - name: Create LFS file list
-       run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}
+          restore-keys: |            
+            Library-
 
-     - name: Restore LFS cache
-       uses: actions/cache@v2
-       id: lfs-cache
-       with:
-         path: .git/lfs
-         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+      - name: Run Tests
+        uses: game-ci/unity-test-runner@v2
+        id: tests       
+        env: 
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ${{ matrix.projectPath }}
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}--artifacts
+          # githubToken: ${{ secrets.GITHUB_TOKEN }}
+          checkName: ${{ matrix.testMode }} Test Results
 
-     - name: Git LFS Pull
-       run: |
-         git lfs pull
-         git add .
-         git reset --hard
-
-     - name: Restore Library cache
-       uses: actions/cache@v2
-       with:
-         path: Library
-         key: Library-test-project
-         restore-keys: |
-           Library-test-project-
-           Library-
-
-     - uses: webbertakken/unity-test-runner@v2
-       id: testRunner
-       with:
-         testMode: all
-
-     - uses: actions/upload-artifact@v2
-       with:
-         name: Test results (all modes)
-         path: ${{ steps.testRunner.outputs.artifactsPath }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}
 
 #  buildWebGL:
 #    needs: testRunner
@@ -92,7 +98,7 @@ jobs:
 #            Library-build-
 #            Library-
 #
-#      - uses: webbertakken/unity-builder@v2
+#      - uses: game-ci/unity-builder@v2
 #        with:
 #          targetPlatform: WebGL
 #
@@ -108,33 +114,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+        with:
+          lfs: true      
 
       - name: Restore LFS cache
         uses: actions/cache@v2
         id: lfs-cache
         with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
-
-      - name: Git LFS Pull
-        run: |
-          git lfs pull
-          git add .
-          git reset --hard
-
-      - name: Restore Library cache
-        uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-build-StandaloneWindows64
-          restore-keys: |
-            Library-build-
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}
+          restore-keys: |            
             Library-
-
-      - uses: webbertakken/unity-builder@v2
+            
+      - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
 
@@ -178,7 +170,7 @@ jobs:
 #            Library-build-
 #            Library-
 #
-#      - uses: webbertakken/unity-builder@v2
+#      - uses: game-ci/unity-builder@v2
 #        with:
 #          targetPlatform: Android
 #
@@ -187,26 +179,27 @@ jobs:
 #          name: build-Android
 #          path: build/Android
 #
+#
+  # WE WILL WANT THIS LATER 
+  # deployPages:
+  #   needs: buildWindows
+  #   name: Deploy to Github Pages
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-  deployPages:
-    needs: buildWindows
-    name: Deploy to Github Pages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: build-WebGL
+  #         path: build
 
-      - uses: actions/download-artifact@v2
-        with:
-          name: build-WebGL
-          path: build
+  #     - name: Display structure of root files
+  #       run: ls -R
+  #       working-directory: build/WebGL
 
-      - name: Display structure of root files
-        run: ls -R
-        working-directory: build/WebGL
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: build/WebGL
+  #     - name: Deploy 🚀
+  #       uses: JamesIves/github-pages-deploy-action@4.1.4
+  #       with:
+  #         branch: gh-pages
+  #         folder: build/WebGL
