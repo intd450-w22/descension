@@ -139,8 +139,9 @@ jobs:
             
       - uses: game-ci/unity-builder@v2
         with:
-          targetPlatform: ${{ matrix.targetPlatform }}
           unityVersion: auto
+          allowDirtyBuild: true
+          targetPlatform: ${{ matrix.targetPlatform }}          
           customImage: ${{ matrix.customImage }}          
           projectPath: ${{ matrix.projectPath }}
           buildsPath: ${{ matrix.buildsPath }}
