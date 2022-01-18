@@ -104,7 +104,7 @@ jobs:
           unityVersion: auto
           allowDirtyBuild: true
           targetPlatform: ${{ matrix.targetPlatform }}          
-          customImage: ${{ matrix.customImage }}          
+          # customImage: ${{ matrix.customImage }}          
           projectPath: ${{ matrix.projectPath }}
           buildsPath: ${{ matrix.buildsPath }}
           buildName: ${{ matrix.buildName }}
