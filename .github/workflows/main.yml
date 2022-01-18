@@ -115,7 +115,8 @@ jobs:
       fail-fast: false
       matrix:
         targetPlatform:
-          - StandaloneWindows64
+          - StandaloneWindows   # Build a Windows standalone.
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
         projectPath: 
           - intd-450-prototype
         customImage: 
