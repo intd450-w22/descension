@@ -26,7 +26,7 @@ jobs:
         customImage: 
           - unityci/editor:2020.3.26f1-base-0
         testMode:
-          - playmode
+          # - playmode
           - editmode    
     steps:
       - name: Checkout code
@@ -110,6 +110,13 @@ jobs:
     needs: testAllModes
     name: Build for Windows
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath: 
+          - intd-450-prototype
+        customImage: 
+          - unityci/editor:2020.3.26f1-base-0
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
