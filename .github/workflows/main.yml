@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath: 
-          - prototype
+          - intd-450-prototype
         customImage: 
           - unityci/editor:2020.3.26f1-base-0
         testMode:
