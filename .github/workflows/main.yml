@@ -27,8 +27,7 @@ jobs:
           - unityci/editor:2020.3.26f1-base-0
         testMode:
           - playmode
-          - editmode
-    
+          - editmode    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -52,7 +51,7 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}--artifacts
+          artifactsPath: artifacts/${{ matrix.testMode }}
           # githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.testMode }} Test Results
 
