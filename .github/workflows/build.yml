@@ -78,8 +78,8 @@ jobs:
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
         projectPath: 
           - Descension
-        # customImage: 
-        #   - unityci/editor:2020.3.26f1-base-0    
+        customImage: 
+          - unityci/editor:2020.3.26f1-base-0    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -104,8 +104,8 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}          
           # customImage: ${{ matrix.customImage }}          
           projectPath: ${{ matrix.projectPath }}
-          # buildsPath: ${{ matrix.buildsPath }}
-          # buildName: ${{ matrix.buildName }}
+          buildsPath: ${{ matrix.buildsPath }}
+          buildName: ${{ matrix.buildName }}
 
       - uses: actions/upload-artifact@v2
         with:
