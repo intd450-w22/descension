@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath: 
-          - intd-450-prototype
+          - Descension
         customImage: 
           - unityci/editor:2020.3.26f1-base-0
         testMode:
@@ -77,11 +77,9 @@ jobs:
           - StandaloneWindows   # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
         projectPath: 
-          - intd-450-prototype
-        customImage: 
-          - unityci/editor:2020.3.26f1-base-0
-        buildsPath:
-          - build        
+          - Descension
+        # customImage: 
+        #   - unityci/editor:2020.3.26f1-base-0    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -106,13 +104,13 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}          
           # customImage: ${{ matrix.customImage }}          
           projectPath: ${{ matrix.projectPath }}
-          buildsPath: ${{ matrix.buildsPath }}
-          buildName: ${{ matrix.buildName }}
+          # buildsPath: ${{ matrix.buildsPath }}
+          # buildName: ${{ matrix.buildName }}
 
       - uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.targetPlatform }}
-          path: /${{ matrix.buildsPath }}/${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
 
   # WE WILL WANT THIS LATER 
   #
