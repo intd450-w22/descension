@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath: 
-          - intd-450-prototype
+          - Descension
         customImage: 
           - unityci/editor:2020.3.26f1-base-0
         testMode:
@@ -77,7 +77,7 @@ jobs:
           - StandaloneWindows   # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
         projectPath: 
-          - intd-450-prototype
+          - Descension
         customImage: 
           - unityci/editor:2020.3.26f1-base-0
         buildsPath:
