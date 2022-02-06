@@ -10,25 +10,43 @@ public class enemyOne : MonoBehaviour
     public GameObject floatingTextDialogue;
     public GameObject floatingTextDamage;
 
-    // Vector3 movement = new Vector3(0.1f, 0f, 0f);
+    Vector3 movement;
+
+    float pointA = 66f;
+    float pointB = 67f;
+
+    float patrolTarget;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        patrolTarget = pointB;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (this.hitPoints < 0) {
-            this.showFloatingTextDialogue("DEAD!");
+            // this.showFloatingTextDialogue("DEAD!");
             Destroy(gameObject);
         }
 
         // Debug.Log(transform.position.x);
 
-        // transform.position += movement * Time.deltaTime;
+        if (patrolTarget == pointB) {
+            movement = new Vector3(2f, 0f, 0f);
+        } else if (patrolTarget == pointA) {
+            movement = new Vector3(-2f, 0f, 0f);
+        }
+
+        transform.position += movement * Time.deltaTime;
+
+        if (patrolTarget == pointB && transform.position.x >= pointB) {
+            patrolTarget = pointA;
+        } 
+        if (patrolTarget == pointA && transform.position.x <= pointA) {
+            patrolTarget = pointB;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
