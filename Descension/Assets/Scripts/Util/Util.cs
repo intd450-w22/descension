@@ -33,7 +33,6 @@ namespace Util
             }
             return closestIndex;
         }
-    
     }
 
     public enum Layer : int

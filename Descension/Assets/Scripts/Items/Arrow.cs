@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Actor.AI;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -21,9 +22,9 @@ public class Arrow : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Enemy") {
+        if (collision.CompareTag("Enemy")) {
             Debug.Log("attacked enemy");
-            collision.gameObject.GetComponent<enemyOne>().inflictDamage(this.damage);
+            collision.gameObject.GetComponent<AIController>().InflictDamage(this.damage);
         }
     }
 }
