@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actor.Player;
 using UnityEngine;
 using Util;
 
@@ -8,8 +9,13 @@ namespace Actor.AI
 {
     public class AIController : MonoBehaviour
     {
-        public GameObject currentTarget;    // must set to object to be used as target
+        public float hitPoints = 100;
+        public float damage = 10;
+        public GameObject floatingTextDialogue;
+        public GameObject floatingDamageDialogue;
         
+        // patrolling state
+        public GameObject currentTarget;    // must set to object to be used as target
         public StateAttributes patrollingAttributes; // attributes when in patrolling state
         public StateAttributes chasingAttributes;   // attributes when in chasing state
     
@@ -18,6 +24,7 @@ namespace Actor.AI
         public List<GameObject> patrolTargets;
     
         // internal state
+        private bool _alive = true;
         private bool _paused;
         private float _pausedTime = 0;
         private Vector2 _forward;               // forward facing direction calculated from current movement direction
@@ -34,18 +41,47 @@ namespace Actor.AI
         // Update is called once per frame
         void Update()
         {
+            if (!_alive) return;
+            
+            if (hitPoints <= 0)
+            {
+                OnKilled();
+                return;
+            }
             // line trace forward to look for player
             See();
             HandlePause();
             if (!_paused) MoveToTarget();
         }
+        
+        public void InflictDamage(float dmg)
+        {
+            hitPoints -= dmg;
+            ShowFloatingDamageDialogue("Hp-" + dmg.ToString());
+        }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            Debug.Log("Collision!!");
-            TurnAround();
-            _paused = true;
+            GameObject obj = other.gameObject;
+            if (obj.CompareTag("Player"))
+            {
+                obj.GetComponent<player>().inflictDamage(damage);
+            }
+            else
+            {
+                // Debug.Log("Collision!!");
+                TurnAround();
+                _paused = true;
+            }
         }
+
+        private void OnKilled()
+        {
+            _alive = false;
+            // TODO change to dead sprite / make body searchable? 
+        }
+
+
 
         private void HandlePause()
         {
@@ -226,6 +262,18 @@ namespace Actor.AI
         {
             _patrolDirection = -_patrolDirection;
             GetNextTarget();
+        }
+
+        private void ShowFloatingTextDialogue(string text)
+        {
+            var t = Instantiate(floatingDamageDialogue, transform.position, Quaternion.identity);
+            t.GetComponent<TextMesh>().text = text;
+        }
+        
+        private void ShowFloatingDamageDialogue(string text)
+        {
+            var t = Instantiate(floatingTextDialogue, transform.position, Quaternion.identity);
+            t.GetComponent<TextMesh>().text = text;
         }
     }
 
