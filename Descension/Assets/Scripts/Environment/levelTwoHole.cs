@@ -9,22 +9,20 @@ public class levelTwoHole : MonoBehaviour
     public Text dialogueText;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log("collided");
+        // Debug.Log("collided");
         if (collision.gameObject.name == "Player") {
-            if (FindObjectOfType<player>().hasRope > 0) {
-                FindObjectOfType<player>().hasRope -= 1;
+            if (FindObjectOfType<player>().ropeQuantity > 0) {
+                FindObjectOfType<player>().addRope(-1);
                 showText("Descend to level two...");
             } else {
                 showText("You need a rope in order to descend");

@@ -7,14 +7,12 @@ public class floatingText : MonoBehaviour
     public float duration = 1f;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Destroy(gameObject, duration);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 }
