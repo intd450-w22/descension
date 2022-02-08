@@ -21,6 +21,7 @@ namespace Actor.Player
             if (x != 0 || y != 0)
             {
                 transform.Translate(x * movementSpeed * Time.deltaTime,  y * movementSpeed * Time.deltaTime, 0);
+                
             }
         }
     }
