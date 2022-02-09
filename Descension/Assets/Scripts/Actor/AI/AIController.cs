@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Actor.Player;
 using UnityEngine;
-using Util;
+using Util.Enums;
 
 namespace Actor.AI
 {
@@ -125,7 +123,7 @@ namespace Actor.AI
         private void See()
         {
             // ignore enemy layer 
-            RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, _forward, _attributes.sightDistance, (int) ~Layer.Enemy);
+            RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, _forward, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
             if (rayCast)
             {
                 if (rayCast.collider.gameObject.CompareTag("Player"))
@@ -154,7 +152,7 @@ namespace Actor.AI
         {
             foreach (var d in Util.Util.Directions)
             {
-                RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, d, _attributes.sightDistance, (int) ~Layer.Enemy);
+                RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, d, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
                 if (rayCast)
                 {
                     if (rayCast.collider.gameObject.CompareTag("Player"))
