@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Actor.Player;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static Util.Helpers.CalculationHelper;
 using UnityEngine.AI;
 using Util.Enums;
+using static Util.Helpers.CalculationHelper;
 using static Util.Helpers.Extensions;
 
 namespace Actor.AI

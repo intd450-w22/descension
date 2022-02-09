@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Descension/Assets/Pathfinding/NavMeshPlus/NavMeshComponents/Editor/NavMeshAssetManager.cs.meta
 guid: 178d8366aa1616849b91b66285c51454
+=======
+guid: ff80f83b4b2aac047b3510538d607cae
+>>>>>>> development:Descension/Assets/Scripts/GUI/MenuUI/Button/ButtonController.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
