@@ -1,18 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Util
+namespace Util.Helpers
 {
-    public class Util
+    public static class CalculationHelper
     {
-        static public readonly List<Vector2> Directions = new List<Vector2>()
-        {
-            new Vector2(1,0),
-            new Vector2(0,1),
-            new Vector2(-1,0),
-            new Vector2(0,-1),
-        };
-    
         public static float DistanceSq(Vector2 a, Vector2 b)
         {
             return (b - a).sqrMagnitude;
