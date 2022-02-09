@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actor.Player;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static Util;
+using static Util.Helpers.CalculationHelper;
 using UnityEngine.AI;
+using Util.Enums;
 
 namespace Actor.AI
 {
@@ -29,19 +31,29 @@ namespace Actor.AI
         private AttackBase _attack;  // attack script
         private NavMeshAgent _agent; // agent script
         private Transform _player;   // player position
-        private bool _alive = true;
+        private bool _alive;
         private int _patrolIndex = 0;           // index of current patrol target
         private int _patrolDirection = 1;       // tracks forward/backward for patrolling
         private StateAttributes _attributes;
     
+        
         // Start is called before the first frame update
         void Start()
         {
+            if (!FindObjectOfType<NavMeshSurface2d>())
+            {
+                Debug.LogWarning("Need to add NavMeshPrefab to map and bake to use enemy. Also add NavMeshModifier to Ground and Walls of the Grid.");
+                _alive = false;
+                Destroy(this);
+                return;
+            }
+
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
             _player = FindObjectOfType<player>().transform;
+            _alive = true;
             
             StartPatrol();
         }
@@ -58,6 +70,7 @@ namespace Actor.AI
             }
             
             See();
+            // Hear();
             MoveToTarget();
         }
 
@@ -128,7 +141,7 @@ namespace Actor.AI
             {
                 case State.Patrolling:
                 {
-                    int mask = (int)~Layer.Enemy;
+                    int mask = (int)~UnityLayer.Enemy;
                     rayCast = Physics2D.BoxCast(transform.position, new Vector2(1, 1), 0, _agent.velocity.normalized, _attributes.sightDistance, mask);
                     if (rayCast)
                     {
@@ -158,7 +171,7 @@ namespace Actor.AI
                 {
                     Vector3 position = transform.position;
                     Vector3 direction = (currentTarget.position - position).normalized;
-                    rayCast = Physics2D.BoxCast(position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, (int) ~Layer.Enemy);
+                    rayCast = Physics2D.BoxCast(position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
                     if (rayCast.transform.gameObject.CompareTag("Player"))
                     {
                         currentTarget.position = rayCast.transform.position;
@@ -195,7 +208,8 @@ namespace Actor.AI
         {
             Vector3 position = transform.position;
             Vector3 direction = (_player.position - position).normalized;
-            RaycastHit2D rayCast = Physics2D.Raycast(position, direction, _attributes.sightDistance, (int) ~Layer.Enemy);
+            int mask = (int)~UnityLayer.Enemy;
+            RaycastHit2D rayCast = Physics2D.Raycast(position, direction, _attributes.sightDistance, mask);
             if (rayCast && rayCast.collider.gameObject.CompareTag("Player"))
             {
                 // player spotted, lock on again
