@@ -11,6 +11,7 @@ namespace Actor.AI
     // General controller class for enemy AI. Add a script derived from AttackBase to the enemy object to implement unique attack logic.
     public class AIController : MonoBehaviour
     {
+        public NavMeshAgent agent;
         public float hitPoints = 100;
         public float damage = 10;
         public GameObject floatingTextDialogue;
