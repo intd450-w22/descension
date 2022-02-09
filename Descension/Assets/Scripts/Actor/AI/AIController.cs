@@ -7,35 +7,36 @@ using UnityEngine;
 using static Util.Helpers.CalculationHelper;
 using UnityEngine.AI;
 using Util.Enums;
+using static Util.Helpers.Extensions;
 
 namespace Actor.AI
 {
     // General controller class for enemy AI. Add a script derived from AttackBase to the enemy object to implement unique attack logic.
     public class AIController : MonoBehaviour
     {
-        public NavMeshAgent agent;
         public float hitPoints = 100;
         public float damage = 10;
         public GameObject floatingTextDialogue;
         public GameObject floatingDamageDialogue;
         
-        public Transform currentTarget;    // must set to object to be used as target
         public StateAttributes patrollingAttributes; // attributes when in patrolling state
-        public StateAttributes chasingAttributes;   // attributes when in chasing state
+        public StateAttributes chasingAttributes;    // attributes when in chasing state
 
         public bool chasePlayer;    // chase player on sight?
         public bool loopTargets;    // go to first target at end of list? or turn around if false
         public State currentState;
-        public List<Transform> patrolTargets;
 
-        private AttackBase _attack;  // attack script
-        private NavMeshAgent _agent; // agent script
-        private Transform _player;   // player position
+        private Transform _currentTarget;       // current target reticle
+        private List<Transform> _patrolTargets; // list of patrol targets, generated from children of PatrolTargets subobject
+        private AttackBase _attack;             // attack script
+        private NavMeshAgent _agent;            // agent script
+        private Transform _player;              // player position
+        private Vector3 _position;              // cached current position of agent
         private bool _alive;
         private int _patrolIndex = 0;           // index of current patrol target
         private int _patrolDirection = 1;       // tracks forward/backward for patrolling
         private StateAttributes _attributes;
-    
+        
         
         // Start is called before the first frame update
         void Start()
@@ -47,12 +48,15 @@ namespace Actor.AI
                 Destroy(this);
                 return;
             }
-
-            _agent = GetComponent<NavMeshAgent>();
+            
+            _agent = GetComponentInChildren<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
-
+            
+            _patrolTargets = new List<Transform>(transform.Find("PatrolTargets").GetComponentsInChildren<Transform>());
+            _currentTarget = gameObject.GetChildTransformWithName("CurrentTarget");
             _player = FindObjectOfType<player>().transform;
+            
             _alive = true;
             
             StartPatrol();
@@ -68,6 +72,8 @@ namespace Actor.AI
                 OnKilled();
                 return;
             }
+
+            _position = _agent.transform.position;  // cache since it is used in multiple methods
             
             See();
             // Hear();
@@ -119,16 +125,16 @@ namespace Actor.AI
         {
             currentState = State.Patrolling;
             
-            if (index < 0) index = FindClosest(transform.position, ref patrolTargets);
+            if (index < 0) index = FindClosest(_position, ref _patrolTargets);
             
             SetAttributes(patrollingAttributes);
-            SetTarget(patrolTargets[index]);
+            SetTarget(_patrolTargets[index]);
         }
 
         
         private void SetTarget(Transform t)
         {
-            currentTarget.position = t.position;
+            _currentTarget.position = t.position;
         }
             
     
@@ -136,13 +142,13 @@ namespace Actor.AI
         private void See()
         {
             RaycastHit2D rayCast;
+            int mask = (int)~UnityLayer.Enemy;
             
             switch (currentState)
             {
                 case State.Patrolling:
                 {
-                    int mask = (int)~UnityLayer.Enemy;
-                    rayCast = Physics2D.BoxCast(transform.position, new Vector2(1, 1), 0, _agent.velocity.normalized, _attributes.sightDistance, mask);
+                    rayCast = Physics2D.BoxCast(_position, new Vector2(1, 1), 0, _agent.velocity.normalized, _attributes.sightDistance, mask);
                     if (rayCast)
                     {
                         if (rayCast.transform.gameObject.CompareTag("Player"))
@@ -151,16 +157,16 @@ namespace Actor.AI
                             {
                                 StartChase(rayCast.transform.gameObject);
                             }
-                            Debug.DrawLine(transform.position, rayCast.point, Color.red);
+                            Debug.DrawLine(_position, rayCast.point, Color.red);
                         }
                         else
                         {
-                            Debug.DrawLine(transform.position, rayCast.point, Color.yellow);
+                            Debug.DrawLine(_position, rayCast.point, Color.yellow);
                         }
                     }
                     else
                     {
-                        Debug.DrawRay(transform.position, _agent.velocity.normalized * _attributes.sightDistance, Color.green);
+                        Debug.DrawRay(_position, _agent.velocity.normalized * _attributes.sightDistance, Color.green);
                     }
                     
                     break;
@@ -169,18 +175,18 @@ namespace Actor.AI
                 
                 case State.Chasing:
                 {
-                    Vector3 position = transform.position;
-                    Vector3 direction = (currentTarget.position - position).normalized;
-                    rayCast = Physics2D.BoxCast(position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
+                    Vector3 direction = (_currentTarget.position - _position).normalized;
+                    
+                    rayCast = Physics2D.BoxCast(_position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, mask);
                     if (rayCast.transform.gameObject.CompareTag("Player"))
                     {
-                        currentTarget.position = rayCast.transform.position;
-                        Debug.DrawLine(transform.position, rayCast.point, Color.red);
+                        _currentTarget.position = rayCast.transform.position;
+                        Debug.DrawLine(_position, rayCast.point, Color.red);
                     }
                     else
                     {
                         currentState = State.ChasingLost;
-                        Debug.DrawLine(transform.position, rayCast.point, Color.yellow);
+                        Debug.DrawLine(_position, rayCast.point, Color.yellow);
                     }
                     
                     break;
@@ -189,7 +195,7 @@ namespace Actor.AI
                 
                 case State.ChasingLost:
                 {
-                    Debug.DrawLine(transform.position, currentTarget.position, Color.yellow);
+                    Debug.DrawLine(_position, _currentTarget.position, Color.yellow);
                     break;
                 }
                 
@@ -206,14 +212,14 @@ namespace Actor.AI
         // Look in all directions to see if player is still visible
         private void Look()
         {
-            Vector3 position = transform.position;
-            Vector3 direction = (_player.position - position).normalized;
+            Vector3 direction = (_player.position - _position).normalized;
+            
             int mask = (int)~UnityLayer.Enemy;
-            RaycastHit2D rayCast = Physics2D.Raycast(position, direction, _attributes.sightDistance, mask);
+            RaycastHit2D rayCast = Physics2D.Raycast(_position, direction, _attributes.sightDistance, mask);
             if (rayCast && rayCast.collider.gameObject.CompareTag("Player"))
             {
                 // player spotted, lock on again
-                Debug.DrawLine(transform.position, rayCast.point, Color.red, 2);
+                Debug.DrawLine(_position, rayCast.point, Color.red, 2);
                 Debug.Log("Target found!");
 
                 if (currentState != State.Chasing)
@@ -223,7 +229,7 @@ namespace Actor.AI
             }
             else
             {
-                Debug.DrawRay(transform.position, direction * _attributes.sightDistance, Color.yellow, 1);
+                Debug.DrawRay(_position, direction * _attributes.sightDistance, Color.yellow, 1);
 
                 // patrol if player not found
                 Debug.Log("Target lost");
@@ -234,7 +240,7 @@ namespace Actor.AI
         // process movement towards current target location
         private void MoveToTarget()
         {
-            float distance = (currentTarget.position - transform.position).magnitude;
+            float distance = (_currentTarget.position - _position).magnitude;
 
             if (_attack != null && currentState == State.Chasing && distance < _attack.range)
             {
@@ -243,7 +249,7 @@ namespace Actor.AI
             
             if (distance > 1)
             {
-                _agent.SetDestination(currentTarget.position);
+                _agent.SetDestination(_currentTarget.position);
             }
             else
             {
@@ -288,19 +294,19 @@ namespace Actor.AI
             _patrolIndex += _patrolDirection;
             if (loopTargets)
             {
-                if (_patrolIndex == patrolTargets.Count) _patrolIndex = 0;
-                else if (_patrolIndex == -1) _patrolIndex = patrolTargets.Count - 1;
+                if (_patrolIndex == _patrolTargets.Count) _patrolIndex = 0;
+                else if (_patrolIndex == -1) _patrolIndex = _patrolTargets.Count - 1;
             }
             else
             {
-                if (_patrolIndex == patrolTargets.Count || _patrolIndex == -1)
+                if (_patrolIndex == _patrolTargets.Count || _patrolIndex == -1)
                 {
                     _patrolDirection = -_patrolDirection;
                     _patrolIndex += 2 * _patrolDirection;
                 }
             }
             
-            SetTarget(patrolTargets[_patrolIndex]);
+            SetTarget(_patrolTargets[_patrolIndex]);
         }
     
         private void TurnAround()
@@ -311,13 +317,13 @@ namespace Actor.AI
 
         private void ShowFloatingTextDialogue(string text)
         {
-            var t = Instantiate(floatingDamageDialogue, transform.position, Quaternion.identity);
+            var t = Instantiate(floatingDamageDialogue, _position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
         }
         
         private void ShowFloatingDamageDialogue(string text)
         {
-            var t = Instantiate(floatingTextDialogue, transform.position, Quaternion.identity);
+            var t = Instantiate(floatingTextDialogue, _position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
         }
     }

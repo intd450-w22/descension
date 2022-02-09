@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4487688294349091861}
   - component: {fileID: 4487688294349091863}
   - component: {fileID: 4487688294349091856}
+  - component: {fileID: 7624450830392919398}
   m_Layer: 0
   m_Name: RemobableRockPrefab
   m_TagString: Untagged
@@ -125,3 +126,19 @@ MonoBehaviour:
   dialogueBox: {fileID: 1405356966573199610, guid: 7b41050100284f5479fda6dd3332c752, type: 3}
   dialogueText: {fileID: 703071886147486840, guid: 743182e5c1d6b684b8f01ac5efa75c03, type: 3}
   floatingText: {fileID: 7363752940331833654, guid: 2566348162e0a46419dfcf788a4f3a13, type: 3}
+--- !u!208 &7624450830392919398
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487688294349091860}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5, y: 1.5, z: 0.1}
+  m_MoveThreshold: 10
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
