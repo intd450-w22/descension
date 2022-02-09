@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actor.Player;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static Util;
+using static Util.Helpers.CalculationHelper;
 using UnityEngine.AI;
+using Util.Enums;
 
 namespace Actor.AI
 {
@@ -128,7 +130,7 @@ namespace Actor.AI
             {
                 case State.Patrolling:
                 {
-                    int mask = (int)~Layer.Enemy;
+                    int mask = (int)~UnityLayer.Enemy;
                     rayCast = Physics2D.BoxCast(transform.position, new Vector2(1, 1), 0, _agent.velocity.normalized, _attributes.sightDistance, mask);
                     if (rayCast)
                     {
@@ -158,7 +160,7 @@ namespace Actor.AI
                 {
                     Vector3 position = transform.position;
                     Vector3 direction = (currentTarget.position - position).normalized;
-                    rayCast = Physics2D.BoxCast(position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, (int) ~Layer.Enemy);
+                    rayCast = Physics2D.BoxCast(position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
                     if (rayCast.transform.gameObject.CompareTag("Player"))
                     {
                         currentTarget.position = rayCast.transform.position;
@@ -195,7 +197,8 @@ namespace Actor.AI
         {
             Vector3 position = transform.position;
             Vector3 direction = (_player.position - position).normalized;
-            RaycastHit2D rayCast = Physics2D.Raycast(position, direction, _attributes.sightDistance, (int) ~Layer.Enemy);
+            int mask = (int)~UnityLayer.Enemy;
+            RaycastHit2D rayCast = Physics2D.Raycast(position, direction, _attributes.sightDistance, mask);
             if (rayCast && rayCast.collider.gameObject.CompareTag("Player"))
             {
                 // player spotted, lock on again
