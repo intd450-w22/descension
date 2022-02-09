@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Actor.Player;
+using Util.Helpers;
 using UnityEngine;
-using Util;
+using Util.Enums;
+using Util.Constants;
 
 namespace Actor.AI
 {
@@ -115,7 +115,7 @@ namespace Actor.AI
             }
             else
             {
-                _patrolIndex = Util.Util.FindClosest(transform.position, ref patrolTargets);
+                _patrolIndex = CalculationHelper.FindClosest(transform.position, ref patrolTargets);
             }
             Debug.Log(_patrolIndex);
             SetTarget(patrolTargets[_patrolIndex]);
@@ -125,7 +125,7 @@ namespace Actor.AI
         private void See()
         {
             // ignore enemy layer 
-            RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, _forward, _attributes.sightDistance, (int) ~Layer.Enemy);
+            RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, _forward, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
             if (rayCast)
             {
                 if (rayCast.collider.gameObject.CompareTag("Player"))
@@ -152,9 +152,9 @@ namespace Actor.AI
         // Look in all directions to see if player is still visible
         private void Look()
         {
-            foreach (var d in Util.Util.Directions)
+            foreach (var d in Direction.Directions)
             {
-                RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, d, _attributes.sightDistance, (int) ~Layer.Enemy);
+                RaycastHit2D rayCast = Physics2D.BoxCast(transform.position, new Vector2(2, 2), 0, d, _attributes.sightDistance, (int) ~UnityLayer.Enemy);
                 if (rayCast)
                 {
                     if (rayCast.collider.gameObject.CompareTag("Player"))
