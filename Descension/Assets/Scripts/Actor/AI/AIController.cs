@@ -31,20 +31,28 @@ namespace Actor.AI
         private AttackBase _attack;  // attack script
         private NavMeshAgent _agent; // agent script
         private Transform _player;   // player position
-        private bool _alive = true;
+        private bool _alive;
         private int _patrolIndex = 0;           // index of current patrol target
         private int _patrolDirection = 1;       // tracks forward/backward for patrolling
         private StateAttributes _attributes;
     
+        
+        
         // Start is called before the first frame update
         void Start()
         {
             _agent = GetComponent<NavMeshAgent>();
+            if (!FindObjectOfType<NavMeshSurface2d>())
+            {
+                Debug.LogWarning("Need to add NavMeshPrefab to map and bake to use enemy. Also add NavMeshModifier to Ground and Walls of the Grid.");
+                _alive = false;
+                return;
+            }
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
             _player = FindObjectOfType<player>().transform;
-            
+            _alive = true;
             StartPatrol();
         }
 
