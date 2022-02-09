@@ -7,24 +7,21 @@ public class bowItem : MonoBehaviour
 {
     public Image dialogueBox;
     public Text dialogueText;
-    public float quantity = 20;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.name == "Player") {
-            FindObjectOfType<player>().addBow(this.quantity);
-            showText("Bow and arrows collected");
+            FindObjectOfType<player>().addBow();
+            showText("Bow collected");
             Destroy(gameObject);
         }
     }
