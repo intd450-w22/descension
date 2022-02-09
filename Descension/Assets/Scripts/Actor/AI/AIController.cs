@@ -47,12 +47,14 @@ namespace Actor.AI
                 Destroy(this);
                 return;
             }
+
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
             _player = FindObjectOfType<player>().transform;
             _alive = true;
+            
             StartPatrol();
         }
 
