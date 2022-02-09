@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Util
-{
+// namespace Util
+// {
     public class Util
     {
         static public readonly List<Vector2> Directions = new List<Vector2>()
@@ -18,7 +18,7 @@ namespace Util
             return (b - a).sqrMagnitude;
         }
     
-        public static int FindClosest(Vector2 pos, ref List<GameObject> objects)
+        public static int FindClosest(Vector2 pos, ref List<Transform> objects)
         {
             int closestIndex = 0;
             float closestDistance = DistanceSq(pos, objects[0].transform.position);
@@ -45,4 +45,4 @@ namespace Util
         UI            = 1 << 5,
         Enemy         = 1 << 6,
     }
-}
+// }

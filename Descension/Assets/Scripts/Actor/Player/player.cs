@@ -27,6 +27,8 @@ public class player : MonoBehaviour
 
     private Camera camera;
 
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,8 @@ public class player : MonoBehaviour
         ropeUI.enabled = false;
 
         camera = Camera.main;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -80,8 +84,10 @@ public class player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
-        if (x != 0 || y != 0) {
-            transform.Translate(x * movementSpeed * Time.deltaTime,  y * movementSpeed * Time.deltaTime, 0);
+        if (x != 0 || y != 0)
+        {
+            rb.velocity = new Vector2(x * movementSpeed, y * movementSpeed);
+            // transform.Translate( * Time.deltaTime,  y * movementSpeed * Time.deltaTime, 0);
         }
 
         if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
