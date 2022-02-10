@@ -1,13 +1,17 @@
 using UnityEngine;
 
-public class mainCameraFollow : MonoBehaviour {
-    public Transform target;
-    public float speed = 0.125f;
+namespace Environment
+{
+    public class MainCameraFollow : MonoBehaviour {
 
-    // zoom out from target
-    public Vector3 offset = new Vector3(0f, 0f, -1f);
+        public Transform target;
+        public float speed = 0.125f;
 
-    void LateUpdate() {
-        transform.position = target.position + offset;
+        // zoom out from target
+        public Vector3 offset = new Vector3(0f, 0f, -1f);
+
+        void LateUpdate() {
+            transform.position = target.position + offset;
+        }
     }
 }
