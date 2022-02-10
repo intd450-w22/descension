@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Actor.AI
 {
+    [RequireComponent(typeof(AIController))]
     public abstract class AttackBase : MonoBehaviour
     {
         public float range = 2;
