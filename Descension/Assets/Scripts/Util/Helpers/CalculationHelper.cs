@@ -10,7 +10,7 @@ namespace Util.Helpers
             return (b - a).sqrMagnitude;
         }
     
-        public static int FindClosest(Vector2 pos, ref List<GameObject> objects)
+        public static int FindClosest(Vector2 pos, ref List<Transform> objects)
         {
             int closestIndex = 0;
             float closestDistance = DistanceSq(pos, objects[0].transform.position);
