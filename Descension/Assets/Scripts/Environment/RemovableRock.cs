@@ -12,15 +12,9 @@ namespace Environment
 
         private float lootChance = 40;
 
-        // Start is called before the first frame update
         void Start() {
             dialogueBox.enabled = false;
             dialogueText.enabled = false;
-        }
-
-        // Update is called once per frame
-        void Update() {
-        
         }
 
         void OnCollisionEnter2D(Collision2D collision) {

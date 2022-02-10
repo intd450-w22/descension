@@ -18,7 +18,6 @@ namespace Actor.AI
 
         float patrolTarget;
 
-        // Start is called before the first frame update
         void Start()
         {
             patrolTarget = pointB;

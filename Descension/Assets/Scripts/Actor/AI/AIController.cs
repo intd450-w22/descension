@@ -37,7 +37,6 @@ namespace Actor.AI
         private StateAttributes _attributes;
         
         
-        // Start is called before the first frame update
         void Start()
         {
             if (!FindObjectOfType<NavMeshSurface2d>())

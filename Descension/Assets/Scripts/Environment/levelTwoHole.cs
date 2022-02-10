@@ -20,7 +20,6 @@ namespace Environment
                 }
             }
         }
-
         void showText(string text) {
             dialogueBox.enabled = true;
             dialogueText.enabled = true;
