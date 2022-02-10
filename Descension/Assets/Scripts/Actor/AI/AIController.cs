@@ -21,7 +21,7 @@ namespace Actor.AI
         public StateAttributes patrollingAttributes; // attributes when in patrolling state
         public StateAttributes chasingAttributes;    // attributes when in chasing state
 
-        public bool chasePlayer;    // chase player on sight?
+        public bool chasePlayer;    // chase PlayerController on sight?
         public bool loopTargets;    // go to first target at end of list? or turn around if false
         public State currentState;
 
@@ -29,7 +29,7 @@ namespace Actor.AI
         private List<Transform> _patrolTargets; // list of patrol targets, generated from children of PatrolTargets subobject
         private AttackBase _attack;             // attack script
         private NavMeshAgent _agent;            // agent script
-        private Transform _player;              // player position
+        private Transform _player;              // PlayerController position
         private Vector3 _position;              // cached current position of agent
         private bool _alive;
         private int _patrolIndex = 0;           // index of current patrol target
@@ -54,7 +54,7 @@ namespace Actor.AI
             
             _patrolTargets = new List<Transform>(transform.Find("PatrolTargets").GetComponentsInChildren<Transform>());
             _currentTarget = gameObject.GetChildTransformWithName("CurrentTarget");
-            _player = FindObjectOfType<player>().transform;
+            _player = FindObjectOfType<PlayerController>().transform;
             
             _alive = true;
             
@@ -101,7 +101,7 @@ namespace Actor.AI
             GameObject obj = other.gameObject;
             if (obj.CompareTag("Player"))
             {
-                obj.GetComponent<player>().inflictDamage(damage);
+                obj.GetComponent<PlayerController>().inflictDamage(damage);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Actor.AI
         }
             
     
-        // Raycast forward to look for player, sets player as target if detected. Could modify mask to detect player lighting
+        // Raycast forward to look for PlayerController, sets PlayerController as target if detected. Could modify mask to detect PlayerController lighting
         private void See()
         {
             RaycastHit2D rayCast;
@@ -208,7 +208,7 @@ namespace Actor.AI
             // TODO implement hearing
         }
 
-        // Look in all directions to see if player is still visible
+        // Look in all directions to see if PlayerController is still visible
         private void Look()
         {
             Vector3 direction = (_player.position - _position).normalized;
@@ -217,7 +217,7 @@ namespace Actor.AI
             RaycastHit2D rayCast = Physics2D.Raycast(_position, direction, _attributes.sightDistance, mask);
             if (rayCast && rayCast.collider.gameObject.CompareTag("Player"))
             {
-                // player spotted, lock on again
+                // PlayerController spotted, lock on again
                 Debug.DrawLine(_position, rayCast.point, Color.red, 2);
                 Debug.Log("Target found!");
 
@@ -230,7 +230,7 @@ namespace Actor.AI
             {
                 Debug.DrawRay(_position, direction * _attributes.sightDistance, Color.yellow, 1);
 
-                // patrol if player not found
+                // patrol if PlayerController not found
                 Debug.Log("Target lost");
                 StartPatrol();
             }
