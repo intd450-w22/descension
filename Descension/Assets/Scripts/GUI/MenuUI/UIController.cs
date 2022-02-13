@@ -5,6 +5,6 @@ namespace Assets.Scripts.GUI.MenuUI
 {
     public class UIController : MonoBehaviour
     {
-        public UIType UiType;
+        public UIType uiType;
     }
 }

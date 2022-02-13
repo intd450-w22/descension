@@ -34,9 +34,9 @@ namespace Actor.Player
         public GameObject floatingTextDamage;
         public GameObject ArrowPrefab;
         
-        private Camera _playerCamera;
+        private Camera playerCamera;
 
-        private PlayerControls _playerControls;
+        private PlayerControls playerControls;
 
         void Awake() {
             // TODO: These work here for now, but should be moved later.
@@ -48,19 +48,19 @@ namespace Actor.Player
             if(torchUI != null) torchUI.enabled = false;
             if(ropeUI != null) ropeUI.enabled = false;
 
-            _playerCamera = Camera.main;
+            playerCamera = Camera.main;
 
-            _playerControls = new PlayerControls();
+            playerControls = new PlayerControls();
         }
 
-        private void OnEnable() => _playerControls.Enable();
+        private void OnEnable() => playerControls.Enable();
 
-        private void OnDisable() => _playerControls.Disable();
+        private void OnDisable() => playerControls.Disable();
 
         void Update() {
             if(UseUI) updateUI();
 
-            var move = _playerControls.Default.Move.ReadValue<Vector2>();
+            var move = playerControls.Default.Move.ReadValue<Vector2>();
             if (move.x != 0 || move.y != 0) {
                 transform.Translate(move.x * movementSpeed * Time.deltaTime,  move.y * movementSpeed * Time.deltaTime, 0);
             }
@@ -77,10 +77,10 @@ namespace Actor.Player
             }
 
             // shoot arrows if conditions are fulfilled
-            var isShoot = _playerControls.Default.Shoot.WasPressedThisFrame();
+            var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
             if (isShoot && hasBow && arrowsQuantity > 0) {
                 Vector3 mousePosition = Input.mousePosition;
-                Vector3 screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
+                Vector3 screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
                 Vector2 offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
                 float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
                 Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));

@@ -8,8 +8,8 @@ namespace Assets.Scripts.GUI.MenuUI
     public class UIManager : MonoBehaviour
     {
         private static UIManager _instance;
-        private List<UIController> _uiControllers;
-        private UIController _lastActiveUi;
+        private List<UIController> uiControllers;
+        private UIController LastActiveUI;
 
         public static UIManager GetInstance() => _instance;
 
@@ -25,28 +25,28 @@ namespace Assets.Scripts.GUI.MenuUI
                 Destroy(gameObject);
             }
 
-            _uiControllers = GetComponentsInChildren<UIController>().ToList();
-            _uiControllers.ForEach(x => x.gameObject.SetActive(false));
+            uiControllers = GetComponentsInChildren<UIController>().ToList();
+            uiControllers.ForEach(x => x.gameObject.SetActive(false));
             SwitchUI(UIType.MainMenu);
         }
 
         public void SwitchUI(UIType uiType)
         {
-            if (_lastActiveUi != null)
-                _lastActiveUi.gameObject.SetActive(false);
+            if (LastActiveUI != null)
+                LastActiveUI.gameObject.SetActive(false);
 
-            var targetUI = _uiControllers.FirstOrDefault(x => x.UiType == uiType);
+            var targetUI = uiControllers.FirstOrDefault(x => x.uiType == uiType);
             if (targetUI != null)
             {
                 targetUI.gameObject.SetActive(true);
-                _lastActiveUi = targetUI;
+                LastActiveUI = targetUI;
             }
         }
 
         public void SwitchScene(Scene scene)
         {
-            if (_lastActiveUi != null)
-                _lastActiveUi.gameObject.SetActive(false);
+            if (LastActiveUI != null)
+                LastActiveUI.gameObject.SetActive(false);
 
             SceneLoader.Load(scene);
         }
