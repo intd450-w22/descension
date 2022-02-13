@@ -88,16 +88,12 @@ namespace Actor.AI
             Debug.Log($"Enemy hit for {dmg} damage");
             hitPoints -= dmg;
             ShowFloatingDamageDialogue("Hp-" + dmg.ToString());
-
-            if (hitPoints <= 0)
-            {
-                Destroy(gameObject);
-            }
         }
         
         protected virtual void OnKilled()
         {
             _alive = false;
+            Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
         }
 
