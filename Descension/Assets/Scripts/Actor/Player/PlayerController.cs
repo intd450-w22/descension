@@ -97,7 +97,8 @@ namespace Actor.Player
                 }
 
                 var direction = (offset - (Vector2) transform.position).normalized * ReticleDistance;
-                _reticle.position = transform.position + (Vector3) direction;
+                if(_reticle != null)
+                    _reticle.position = transform.position + (Vector3) direction;
 
                 Debug.DrawLine(transform.position, transform.position + (Vector3) direction);
             }
