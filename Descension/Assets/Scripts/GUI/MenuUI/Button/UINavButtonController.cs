@@ -8,7 +8,7 @@ namespace Assets.Scripts.GUI.MenuUI.Button
 
         protected override void OnButtonClicked()
         {
-            UiManager.SwitchUI(TargetUI);
+            uiManager.SwitchUI(TargetUI);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Assets.Scripts.GUI.MenuUI.Button
 
         protected override void OnButtonClicked()
         {
-            UiManager.SwitchScene(TargetScene);
+            uiManager.SwitchScene(TargetScene);
         }
     }
 }
