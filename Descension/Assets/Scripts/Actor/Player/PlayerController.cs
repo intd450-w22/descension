@@ -90,21 +90,32 @@ namespace Actor.Player
 
             if (hasBow)
             {
-                var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
+                // THIS DOESN'T QUITE WORK. 
+                // var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
 
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint - transform.position).normalized;
+                // var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                // var direction = (Input.mousePosition - screenPoint - transform.position).normalized;
 
-                if(_reticle != null)
-                    _reticle.position = transform.position + (direction * BowReticleDistance);
+                // if(_reticle != null)
+                //     _reticle.position = transform.position + (direction * BowReticleDistance);
 
-                Debug.DrawLine(transform.position, transform.position + direction);
+                // Debug.DrawLine(transform.position, transform.position + direction);
 
-                if (isShoot && arrowsQuantity > 0) {
+                // if (isShoot && arrowsQuantity > 0) {
                 
-                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                //     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                //     Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
+                //     arrowsQuantity -= 1;
+                // }
+                if (Input.GetMouseButtonDown(0) && arrowsQuantity > 0) {
+                    Vector3 mousePosition = Input.mousePosition;
+                    Vector3 screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                    Vector2 offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
+                    float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
                     Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
-                    arrowsQuantity -= 1;
+                    this.arrowsQuantity -= 1;
+                } else if (Input.GetMouseButtonDown(0)) {
+                    showText("No arrows to shoot");
                 }
             }
             else if (hasSword)
@@ -154,6 +165,12 @@ namespace Actor.Player
         private void ShowFloatingTextDamage(string text) {
             var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
+        }
+
+        private void showText(string text) {
+            dialogueBox.enabled = true;
+            dialogueText.enabled = true;
+            dialogueText.text = text;
         }
 
         private void UpdateUi() {
