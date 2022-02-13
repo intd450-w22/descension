@@ -11,7 +11,7 @@ namespace Items
         // TODO: Given that this is an entity and not a consumable item,
         // TODO: this class should be moved elsewhere later.
 
-        public float speed = 8;
+        public float speed = 20;
         public float damage = 10;
         public float timeToLive = 3f;
         public Rigidbody2D body; 

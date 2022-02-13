@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Helpers;
 
 namespace Actor.Player
 {
@@ -9,6 +10,7 @@ namespace Actor.Player
         public float movementSpeed = 10;
         public float hitPoints = 100f;
         public float score = 0f; // TODO: Should belong to a "game manager" 
+        public float ReticleDistance = 2f;
 
         [Header("Session Variables")]
         public bool hasBow = false;
@@ -38,6 +40,8 @@ namespace Actor.Player
 
         private PlayerControls playerControls;
 
+        private Transform _reticle;
+
         void Awake() {
             // TODO: These work here for now, but should be moved later.
             if(dialogueBox != null) dialogueBox.enabled = false;
@@ -47,6 +51,8 @@ namespace Actor.Player
             if(pickUI != null) pickUI.enabled = false;
             if(torchUI != null) torchUI.enabled = false;
             if(ropeUI != null) ropeUI.enabled = false;
+
+            _reticle = gameObject.GetChildTransformWithName("Reticle");
 
             playerCamera = Camera.main;
 
@@ -76,16 +82,26 @@ namespace Actor.Player
                 torchQuantity -= 2 * Time.deltaTime;
             }
 
-            // shoot arrows if conditions are fulfilled
-            var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
-            if (isShoot && hasBow && arrowsQuantity > 0) {
-                Vector3 mousePosition = Input.mousePosition;
-                Vector3 screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
-                Vector2 offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
-                float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-                Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
-                arrowsQuantity -= 1;
+            if (hasBow)
+            {
+                var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
+                var mousePosition = Input.mousePosition;
+                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                var offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
+
+                if (isShoot && hasBow && arrowsQuantity > 0) {
+                
+                    float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+                    Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
+                    arrowsQuantity -= 1;
+                }
+
+                var direction = (offset - (Vector2) transform.position).normalized * ReticleDistance;
+                _reticle.position = transform.position + (Vector3) direction;
+
+                Debug.DrawLine(transform.position, transform.position + (Vector3) direction);
             }
+            
         }
 
         public void AddPick(float value) => pickQuantity += value;
