@@ -72,7 +72,7 @@ namespace Actor.AI
             }
 
             _position = _agent.transform.position;  // cache since it is used in multiple methods
-            
+
             See();
             // Hear();
             MoveToTarget();
@@ -85,8 +85,14 @@ namespace Actor.AI
         
         public virtual void InflictDamage(float dmg)
         {
+            Debug.Log($"Enemy hit for {dmg} damage");
             hitPoints -= dmg;
             ShowFloatingDamageDialogue("Hp-" + dmg.ToString());
+
+            if (hitPoints <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         
         protected virtual void OnKilled()
