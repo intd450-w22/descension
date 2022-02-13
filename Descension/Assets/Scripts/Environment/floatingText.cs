@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Environment
 {
-    public class FloatingText : MonoBehaviour
+    public class floatingText : MonoBehaviour
     {
         public float duration = 1f;
 

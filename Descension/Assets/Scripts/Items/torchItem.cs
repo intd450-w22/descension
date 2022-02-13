@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class TorchItem : MonoBehaviour
+    public class torchItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class PickItem : MonoBehaviour
+    public class pickItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;

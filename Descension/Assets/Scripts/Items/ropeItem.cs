@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class RopeItem : MonoBehaviour
+    public class ropeItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;

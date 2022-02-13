@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2904225009558641433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 204.78, y: -194.73, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -121,11 +121,16 @@ MonoBehaviour:
   movementSpeed: 5
   hitPoints: 100
   score: 0
+  SwordDamage: 25
+  BowReticleDistance: 2
+  SwordReticleDistance: 1.5
   hasBow: 0
+  hasSword: 0
   pickQuantity: 0
   arrowsQuantity: 0
   ropeQuantity: 0
   torchQuantity: 0
+  UseUI: 1
   dialogueBox: {fileID: 0}
   dialogueText: {fileID: 0}
   scoreUI: {fileID: 0}
@@ -134,7 +139,7 @@ MonoBehaviour:
   torchUI: {fileID: 0}
   ropeUI: {fileID: 0}
   floatingTextDamage: {fileID: 8906469561440662331, guid: 4e0e5517ab5528f43ab4b646d3a1ba4f, type: 3}
-  arrow: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
+  ArrowPrefab: {fileID: 0}
 --- !u!58 &2904225009558641429
 CircleCollider2D:
   m_ObjectHideFlags: 0

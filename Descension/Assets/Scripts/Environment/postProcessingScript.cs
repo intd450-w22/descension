@@ -4,7 +4,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Environment
 {
-    public class PostProcessingScript : MonoBehaviour
+    public class postProcessingScript : MonoBehaviour
     {
         public PostProcessVolume volume;
         private Vignette vignette;

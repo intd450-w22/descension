@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class ArrowsItem : MonoBehaviour
+    public class arrowsItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;
