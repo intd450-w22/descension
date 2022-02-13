@@ -12,7 +12,7 @@ namespace Items
         
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.name == "Player") {
-                FindObjectOfType<PlayerController>().addTorch(this.quantity);
+                FindObjectOfType<PlayerController>().AddTorch(this.quantity);
                 showText("Torch Collected");
                 Destroy(gameObject);
             }

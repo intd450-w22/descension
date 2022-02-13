@@ -51,7 +51,7 @@ namespace Actor.AI
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.name == "Player") {
-                FindObjectOfType<PlayerController>().inflictDamage(this.damage);
+                FindObjectOfType<PlayerController>().InflictDamage(this.damage);
                 // this.showFloatingTextDialogue("AAAW");
             }
         }

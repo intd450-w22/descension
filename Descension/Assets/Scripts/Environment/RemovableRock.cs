@@ -28,7 +28,7 @@ namespace Environment
                         showFloatingText("Gold +" + gold.ToString());
                     }
                 
-                    FindObjectOfType<PlayerController>().addPick(-1);
+                    FindObjectOfType<PlayerController>().AddPick(-1);
                     Destroy(gameObject);
                 } else {
                     showText("Find a pick!");
