@@ -174,9 +174,9 @@ namespace Actor.AI
                 case State.Chasing:
                 {
                     Vector3 direction = (_currentTarget.position - _position).normalized;
-                    
+
                     rayCast = Physics2D.BoxCast(_position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, mask);
-                    if (rayCast.transform.gameObject.CompareTag("Player"))
+                    if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
                     {
                         _currentTarget.position = rayCast.transform.position;
                         Debug.DrawLine(_position, rayCast.point, Color.red);
@@ -186,7 +186,7 @@ namespace Actor.AI
                         currentState = State.ChasingLost;
                         Debug.DrawLine(_position, rayCast.point, Color.yellow);
                     }
-                    
+
                     break;
                 }
 

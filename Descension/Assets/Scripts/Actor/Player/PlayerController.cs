@@ -5,20 +5,25 @@ namespace Actor.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // stats
+        [Header("Attributes")]
         public float movementSpeed = 10;
         public float hitPoints = 100f;
-        public float score = 0f;
+        public float score = 0f; // TODO: Should belong to a "game manager" 
 
-        // key items
+        [Header("Session Variables")]
         public bool hasBow = false;
 
-        // consumable items
+        [Header("Inventory")]
         public float pickQuantity = 0;
         public float arrowsQuantity = 0;
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
+        // TODO: These should not be injected via the editor. We can 
+        // TODO: use something like tags to identify them in the scene
+        // TODO: and assign references. 
+        [Header("Scene Elements")] 
+        public bool UseUI = true;
         public Image dialogueBox;
         public Text dialogueText;
         public Text scoreUI;
@@ -27,38 +32,50 @@ namespace Actor.Player
         public Text torchUI;
         public Text ropeUI;
         public GameObject floatingTextDamage;
+        public GameObject ArrowPrefab;
+        
         private Camera playerCamera;
 
-        // projectile object in the game. create one every time the PlayerController shoots
-        public GameObject arrow;
-    
+        private PlayerControls playerControls;
+
         void Awake() {
-            // TODO: These work here for now, but should be moved later 
-            dialogueBox.enabled = false;
-            dialogueText.enabled = false;
-            scoreUI.enabled = true;
-            bowUI.enabled = false;
-            pickUI.enabled = false;
-            torchUI.enabled = false;
-            ropeUI.enabled = false;
+            // TODO: These work here for now, but should be moved later.
+            if(dialogueBox != null) dialogueBox.enabled = false;
+            if(dialogueText != null) dialogueText.enabled = false;
+            if(scoreUI != null) scoreUI.enabled = true;
+            if(bowUI != null) bowUI.enabled = false;
+            if(pickUI != null) pickUI.enabled = false;
+            if(torchUI != null) torchUI.enabled = false;
+            if(ropeUI != null) ropeUI.enabled = false;
 
             playerCamera = Camera.main;
+
+            playerControls = new PlayerControls();
+        }
+
+        private void OnEnable()
+        {
+            playerControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            playerControls.Disable();
         }
 
         void Update() {
-            this.updateUI();
+            if(UseUI) updateUI();
 
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
-
-            if (x != 0 || y != 0) {
-                transform.Translate(x * movementSpeed * Time.deltaTime,  y * movementSpeed * Time.deltaTime, 0);
+            var move = playerControls.Default.Move.ReadValue<Vector2>();
+            if (move.x != 0 || move.y != 0) {
+                transform.Translate(move.x * movementSpeed * Time.deltaTime,  move.y * movementSpeed * Time.deltaTime, 0);
             }
 
-            if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
-                dialogueBox.enabled = false;
-                dialogueText.enabled = false;
-            }
+            if(UseUI)
+                if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
+                    dialogueBox.enabled = false;
+                    dialogueText.enabled = false;
+                }
 
             if (this.torchQuantity > 0) {
                 this.torchQuantity -= 2 * Time.deltaTime;
@@ -70,7 +87,7 @@ namespace Actor.Player
                 Vector3 screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
                 Vector2 offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
                 float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-                Instantiate(arrow, transform.position, Quaternion.Euler(0f, 0f, angle));
+                Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
                 this.arrowsQuantity -= 1;
             }
         }
