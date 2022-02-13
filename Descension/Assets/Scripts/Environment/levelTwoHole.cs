@@ -12,7 +12,7 @@ namespace Environment
         void OnCollisionEnter2D(Collision2D collision) {
             // Debug.Log("collided");
             if (collision.gameObject.name == "Player") {
-                if (FindObjectOfType<PlayerController>().RopeQuantity > 0) {
+                if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
                     FindObjectOfType<PlayerController>().AddRope(-1);
                     showText("Descend to level two...");
                 } else {

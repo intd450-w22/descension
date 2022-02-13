@@ -16,7 +16,7 @@ namespace Environment
         }
 
         void Update() {
-            if (FindObjectOfType<PlayerController>().TorchQuantity > 0) {
+            if (FindObjectOfType<PlayerController>().torchQuantity > 0) {
                 vignette.intensity.value = 0.5f;
             } else {
                 vignette.intensity.value = 1f;
