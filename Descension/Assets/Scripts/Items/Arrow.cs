@@ -32,12 +32,15 @@ namespace Items
         void OnTriggerEnter2D(Collider2D collision) {
             // set "Enemy" Tag to enemy object for this to work
             Debug.Log("Arrow collision : " + collision.tag);
-            if (collision.CompareTag("Enemy")) {
+            if (collision.CompareTag("Enemy"))
+            {
                 // Debug.Log("attacked enemy");
                 try { collision.gameObject.GetComponent<AIController>().InflictDamage(this.damage); }
                 catch { collision.gameObject.GetComponentInParent<AIController>().InflictDamage(this.damage); }
                 Destroy(gameObject);
             }
+            else if (collision.CompareTag("Environment"))
+                Destroy(gameObject);
         }
     }
 }
