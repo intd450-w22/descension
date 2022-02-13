@@ -53,15 +53,9 @@ namespace Actor.Player
             playerControls = new PlayerControls();
         }
 
-        private void OnEnable()
-        {
-            playerControls.Enable();
-        }
+        private void OnEnable() => playerControls.Enable();
 
-        private void OnDisable()
-        {
-            playerControls.Disable();
-        }
+        private void OnDisable() => playerControls.Disable();
 
         void Update() {
             if(UseUI) updateUI();
@@ -94,32 +88,22 @@ namespace Actor.Player
             }
         }
 
-        public void addPick(float value) {
-            pickQuantity += value;
-        }
+        public void AddPick(float value) => pickQuantity += value;
 
-        public void addBow() {
-            hasBow = true;
-        }
+        public void AddBow() => hasBow = true;
 
-        public void addArrows(float value) {
-            arrowsQuantity += value;
-        }
+        public void AddArrows(float value) => arrowsQuantity += value;
 
-        public void addRope(float value) {
-            ropeQuantity += value;
-        }
+        public void AddRope(float value) => ropeQuantity += value;
 
-        public void addTorch(float value) {
-            torchQuantity += value;
-        }
+        public void AddTorch(float value) => torchQuantity += value;
 
-        public void inflictDamage(float damage) {
+        public void InflictDamage(float damage) {
             hitPoints -= damage;
-            showFloatingTextDamage("HP -" + damage.ToString());
+            ShowFloatingTextDamage("HP -" + damage.ToString());
         }
 
-        private void showFloatingTextDamage(string text) {
+        private void ShowFloatingTextDamage(string text) {
             var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
         }

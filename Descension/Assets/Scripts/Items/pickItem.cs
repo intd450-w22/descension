@@ -13,7 +13,7 @@ namespace Items
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.name == "Player") {
-                FindObjectOfType<PlayerController>().addPick(this.quantity);
+                FindObjectOfType<PlayerController>().AddPick(this.quantity);
                 showText("Pick Collected");
                 Destroy(gameObject);
             }

@@ -106,7 +106,7 @@ namespace Actor.AI
             GameObject obj = other.gameObject;
             if (obj.CompareTag("Player"))
             {
-                obj.GetComponent<PlayerController>().inflictDamage(damage);
+                obj.GetComponent<PlayerController>().InflictDamage(damage);
             }
         }
 

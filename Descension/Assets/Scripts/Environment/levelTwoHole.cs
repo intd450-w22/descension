@@ -13,7 +13,7 @@ namespace Environment
             // Debug.Log("collided");
             if (collision.gameObject.name == "Player") {
                 if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
-                    FindObjectOfType<PlayerController>().addRope(-1);
+                    FindObjectOfType<PlayerController>().AddRope(-1);
                     showText("Descend to level two...");
                 } else {
                     showText("You need a rope in order to descend");

@@ -12,7 +12,7 @@ namespace Items
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.name == "Player") {
-                FindObjectOfType<PlayerController>().addArrows(this.quantity);
+                FindObjectOfType<PlayerController>().AddArrows(this.quantity);
                 showText("Arrows collected");
                 Destroy(gameObject);
             }
