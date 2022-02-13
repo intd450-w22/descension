@@ -73,6 +73,10 @@ namespace Actor.Player
                 Instantiate(arrow, transform.position, Quaternion.Euler(0f, 0f, angle));
                 this.arrowsQuantity -= 1;
             }
+
+            if (Input.GetMouseButtonDown(0) && hasBow) {
+                showText("No arrows to shoot");
+            }
         }
 
         public void addPick(float value) {
@@ -103,6 +107,12 @@ namespace Actor.Player
         private void showFloatingTextDamage(string text) {
             var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
+        }
+
+        private void showText(string text) {
+            dialogueBox.enabled = true;
+            dialogueText.enabled = true;
+            dialogueText.text = text;
         }
 
         private void updateUI() {
