@@ -72,7 +72,7 @@ namespace Actor.AI
             }
 
             _position = _agent.transform.position;  // cache since it is used in multiple methods
-            
+
             See();
             // Hear();
             MoveToTarget();
@@ -85,6 +85,7 @@ namespace Actor.AI
         
         public virtual void InflictDamage(float dmg)
         {
+            Debug.Log($"Enemy hit for {dmg} damage");
             hitPoints -= dmg;
             ShowFloatingDamageDialogue("Hp-" + dmg.ToString());
         }
@@ -92,6 +93,7 @@ namespace Actor.AI
         protected virtual void OnKilled()
         {
             _alive = false;
+            Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
         }
 
@@ -100,7 +102,7 @@ namespace Actor.AI
             GameObject obj = other.gameObject;
             if (obj.CompareTag("Player"))
             {
-                obj.GetComponent<PlayerController>().inflictDamage(damage);
+                obj.GetComponent<PlayerController>().InflictDamage(damage);
             }
         }
 
@@ -174,9 +176,9 @@ namespace Actor.AI
                 case State.Chasing:
                 {
                     Vector3 direction = (_currentTarget.position - _position).normalized;
-                    
+
                     rayCast = Physics2D.BoxCast(_position, new Vector2(1, 1), 0, direction, _attributes.sightDistance, mask);
-                    if (rayCast.transform.gameObject.CompareTag("Player"))
+                    if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
                     {
                         _currentTarget.position = rayCast.transform.position;
                         Debug.DrawLine(_position, rayCast.point, Color.red);
@@ -186,7 +188,7 @@ namespace Actor.AI
                         currentState = State.ChasingLost;
                         Debug.DrawLine(_position, rayCast.point, Color.yellow);
                     }
-                    
+
                     break;
                 }
 
