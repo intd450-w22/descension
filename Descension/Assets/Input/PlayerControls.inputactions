@@ -20,7 +20,7 @@
                     "id": "df857fd3-43d9-4488-844f-8607dba777f5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -161,7 +161,7 @@
                     "name": "",
                     "id": "e59ce38c-98ed-4338-9f1d-775b88f93cb8",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Shoot",

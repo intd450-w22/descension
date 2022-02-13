@@ -72,48 +72,50 @@ namespace Actor.Player
             }
 
             if(UseUI)
+                // what does this do ? 
                 if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
                     dialogueBox.enabled = false;
                     dialogueText.enabled = false;
                 }
 
-            if (this.torchQuantity > 0) {
-                this.torchQuantity -= 2 * Time.deltaTime;
+            if (torchQuantity > 0) {
+                torchQuantity -= 2 * Time.deltaTime;
             }
 
-            // shots arrows if conditions are fulfilled
-            if (Input.GetMouseButtonDown(0) && hasBow && arrowsQuantity > 0) {
+            // shoot arrows if conditions are fulfilled
+            var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
+            if (isShoot && hasBow && arrowsQuantity > 0) {
                 Vector3 mousePosition = Input.mousePosition;
                 Vector3 screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
                 Vector2 offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
                 float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
                 Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
-                this.arrowsQuantity -= 1;
+                arrowsQuantity -= 1;
             }
         }
 
         public void addPick(float value) {
-            this.pickQuantity += value;
+            pickQuantity += value;
         }
 
         public void addBow() {
-            this.hasBow = true;
+            hasBow = true;
         }
 
         public void addArrows(float value) {
-            this.arrowsQuantity += value;
+            arrowsQuantity += value;
         }
 
         public void addRope(float value) {
-            this.ropeQuantity += value;
+            ropeQuantity += value;
         }
 
         public void addTorch(float value) {
-            this.torchQuantity += value;
+            torchQuantity += value;
         }
 
         public void inflictDamage(float damage) {
-            this.hitPoints -= damage;
+            hitPoints -= damage;
             showFloatingTextDamage("HP -" + damage.ToString());
         }
 
@@ -125,30 +127,30 @@ namespace Actor.Player
         private void updateUI() {
             scoreUI.text = "Gold/Score: " + score.ToString();
 
-            if (this.pickQuantity > 0) {
+            if (pickQuantity > 0) {
                 pickUI.enabled = true;
-                pickUI.text = "Pick " + this.pickQuantity.ToString();
+                pickUI.text = "Pick " + pickQuantity.ToString();
             } else {
                 pickUI.enabled = false;
             }
 
-            if (this.arrowsQuantity > 0) {
+            if (arrowsQuantity > 0) {
                 bowUI.enabled = true;
-                bowUI.text = "Arrows " + this.arrowsQuantity.ToString();
+                bowUI.text = "Arrows " + arrowsQuantity.ToString();
             } else {
                 bowUI.enabled = false;
             }
 
-            if (this.ropeQuantity > 0) {
+            if (ropeQuantity > 0) {
                 ropeUI.enabled = true;
-                ropeUI.text = "Rope " + this.ropeQuantity.ToString();
+                ropeUI.text = "Rope " + ropeQuantity.ToString();
             } else {
                 ropeUI.enabled = false;
             }
 
-            if (this.torchQuantity > 0) {
+            if (torchQuantity > 0) {
                 torchUI.enabled = true;
-                torchUI.text = "Torch " + Mathf.Floor(this.torchQuantity).ToString();
+                torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
             } else {
                 torchUI.enabled = false;
             }
