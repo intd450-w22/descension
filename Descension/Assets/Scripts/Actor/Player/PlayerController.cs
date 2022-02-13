@@ -70,7 +70,7 @@ namespace Actor.Player
         private void OnDisable() => playerControls.Disable();
 
         void Update() {
-            if(UseUI) updateUI();
+            if(UseUI) UpdateUi();
 
             var move = playerControls.Default.Move.ReadValue<Vector2>();
             if (move.x != 0 || move.y != 0) {
@@ -138,6 +138,8 @@ namespace Actor.Player
 
         public void AddBow() => hasBow = true;
 
+        public void AddSword() => hasSword = true;
+
         public void AddArrows(float value) => arrowsQuantity += value;
 
         public void AddRope(float value) => ropeQuantity += value;
@@ -154,7 +156,7 @@ namespace Actor.Player
             t.GetComponent<TextMesh>().text = text;
         }
 
-        private void updateUI() {
+        private void UpdateUi() {
             scoreUI.text = "Gold/Score: " + score.ToString();
 
             if (pickQuantity > 0) {
