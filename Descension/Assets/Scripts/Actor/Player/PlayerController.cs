@@ -89,7 +89,7 @@ namespace Actor.Player
             }
 
             if (hasBow)
-            {
+            {                
                 var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
 
                 var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
@@ -105,7 +105,7 @@ namespace Actor.Player
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
                     arrowsQuantity -= 1;
-                }
+                }                
             }
             else if (hasSword)
             {
@@ -154,6 +154,12 @@ namespace Actor.Player
         private void ShowFloatingTextDamage(string text) {
             var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
             t.GetComponent<TextMesh>().text = text;
+        }
+
+        private void showText(string text) {
+            dialogueBox.enabled = true;
+            dialogueText.enabled = true;
+            dialogueText.text = text;
         }
 
         private void UpdateUi() {

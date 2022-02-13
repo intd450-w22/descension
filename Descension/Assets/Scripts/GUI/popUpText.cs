@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class popUpText : MonoBehaviour
+public class PopUpText : MonoBehaviour
 {
     public float duration = 3f;
 
