@@ -1,5 +1,7 @@
+using Actor.AI;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Enums;
 using Util.Helpers;
 
 namespace Actor.Player
@@ -10,10 +12,14 @@ namespace Actor.Player
         public float movementSpeed = 10;
         public float hitPoints = 100f;
         public float score = 0f; // TODO: Should belong to a "game manager" 
-        public float ReticleDistance = 2f;
+        public float SwordDamage = 25f;
+        public float BowReticleDistance = 2f;
+        public float SwordReticleDistance = 1.5f;
 
         [Header("Session Variables")]
+        // TODO: Change this to a "currWeapon" type thing 
         public bool hasBow = false;
+        public bool hasSword = false;
 
         [Header("Inventory")]
         public float pickQuantity = 0;
@@ -85,22 +91,45 @@ namespace Actor.Player
             if (hasBow)
             {
                 var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
-                var mousePosition = Input.mousePosition;
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
-                var offset = new Vector2(mousePosition.x - screenPoint.x, mousePosition.y - screenPoint.y);
 
-                if (isShoot && hasBow && arrowsQuantity > 0) {
+                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                var direction = (Input.mousePosition - screenPoint - transform.position).normalized;
+
+                if(_reticle != null)
+                    _reticle.position = transform.position + (direction * BowReticleDistance);
+
+                Debug.DrawLine(transform.position, transform.position + direction);
+
+                if (isShoot && arrowsQuantity > 0) {
                 
-                    float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
                     arrowsQuantity -= 1;
                 }
+            }
+            else if (hasSword)
+            {
+                var isAttack = playerControls.Default.Shoot.WasPressedThisFrame();
 
-                var direction = (offset - (Vector2) transform.position).normalized * ReticleDistance;
+                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                var direction = (Input.mousePosition - screenPoint - transform.position).normalized;
+
                 if(_reticle != null)
-                    _reticle.position = transform.position + (Vector3) direction;
+                    _reticle.position = transform.position + (direction * SwordReticleDistance);
 
-                Debug.DrawLine(transform.position, transform.position + (Vector3) direction);
+                Debug.DrawLine(transform.position, transform.position + direction);
+
+                if (isAttack) {
+                
+                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    var attackPoint = (Vector2) (transform.position + (direction * SwordReticleDistance));
+                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(1, 2), angle, LayerMask.GetMask("Enemy"));
+                    foreach (var enemy in hitEnemies)
+                    {
+                        try { enemy.gameObject.GetComponent<AIController>().InflictDamage(SwordDamage); }
+                        catch { enemy.gameObject.GetComponentInParent<AIController>().InflictDamage(SwordDamage); }
+                    }
+                }
             }
             
         }

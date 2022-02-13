@@ -3561,7 +3561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 518881315}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6125,7 +6125,11 @@ MonoBehaviour:
   movementSpeed: 5
   hitPoints: 100
   score: 0
+  SwordDamage: 25
+  BowReticleDistance: 2
+  SwordReticleDistance: 1
   hasBow: 1
+  hasSword: 0
   pickQuantity: 0
   arrowsQuantity: 100
   ropeQuantity: 0
