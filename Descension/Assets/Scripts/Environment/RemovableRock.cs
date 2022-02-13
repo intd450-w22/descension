@@ -21,10 +21,10 @@ namespace Environment
             // TODO: Find a better way to do this logic. Maybe use a "Player" Tag. 
             if (collision.gameObject.name == "Player") {
                 // this works if there is only one "PlayerController" object
-                if (FindObjectOfType<PlayerController>().pickQuantity > 0) {
+                if (FindObjectOfType<PlayerController>().PickQuantity > 0) {
                     if (Random.Range(0f, 100f) < this.lootChance) {
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
-                        FindObjectOfType<PlayerController>().score += gold;
+                        FindObjectOfType<PlayerController>().Score += gold;
                         showFloatingText("Gold +" + gold.ToString());
                     }
                 
