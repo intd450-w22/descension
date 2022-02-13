@@ -1,5 +1,7 @@
+using System;
 using Actor.AI;
 using UnityEngine;
+using Util.Enums;
 
 namespace Items
 {
@@ -32,14 +34,14 @@ namespace Items
         void OnTriggerEnter2D(Collider2D collision) {
             // set "Enemy" Tag to enemy object for this to work
             Debug.Log("Arrow collision : " + collision.tag);
-            if (collision.CompareTag("Enemy"))
+            if (collision.CompareTag(Tag.Enemy.ToString()))
             {
                 // Debug.Log("attacked enemy");
                 try { collision.gameObject.GetComponent<AIController>().InflictDamage(this.damage); }
                 catch { collision.gameObject.GetComponentInParent<AIController>().InflictDamage(this.damage); }
                 Destroy(gameObject);
             }
-            else if (collision.CompareTag("Environment"))
+            else if (collision.CompareTag(Tag.Environment.ToString()))
                 Destroy(gameObject);
         }
     }
