@@ -12,9 +12,9 @@ namespace Actor.Player
         public float movementSpeed = 10;
         public float hitPoints = 100f;
         public float score = 0f; // TODO: Should belong to a "game manager" 
-        public float SwordDamage = 25f;
-        public float BowReticleDistance = 2f;
-        public float SwordReticleDistance = 1.5f;
+        public float swordDamage = 25f;
+        public float bowReticleDistance = 2f;
+        public float swordReticleDistance = 1.5f;
 
         [Header("Session Variables")]
         // TODO: Change this to a "currWeapon" type thing 
@@ -31,7 +31,7 @@ namespace Actor.Player
         // TODO: use something like tags to identify them in the scene
         // TODO: and assign references. 
         [Header("Scene Elements")] 
-        public bool UseUI = true;
+        public bool useUI = true;
         public Image dialogueBox;
         public Text dialogueText;
         public Text scoreUI;
@@ -40,13 +40,15 @@ namespace Actor.Player
         public Text torchUI;
         public Text ropeUI;
         public GameObject floatingTextDamage;
-        public GameObject ArrowPrefab;
+        public GameObject arrowPrefab;
         
-        private Camera playerCamera;
+        private Camera _playerCamera;
 
-        private PlayerControls playerControls;
+        private PlayerControls _playerControls;
 
         private Transform _reticle;
+
+        private Rigidbody2D _rb;
 
         void Awake() {
             // TODO: These work here for now, but should be moved later.
@@ -60,24 +62,24 @@ namespace Actor.Player
 
             _reticle = gameObject.GetChildTransformWithName("Reticle");
 
-            playerCamera = Camera.main;
+            _playerCamera = Camera.main;
 
-            playerControls = new PlayerControls();
+            _playerControls = new PlayerControls();
+
+            _rb = GetComponent<Rigidbody2D>();
         }
 
-        private void OnEnable() => playerControls.Enable();
+        private void OnEnable() => _playerControls.Enable();
 
-        private void OnDisable() => playerControls.Disable();
+        private void OnDisable() => _playerControls.Disable();
 
         void Update() {
-            if(UseUI) UpdateUi();
+            if(useUI) UpdateUi();
 
-            var move = playerControls.Default.Move.ReadValue<Vector2>();
-            if (move.x != 0 || move.y != 0) {
-                transform.Translate(move.x * movementSpeed * Time.deltaTime,  move.y * movementSpeed * Time.deltaTime, 0);
-            }
+            var move = _playerControls.Default.Move.ReadValue<Vector2>();
+            _rb.velocity = new Vector2(move.x * movementSpeed, move.y * movementSpeed);
 
-            if(UseUI)
+            if(useUI)
                 // what does this do ? 
                 if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
                     dialogueBox.enabled = false;
@@ -90,44 +92,44 @@ namespace Actor.Player
 
             if (hasBow)
             {                
-                var isShoot = playerControls.Default.Shoot.WasPressedThisFrame();
+                var isShoot = _playerControls.Default.Shoot.WasPressedThisFrame();
 
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
                 if(_reticle != null)
-                    _reticle.position = transform.position + (direction * BowReticleDistance);
+                    _reticle.position = transform.position + (direction * bowReticleDistance);
 
                 Debug.DrawLine(transform.position, transform.position + direction);
 
                 if (isShoot && arrowsQuantity > 0) {
                 
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    Instantiate(ArrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
+                    Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
                     arrowsQuantity -= 1;
                 }                
             }
             else if (hasSword)
             {
-                var isAttack = playerControls.Default.Shoot.WasPressedThisFrame();
+                var isAttack = _playerControls.Default.Shoot.WasPressedThisFrame();
 
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
+                var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
                 if(_reticle != null)
-                    _reticle.position = transform.position + (direction * SwordReticleDistance);
+                    _reticle.position = transform.position + (direction * swordReticleDistance);
 
                 Debug.DrawLine(transform.position, transform.position + direction);
 
                 if (isAttack) {
                 
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    var attackPoint = (Vector2) (transform.position + (direction * SwordReticleDistance));
+                    var attackPoint = (Vector2) (transform.position + (direction * swordReticleDistance));
                     var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(1, 2), angle, LayerMask.GetMask("Enemy"));
                     foreach (var enemy in hitEnemies)
                     {
-                        try { enemy.gameObject.GetComponent<AIController>().InflictDamage(SwordDamage); }
-                        catch { enemy.gameObject.GetComponentInParent<AIController>().InflictDamage(SwordDamage); }
+                        try { enemy.gameObject.GetComponent<AIController>().InflictDamage(swordDamage); }
+                        catch { enemy.gameObject.GetComponentInParent<AIController>().InflictDamage(swordDamage); }
                     }
                 }
             }
