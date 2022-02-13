@@ -11,8 +11,8 @@ namespace Items
         public float quantity = 20;
 
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
-                FindObjectOfType<PlayerController>().addArrows(this.quantity);
+            if (collision.gameObject.name == "Player") {
+                FindObjectOfType<PlayerController>().AddArrows(this.quantity);
                 showText("Arrows collected");
                 Destroy(gameObject);
             }

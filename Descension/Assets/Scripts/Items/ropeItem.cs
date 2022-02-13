@@ -11,7 +11,7 @@ namespace Items
         public float quantity = 1;
         
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.name == "Player") {
                 FindObjectOfType<PlayerController>().addRope(this.quantity);
                 showText("Rope Collected");
                 Destroy(gameObject);
