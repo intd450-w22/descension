@@ -95,7 +95,6 @@ namespace Actor.Player
                 var isShoot = _playerControls.Default.Shoot.WasPressedThisFrame();
 
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint).normalized;
 
                 if(_reticle != null)
                     _reticle.position = transform.position + (direction * BowReticleDistance);
@@ -114,6 +113,7 @@ namespace Actor.Player
                 var isAttack = _playerControls.Default.Shoot.WasPressedThisFrame();
 
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
+
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
                 if(_reticle != null)
