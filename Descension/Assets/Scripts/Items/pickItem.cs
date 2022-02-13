@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class PickItem : MonoBehaviour
+    public class pickItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;
@@ -12,7 +12,7 @@ namespace Items
         // public GameObject PlayerController;
 
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.name == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddPick(this.quantity);
                 showText("Pick Collected");
                 Destroy(gameObject);

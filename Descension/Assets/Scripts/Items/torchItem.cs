@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class TorchItem : MonoBehaviour
+    public class torchItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;
         public float quantity = 20;
         
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.name == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddTorch(this.quantity);
                 showText("Torch Collected");
                 Destroy(gameObject);

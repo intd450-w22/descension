@@ -4,7 +4,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Environment
 {
-    public class PostProcessingScript : MonoBehaviour
+    public class postProcessingScript : MonoBehaviour
     {
         public PostProcessVolume volume;
         private Vignette vignette;
@@ -17,7 +17,7 @@ namespace Environment
 
         void Update() {
             if (FindObjectOfType<PlayerController>().torchQuantity > 0) {
-                vignette.intensity.value = 0.5f;
+                vignette.intensity.value = 0.7f;
             } else {
                 vignette.intensity.value = 1f;
             }

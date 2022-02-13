@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Environment
 {
-    public class MainCameraFollow : MonoBehaviour {
+    public class mainCameraFollow : MonoBehaviour {
 
         public Transform target;
         public float speed = 0.125f;

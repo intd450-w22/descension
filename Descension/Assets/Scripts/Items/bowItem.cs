@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 namespace Items
 {
-    public class BowItem : MonoBehaviour
+    public class bowItem : MonoBehaviour
     {
         public Image dialogueBox;
         public Text dialogueText;
         
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.name == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddBow();
                 showText("Bow collected");
                 Destroy(gameObject);
