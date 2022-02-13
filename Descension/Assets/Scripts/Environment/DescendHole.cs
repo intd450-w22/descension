@@ -12,7 +12,7 @@ namespace Environment
         public Text dialogueText;
     
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
                     FindObjectOfType<PlayerController>().AddRope(-1);
                     showText("Descend to level two...");

@@ -11,7 +11,7 @@ namespace Items
         public float quantity = 20;
         
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddTorch(this.quantity);
                 showText("Torch Collected");
                 Destroy(gameObject);

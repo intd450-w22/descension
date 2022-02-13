@@ -10,7 +10,7 @@ namespace Items
         public Text dialogueText;
         
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddBow();
                 showText("Bow collected");
                 Destroy(gameObject);

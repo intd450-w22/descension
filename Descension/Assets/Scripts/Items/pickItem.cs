@@ -12,7 +12,7 @@ namespace Items
         // public GameObject PlayerController;
 
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddPick(this.quantity);
                 showText("Pick Collected");
                 Destroy(gameObject);

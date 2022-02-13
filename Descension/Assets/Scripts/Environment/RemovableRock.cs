@@ -19,7 +19,7 @@ namespace Environment
 
         void OnCollisionEnter2D(Collision2D collision) {
             // TODO: Find a better way to do this logic. Maybe use a "Player" Tag. 
-            if (collision.collider.tag == "Player") {
+            if (collision.gameObject.CompareTag("Player")) {
                 if (FindObjectOfType<PlayerController>().pickQuantity > 0) {
                     if (Random.Range(0f, 100f) < this.lootChance) {
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
