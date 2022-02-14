@@ -246,8 +246,9 @@ namespace Actor.AI
                 if (_attack != null) _attack.Execute();
             }
             
-            if (distance > 1)
+            if (distance > 2)
             {
+                Debug.Log(distance);
                 _agent.SetDestination(_currentTarget.position);
             }
             else
@@ -259,6 +260,7 @@ namespace Actor.AI
         // executed when the target is reached
         private void OnTargetReached()
         {
+            Debug.Log("Target reached");
             switch (currentState)
             {
                 case State.Patrolling:
