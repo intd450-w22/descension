@@ -56,7 +56,7 @@ namespace Actor.Player
         // Player input variables
         private PlayerInput _playerInput;
         private PlayerControls _playerControls;
-        private string _currentControlScheme;
+        private string _currentControlScheme = ControlScheme.Desktop.ToString();
 
         // State variable 
         private Vector2 _rawInputMovement;
@@ -118,10 +118,23 @@ namespace Actor.Player
                 if (_reticle != null)
                 {
                     _reticle.gameObject.SetActive(true);
-                    _reticle.position = transform.position + (direction * bowReticleDistance);
+
+                    // Set the position of the reticle on the screen according to input type
+                    if (_currentControlScheme == ControlScheme.Desktop.ToString())
+                    {
+                        // Place the reticle on the cursor 
+                        // TODO: Hide the cursor ? 
+                        _reticle.position = (Vector2) _playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                    }
+                    else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
+                    {
+                        // Place the reticle in a ring around the player 
+                        // TODO: Add aiming with the right stick ala Enter the Gungeon 
+                        _reticle.position = transform.position + (direction * bowReticleDistance);
+                    }
                 }
 
-                Debug.DrawLine(transform.position, transform.position + direction);
+                Debug.DrawLine(transform.position, transform.position + direction * 3);
 
                 if (_isAttack && arrowsQuantity > 0) {
                 
@@ -135,16 +148,19 @@ namespace Actor.Player
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
-                if(_reticle != null)
+                if (_reticle != null)
+                {
+                    _reticle.gameObject.SetActive(true);
                     _reticle.position = transform.position + (direction * swordReticleDistance);
+                }
 
-                Debug.DrawLine(transform.position, transform.position + direction);
+                Debug.DrawLine(transform.position, transform.position + direction * swordReticleDistance);
 
                 if (_isAttack) {
                 
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     var attackPoint = (Vector2) (transform.position + (direction * swordReticleDistance));
-                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(1, 2), angle, LayerMask.GetMask("Enemy"));
+                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, LayerMask.GetMask("Enemy"));
                     foreach (var enemy in hitEnemies)
                     {
                         try { enemy.gameObject.GetComponent<AIController>().InflictDamage(swordDamage); }
@@ -178,7 +194,9 @@ namespace Actor.Player
 
         public void OnControlsChanged()
         {
-            if (_playerInput && _playerInput.currentControlScheme != _currentControlScheme)
+            if (!_playerInput) return;
+
+            if (_playerInput.currentControlScheme != _currentControlScheme)
             {
                 _currentControlScheme = _playerInput.currentControlScheme;
                 

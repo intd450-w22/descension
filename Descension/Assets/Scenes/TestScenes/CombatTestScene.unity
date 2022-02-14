@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: bowReticleDistance
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: swordReticleDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6851937908845542240, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_DeviceLostEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -322,6 +326,26 @@ PrefabInstance:
     - target: {fileID: 6851937908845542240, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_ControlsChangedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614197637699327443, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.082499996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614197637699327443, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.082499996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614197637699327443, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614197637699327443, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7614197637699327443, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
