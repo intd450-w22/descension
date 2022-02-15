@@ -3721,12 +3721,16 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
-      value: 0.1745283
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.g
-      value: 0.1745283
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.r
@@ -6108,7 +6112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091863, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7624450830392919398, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: m_Extents.x
@@ -33941,6 +33945,10 @@ PrefabInstance:
     - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: dialogueText
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: arrowsQuantity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2904225009558641435, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_Sprite
