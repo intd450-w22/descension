@@ -248,7 +248,7 @@ namespace Actor.AI
             
             if (distance > 2)
             {
-                Debug.Log(distance);
+                // Debug.Log(distance);
                 _agent.SetDestination(_currentTarget.position);
             }
             else
