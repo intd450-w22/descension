@@ -1,4 +1,5 @@
 using Actor.AI;
+using Items;
 using Managers;
 using UI.Controllers;
 using Util.AssetMenu;
@@ -150,9 +151,9 @@ namespace Actor.Player
                 Debug.DrawLine(transform.position, transform.position + direction * 3);
 
                 if (_isAttack && arrowsQuantity > 0) {
-                
-                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
+                    GameObject arrowObject = Instantiate(arrowPrefab, transform);
+                    Arrow arrow = arrowObject.GetComponent<Arrow>();
+                    arrow.Initialize(direction);
                     arrowsQuantity -= 1;
                 }                
             }

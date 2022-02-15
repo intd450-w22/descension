@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Util.Helpers
@@ -28,6 +29,14 @@ namespace Util.Helpers
         public static GameObject GetChildObjectWithName(this GameObject gameObject, string name)
         {
             return GetChildObjectWithName(gameObject.transform, name);
+        }
+
+        public static Vector2 GetRotated(this Vector2 vector, float degrees)
+        {
+            float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+            float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+            
+            return new Vector2(cos*vector.x - sin*vector.y, sin*vector.x + cos*vector.y);
         }
     }
 }

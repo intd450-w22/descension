@@ -13,21 +13,25 @@ namespace Environment
         private HUDController _hudController;
 
         void Awake() {
+            // _hudController = UIManager.Instance.GetHudController();
+            // Debug.Log("RemovableRock AWAKE " + _hudController?.GetInstanceID());
+        }
+
+        void Start() {
             _playerController = FindObjectOfType<PlayerController>();
-            _hudController = UIManager.Instance.GetHudController();
-            Debug.Log("RemovableRock AWAKE " + _hudController?.GetInstanceID());
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
             // TODO: Find a better way to do this logic. Maybe use a "Player" Tag. 
             if (collision.gameObject.CompareTag("Player")) {
+                _playerController = collision.gameObject.GetComponent<PlayerController>();
                 if (_playerController.pickQuantity > 0) {
                     if (Random.Range(0f, 100f) < this.lootChance) {
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
                         _playerController.score += gold;
-                        _hudController.ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
+                        UIManager.Instance.GetHudController().ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
                     }
-                
+                    
                     _playerController.AddPick(-1);
                     Destroy(gameObject);
                 } else {
