@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333621910101590518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.04499998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 3333621911742645913}
@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333621911120091795}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.13, y: 3.89, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 694370199903143221}
@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333621911394173354}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.89, y: 3.82, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 694370199903143221}
@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333621911742645914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11582603, y: 0.093130395, z: -0.04499998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3333621911985856950}
@@ -188,12 +188,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b560237e5dab4cadead68add3b48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
   hitPoints: 100
   damage: 10
   floatingTextDialogue: {fileID: 6579487845962451779, guid: b45a8c5894d24aa4bb3ae8f3cde9dfd9, type: 3}
   floatingDamageDialogue: {fileID: 8906469561440662331, guid: 4e0e5517ab5528f43ab4b646d3a1ba4f, type: 3}
-  currentTarget: {fileID: 3333621910101590517}
+  patrollingAttributes:
+    speed: 0
+    sightDistance: 0
+    pauseTime: 0
   chasingAttributes:
     speed: 3
     sightDistance: 3
@@ -201,7 +203,6 @@ MonoBehaviour:
   chasePlayer: 1
   loopTargets: 1
   currentState: 0
-  patrolTargets: []
 --- !u!1 &3333621911985856951
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333621911985856951}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.79, y: 2.67, z: 0.04499998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 3333621911742645913}
@@ -343,7 +344,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &4019972472293383026

@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Actor.Player;
+using UI.Controllers;
+using Util.Enums;
 using UnityEngine;
 using UnityEngine.AI;
-using Util.Enums;
 using static Util.Helpers.CalculationHelper;
 using static Util.Helpers.Extensions;
+using Managers;
 
 namespace Actor.AI
 {
@@ -14,9 +16,7 @@ namespace Actor.AI
     {
         public float hitPoints = 100;
         public float damage = 10;
-        public GameObject floatingTextDialogue;
-        public GameObject floatingDamageDialogue;
-        
+
         public StateAttributes patrollingAttributes; // attributes when in patrolling state
         public StateAttributes chasingAttributes;    // attributes when in chasing state
 
@@ -34,7 +34,8 @@ namespace Actor.AI
         private int _patrolIndex = 0;           // index of current patrol target
         private int _patrolDirection = 1;       // tracks forward/backward for patrolling
         private StateAttributes _attributes;
-        
+
+        private HUDController _hudController;
         
         void Start()
         {
@@ -53,6 +54,7 @@ namespace Actor.AI
             _patrolTargets = new List<Transform>(transform.Find("PatrolTargets").GetComponentsInChildren<Transform>());
             _currentTarget = gameObject.GetChildTransformWithName("CurrentTarget");
             _player = FindObjectOfType<PlayerController>().transform;
+            _hudController = UIManager.Instance.GetHudController();
             
             _alive = true;
             
@@ -86,7 +88,7 @@ namespace Actor.AI
         {
             Debug.Log($"Enemy hit for {dmg} damage");
             hitPoints -= dmg;
-            ShowFloatingDamageDialogue("Hp-" + dmg.ToString());
+            _hudController.ShowFloatingText(_position, "Hp-" + dmg, Color.red);
         }
         
         protected virtual void OnKilled()
@@ -246,8 +248,9 @@ namespace Actor.AI
                 if (_attack != null) _attack.Execute();
             }
             
-            if (distance > 1)
+            if (distance > 2)
             {
+                // Debug.Log(distance);
                 _agent.SetDestination(_currentTarget.position);
             }
             else
@@ -259,6 +262,7 @@ namespace Actor.AI
         // executed when the target is reached
         private void OnTargetReached()
         {
+            Debug.Log("Target reached");
             switch (currentState)
             {
                 case State.Patrolling:
@@ -312,18 +316,6 @@ namespace Actor.AI
         {
             _patrolDirection = -_patrolDirection;
             GetNextTarget();
-        }
-
-        private void ShowFloatingTextDialogue(string text)
-        {
-            var t = Instantiate(floatingDamageDialogue, _position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
-        }
-        
-        private void ShowFloatingDamageDialogue(string text)
-        {
-            var t = Instantiate(floatingTextDialogue, _position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
         }
     }
 

@@ -1,49 +1,39 @@
 using Actor.Player;
+using Managers;
+using UI.Controllers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Environment
 {
     public class RemovableRock : MonoBehaviour
     {
-        public Image dialogueBox;
-        public Text dialogueText;
-        public GameObject floatingText;
-
         private float lootChance = 40;
+        
+        private PlayerController _playerController;
+        private HUDController _hudController;
 
-        void Start() {
-            dialogueBox.enabled = false;
-            dialogueText.enabled = false;
+        void Awake() {
+            _playerController = FindObjectOfType<PlayerController>();
+            _hudController = UIManager.Instance.GetHudController();
+            Debug.Log("RemovableRock AWAKE " + _hudController?.GetInstanceID());
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
             // TODO: Find a better way to do this logic. Maybe use a "Player" Tag. 
             if (collision.gameObject.CompareTag("Player")) {
-                if (FindObjectOfType<PlayerController>().pickQuantity > 0) {
+                if (_playerController.pickQuantity > 0) {
                     if (Random.Range(0f, 100f) < this.lootChance) {
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
-                        FindObjectOfType<PlayerController>().score += gold;
-                        showFloatingText("Gold +" + gold.ToString());
+                        _playerController.score += gold;
+                        _hudController.ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
                     }
                 
-                    FindObjectOfType<PlayerController>().AddPick(-1);
+                    _playerController.AddPick(-1);
                     Destroy(gameObject);
                 } else {
-                    showText("Find a pick!");
+                    UIManager.Instance.GetHudController().ShowText("Find a pick!");
                 }
             }
-        }
-
-        void showText(string text) {
-            dialogueBox.enabled = true;
-            dialogueText.enabled = true;
-            dialogueText.text = text;
-        }
-
-        void showFloatingText(string text) {
-            var t = Instantiate(floatingText, transform.position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
         }
     }
 }

@@ -4,6 +4,9 @@
     {
         MainMenu,
         SettingsMenu,
-        LevelSelectMenu
+        LevelSelectMenu,
+        PauseMenu,
+        GameHUD,
+        None,
     }
 }

@@ -1,13 +1,21 @@
 using Actor.AI;
-using UnityEngine;
-using UnityEngine.UI;
+using Managers;
+using UI.Controllers;
+using Util.AssetMenu;
 using Util.Enums;
 using Util.Helpers;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Actor.Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        [Header("Configuration")]
+        public DeviceDisplayConfigurator DeviceDisplaySettings;
+
         [Header("Attributes")]
         public float movementSpeed = 10;
         public float hitPoints = 100f;
@@ -44,65 +52,104 @@ namespace Actor.Player
         
         private Camera _playerCamera;
 
+        // Player input variables
+        private PlayerInput _playerInput;
         private PlayerControls _playerControls;
+        private string _currentControlScheme = ControlScheme.Desktop.ToString();
+        private bool _isPaused = false;
 
+        // State variable 
+        private Vector2 _rawInputMovement;
+        private bool _isAttack;
+
+        // Components and GameObjects
+        private GameManager _gameManager;
+        private UIManager _uiManager;
+        private HUDController _hudController;
         private Transform _reticle;
-
         private Rigidbody2D _rb;
 
         void Awake() {
             // TODO: These work here for now, but should be moved later.
-            if(dialogueBox != null) dialogueBox.enabled = false;
-            if(dialogueText != null) dialogueText.enabled = false;
-            if(scoreUI != null) scoreUI.enabled = true;
-            if(bowUI != null) bowUI.enabled = false;
-            if(pickUI != null) pickUI.enabled = false;
-            if(torchUI != null) torchUI.enabled = false;
-            if(ropeUI != null) ropeUI.enabled = false;
+
+            // if(dialogueBox != null) dialogueBox.enabled = false;
+            // if(dialogueText != null) dialogueText.enabled = false;
+            // if(scoreUI != null) scoreUI.enabled = true;
+            // if(bowUI != null) bowUI.enabled = false;
+            // if(pickUI != null) pickUI.enabled = false;
+            // if(torchUI != null) torchUI.enabled = false;
+            // if(ropeUI != null) ropeUI.enabled = false;
 
             _reticle = gameObject.GetChildTransformWithName("Reticle");
+            if (_reticle != null && !hasBow && !hasSword)
+                _reticle.gameObject.SetActive(false);
 
-            _playerCamera = Camera.main;
-
+            _playerInput = GetComponent<PlayerInput>();
             _playerControls = new PlayerControls();
 
             _rb = GetComponent<Rigidbody2D>();
+
+        }
+
+        void Start()
+        {
+            _playerCamera = Camera.main;
+            _gameManager = GameManager.Instance;
+            _uiManager = UIManager.Instance;
+            _hudController = _uiManager.GetHudController();
         }
 
         private void OnEnable() => _playerControls.Enable();
 
         private void OnDisable() => _playerControls.Disable();
 
-        void Update() {
-            if(useUI) UpdateUi();
+        void FixedUpdate() {
+            if (_gameManager.IsPaused) return;
 
-            var move = _playerControls.Default.Move.ReadValue<Vector2>();
-            _rb.velocity = new Vector2(move.x * movementSpeed, move.y * movementSpeed);
+            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity);
 
-            if(useUI)
-                // what does this do ? 
-                if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
-                    dialogueBox.enabled = false;
-                    dialogueText.enabled = false;
-                }
+            _rb.velocity = _rawInputMovement * movementSpeed;
+
+            // if(useUI)
+            //     // what does this do ? 
+            //     if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
+            //         dialogueBox.enabled = false;
+            //         dialogueText.enabled = false;
+            //     }
 
             if (torchQuantity > 0) {
                 torchQuantity -= 2 * Time.deltaTime;
             }
 
+            // TODO: Remove this once the callback is functioning
+            _isAttack = _playerControls.Default.Shoot.WasPerformedThisFrame();
             if (hasBow)
-            {                
-                var isShoot = _playerControls.Default.Shoot.WasPressedThisFrame();
-
+            {
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
-                if(_reticle != null)
-                    _reticle.position = transform.position + (direction * bowReticleDistance);
+                if (_reticle != null)
+                {
+                    _reticle.gameObject.SetActive(true);
 
-                Debug.DrawLine(transform.position, transform.position + direction);
+                    // Set the position of the reticle on the screen according to input type
+                    if (_currentControlScheme == ControlScheme.Desktop.ToString())
+                    {
+                        // Place the reticle on the cursor 
+                        // TODO: Hide the cursor ? 
+                        _reticle.position = (Vector2) _playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                    }
+                    else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
+                    {
+                        // Place the reticle in a ring around the player 
+                        // TODO: Add aiming with the right stick ala Enter the Gungeon 
+                        _reticle.position = transform.position + (direction * bowReticleDistance);
+                    }
+                }
 
-                if (isShoot && arrowsQuantity > 0) {
+                Debug.DrawLine(transform.position, transform.position + direction * 3);
+
+                if (_isAttack && arrowsQuantity > 0) {
                 
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     Instantiate(arrowPrefab, transform.position, Quaternion.Euler(0f, 0f, angle));
@@ -111,21 +158,22 @@ namespace Actor.Player
             }
             else if (hasSword)
             {
-                var isAttack = _playerControls.Default.Shoot.WasPressedThisFrame();
-
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
                 var direction = (Input.mousePosition - screenPoint).normalized;
 
-                if(_reticle != null)
+                if (_reticle != null)
+                {
+                    _reticle.gameObject.SetActive(true);
                     _reticle.position = transform.position + (direction * swordReticleDistance);
+                }
 
-                Debug.DrawLine(transform.position, transform.position + direction);
+                Debug.DrawLine(transform.position, transform.position + direction * swordReticleDistance);
 
-                if (isAttack) {
+                if (_isAttack) {
                 
                     var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     var attackPoint = (Vector2) (transform.position + (direction * swordReticleDistance));
-                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(1, 2), angle, LayerMask.GetMask("Enemy"));
+                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, LayerMask.GetMask("Enemy"));
                     foreach (var enemy in hitEnemies)
                     {
                         try { enemy.gameObject.GetComponent<AIController>().InflictDamage(swordDamage); }
@@ -136,9 +184,85 @@ namespace Actor.Player
             
         }
 
+        private void PauseMenu()
+        {
+
+        }
+
+        #region Entity Interaction
+
+        public void InflictDamage(float damage) {
+            hitPoints -= damage;
+            _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
+        }
+
+        #endregion
+
+        #region Player Input Callbacks
+
+        public void OnPause()
+        {
+            if (_isPaused) return;
+
+            _isPaused = true;
+
+            // Pause enemies and stuff
+
+            // Display menu 
+            _uiManager.SwitchUi(UIType.PauseMenu);
+        }
+
+        public void OnResume()
+        {
+            Debug.Log("ON RESUME");
+            _isPaused = false;
+        }
+
+        public void OnMovement(InputAction.CallbackContext value)
+        {
+            _rawInputMovement = value.ReadValue<Vector2>();
+        }
+
+        public void OnAttack(InputAction.CallbackContext value)
+        {
+            // TODO: Get the callback working 
+        }
+
+        public void OnControlsChanged()
+        {
+            if (!_playerInput) return;
+
+            if (_playerInput.currentControlScheme != _currentControlScheme)
+            {
+                _currentControlScheme = _playerInput.currentControlScheme;
+                
+                var deviceName = DeviceDisplaySettings.GetDeviceName(_playerInput);
+                Debug.Log($"Current control scheme {deviceName}");
+
+                RemoveAllBindingOverrides();
+            }
+        }
+
+        public void OnDeviceLost()
+        {
+            string disconnectedName = DeviceDisplaySettings.GetDisconnectedName();
+            Debug.Log($"Device lost: {disconnectedName}");
+        }
+
+        public void RemoveAllBindingOverrides() { }
+
+        #endregion
+
+        #region Item Accessors
+
         public void AddPick(float value) => pickQuantity += value;
 
-        public void AddBow() => hasBow = true;
+        public void AddBow()
+        {
+            hasBow = true;
+            if (_reticle != null)
+                _reticle.gameObject.SetActive(true);
+        }
 
         public void AddSword() => hasSword = true;
 
@@ -147,53 +271,68 @@ namespace Actor.Player
         public void AddRope(float value) => ropeQuantity += value;
 
         public void AddTorch(float value) => torchQuantity += value;
+        
+        #endregion
 
-        public void InflictDamage(float damage) {
-            hitPoints -= damage;
-            ShowFloatingTextDamage("HP -" + damage.ToString());
-        }
+        #region UI Controls
 
-        private void ShowFloatingTextDamage(string text) {
-            var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
-        }
+        // private void ShowFloatingTextDamage(string text) {
+        //     var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
+        //     t.GetComponent<TextMesh>().text = text;
+        // }
+        //
+        // private void showText(string text) {
+        //     dialogueBox.enabled = true;
+        //     dialogueText.enabled = true;
+        //     dialogueText.text = text;
+        // }
+        //
+        // private void UpdateUi()
+        // {
+        //     scoreUI.text = "Gold/Score: " + score.ToString();
+        //
+        //     if (pickQuantity > 0)
+        //     {
+        //         pickUI.enabled = true;
+        //         pickUI.text = "Pick " + pickQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         pickUI.enabled = false;
+        //     }
+        //
+        //     if (arrowsQuantity > 0)
+        //     {
+        //         bowUI.enabled = true;
+        //         bowUI.text = "Arrows " + arrowsQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         bowUI.enabled = false;
+        //     }
+        //
+        //     if (ropeQuantity > 0)
+        //     {
+        //         ropeUI.enabled = true;
+        //         ropeUI.text = "Rope " + ropeQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         ropeUI.enabled = false;
+        //     }
+        //
+        //     if (torchQuantity > 0)
+        //     {
+        //         torchUI.enabled = true;
+        //         torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
+        //     }
+        //     else
+        //     {
+        //         torchUI.enabled = false;
+        //     }
+        // }
 
-        private void showText(string text) {
-            dialogueBox.enabled = true;
-            dialogueText.enabled = true;
-            dialogueText.text = text;
-        }
+        #endregion
 
-        private void UpdateUi() {
-            scoreUI.text = "Gold/Score: " + score.ToString();
-
-            if (pickQuantity > 0) {
-                pickUI.enabled = true;
-                pickUI.text = "Pick " + pickQuantity.ToString();
-            } else {
-                pickUI.enabled = false;
-            }
-
-            if (arrowsQuantity > 0) {
-                bowUI.enabled = true;
-                bowUI.text = "Arrows " + arrowsQuantity.ToString();
-            } else {
-                bowUI.enabled = false;
-            }
-
-            if (ropeQuantity > 0) {
-                ropeUI.enabled = true;
-                ropeUI.text = "Rope " + ropeQuantity.ToString();
-            } else {
-                ropeUI.enabled = false;
-            }
-
-            if (torchQuantity > 0) {
-                torchUI.enabled = true;
-                torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
-            } else {
-                torchUI.enabled = false;
-            }
-        }
     }
 }
