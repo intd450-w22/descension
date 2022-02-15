@@ -19,7 +19,7 @@ namespace Items
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddPick(this.quantity);
-                _hudController.ShowText("Pick Collected");
+                UIManager.Instance.GetHudController().ShowText("Pick Collected");
                 Destroy(gameObject);
             }
         }

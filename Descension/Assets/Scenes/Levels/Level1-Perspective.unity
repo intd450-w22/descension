@@ -925,6 +925,10 @@ PrefabInstance:
       value: UserInterfaceCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 493105461302604364, guid: b82c452e1dc48ab428a3595efd8b656b, type: 3}
+      propertyPath: DefaultUi
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 493105461302604364, guid: b82c452e1dc48ab428a3595efd8b656b, type: 3}
       propertyPath: defaultUI
       value: 4
       objectReference: {fileID: 0}

@@ -15,6 +15,7 @@ namespace Environment
         void Awake() {
             _playerController = FindObjectOfType<PlayerController>();
             _hudController = UIManager.Instance.GetHudController();
+            Debug.Log("RemovableRock AWAKE " + _hudController?.GetInstanceID());
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
@@ -30,7 +31,7 @@ namespace Environment
                     _playerController.AddPick(-1);
                     Destroy(gameObject);
                 } else {
-                    _hudController.ShowText("Find a pick!");
+                    UIManager.Instance.GetHudController().ShowText("Find a pick!");
                 }
             }
         }

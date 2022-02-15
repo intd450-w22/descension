@@ -93,7 +93,6 @@ namespace Actor.Player
 
         void Start()
         {
-            Debug.Log("PLAYER CONTROLLER START");
             _playerCamera = Camera.main;
             _gameManager = GameManager.Instance;
             _uiManager = UIManager.Instance;

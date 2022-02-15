@@ -18,7 +18,6 @@ namespace Managers
                 if (_instance == null)
                     _instance = FindObjectOfType<UIManager>();
                 
-
                 return _instance;
             }
             set => _instance = value;
@@ -50,6 +49,12 @@ namespace Managers
         }
 
         public HUDController GetHudController() => _hudController;
+
+        public void ReinitHudController()
+        {
+            _hudController = GetComponentInChildren<HUDController>();
+            _hudController.Init();
+        }
 
         public void SwitchUi(UIType uiType)
         {

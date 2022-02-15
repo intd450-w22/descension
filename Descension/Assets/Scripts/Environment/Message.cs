@@ -22,7 +22,7 @@ namespace Environment
 
         private void OnTriggerEnter2D(Collider2D other) {
             if (!triggered) {
-                _hudController.ShowText(textToShow);
+                UIManager.Instance.GetHudController().ShowText(textToShow);
                 triggered = true;
             }
         }

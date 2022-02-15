@@ -23,7 +23,7 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player")) {
                 if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
                     FindObjectOfType<PlayerController>().AddRope(-1);
-                    _hudController.ShowText("Descend to level two...");
+                    UIManager.Instance.GetHudController().ShowText("Descend to level two...");
 
                     if(nextLevel == Scene.Other)
                         SceneLoader.Load(otherLevelName);
@@ -31,7 +31,7 @@ namespace Environment
                         SceneLoader.Load(nextLevel.ToString());   
                     
                 } else {
-                    _hudController.ShowText("You need a rope in order to descend");
+                    UIManager.Instance.GetHudController().ShowText("You need a rope in order to descend");
                 }
             }
         }

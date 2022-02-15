@@ -18,7 +18,7 @@ namespace Items
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddTorch(this.quantity);
-                _hudController.ShowText("Torch Collected");
+                UIManager.Instance.GetHudController().ShowText("Torch Collected");
                 Destroy(gameObject);
             }
         }

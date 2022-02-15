@@ -22,13 +22,13 @@ namespace Environment
 
         void Update() {
             if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
-                _hudController.ShowText(inspectText);
+                UIManager.Instance.GetHudController().ShowText(inspectText);
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
             playerInRange = true;
-            _hudController.ShowText("Press F to interact");
+            UIManager.Instance.GetHudController().ShowText("Press F to interact");
         }
 
         private void OnTriggerExit2D(Collider2D other) {

@@ -1,3 +1,4 @@
+using Managers;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,11 +21,16 @@ namespace UI.Controllers
 
         void Awake()
         {
-            SetReferences();
             Init();
         }
 
-        private void SetReferences()
+        public void Init()
+        {
+            SetReferences();
+            Reset();
+        }
+
+        public void SetReferences()
         {
             _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
             _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
@@ -36,7 +42,7 @@ namespace UI.Controllers
             _ropeUI = guiGroup.GetChildObjectWithName("RopeDurability").GetComponent<Text>();
         }
 
-        private void Init()
+        public void Reset()
         {
             _dialogueBox.enabled = false;
             _dialogueText.enabled = false;
@@ -110,7 +116,7 @@ namespace UI.Controllers
             catch (MissingReferenceException e)
             {
                 Debug.LogWarning(e.Message);
-                SetReferences();
+                UIManager.Instance.ReinitHudController();
             }
             
         }

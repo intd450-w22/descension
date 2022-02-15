@@ -19,7 +19,7 @@ namespace Items
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
                 FindObjectOfType<PlayerController>().AddRope(this.quantity);
-                _hudController.ShowText("Rope Collected");
+                UIManager.Instance.GetHudController().ShowText("Rope Collected");
                 Destroy(gameObject);
             }
         }
