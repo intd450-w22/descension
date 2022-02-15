@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Util.Structs;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Util.Structs;
 
 /*
  * Original code by Andy Touch (andyt@unity3d.com)
  * Source code https://github.com/UnityTechnologies/InputSystem_Warriors
  */
-namespace Util.AssetMenu
+namespace Assets.Scripts.Util.AssetMenu
 {
     [CreateAssetMenu(fileName = "Device Display Configurator",
         menuName = "Scriptable Objects/Device Display Configurator", order = 1)]

@@ -1,4 +1,4 @@
-﻿namespace Util.Enums
+﻿namespace Assets.Scripts.Util.Enums
 {
     public enum UnityLayer : int
     {

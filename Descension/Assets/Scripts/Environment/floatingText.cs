@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Environment
+namespace Assets.Scripts.Environment
 {
     public class floatingText : MonoBehaviour
     {

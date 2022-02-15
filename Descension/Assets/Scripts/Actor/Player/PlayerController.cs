@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using Actor.AI;
+using Assets.Scripts.Actor.AI;
+using Assets.Scripts.GUI.Controllers;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Util.AssetMenu;
+using Assets.Scripts.Util.Enums;
+using Assets.Scripts.Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Util.AssetMenu;
-using Util.Enums;
-using Util.Helpers;
-using Util.Structs;
 
-namespace Actor.Player
+namespace Assets.Scripts.Actor.Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
@@ -57,52 +56,66 @@ namespace Actor.Player
         private PlayerInput _playerInput;
         private PlayerControls _playerControls;
         private string _currentControlScheme = ControlScheme.Desktop.ToString();
+        private bool _isPaused = false;
 
         // State variable 
         private Vector2 _rawInputMovement;
         private bool _isAttack;
 
         // Components and GameObjects
+        private GameManager _gameManager;
+        private UIManager _uiManager;
+        private HUDController _hudController;
         private Transform _reticle;
         private Rigidbody2D _rb;
 
         void Awake() {
             // TODO: These work here for now, but should be moved later.
-            if(dialogueBox != null) dialogueBox.enabled = false;
-            if(dialogueText != null) dialogueText.enabled = false;
-            if(scoreUI != null) scoreUI.enabled = true;
-            if(bowUI != null) bowUI.enabled = false;
-            if(pickUI != null) pickUI.enabled = false;
-            if(torchUI != null) torchUI.enabled = false;
-            if(ropeUI != null) ropeUI.enabled = false;
+
+            // if(dialogueBox != null) dialogueBox.enabled = false;
+            // if(dialogueText != null) dialogueText.enabled = false;
+            // if(scoreUI != null) scoreUI.enabled = true;
+            // if(bowUI != null) bowUI.enabled = false;
+            // if(pickUI != null) pickUI.enabled = false;
+            // if(torchUI != null) torchUI.enabled = false;
+            // if(ropeUI != null) ropeUI.enabled = false;
 
             _reticle = gameObject.GetChildTransformWithName("Reticle");
             if (_reticle != null && !hasBow && !hasSword)
                 _reticle.gameObject.SetActive(false);
 
-            _playerCamera = Camera.main;
-
             _playerInput = GetComponent<PlayerInput>();
             _playerControls = new PlayerControls();
 
             _rb = GetComponent<Rigidbody2D>();
+
+        }
+
+        void Start()
+        {
+            _playerCamera = Camera.main;
+            _gameManager = GameManager.GetInstance();
+            _uiManager = UIManager.GetInstance();
+            _hudController = FindObjectOfType<HUDController>();
         }
 
         private void OnEnable() => _playerControls.Enable();
 
         private void OnDisable() => _playerControls.Disable();
 
-        void Update() {
-            if(useUI) UpdateUi();
+        void FixedUpdate() {
+            if (_gameManager.IsPaused) return;
+
+            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity);
 
             _rb.velocity = _rawInputMovement * movementSpeed;
 
-            if(useUI)
-                // what does this do ? 
-                if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
-                    dialogueBox.enabled = false;
-                    dialogueText.enabled = false;
-                }
+            // if(useUI)
+            //     // what does this do ? 
+            //     if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
+            //         dialogueBox.enabled = false;
+            //         dialogueText.enabled = false;
+            //     }
 
             if (torchQuantity > 0) {
                 torchQuantity -= 2 * Time.deltaTime;
@@ -171,16 +184,39 @@ namespace Actor.Player
             
         }
 
+        private void PauseMenu()
+        {
+
+        }
+
         #region Entity Interaction
 
         public void InflictDamage(float damage) {
             hitPoints -= damage;
-            ShowFloatingTextDamage("HP -" + damage.ToString());
+            _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
         }
 
         #endregion
 
         #region Player Input Callbacks
+
+        public void OnPause()
+        {
+            if (_isPaused) return;
+
+            _isPaused = true;
+
+            // Pause enemies and stuff
+
+            // Display menu 
+            _uiManager.SwitchUI(UIType.PauseMenu);
+        }
+
+        public void OnResume()
+        {
+            Debug.Log("ON RESUME");
+            _isPaused = false;
+        }
 
         public void OnMovement(InputAction.CallbackContext value)
         {
@@ -240,61 +276,61 @@ namespace Actor.Player
 
         #region UI Controls
 
-        private void ShowFloatingTextDamage(string text) {
-            var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
-        }
-
-        private void showText(string text) {
-            dialogueBox.enabled = true;
-            dialogueText.enabled = true;
-            dialogueText.text = text;
-        }
-
-        private void UpdateUi()
-        {
-            scoreUI.text = "Gold/Score: " + score.ToString();
-
-            if (pickQuantity > 0)
-            {
-                pickUI.enabled = true;
-                pickUI.text = "Pick " + pickQuantity.ToString();
-            }
-            else
-            {
-                pickUI.enabled = false;
-            }
-
-            if (arrowsQuantity > 0)
-            {
-                bowUI.enabled = true;
-                bowUI.text = "Arrows " + arrowsQuantity.ToString();
-            }
-            else
-            {
-                bowUI.enabled = false;
-            }
-
-            if (ropeQuantity > 0)
-            {
-                ropeUI.enabled = true;
-                ropeUI.text = "Rope " + ropeQuantity.ToString();
-            }
-            else
-            {
-                ropeUI.enabled = false;
-            }
-
-            if (torchQuantity > 0)
-            {
-                torchUI.enabled = true;
-                torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
-            }
-            else
-            {
-                torchUI.enabled = false;
-            }
-        }
+        // private void ShowFloatingTextDamage(string text) {
+        //     var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
+        //     t.GetComponent<TextMesh>().text = text;
+        // }
+        //
+        // private void showText(string text) {
+        //     dialogueBox.enabled = true;
+        //     dialogueText.enabled = true;
+        //     dialogueText.text = text;
+        // }
+        //
+        // private void UpdateUi()
+        // {
+        //     scoreUI.text = "Gold/Score: " + score.ToString();
+        //
+        //     if (pickQuantity > 0)
+        //     {
+        //         pickUI.enabled = true;
+        //         pickUI.text = "Pick " + pickQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         pickUI.enabled = false;
+        //     }
+        //
+        //     if (arrowsQuantity > 0)
+        //     {
+        //         bowUI.enabled = true;
+        //         bowUI.text = "Arrows " + arrowsQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         bowUI.enabled = false;
+        //     }
+        //
+        //     if (ropeQuantity > 0)
+        //     {
+        //         ropeUI.enabled = true;
+        //         ropeUI.text = "Rope " + ropeQuantity.ToString();
+        //     }
+        //     else
+        //     {
+        //         ropeUI.enabled = false;
+        //     }
+        //
+        //     if (torchQuantity > 0)
+        //     {
+        //         torchUI.enabled = true;
+        //         torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
+        //     }
+        //     else
+        //     {
+        //         torchUI.enabled = false;
+        //     }
+        // }
 
         #endregion
 

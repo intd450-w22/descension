@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Util.Constants
+namespace Assets.Scripts.Util.Constants
 {
     public static class Direction
     {

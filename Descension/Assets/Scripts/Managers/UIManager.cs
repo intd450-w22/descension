@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.GUI.MenuUI;
+using Assets.Scripts.Util;
+using Assets.Scripts.Util.Enums;
 using UnityEngine;
-using Util.Enums;
 
-namespace Assets.Scripts.GUI.MenuUI
+namespace Assets.Scripts.Managers
 {
     public class UIManager : MonoBehaviour
     {
         private static UIManager _instance;
         private List<UIController> uiControllers;
         private UIController LastActiveUI;
+
+        public UIType defaultUI = UIType.MainMenu;
 
         public static UIManager GetInstance() => _instance;
 
@@ -24,14 +28,15 @@ namespace Assets.Scripts.GUI.MenuUI
             {
                 Destroy(gameObject);
             }
-
-            uiControllers = GetComponentsInChildren<UIController>().ToList();
+            
+            uiControllers = FindObjectsOfType<UIController>().ToList();
             uiControllers.ForEach(x => x.gameObject.SetActive(false));
-            SwitchUI(UIType.MainMenu);
+            SwitchUI(defaultUI);
         }
 
         public void SwitchUI(UIType uiType)
         {
+            Debug.Log("SWITCH UI " + uiType);
             if (LastActiveUI != null)
                 LastActiveUI.gameObject.SetActive(false);
 
@@ -40,6 +45,10 @@ namespace Assets.Scripts.GUI.MenuUI
             {
                 targetUI.gameObject.SetActive(true);
                 LastActiveUI = targetUI;
+            }
+            else
+            {
+                Debug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
             }
         }
 

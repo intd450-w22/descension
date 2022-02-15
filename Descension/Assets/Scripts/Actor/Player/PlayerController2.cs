@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Actor.Player
+namespace Assets.Scripts.Actor.Player
 {
     public class PlayerController2 : MonoBehaviour
     {

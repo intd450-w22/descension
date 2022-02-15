@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Util.Helpers
+namespace Assets.Scripts.Util.Helpers
 {
     public static class Extensions
     {

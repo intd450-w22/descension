@@ -1,8 +1,8 @@
-using Actor.Player;
+using Assets.Scripts.Actor.Player;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace Environment
+namespace Assets.Scripts.Environment
 {
     public class postProcessingScript : MonoBehaviour
     {

@@ -1,5 +1,5 @@
+using Assets.Scripts.Util.Enums;
 using UnityEngine;
-using Util.Enums;
 
 namespace Assets.Scripts.GUI.MenuUI
 {

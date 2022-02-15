@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Util.Enums
+﻿namespace Assets.Scripts.Util.Enums
 {
     public enum Scene
     {

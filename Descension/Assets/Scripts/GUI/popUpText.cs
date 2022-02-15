@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PopUpText : MonoBehaviour
+namespace Assets.Scripts.GUI
 {
-    public float duration = 3f;
-
-    void Start()
+    public class PopUpText : MonoBehaviour
     {
-        Destroy(gameObject, duration);
-    }
+        public float duration = 3f;
 
+        void Start()
+        {
+            Destroy(gameObject, duration);
+        }
+
+    }
 }

@@ -1,9 +1,11 @@
-﻿namespace Util.Enums
+﻿namespace Assets.Scripts.Util.Enums
 {
     public enum UIType
     {
         MainMenu,
         SettingsMenu,
-        LevelSelectMenu
+        LevelSelectMenu,
+        PauseMenu,
+        GameHUD
     }
 }
