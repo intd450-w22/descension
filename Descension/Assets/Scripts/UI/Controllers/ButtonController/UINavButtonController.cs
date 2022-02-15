@@ -1,6 +1,6 @@
 using Util.Enums;
 
-namespace Assets.Scripts.GUI.MenuUI.Button
+namespace UI.Controllers.ButtonController
 {
     public class UINavButtonController : ButtonController
     {
@@ -8,7 +8,7 @@ namespace Assets.Scripts.GUI.MenuUI.Button
 
         protected override void OnButtonClicked()
         {
-            uiManager.SwitchUI(TargetUI);
+            uiManager.SwitchUi(TargetUI);
         }
     }
 }

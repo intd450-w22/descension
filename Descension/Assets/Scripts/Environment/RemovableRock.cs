@@ -1,21 +1,21 @@
 using Actor.Player;
+using Managers;
+using UI.Controllers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Environment
 {
     public class RemovableRock : MonoBehaviour
     {
-        public Image dialogueBox;
-        public Text dialogueText;
-        public GameObject floatingText;
         private float lootChance = 40;
+        
         private PlayerController _playerController;
+        private HUDController _hudController;
 
-        void Start() {
-            dialogueBox.enabled = false;
-            dialogueText.enabled = false;
+        void Awake() {
             _playerController = FindObjectOfType<PlayerController>();
+            _hudController = UIManager.Instance.GetHudController();
+            Debug.Log("RemovableRock AWAKE " + _hudController?.GetInstanceID());
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
@@ -25,26 +25,15 @@ namespace Environment
                     if (Random.Range(0f, 100f) < this.lootChance) {
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
                         _playerController.score += gold;
-                        showFloatingText("Gold +" + gold.ToString());
+                        _hudController.ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
                     }
                 
                     _playerController.AddPick(-1);
                     Destroy(gameObject);
                 } else {
-                    showText("Find a pick!");
+                    UIManager.Instance.GetHudController().ShowText("Find a pick!");
                 }
             }
-        }
-
-        void showText(string text) {
-            dialogueBox.enabled = true;
-            dialogueText.enabled = true;
-            dialogueText.text = text;
-        }
-
-        void showFloatingText(string text) {
-            var t = Instantiate(floatingText, transform.position, Quaternion.identity);
-            t.GetComponent<TextMesh>().text = text;
         }
     }
 }

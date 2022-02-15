@@ -1,31 +1,39 @@
 using Actor.Player;
+using Managers;
+using UI.Controllers;
+using Util;
+using Util.Enums;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Environment
 {
     public class DescendHole : MonoBehaviour
     {
-        public int nextLevel;
-        public Image dialogueBox;
-        public Text dialogueText;
-    
+        public Scene nextLevel;
+        public string otherLevelName;
+        
+        private HUDController _hudController;
+
+        void Awake()
+        {
+            _hudController = UIManager.Instance.GetHudController();
+        }
+
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
                 if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
                     FindObjectOfType<PlayerController>().AddRope(-1);
-                    showText("Descend to level two...");
-                    SceneManager.LoadScene(nextLevel);
+                    UIManager.Instance.GetHudController().ShowText("Descend to level two...");
+
+                    if(nextLevel == Scene.Other)
+                        SceneLoader.Load(otherLevelName);
+                    else
+                        SceneLoader.Load(nextLevel.ToString());   
+                    
                 } else {
-                    showText("You need a rope in order to descend");
+                    UIManager.Instance.GetHudController().ShowText("You need a rope in order to descend");
                 }
             }
-        }
-        void showText(string text) {
-            dialogueBox.enabled = true;
-            dialogueText.enabled = true;
-            dialogueText.text = text;
         }
     }
 }

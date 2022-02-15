@@ -1,9 +1,11 @@
+using Managers;
+using UI.MenuUI;
 using UnityEngine;
 
-namespace Assets.Scripts.GUI.MenuUI.Button
+namespace UI.Controllers.ButtonController
 {
     [RequireComponent(typeof(UnityEngine.UI.Button))]
-    public class ButtonController : MonoBehaviour
+    public class ButtonController : MenuItem
     {
         protected UIManager uiManager;
         protected UnityEngine.UI.Button button;
@@ -12,7 +14,7 @@ namespace Assets.Scripts.GUI.MenuUI.Button
         {
             button = GetComponent<UnityEngine.UI.Button>();
             button.onClick.AddListener(OnButtonClicked);
-            uiManager = UIManager.GetInstance();
+            uiManager = UIManager.Instance;
         }
 
         protected virtual void OnButtonClicked()

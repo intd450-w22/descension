@@ -1,7 +1,6 @@
-using System;
 using Actor.AI;
-using UnityEngine;
 using Util.Enums;
+using UnityEngine;
 
 namespace Items
 {

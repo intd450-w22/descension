@@ -1,7 +1,7 @@
-using UnityEngine;
 using Util.Enums;
+using UnityEngine;
 
-namespace Assets.Scripts.GUI.MenuUI
+namespace UI.MenuUI
 {
     public class UIController : MonoBehaviour
     {

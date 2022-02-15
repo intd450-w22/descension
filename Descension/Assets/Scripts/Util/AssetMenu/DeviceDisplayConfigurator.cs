@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Util.Structs;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Util.Structs;
 
 /*
  * Original code by Andy Touch (andyt@unity3d.com)

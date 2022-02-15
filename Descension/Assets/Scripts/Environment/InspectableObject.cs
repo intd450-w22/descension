@@ -1,35 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
+using UI.Controllers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InspectableObject : MonoBehaviour
+namespace Environment
 {
-    public string inspectText;
-    public Image dialogueBox;
-    public Text dialogueText;
+    public class InspectableObject : MonoBehaviour
+    {
+        public string inspectText;
+        public Image dialogueBox;
+        public Text dialogueText;
 
-    private bool playerInRange = false;
+        private bool playerInRange = false;
 
-    // Update is called once per frame
-    void Update() {
-        if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
-            showText(inspectText);
+        private HUDController _hudController;
+
+        void Awake()
+        {
+            _hudController = UIManager.Instance.GetHudController();
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        playerInRange = true;
-        showText("Press F to interact");
-    }
+        void Update() {
+            if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
+                UIManager.Instance.GetHudController().ShowText(inspectText);
+            }
+        }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        playerInRange = false;
-    }
+        private void OnTriggerEnter2D(Collider2D other) {
+            playerInRange = true;
+            UIManager.Instance.GetHudController().ShowText("Press F to interact");
+        }
 
-    void showText(string text) {
-        dialogueBox.enabled = true;
-        dialogueText.enabled = true;
-        dialogueText.text = text;
+        private void OnTriggerExit2D(Collider2D other) {
+            playerInRange = false;
+        }
     }
 }

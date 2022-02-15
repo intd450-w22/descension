@@ -1,15 +1,17 @@
-using Util.Enums;
 using UnityEngine.SceneManagement;
 
-public static class SceneLoader
+namespace Util
 {
-    public static void Load(Util.Enums.Scene scene)
+    public static class SceneLoader
     {
-        SceneManager.LoadScene(scene.ToString());
-    }
+        public static void Load(Util.Enums.Scene scene)
+        {
+            SceneManager.LoadScene(scene.ToString());
+        }
 
-    public static void Load(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+        public static void Load(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
