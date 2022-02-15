@@ -77,7 +77,7 @@ namespace Actor.Player
             if(ropeUI != null) ropeUI.enabled = false;
 
             _reticle = gameObject.GetChildTransformWithName("Reticle");
-            if (_reticle != null && !hasBow)
+            if (_reticle != null && !hasBow && !hasSword)
                 _reticle.gameObject.SetActive(false);
 
             _playerCamera = Camera.main;

@@ -50,5 +50,13 @@ namespace Assets.Scripts.GUI.MenuUI
 
             SceneLoader.Load(scene);
         }
+
+        public void SwitchScene(string scene)
+        {
+            if (LastActiveUI != null)
+                LastActiveUI.gameObject.SetActive(false);
+
+            SceneLoader.Load(scene);
+        }
     }
 }

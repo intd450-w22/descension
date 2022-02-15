@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets.Scripts.GUI.MenuUI.Button
 {
     [RequireComponent(typeof(UnityEngine.UI.Button))]
-    public class ButtonController : MonoBehaviour
+    public class ButtonController : MenuItem
     {
         protected UIManager uiManager;
         protected UnityEngine.UI.Button button;

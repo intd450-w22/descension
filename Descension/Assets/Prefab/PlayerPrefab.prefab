@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72855056329b41e4780ee5330cd7d3fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeviceDisplaySettings: {fileID: 11400000, guid: 2aadf05eb186ee349bcd0c5547a3366f, type: 2}
   movementSpeed: 15
   hitPoints: 100
   score: 0
@@ -215,8 +216,7 @@ MonoBehaviour:
   torchUI: {fileID: 0}
   ropeUI: {fileID: 0}
   floatingTextDamage: {fileID: 8906469561440662331, guid: 4e0e5517ab5528f43ab4b646d3a1ba4f, type: 3}
-  arrowPrefab: {fileID: 0}
-  DeviceDisplaySettings: {fileID: 11400000, guid: 2aadf05eb186ee349bcd0c5547a3366f, type: 2}
+  arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
 --- !u!114 &6851937908845542240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +298,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: df857fd3-43d9-4488-844f-8607dba777f5
     m_ActionName: Default/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8309fb2e-8e11-4ed6-b160-06e5f2fd3a4a
+    m_ActionName: UI/Navigate[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/leftStick/right,/DualShock4GamepadHID/rightStick/right,/DualShock4GamepadHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76f6ff4c-625b-424f-bb5c-4393fe5c231b
+    m_ActionName: UI/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3e713bd3-2816-47d6-a63f-c64cf0cd2f82
+    m_ActionName: UI/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f01313f-8f42-4e2c-9a07-a67a2ac5e698
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1eb5cb3-6674-4620-ac29-055f01da8b4a
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 129f68c7-ba0c-487f-9d58-17328e9fe6af
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4099d40-f72c-42c9-bc04-307fbb6bca24
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f8222625-6c6d-4ed8-9766-ec04ffddcdf7
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd684ef8-8dc6-441f-bf46-338e8923a402
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a72c5ae-d904-490a-ac4b-55fa6c4ddc94
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Default
