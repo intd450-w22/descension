@@ -93,10 +93,11 @@ namespace Actor.Player
 
         void Start()
         {
+            Debug.Log("PLAYER CONTROLLER START");
             _playerCamera = Camera.main;
-            _gameManager = GameManager.GetInstance();
-            _uiManager = UIManager.GetInstance();
-            _hudController = FindObjectOfType<HUDController>();
+            _gameManager = GameManager.Instance;
+            _uiManager = UIManager.Instance;
+            _hudController = _uiManager.GetHudController();
         }
 
         private void OnEnable() => _playerControls.Enable();
@@ -209,7 +210,7 @@ namespace Actor.Player
             // Pause enemies and stuff
 
             // Display menu 
-            _uiManager.SwitchUI(UIType.PauseMenu);
+            _uiManager.SwitchUi(UIType.PauseMenu);
         }
 
         public void OnResume()

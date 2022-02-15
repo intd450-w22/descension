@@ -5,20 +5,30 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameManager _instance;
-        public static GameManager GetInstance() => _instance;
+        public static GameManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType<GameManager>();
+
+                return _instance;
+            }
+            set => _instance = value;
+        }
 
         public bool IsPaused;
 
         protected void Awake()
         {
-            if (_instance == null)
+            if (_instance != null && _instance != this)
             {
-                DontDestroyOnLoad(gameObject);
-                _instance = this;
+                Destroy(gameObject);
             }
             else
             {
-                Destroy(gameObject);
+                DontDestroyOnLoad(gameObject);
+                _instance = this;
             }
         }
         

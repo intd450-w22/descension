@@ -1,4 +1,5 @@
 using Actor.Player;
+using Managers;
 using UI.Controllers;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Items
 
         void Awake()
         {
-            _hudController = FindObjectOfType<HUDController>();
+            _hudController = UIManager.Instance.GetHudController();
         }
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {

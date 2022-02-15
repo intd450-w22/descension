@@ -6,6 +6,7 @@
         SettingsMenu,
         LevelSelectMenu,
         PauseMenu,
-        GameHUD
+        GameHUD,
+        None,
     }
 }

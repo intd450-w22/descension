@@ -8,7 +8,7 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
-            uiManager.SwitchUI(TargetUI);
+            uiManager.SwitchUi(TargetUI);
         }
     }
 }

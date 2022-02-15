@@ -7,7 +7,7 @@ namespace UI.Controllers.ButtonController
     {
         protected override void OnButtonClicked()
         {
-            uiManager.SwitchUI(UIType.GameHUD);
+            uiManager.SwitchUi(UIType.GameHUD);
         
             var player = FindObjectOfType<PlayerController>();
             if (player != null)

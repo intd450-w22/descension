@@ -1,4 +1,5 @@
 using Actor.Player;
+using Managers;
 using UI.Controllers;
 using Util;
 using Util.Enums;
@@ -15,7 +16,7 @@ namespace Environment
 
         void Awake()
         {
-            _hudController = FindObjectOfType<HUDController>();
+            _hudController = UIManager.Instance.GetHudController();
         }
 
         void OnCollisionEnter2D(Collision2D collision) {

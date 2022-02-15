@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UI.Controllers;
 using UI.MenuUI;
 using Util;
 using Util.Enums;
@@ -10,41 +11,58 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
         private static UIManager _instance;
-        private List<UIController> uiControllers;
-        private UIController LastActiveUI;
+        public static UIManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType<UIManager>();
+                
 
-        public UIType defaultUI = UIType.MainMenu;
+                return _instance;
+            }
+            set => _instance = value;
+        }
 
-        public static UIManager GetInstance() => _instance;
+        private List<UIController> _uiControllers;
+        private HUDController _hudController;
+        private UIController _lastActiveUi;
+
+        public UIType DefaultUi = UIType.MainMenu;
 
         protected void Awake()
         {
-            if (_instance == null)
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else
             {
                 DontDestroyOnLoad(gameObject);
                 _instance = this;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
-            
-            uiControllers = FindObjectsOfType<UIController>().ToList();
-            uiControllers.ForEach(x => x.gameObject.SetActive(false));
-            SwitchUI(defaultUI);
+
+            _hudController = GetComponentInChildren<HUDController>();
+            _uiControllers = FindObjectsOfType<UIController>().ToList();
+            _uiControllers.ForEach(x => x.gameObject.SetActive(false));
+            SwitchUi(DefaultUi);
         }
 
-        public void SwitchUI(UIType uiType)
-        {
-            Debug.Log("SWITCH UI " + uiType);
-            if (LastActiveUI != null)
-                LastActiveUI.gameObject.SetActive(false);
+        public HUDController GetHudController() => _hudController;
 
-            var targetUI = uiControllers.FirstOrDefault(x => x.uiType == uiType);
-            if (targetUI != null)
+        public void SwitchUi(UIType uiType)
+        {
+            if (_lastActiveUi != null)
+                _lastActiveUi.gameObject.SetActive(false);
+
+            if(uiType == UIType.None) return;
+
+            var targetUi = _uiControllers.FirstOrDefault(x => x.uiType == uiType);
+            if (targetUi != null)
             {
-                targetUI.gameObject.SetActive(true);
-                LastActiveUI = targetUI;
+                targetUi.gameObject.SetActive(true);
+                _lastActiveUi = targetUi;
             }
             else
             {
@@ -52,20 +70,12 @@ namespace Managers
             }
         }
 
-        public void SwitchScene(Scene scene)
+        public void SwitchScene(Scene scene, UIType uiType = UIType.None) => SwitchScene(scene.ToString(), uiType);
+
+        public void SwitchScene(string scene, UIType uiType = UIType.None)
         {
-            if (LastActiveUI != null)
-                LastActiveUI.gameObject.SetActive(false);
-
             SceneLoader.Load(scene);
-        }
-
-        public void SwitchScene(string scene)
-        {
-            if (LastActiveUI != null)
-                LastActiveUI.gameObject.SetActive(false);
-
-            SceneLoader.Load(scene);
+            SwitchUi(uiType);
         }
     }
 }

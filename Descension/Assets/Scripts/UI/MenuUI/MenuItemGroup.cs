@@ -12,7 +12,6 @@ namespace UI.MenuUI
         void Awake()
         {
             MenuItems = GetComponentsInChildren<MenuItem>().ToList();
-            Debug.Log(name + " " + MenuItems.Count);
         }
     }
 }

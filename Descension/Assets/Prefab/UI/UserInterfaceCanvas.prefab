@@ -3037,6 +3037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetScene: 0
   OtherTargetScene: Level1-Perspective
+  UiType: 4
 --- !u!1001 &493105460845649356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3497,6 +3498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetScene: 0
   OtherTargetScene: Level1-Perspective
+  UiType: 4
 --- !u!1001 &493105461072883320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3721,6 +3723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetScene: 0
   OtherTargetScene: Level2-Perspective
+  UiType: 4
 --- !u!1001 &493105461214005064
 PrefabInstance:
   m_ObjectHideFlags: 0

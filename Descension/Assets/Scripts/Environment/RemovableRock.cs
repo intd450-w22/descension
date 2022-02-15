@@ -1,4 +1,5 @@
 using Actor.Player;
+using Managers;
 using UI.Controllers;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Environment
 
         void Awake() {
             _playerController = FindObjectOfType<PlayerController>();
-            _hudController = FindObjectOfType<HUDController>();
+            _hudController = UIManager.Instance.GetHudController();
         }
 
         void OnCollisionEnter2D(Collision2D collision) {

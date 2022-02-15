@@ -63,47 +63,56 @@ namespace UI.Controllers
 
         public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity)
         {
-            _scoreUI.text = "Gold/Score: " + score.ToString();
+            try
+            {
+                _scoreUI.text = "Gold/Score: " + score.ToString();
 
-            if (pickQuantity > 0)
-            {
-                _pickUI.enabled = true;
-                _pickUI.text = "Pick " + pickQuantity.ToString();
-            }
-            else
-            {
-                _pickUI.enabled = false;
-            }
+                if (pickQuantity > 0)
+                {
+                    _pickUI.enabled = true;
+                    _pickUI.text = "Pick " + pickQuantity.ToString();
+                }
+                else
+                {
+                    _pickUI.enabled = false;
+                }
 
-            if (arrowsQuantity > 0)
-            {
-                _bowUI.enabled = true;
-                _bowUI.text = "Arrows " + arrowsQuantity.ToString();
-            }
-            else
-            {
-                _bowUI.enabled = false;
-            }
+                if (arrowsQuantity > 0)
+                {
+                    _bowUI.enabled = true;
+                    _bowUI.text = "Arrows " + arrowsQuantity.ToString();
+                }
+                else
+                {
+                    _bowUI.enabled = false;
+                }
 
-            if (ropeQuantity > 0)
-            {
-                _ropeUI.enabled = true;
-                _ropeUI.text = "Rope " + ropeQuantity.ToString();
-            }
-            else
-            {
-                _ropeUI.enabled = false;
-            }
+                if (ropeQuantity > 0)
+                {
+                    _ropeUI.enabled = true;
+                    _ropeUI.text = "Rope " + ropeQuantity.ToString();
+                }
+                else
+                {
+                    _ropeUI.enabled = false;
+                }
 
-            if (torchQuantity > 0)
-            {
-                _torchUI.enabled = true;
-                _torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
+                if (torchQuantity > 0)
+                {
+                    _torchUI.enabled = true;
+                    _torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
+                }
+                else
+                {
+                    _torchUI.enabled = false;
+                }
             }
-            else
+            catch (MissingReferenceException e)
             {
-                _torchUI.enabled = false;
+                Debug.LogWarning(e.Message);
+                SetReferences();
             }
+            
         }
     }
 }

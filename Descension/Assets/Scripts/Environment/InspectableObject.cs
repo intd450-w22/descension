@@ -1,3 +1,4 @@
+using Managers;
 using UI.Controllers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ namespace Environment
 
         void Awake()
         {
-            _hudController = FindObjectOfType<HUDController>();
+            _hudController = UIManager.Instance.GetHudController();
         }
 
         void Update() {

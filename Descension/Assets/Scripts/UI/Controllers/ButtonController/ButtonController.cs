@@ -14,7 +14,7 @@ namespace UI.Controllers.ButtonController
         {
             button = GetComponent<UnityEngine.UI.Button>();
             button.onClick.AddListener(OnButtonClicked);
-            uiManager = UIManager.GetInstance();
+            uiManager = UIManager.Instance;
         }
 
         protected virtual void OnButtonClicked()

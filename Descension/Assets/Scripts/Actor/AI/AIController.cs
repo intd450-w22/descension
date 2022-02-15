@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static Util.Helpers.CalculationHelper;
 using static Util.Helpers.Extensions;
+using Managers;
 
 namespace Actor.AI
 {
@@ -53,7 +54,7 @@ namespace Actor.AI
             _patrolTargets = new List<Transform>(transform.Find("PatrolTargets").GetComponentsInChildren<Transform>());
             _currentTarget = gameObject.GetChildTransformWithName("CurrentTarget");
             _player = FindObjectOfType<PlayerController>().transform;
-            _hudController = FindObjectOfType<HUDController>();
+            _hudController = UIManager.Instance.GetHudController();
             
             _alive = true;
             
