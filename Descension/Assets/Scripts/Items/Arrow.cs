@@ -1,8 +1,8 @@
-using Assets.Scripts.Actor.AI;
-using Assets.Scripts.Util.Enums;
+using Actor.AI;
+using Util.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Items
+namespace Items
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Arrow : MonoBehaviour

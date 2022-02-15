@@ -1,7 +1,7 @@
-using Assets.Scripts.Actor.Player;
-using Assets.Scripts.Util.Enums;
+using Actor.Player;
+using Util.Enums;
 
-namespace Assets.Scripts.GUI.Controllers.ButtonController
+namespace UI.Controllers.ButtonController
 {
     public class ResumeGameButtonController : ButtonController
     {

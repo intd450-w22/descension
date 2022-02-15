@@ -1,10 +1,10 @@
-using Assets.Scripts.Actor.Player;
-using Assets.Scripts.GUI.Controllers;
-using Assets.Scripts.Util;
-using Assets.Scripts.Util.Enums;
+using Actor.Player;
+using UI.Controllers;
+using Util;
+using Util.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Environment
+namespace Environment
 {
     public class DescendHole : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 ﻿
 
-using Assets.Scripts.Util.Enums;
+using Util.Enums;
 
-namespace Assets.Scripts.GUI.Controllers.ButtonController
+namespace UI.Controllers.ButtonController
 {
     public class ChangeSceneButtonController : ButtonController
     {

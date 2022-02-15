@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.GUI.MenuUI;
-using Assets.Scripts.Util;
-using Assets.Scripts.Util.Enums;
+using UI.MenuUI;
+using Util;
+using Util.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Managers
 {
     public class UIManager : MonoBehaviour
     {

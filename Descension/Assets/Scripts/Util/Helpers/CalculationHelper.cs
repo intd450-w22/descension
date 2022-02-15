@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Util.Helpers
+namespace Util.Helpers
 {
     public static class CalculationHelper
     {

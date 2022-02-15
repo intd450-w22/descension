@@ -1,7 +1,7 @@
-using Assets.Scripts.Actor.Player;
+using Actor.Player;
 using UnityEngine;
 
-namespace Assets.Scripts.Actor.AI
+namespace Actor.AI
 {
     public class EnemyOne : MonoBehaviour
     {

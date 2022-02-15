@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.GUI.MenuUI
+namespace UI.MenuUI
 {
     public class MenuItemGroup : MonoBehaviour
     {

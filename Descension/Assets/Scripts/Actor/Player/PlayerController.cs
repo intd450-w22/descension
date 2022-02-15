@@ -1,14 +1,14 @@
-using Assets.Scripts.Actor.AI;
-using Assets.Scripts.GUI.Controllers;
-using Assets.Scripts.Managers;
-using Assets.Scripts.Util.AssetMenu;
-using Assets.Scripts.Util.Enums;
-using Assets.Scripts.Util.Helpers;
+using Actor.AI;
+using Managers;
+using UI.Controllers;
+using Util.AssetMenu;
+using Util.Enums;
+using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Actor.Player
+namespace Actor.Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour

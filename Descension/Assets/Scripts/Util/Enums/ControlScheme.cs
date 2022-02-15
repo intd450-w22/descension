@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Util.Enums
+﻿namespace Util.Enums
 {
     public enum ControlScheme
     {

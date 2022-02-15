@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Util.Helpers
+namespace Util.Helpers
 {
     public static class Extensions
     {

@@ -1,8 +1,8 @@
-using Assets.Scripts.GUI.MenuUI;
-using Assets.Scripts.Managers;
+using Managers;
+using UI.MenuUI;
 using UnityEngine;
 
-namespace Assets.Scripts.GUI.Controllers.ButtonController
+namespace UI.Controllers.ButtonController
 {
     [RequireComponent(typeof(UnityEngine.UI.Button))]
     public class ButtonController : MenuItem

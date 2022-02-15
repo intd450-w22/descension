@@ -5,7 +5,7 @@ using UnityEngine;
  * Original code by Andy Touch (andyt@unity3d.com)
  * Source code https://github.com/UnityTechnologies/InputSystem_Warriors
  */
-namespace Assets.Scripts.Util.AssetMenu
+namespace Util.AssetMenu
 {
     [System.Serializable]
     public struct CustomInputContextIcon

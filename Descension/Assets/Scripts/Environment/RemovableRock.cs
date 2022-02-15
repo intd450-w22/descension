@@ -1,8 +1,8 @@
-using Assets.Scripts.Actor.Player;
-using Assets.Scripts.GUI.Controllers;
+using Actor.Player;
+using UI.Controllers;
 using UnityEngine;
 
-namespace Assets.Scripts.Environment
+namespace Environment
 {
     public class RemovableRock : MonoBehaviour
     {

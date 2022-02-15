@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Actor.AI
+namespace Actor.AI
 {
     public class AttackOne : AttackBase
     {

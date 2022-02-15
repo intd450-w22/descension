@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.GUI.MenuUI
+namespace UI.MenuUI
 {
     public class MenuItem : MonoBehaviour
     {

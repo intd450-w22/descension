@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.GUI
+namespace UI
 {
     public class PopUpText : MonoBehaviour
     {

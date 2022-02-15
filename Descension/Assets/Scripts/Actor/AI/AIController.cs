@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Actor.Player;
-using Assets.Scripts.GUI.Controllers;
-using Assets.Scripts.Util.Enums;
+using Actor.Player;
+using UI.Controllers;
+using Util.Enums;
 using UnityEngine;
 using UnityEngine.AI;
-using static Assets.Scripts.Util.Helpers.CalculationHelper;
-using static Assets.Scripts.Util.Helpers.Extensions;
+using static Util.Helpers.CalculationHelper;
+using static Util.Helpers.Extensions;
 
-namespace Assets.Scripts.Actor.AI
+namespace Actor.AI
 {
     // General controller class for enemy AI. Add a script derived from AttackBase to the enemy object to implement unique attack logic.
     public class AIController : MonoBehaviour

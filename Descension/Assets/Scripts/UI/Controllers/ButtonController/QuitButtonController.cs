@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.GUI.Controllers.ButtonController
+namespace UI.Controllers.ButtonController
 {
     public class QuitButtonController : ButtonController
     {

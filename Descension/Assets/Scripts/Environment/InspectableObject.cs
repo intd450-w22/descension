@@ -1,8 +1,8 @@
-using Assets.Scripts.GUI.Controllers;
+using UI.Controllers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Environment
+namespace Environment
 {
     public class InspectableObject : MonoBehaviour
     {

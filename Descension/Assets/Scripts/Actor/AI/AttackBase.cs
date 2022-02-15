@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Actor.AI
+namespace Actor.AI
 {
     [RequireComponent(typeof(AIController))]
     public abstract class AttackBase : MonoBehaviour

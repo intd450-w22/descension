@@ -1,8 +1,8 @@
-using Assets.Scripts.Util.Helpers;
+using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GUI.Controllers
+namespace UI.Controllers
 {
     public class HUDController : MonoBehaviour
     {
