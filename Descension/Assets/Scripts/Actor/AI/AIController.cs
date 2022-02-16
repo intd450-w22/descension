@@ -100,6 +100,7 @@ namespace Actor.AI
 
         private void OnCollisionEnter2D(Collision2D other)
         {
+            Debug.Log("collision enemy");
             GameObject obj = other.gameObject;
             if (obj.CompareTag("Player"))
             {

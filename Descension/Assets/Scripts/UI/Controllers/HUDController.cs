@@ -18,6 +18,7 @@ namespace UI.Controllers
         private Text _pickUI;
         private Text _torchUI;
         private Text _ropeUI;
+        private Text _healthUI;
 
         void Awake()
         {
@@ -40,6 +41,7 @@ namespace UI.Controllers
             _pickUI = guiGroup.GetChildObjectWithName("PickDurability").GetComponent<Text>();
             _torchUI = guiGroup.GetChildObjectWithName("TorchDurability").GetComponent<Text>();
             _ropeUI = guiGroup.GetChildObjectWithName("RopeDurability").GetComponent<Text>();
+            _healthUI = guiGroup.GetChildObjectWithName("Health").GetComponent<Text>();
         }
 
         public void Reset()
@@ -51,6 +53,7 @@ namespace UI.Controllers
             _pickUI.enabled = false;
             _torchUI.enabled = false;
             _ropeUI.enabled = false;
+            _healthUI.enabled = true;
         }
 
         public void HideDialogue()
@@ -73,11 +76,12 @@ namespace UI.Controllers
             _dialogueText.text = text;
         }
 
-        public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity)
+        public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity, float health)
         {
             try
             {
                 _scoreUI.text = "Gold/Score: " + score.ToString();
+                _healthUI.text = "Health: " + health.ToString();
 
                 if (pickQuantity > 0)
                 {

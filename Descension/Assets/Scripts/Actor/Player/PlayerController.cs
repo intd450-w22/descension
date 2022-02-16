@@ -5,10 +5,12 @@ using UI.Controllers;
 using Util.AssetMenu;
 using Util.Enums;
 using Util.Helpers;
+using Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Android;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Actor.Player
 {
@@ -59,6 +61,9 @@ namespace Actor.Player
         private Transform _reticle;
         private Rigidbody2D _rb;
 
+        // current scene for death
+        private string scene;
+
         void Awake() {
             _reticle = gameObject.GetChildTransformWithName("Reticle");
             if (_reticle != null && !hasBow && !hasSword)
@@ -97,7 +102,7 @@ namespace Actor.Player
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
-            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity);
+            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.velocity = _rawInputMovement * movementSpeed;
 
@@ -178,6 +183,17 @@ namespace Actor.Player
         public void InflictDamage(float damage) {
             hitPoints -= damage;
             _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
+            if (hitPoints < 1)
+            {
+                //public UIType uiAfterReload;
+                //var currScene = uiManager.GetCurrentScene();
+                //uiManager.SwitchScene(currScene);
+                //if (uiAfterReload == UIType.GameHUD)
+                //uiManager.GetHudController().Reset();
+                //uiManager.SwitchUi(uiAfterReload);
+                scene = SceneManager.GetActiveScene().name;
+                SceneLoader.Load(scene);
+            }
         }
 
         #endregion
