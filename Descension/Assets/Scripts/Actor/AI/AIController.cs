@@ -14,7 +14,7 @@ using Unity.Collections;
 
 namespace Actor.AI
 {
-    // General controller class for enemy AI. Add a script derived from AttackBase to the enemy object to implement unique attack logic.
+    // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
     public class AIController : MonoBehaviour
     {
         public float hitPoints = 100;
