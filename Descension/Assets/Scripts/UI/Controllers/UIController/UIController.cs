@@ -1,10 +1,15 @@
 using Util.Enums;
 using UnityEngine;
 
-namespace UI.MenuUI
+namespace UI.Controllers.UIController
 {
     public class UIController : MonoBehaviour
     {
         public UIType uiType;
+
+        public virtual void OnStart()
+        {
+
+        }
     }
 }

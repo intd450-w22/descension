@@ -8,6 +8,7 @@
         PauseMenu,
         GameHUD,
         None,
-        ControlsMenu
+        ControlsMenu,
+        Intro
     }
 }

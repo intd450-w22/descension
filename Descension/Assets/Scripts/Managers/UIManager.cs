@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UI.Controllers;
-using UI.MenuUI;
+using UI.Controllers.UIController;
 using Util;
 using Util.Enums;
 using UnityEngine;
@@ -71,6 +71,7 @@ namespace Managers
             if (targetUi != null)
             {
                 targetUi.gameObject.SetActive(true);
+                targetUi.OnStart();
                 _lastActiveUi = targetUi;
             }
             else
