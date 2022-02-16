@@ -8,8 +8,6 @@ using Util.Helpers;
 using Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Android;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace Actor.Player
