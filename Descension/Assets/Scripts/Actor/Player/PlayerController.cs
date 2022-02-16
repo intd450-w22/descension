@@ -7,8 +7,6 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Android;
-using UnityEngine.UI;
 
 namespace Actor.Player
 {
