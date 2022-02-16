@@ -5,6 +5,8 @@ using UI.MenuUI;
 using Util;
 using Util.Enums;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Scene = Util.Enums.Scene;
 
 namespace Managers
 {
@@ -49,6 +51,8 @@ namespace Managers
         }
 
         public HUDController GetHudController() => _hudController;
+
+        public string GetCurrentScene() => SceneManager.GetActiveScene().name;
 
         public void ReinitHudController()
         {

@@ -36,19 +36,8 @@ namespace Actor.Player
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
-        // TODO: These should not be injected via the editor. We can 
-        // TODO: use something like tags to identify them in the scene
-        // TODO: and assign references. 
         [Header("Scene Elements")] 
         public bool useUI = true;
-        public Image dialogueBox;
-        public Text dialogueText;
-        public Text scoreUI;
-        public Text bowUI;
-        public Text pickUI;
-        public Text torchUI;
-        public Text ropeUI;
-        public GameObject floatingTextDamage;
         public GameObject arrowPrefab;
         
         private Camera _playerCamera;
@@ -57,7 +46,6 @@ namespace Actor.Player
         private PlayerInput _playerInput;
         private PlayerControls _playerControls;
         private string _currentControlScheme = ControlScheme.Desktop.ToString();
-        private bool _isPaused = false;
 
         // State variable 
         private Vector2 _rawInputMovement;
@@ -71,16 +59,6 @@ namespace Actor.Player
         private Rigidbody2D _rb;
 
         void Awake() {
-            // TODO: These work here for now, but should be moved later.
-
-            // if(dialogueBox != null) dialogueBox.enabled = false;
-            // if(dialogueText != null) dialogueText.enabled = false;
-            // if(scoreUI != null) scoreUI.enabled = true;
-            // if(bowUI != null) bowUI.enabled = false;
-            // if(pickUI != null) pickUI.enabled = false;
-            // if(torchUI != null) torchUI.enabled = false;
-            // if(ropeUI != null) ropeUI.enabled = false;
-
             _reticle = gameObject.GetChildTransformWithName("Reticle");
             if (_reticle != null && !hasBow && !hasSword)
                 _reticle.gameObject.SetActive(false);
@@ -89,7 +67,6 @@ namespace Actor.Player
             _playerControls = new PlayerControls();
 
             _rb = GetComponent<Rigidbody2D>();
-
         }
 
         void Start()
@@ -104,6 +81,15 @@ namespace Actor.Player
 
         private void OnDisable() => _playerControls.Disable();
 
+        void Update()
+        {
+            // TODO: Remove this once the OnAttack callback is functioning
+            // Since our physics/movement code is in FixedUpdate, we miss
+            // input on a per-frame basis. So we calculate it here, and
+            // asses it in FixedUpdate, where it's set to false at the end. 
+            _isAttack |= _playerControls.Default.Shoot.WasPressedThisFrame();
+        }
+
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
@@ -111,19 +97,10 @@ namespace Actor.Player
 
             _rb.velocity = _rawInputMovement * movementSpeed;
 
-            // if(useUI)
-            //     // what does this do ? 
-            //     if ((dialogueBox.enabled || dialogueText.enabled) && Input.GetKeyDown(KeyCode.Space)) {
-            //         dialogueBox.enabled = false;
-            //         dialogueText.enabled = false;
-            //     }
-
             if (torchQuantity > 0) {
                 torchQuantity -= 2 * Time.deltaTime;
             }
 
-            // TODO: Remove this once the callback is functioning
-            _isAttack = _playerControls.Default.Shoot.WasPerformedThisFrame();
             if (hasBow)
             {
                 var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
@@ -151,8 +128,9 @@ namespace Actor.Player
                 Debug.DrawLine(transform.position, transform.position + direction * 3);
 
                 if (_isAttack && arrowsQuantity > 0) {
-                    GameObject arrowObject = Instantiate(arrowPrefab, transform);
-                    Arrow arrow = arrowObject.GetComponent<Arrow>();
+                    Debug.Log("IS ATTACKING");
+                    var arrowObject = Instantiate(arrowPrefab, transform);
+                    var arrow = arrowObject.GetComponent<Arrow>();
                     arrow.Initialize(direction);
                     arrowsQuantity -= 1;
                 }                
@@ -182,7 +160,8 @@ namespace Actor.Player
                     }
                 }
             }
-            
+
+            _isAttack = false;
         }
 
         private void PauseMenu()
@@ -203,11 +182,9 @@ namespace Actor.Player
 
         public void OnPause()
         {
-            if (_isPaused) return;
+            if (_gameManager.IsPaused) return;
 
-            _isPaused = true;
-
-            // Pause enemies and stuff
+            _gameManager.IsPaused = true;
 
             // Display menu 
             _uiManager.SwitchUi(UIType.PauseMenu);
@@ -215,8 +192,7 @@ namespace Actor.Player
 
         public void OnResume()
         {
-            Debug.Log("ON RESUME");
-            _isPaused = false;
+            _gameManager.IsPaused = false;
         }
 
         public void OnMovement(InputAction.CallbackContext value)

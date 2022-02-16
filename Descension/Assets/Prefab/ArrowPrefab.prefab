@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  damage: 10
+  damage: 40
   timeToLive: 5
   body: {fileID: 0}
   sprite: {fileID: 1048845303807588368}
