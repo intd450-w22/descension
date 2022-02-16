@@ -53,6 +53,12 @@ namespace UI.Controllers
             _ropeUI.enabled = false;
         }
 
+        public void HideDialogue()
+        {
+            _dialogueBox.enabled = false;
+            _dialogueText.enabled = false;
+        }
+
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
 
         public void ShowFloatingText(Vector3 location, string text, Color? color = null) {

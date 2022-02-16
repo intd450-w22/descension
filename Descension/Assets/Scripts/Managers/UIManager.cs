@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UI.Controllers;
-using UI.MenuUI;
+using UI.Controllers.UIController;
 using Util;
 using Util.Enums;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Scene = Util.Enums.Scene;
 
 namespace Managers
 {
@@ -50,6 +52,8 @@ namespace Managers
 
         public HUDController GetHudController() => _hudController;
 
+        public string GetCurrentScene() => SceneManager.GetActiveScene().name;
+
         public void ReinitHudController()
         {
             _hudController = GetComponentInChildren<HUDController>();
@@ -67,6 +71,7 @@ namespace Managers
             if (targetUi != null)
             {
                 targetUi.gameObject.SetActive(true);
+                targetUi.OnStart();
                 _lastActiveUi = targetUi;
             }
             else

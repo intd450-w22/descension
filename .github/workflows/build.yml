@@ -76,6 +76,7 @@ jobs:
         targetPlatform:
           - StandaloneWindows   # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          - StandaloneOSX
         projectPath: 
           - Descension
         customImage: 
