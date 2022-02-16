@@ -205,6 +205,12 @@ namespace Actor.Player
             // TODO: Get the callback working 
         }
 
+        public void OnSpace(InputAction.CallbackContext value)
+        {
+            if(value.started)
+                _hudController.HideDialogue();
+        }
+
         public void OnControlsChanged()
         {
             if (!_playerInput) return;

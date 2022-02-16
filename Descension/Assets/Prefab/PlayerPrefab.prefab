@@ -208,14 +208,6 @@ MonoBehaviour:
   ropeQuantity: 0
   torchQuantity: 0
   useUI: 1
-  dialogueBox: {fileID: 0}
-  dialogueText: {fileID: 0}
-  scoreUI: {fileID: 0}
-  bowUI: {fileID: 0}
-  pickUI: {fileID: 0}
-  torchUI: {fileID: 0}
-  ropeUI: {fileID: 0}
-  floatingTextDamage: {fileID: 8906469561440662331, guid: 4e0e5517ab5528f43ab4b646d3a1ba4f, type: 3}
   arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
 --- !u!114 &6851937908845542240
 MonoBehaviour:
@@ -249,7 +241,19 @@ MonoBehaviour:
         m_CallState: 2
   m_DeviceRegainedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -354,6 +358,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6e056fc5-68d1-486c-9f79-8e998a50c54a
     m_ActionName: Default/Pause[/Keyboard/escape,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSpace
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a7e73f98-acbc-4919-bb16-f0dfe744c9e2
+    m_ActionName: Default/Space[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Default

@@ -53,6 +53,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7e73f98-acbc-4919-bb16-f0dfe744c9e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +227,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4dd0f01-5dd5-4c3c-9640-e10d9f93600f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -775,6 +795,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
         m_Default_Shoot = m_Default.FindAction("Shoot", throwIfNotFound: true);
         m_Default_Pause = m_Default.FindAction("Pause", throwIfNotFound: true);
+        m_Default_Space = m_Default.FindAction("Space", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -849,6 +870,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Move;
     private readonly InputAction m_Default_Shoot;
     private readonly InputAction m_Default_Pause;
+    private readonly InputAction m_Default_Space;
     public struct DefaultActions
     {
         private @PlayerControls m_Wrapper;
@@ -856,6 +878,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Default_Move;
         public InputAction @Shoot => m_Wrapper.m_Default_Shoot;
         public InputAction @Pause => m_Wrapper.m_Default_Pause;
+        public InputAction @Space => m_Wrapper.m_Default_Space;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -874,6 +897,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
+                @Space.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -887,6 +913,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
             }
         }
     }
@@ -1019,6 +1048,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
