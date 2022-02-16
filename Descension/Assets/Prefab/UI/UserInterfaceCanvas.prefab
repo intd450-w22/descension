@@ -4548,7 +4548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The foolish gowillingly.
+  m_text: The foolish go willingly.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5555,7 +5555,7 @@ MonoBehaviour:
   NextScene: 0
   OtherScene: Level1-Perspective
   NextUi: 4
-  TimeBeforeTransition: 5
+  TimeBeforeTransition: 15
 --- !u!1 &7871514595597408283
 GameObject:
   m_ObjectHideFlags: 0
