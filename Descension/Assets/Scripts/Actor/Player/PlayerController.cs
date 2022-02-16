@@ -7,6 +7,7 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Android;
 using UnityEngine.UI;
 
 namespace Actor.Player
@@ -75,6 +76,9 @@ namespace Actor.Player
             _gameManager = GameManager.Instance;
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
+
+            // TODO: Find a better way to ensure game is started
+            _gameManager.IsPaused = false;
         }
 
         private void OnEnable() => _playerControls.Enable();
