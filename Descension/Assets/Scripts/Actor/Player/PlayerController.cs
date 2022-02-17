@@ -5,12 +5,9 @@ using UI.Controllers;
 using Util.AssetMenu;
 using Util.Enums;
 using Util.Helpers;
-using Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using Environment;
-using Scene = UnityEngine.SceneManagement.Scene;
 
 
 namespace Actor.Player
