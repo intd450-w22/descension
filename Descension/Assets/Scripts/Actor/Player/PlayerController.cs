@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 using Environment;
 using Scene = UnityEngine.SceneManagement.Scene;
 
+
 namespace Actor.Player
 {
     [RequireComponent(typeof(PlayerInput))]
