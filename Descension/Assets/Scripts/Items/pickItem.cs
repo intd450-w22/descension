@@ -10,7 +10,8 @@ namespace Items
     {
         public float quantity = 20;
 
-        private string description = "Pick Collected.\n Made for mining since the ancient eras. Who knew we'd still be using them?";
+        private bool _isPickedUp = false;
+        private string _description = "Pick Collected.\n Made for mining since the ancient eras. Who knew we'd still be using them?";
         private HUDController _hudController;
 
         void Awake()
@@ -18,11 +19,16 @@ namespace Items
             _hudController = UIManager.Instance.GetHudController();
         }
 
-        void OnCollisionEnter2D(Collision2D collision) {
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (_isPickedUp) return;
+            
             FindObjectOfType<SoundManager>().ItemFound();
-            if (collision.gameObject.CompareTag("Player")) {
-                FindObjectOfType<PlayerController>().AddPick(this.quantity);
-                UIManager.Instance.GetHudController().ShowText(description);
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                _isPickedUp = true;
+                FindObjectOfType<PlayerController>().AddPick(quantity);
+                UIManager.Instance.GetHudController().ShowText(_description);
                 Destroy(gameObject);
             }
         }
