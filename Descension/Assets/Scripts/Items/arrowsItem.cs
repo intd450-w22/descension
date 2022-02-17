@@ -2,6 +2,7 @@ using Actor.Player;
 using Managers;
 using UI.Controllers;
 using UnityEngine;
+using Environment;
 
 namespace Items
 {
@@ -9,6 +10,7 @@ namespace Items
     {
         public float quantity = 20;
 
+        private string description = "Arrows collected.\n";
         private HUDController _hudController;
 
         void Awake()
@@ -18,8 +20,9 @@ namespace Items
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
+                FindObjectOfType<SoundManager>().ItemFound();
                 FindObjectOfType<PlayerController>().AddArrows(this.quantity);
-                UIManager.Instance.GetHudController().ShowText("Arrows collected");
+                UIManager.Instance.GetHudController().ShowText(description);
                 Destroy(gameObject);
             }
         }
