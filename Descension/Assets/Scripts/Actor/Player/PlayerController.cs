@@ -58,6 +58,7 @@ namespace Actor.Player
         private HUDController _hudController;
         private Transform _reticle;
         private Rigidbody2D _rb;
+        // private SoundManager _soundManager;
 
         // current scene for death
         private string scene;
@@ -79,6 +80,7 @@ namespace Actor.Player
             _gameManager = GameManager.Instance;
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
+            // _soundManager = FindObjectOfType<SoundManager>();
 
             // TODO: Find a better way to ensure game is started
             _gameManager.IsPaused = false;
@@ -135,12 +137,15 @@ namespace Actor.Player
                 Debug.DrawLine(transform.position, transform.position + direction * 3);
 
                 if (_isAttack && arrowsQuantity > 0) {
+                    // _soundManager.ArrowAttack();
                     Debug.Log("IS ATTACKING");
                     var arrowObject = Instantiate(arrowPrefab, transform);
                     var arrow = arrowObject.GetComponent<Arrow>();
                     arrow.Initialize(direction);
                     arrowsQuantity -= 1;
-                }                
+                } else if (_isAttack && arrowsQuantity < 1) {
+                    UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
+                }             
             }
             else if (hasSword)
             {
