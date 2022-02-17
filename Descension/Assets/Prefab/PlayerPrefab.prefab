@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeviceDisplaySettings: {fileID: 11400000, guid: 2aadf05eb186ee349bcd0c5547a3366f, type: 2}
-  movementSpeed: 200
+  movementSpeed: 120
   hitPoints: 100
   score: 0
   swordDamage: 25

@@ -27,6 +27,8 @@ namespace Environment
 
                     if(nextLevel == Scene.Other)
                         SceneLoader.Load(otherLevelName);
+                    else if (nextLevel == Scene.Level3)
+                        UIManager.Instance.SwitchUi(UIType.End);
                     else
                         SceneLoader.Load(nextLevel.ToString());   
                     

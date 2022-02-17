@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Environment;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 
 namespace Actor.Player
@@ -109,7 +110,7 @@ namespace Actor.Player
             _rb.AddForce( _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
-                torchQuantity -= 2 * Time.deltaTime;
+                torchQuantity -= 1 * Time.deltaTime;
             }
 
             if (hasBow)
@@ -140,8 +141,8 @@ namespace Actor.Player
 
                 if (_isAttack && arrowsQuantity > 0) {
                     _soundManager.ArrowAttack();
-                    Debug.Log("IS ATTACKING");
-                    var arrowObject = Instantiate(arrowPrefab, transform);
+                    var arrowObject = Instantiate(arrowPrefab, (Vector3) transform.position + direction, Quaternion.identity);
+                    arrowObject.transform.localScale = transform.localScale;
                     var arrow = arrowObject.GetComponent<Arrow>();
                     arrow.Initialize(direction);
                     arrowsQuantity -= 1;
@@ -208,10 +209,11 @@ namespace Actor.Player
             //var currScene = uiManager.GetCurrentScene();
             //uiManager.SwitchScene(currScene);
             //if (uiAfterReload == UIType.GameHUD)
-            //uiManager.GetHudController().Reset();
-            //uiManager.SwitchUi(uiAfterReload);
-            scene = SceneManager.GetActiveScene().name;
-            SceneLoader.Load(scene);
+
+            if (_gameManager.IsPaused) return;
+
+            _gameManager.IsPaused = true;
+            _uiManager.SwitchUi(UIType.Death);
         }
 
         #endregion
@@ -293,66 +295,6 @@ namespace Actor.Player
 
         public void AddTorch(float value) => torchQuantity += value;
         
-        #endregion
-
-        #region UI Controls
-
-        // private void ShowFloatingTextDamage(string text) {
-        //     var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
-        //     t.GetComponent<TextMesh>().text = text;
-        // }
-        //
-        // private void showText(string text) {
-        //     dialogueBox.enabled = true;
-        //     dialogueText.enabled = true;
-        //     dialogueText.text = text;
-        // }
-        //
-        // private void UpdateUi()
-        // {
-        //     scoreUI.text = "Gold/Score: " + score.ToString();
-        //
-        //     if (pickQuantity > 0)
-        //     {
-        //         pickUI.enabled = true;
-        //         pickUI.text = "Pick " + pickQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         pickUI.enabled = false;
-        //     }
-        //
-        //     if (arrowsQuantity > 0)
-        //     {
-        //         bowUI.enabled = true;
-        //         bowUI.text = "Arrows " + arrowsQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         bowUI.enabled = false;
-        //     }
-        //
-        //     if (ropeQuantity > 0)
-        //     {
-        //         ropeUI.enabled = true;
-        //         ropeUI.text = "Rope " + ropeQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         ropeUI.enabled = false;
-        //     }
-        //
-        //     if (torchQuantity > 0)
-        //     {
-        //         torchUI.enabled = true;
-        //         torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
-        //     }
-        //     else
-        //     {
-        //         torchUI.enabled = false;
-        //     }
-        // }
-
         #endregion
 
     }
