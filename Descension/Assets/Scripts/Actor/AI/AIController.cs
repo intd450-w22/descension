@@ -100,15 +100,6 @@ namespace Actor.AI
             forward = (_player.position - position).normalized;
             position = agent.transform.position;
         }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            GameObject obj = other.gameObject;
-            if (obj.CompareTag("Player"))
-            {
-                obj.GetComponent<PlayerController>().InflictDamage(touchDamage);
-            }
-        }
     }
 }
 

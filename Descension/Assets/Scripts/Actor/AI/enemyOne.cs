@@ -50,9 +50,12 @@ namespace Actor.AI
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
+            Debug.Log("collision");
+            showFloatingTextDialogue(collision.gameObject.name);
+            showFloatingTextDamage(collision.gameObject.name);
             if (collision.gameObject.name == "Player") {
                 FindObjectOfType<PlayerController>().InflictDamage(this.damage);
-                // this.showFloatingTextDialogue("AAAW");
+                
             }
         }
 
