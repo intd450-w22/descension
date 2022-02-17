@@ -9,6 +9,8 @@
         GameHUD,
         None,
         ControlsMenu,
-        Intro
+        Intro,
+        Death,
+        End
     }
 }

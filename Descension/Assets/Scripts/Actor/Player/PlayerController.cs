@@ -209,11 +209,11 @@ namespace Actor.Player
             //var currScene = uiManager.GetCurrentScene();
             //uiManager.SwitchScene(currScene);
             //if (uiAfterReload == UIType.GameHUD)
-            
-            _uiManager.GetHudController().Reset();
 
-            scene = SceneManager.GetActiveScene().name;
-            SceneLoader.Load(scene);
+            if (_gameManager.IsPaused) return;
+
+            _gameManager.IsPaused = true;
+            _uiManager.SwitchUi(UIType.Death);
         }
 
         #endregion
