@@ -3014,7 +3014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7683957883192351231, guid: aa1d1c0881f090d41bba6e886b1bc38f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -57.517967
+      value: -54.316338
       objectReference: {fileID: 0}
     - target: {fileID: 7683957883192351231, guid: aa1d1c0881f090d41bba6e886b1bc38f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11224,6 +11224,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.800068
       objectReference: {fileID: 0}
+    - target: {fileID: 3477702635066654964, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: state
       value: 
@@ -12701,9 +12705,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090056942}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemies
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
