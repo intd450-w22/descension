@@ -7,6 +7,8 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Environment;
+
 
 namespace Actor.Player
 {
@@ -56,6 +58,10 @@ namespace Actor.Player
         private HUDController _hudController;
         private Transform _reticle;
         private Rigidbody2D _rb;
+        private SoundManager _soundManager;
+
+        // current scene for death
+        private string scene;
 
         void Awake() {
             _reticle = gameObject.GetChildTransformWithName("Reticle");
@@ -74,6 +80,7 @@ namespace Actor.Player
             _gameManager = GameManager.Instance;
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
+            _soundManager = FindObjectOfType<SoundManager>();
 
             // TODO: Find a better way to ensure game is started
             _gameManager.IsPaused = false;
@@ -95,12 +102,12 @@ namespace Actor.Player
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
-            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity);
+            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.velocity = _rawInputMovement * movementSpeed;
+            _rb.AddForce( _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
-                torchQuantity -= 2 * Time.deltaTime;
+                torchQuantity -= 1 * Time.deltaTime;
             }
 
             if (hasBow)
@@ -130,12 +137,15 @@ namespace Actor.Player
                 Debug.DrawLine(transform.position, transform.position + direction * 3);
 
                 if (_isAttack && arrowsQuantity > 0) {
-                    Debug.Log("IS ATTACKING");
-                    var arrowObject = Instantiate(arrowPrefab, transform);
+                    _soundManager.ArrowAttack();
+                    var arrowObject = Instantiate(arrowPrefab, (Vector3) transform.position + direction, Quaternion.identity);
+                    arrowObject.transform.localScale = transform.localScale;
                     var arrow = arrowObject.GetComponent<Arrow>();
                     arrow.Initialize(direction);
                     arrowsQuantity -= 1;
-                }                
+                } else if (_isAttack && arrowsQuantity < 1) {
+                    UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
+                }             
             }
             else if (hasSword)
             {
@@ -173,9 +183,34 @@ namespace Actor.Player
 
         #region Entity Interaction
 
-        public void InflictDamage(float damage) {
+        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0) 
+        {
             hitPoints -= damage;
             _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
+
+            if (knockBack != 0)
+            {
+                Vector2 direction = (transform.position - instigator.transform.position).normalized;
+                _rb.AddForce(direction * knockBack);
+            }
+
+            if (hitPoints < 1)
+            {
+                OnKilled();
+            }
+        }
+
+        public void OnKilled()
+        {
+            //public UIType uiAfterReload;
+            //var currScene = uiManager.GetCurrentScene();
+            //uiManager.SwitchScene(currScene);
+            //if (uiAfterReload == UIType.GameHUD)
+
+            if (_gameManager.IsPaused) return;
+
+            _gameManager.IsPaused = true;
+            _uiManager.SwitchUi(UIType.Death);
         }
 
         #endregion
@@ -257,66 +292,6 @@ namespace Actor.Player
 
         public void AddTorch(float value) => torchQuantity += value;
         
-        #endregion
-
-        #region UI Controls
-
-        // private void ShowFloatingTextDamage(string text) {
-        //     var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
-        //     t.GetComponent<TextMesh>().text = text;
-        // }
-        //
-        // private void showText(string text) {
-        //     dialogueBox.enabled = true;
-        //     dialogueText.enabled = true;
-        //     dialogueText.text = text;
-        // }
-        //
-        // private void UpdateUi()
-        // {
-        //     scoreUI.text = "Gold/Score: " + score.ToString();
-        //
-        //     if (pickQuantity > 0)
-        //     {
-        //         pickUI.enabled = true;
-        //         pickUI.text = "Pick " + pickQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         pickUI.enabled = false;
-        //     }
-        //
-        //     if (arrowsQuantity > 0)
-        //     {
-        //         bowUI.enabled = true;
-        //         bowUI.text = "Arrows " + arrowsQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         bowUI.enabled = false;
-        //     }
-        //
-        //     if (ropeQuantity > 0)
-        //     {
-        //         ropeUI.enabled = true;
-        //         ropeUI.text = "Rope " + ropeQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         ropeUI.enabled = false;
-        //     }
-        //
-        //     if (torchQuantity > 0)
-        //     {
-        //         torchUI.enabled = true;
-        //         torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
-        //     }
-        //     else
-        //     {
-        //         torchUI.enabled = false;
-        //     }
-        // }
-
         #endregion
 
     }

@@ -11,6 +11,7 @@ namespace Environment
         
         private PlayerController _playerController;
         private HUDController _hudController;
+        private SoundManager _soundManager;
 
         void Awake() {
             // _hudController = UIManager.Instance.GetHudController();
@@ -19,6 +20,7 @@ namespace Environment
 
         void Start() {
             _playerController = FindObjectOfType<PlayerController>();
+            _soundManager = FindObjectOfType<SoundManager>();
         }
 
         void OnCollisionEnter2D(Collision2D collision) {
@@ -26,7 +28,10 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player")) {
                 _playerController = collision.gameObject.GetComponent<PlayerController>();
                 if (_playerController.pickQuantity > 0) {
+                    _soundManager.RemoveRock();
+
                     if (Random.Range(0f, 100f) < this.lootChance) {
+                        _soundManager.GoldFound();
                         float gold = Mathf.Floor(Random.Range(0f, 20f));
                         _playerController.score += gold;
                         UIManager.Instance.GetHudController().ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);

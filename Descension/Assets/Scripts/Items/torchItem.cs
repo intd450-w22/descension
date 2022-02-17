@@ -2,6 +2,7 @@ using Actor.Player;
 using Managers;
 using UI.Controllers;
 using UnityEngine;
+using Environment;
 
 namespace Items
 {
@@ -9,16 +10,25 @@ namespace Items
     {
         public float quantity = 20;
         
+        private bool _isPickedUp = false;
+        private string _description = "Torch Collected.\n Use with caution. There are things down here that have more eyes than you.";
         private HUDController _hudController;
 
         void Awake()
         {
             _hudController = UIManager.Instance.GetHudController();
         }
-        void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.CompareTag("Player")) {
-                FindObjectOfType<PlayerController>().AddTorch(this.quantity);
-                UIManager.Instance.GetHudController().ShowText("Torch Collected");
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (_isPickedUp) return;
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                _isPickedUp = true;
+                FindObjectOfType<SoundManager>().ItemFound();
+                FindObjectOfType<PlayerController>().AddTorch(quantity);
+                UIManager.Instance.GetHudController().ShowText(_description);
                 Destroy(gameObject);
             }
         }

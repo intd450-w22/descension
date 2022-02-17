@@ -8,6 +8,7 @@
         Player        = 1 << 3,
         Water         = 1 << 4,
         UI            = 1 << 5,
-        Enemy         = 1 << 6,
+        UI2           = 1 << 6,
+        Enemy         = 1 << 7,
     }
 }

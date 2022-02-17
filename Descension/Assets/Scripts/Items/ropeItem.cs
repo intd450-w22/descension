@@ -2,6 +2,7 @@ using Actor.Player;
 using Managers;
 using UI.Controllers;
 using UnityEngine;
+using Environment;
 
 namespace Items
 {
@@ -9,6 +10,8 @@ namespace Items
     {
         public float quantity = 1;
 
+        private bool _isPickedUp = false;
+        private string _description = "Rope Collected.\nNecessary for going further into the mines, or other things too.";
         private HUDController _hudController;
 
         void Awake()
@@ -16,10 +19,16 @@ namespace Items
             _hudController = UIManager.Instance.GetHudController();
         }
 
-        void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.CompareTag("Player")) {
-                FindObjectOfType<PlayerController>().AddRope(this.quantity);
-                UIManager.Instance.GetHudController().ShowText("Rope Collected");
+        void OnCollisionEnter2D(Collision2D collision) 
+        {
+            if (_isPickedUp) return;
+
+            FindObjectOfType<SoundManager>().ItemFound();
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                _isPickedUp = true;
+                FindObjectOfType<PlayerController>().AddRope(quantity);
+                UIManager.Instance.GetHudController().ShowText(_description);
                 Destroy(gameObject);
             }
         }
