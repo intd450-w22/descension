@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Environment;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace Actor.Player
 {
@@ -139,8 +140,8 @@ namespace Actor.Player
 
                 if (_isAttack && arrowsQuantity > 0) {
                     _soundManager.ArrowAttack();
-                    Debug.Log("IS ATTACKING");
-                    var arrowObject = Instantiate(arrowPrefab, transform);
+                    var arrowObject = Instantiate(arrowPrefab, (Vector3) transform.position + direction, Quaternion.identity);
+                    arrowObject.transform.localScale = transform.localScale;
                     var arrow = arrowObject.GetComponent<Arrow>();
                     arrow.Initialize(direction);
                     arrowsQuantity -= 1;
@@ -207,8 +208,9 @@ namespace Actor.Player
             //var currScene = uiManager.GetCurrentScene();
             //uiManager.SwitchScene(currScene);
             //if (uiAfterReload == UIType.GameHUD)
-            //uiManager.GetHudController().Reset();
-            //uiManager.SwitchUi(uiAfterReload);
+            
+            _uiManager.GetHudController().Reset();
+
             scene = SceneManager.GetActiveScene().name;
             SceneLoader.Load(scene);
         }
