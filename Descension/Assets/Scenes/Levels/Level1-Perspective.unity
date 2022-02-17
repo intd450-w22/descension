@@ -20613,7 +20613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onComplete: {fileID: 1252343655}
-  knockBack: 3000
+  knockBack: 4000
   damage: 10
   attackDelay: 0.2
   attackRange: 4
@@ -34819,14 +34819,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2904225009558641430, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
-      propertyPath: m_LinearDrag
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904225009558641430, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2904225009558641433, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
@@ -34862,14 +34854,6 @@ PrefabInstance:
     - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: dialogueText
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
-      propertyPath: movementSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904225009558641434, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
-      propertyPath: arrowsQuantity
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2904225009558641435, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_Sprite

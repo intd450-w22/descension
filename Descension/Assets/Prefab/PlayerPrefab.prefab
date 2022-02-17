@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3942534684975220860}
   - component: {fileID: 5257937007721912185}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1135137420584677928}
   - component: {fileID: 2904225009558641434}
   - component: {fileID: 6851937908845542240}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeviceDisplaySettings: {fileID: 11400000, guid: 2aadf05eb186ee349bcd0c5547a3366f, type: 2}
-  movementSpeed: 15
+  movementSpeed: 200
   hitPoints: 100
   score: 0
   swordDamage: 25
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7614197637699327443}
   - component: {fileID: 7486570660070826379}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

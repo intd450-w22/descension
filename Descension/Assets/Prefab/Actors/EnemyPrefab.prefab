@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3333621910101590517}
   - component: {fileID: 3333621910101590516}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CurrentTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3333621911120091794}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: T2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3333621911394173353}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: T1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,9 +152,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3333621911742645913}
   - component: {fileID: 5406964834789103156}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,20 +189,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 100
-  damage: 10
-  floatingTextDialogue: {fileID: 6579487845962451779, guid: b45a8c5894d24aa4bb3ae8f3cde9dfd9, type: 3}
-  floatingDamageDialogue: {fileID: 8906469561440662331, guid: 4e0e5517ab5528f43ab4b646d3a1ba4f, type: 3}
-  patrollingAttributes:
-    speed: 0
-    sightDistance: 0
-    pauseTime: 0
-  chasingAttributes:
-    speed: 3
-    sightDistance: 3
-    pauseTime: 0
-  chasePlayer: 1
-  loopTargets: 1
-  currentState: 0
+  touchDamage: 10
+  state: {fileID: 0}
+  forward: {x: 0, y: 0}
+  position: {x: 0, y: 0, z: 0}
+  agent: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &3333621911985856951
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +208,7 @@ GameObject:
   - component: {fileID: 3333621911985856947}
   - component: {fileID: 3333621911985856948}
   - component: {fileID: 3477702635066654964}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -303,7 +295,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.35
 --- !u!50 &3333621911985856948
 Rigidbody2D:
   serializedVersion: 4
@@ -334,7 +326,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3333621911985856951}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -343,7 +335,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
+  m_Height: 0.2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -356,7 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 694370199903143221}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolTargets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
