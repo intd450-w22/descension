@@ -9,8 +9,6 @@ using Util;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Environment;
 
 namespace Actor.Player
 {
