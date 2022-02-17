@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 3478606036034188476}
   - component: {fileID: 3478606036034188474}
   - component: {fileID: 3478606036034188475}
+  - component: {fileID: 8123661732534834007}
   m_Layer: 0
   m_Name: RopeItemPrefab
   m_TagString: Untagged
@@ -177,7 +178,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0030080304, y: 0.001504451}
@@ -206,3 +207,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantity: 1
+--- !u!208 &8123661732534834007
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478606036034188478}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.125, y: 0.125, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
