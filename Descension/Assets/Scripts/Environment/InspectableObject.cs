@@ -14,14 +14,17 @@ namespace Environment
         private bool playerInRange = false;
 
         private HUDController _hudController;
+        private SoundManager _soundManager;
 
         void Awake()
         {
             _hudController = UIManager.Instance.GetHudController();
+            _soundManager = FindObjectOfType<SoundManager>();
         }
 
         void Update() {
             if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
+                _soundManager.inspection();
                 UIManager.Instance.GetHudController().ShowText(inspectText);
             }
         }
