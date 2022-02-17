@@ -94,29 +94,11 @@ namespace Actor.AI
             Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
         }
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            Debug.Log("collision enemy");
-            GameObject obj = other.gameObject;
-            if (obj.CompareTag("Player"))
-            {
-                obj.GetComponent<PlayerController>().InflictDamage(damage);
-            }
-        }
         
         private void Cache()
         {
             forward = (_player.position - position).normalized;
             position = agent.transform.position;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            GameObject obj = other.gameObject;
-            if (obj.CompareTag("Player"))
-            {
-                obj.GetComponent<PlayerController>().InflictDamage(touchDamage);
-            }
         }
     }
 }
