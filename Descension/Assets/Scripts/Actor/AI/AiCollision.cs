@@ -5,6 +5,7 @@ using Actor.Player;
 
 public class AiCollision : MonoBehaviour { 
     public float damage = 10;
+    public float knockBack = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class AiCollision : MonoBehaviour {
         GameObject obj = other.gameObject;
         if (obj.CompareTag("Player"))
         {
-            obj.GetComponent<PlayerController>().InflictDamage(damage);
+            obj.GetComponent<PlayerController>().InflictDamage(gameObject, damage, knockBack);
         }
     }
 }

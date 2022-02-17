@@ -102,7 +102,7 @@ namespace Actor.Player
 
             if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.velocity = _rawInputMovement * movementSpeed;
+            _rb.AddForce( _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
                 torchQuantity -= 2 * Time.deltaTime;
@@ -178,20 +178,33 @@ namespace Actor.Player
 
         #region Entity Interaction
 
-        public void InflictDamage(float damage) {
+        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0) 
+        {
             hitPoints -= damage;
             _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
+
+            if (knockBack != 0)
+            {
+                Vector2 direction = (transform.position - instigator.transform.position).normalized;
+                _rb.AddForce(direction * knockBack);
+            }
+
             if (hitPoints < 1)
             {
-                //public UIType uiAfterReload;
-                //var currScene = uiManager.GetCurrentScene();
-                //uiManager.SwitchScene(currScene);
-                //if (uiAfterReload == UIType.GameHUD)
-                //uiManager.GetHudController().Reset();
-                //uiManager.SwitchUi(uiAfterReload);
-                scene = SceneManager.GetActiveScene().name;
-                SceneLoader.Load(scene);
+                OnKilled();
             }
+        }
+
+        public void OnKilled()
+        {
+            //public UIType uiAfterReload;
+            //var currScene = uiManager.GetCurrentScene();
+            //uiManager.SwitchScene(currScene);
+            //if (uiAfterReload == UIType.GameHUD)
+            //uiManager.GetHudController().Reset();
+            //uiManager.SwitchUi(uiAfterReload);
+            scene = SceneManager.GetActiveScene().name;
+            SceneLoader.Load(scene);
         }
 
         #endregion
