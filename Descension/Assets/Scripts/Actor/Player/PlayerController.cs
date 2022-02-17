@@ -110,7 +110,7 @@ namespace Actor.Player
             _rb.AddForce( _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
-                torchQuantity -= 2 * Time.deltaTime;
+                torchQuantity -= 1 * Time.deltaTime;
             }
 
             if (hasBow)
@@ -295,66 +295,6 @@ namespace Actor.Player
 
         public void AddTorch(float value) => torchQuantity += value;
         
-        #endregion
-
-        #region UI Controls
-
-        // private void ShowFloatingTextDamage(string text) {
-        //     var t = Instantiate(floatingTextDamage, transform.position, Quaternion.identity);
-        //     t.GetComponent<TextMesh>().text = text;
-        // }
-        //
-        // private void showText(string text) {
-        //     dialogueBox.enabled = true;
-        //     dialogueText.enabled = true;
-        //     dialogueText.text = text;
-        // }
-        //
-        // private void UpdateUi()
-        // {
-        //     scoreUI.text = "Gold/Score: " + score.ToString();
-        //
-        //     if (pickQuantity > 0)
-        //     {
-        //         pickUI.enabled = true;
-        //         pickUI.text = "Pick " + pickQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         pickUI.enabled = false;
-        //     }
-        //
-        //     if (arrowsQuantity > 0)
-        //     {
-        //         bowUI.enabled = true;
-        //         bowUI.text = "Arrows " + arrowsQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         bowUI.enabled = false;
-        //     }
-        //
-        //     if (ropeQuantity > 0)
-        //     {
-        //         ropeUI.enabled = true;
-        //         ropeUI.text = "Rope " + ropeQuantity.ToString();
-        //     }
-        //     else
-        //     {
-        //         ropeUI.enabled = false;
-        //     }
-        //
-        //     if (torchQuantity > 0)
-        //     {
-        //         torchUI.enabled = true;
-        //         torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
-        //     }
-        //     else
-        //     {
-        //         torchUI.enabled = false;
-        //     }
-        // }
-
         #endregion
 
     }
