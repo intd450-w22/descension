@@ -5312,14 +5312,14 @@ PrefabInstance:
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+      objectReference: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.r
@@ -5327,6 +5327,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856947, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
@@ -20614,7 +20622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onComplete: {fileID: 1252343655}
   knockBack: 4000
-  damage: 10
+  damage: 100
   attackDelay: 0.2
   attackRange: 4
   postDelay: 0.5
@@ -33428,7 +33436,9 @@ MonoBehaviour:
   onPlayerSpotted: {fileID: 1729076811}
   sightDistance: 7
   speed: 6
+  reachThreshold: 3
   loopTargets: 0
+  currentTarget: {fileID: 0}
 --- !u!1001 &1754347020
 PrefabInstance:
   m_ObjectHideFlags: 0
