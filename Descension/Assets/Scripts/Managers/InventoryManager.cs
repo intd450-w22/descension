@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Actor.Player;
 using Items;
+using Items.Pickups;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,20 +18,24 @@ namespace Managers
         {
             get
             {
-                if (_instance == null) _instance = FindObjectOfType<InventoryManager>();
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<InventoryManager>();
+                    _instance.Initialize();
+                }
                 return _instance;
             }
             set => _instance = value;
         }
         
         
-        public PlayerController controller;
-        public List<Equippable> slots = new List<Equippable>() { null, null, null };
+        
+        public List<Equippable> slots = new List<Equippable>() { null, null, null, null, null };
         public int equippedSlot = -1;
+        public float gold = 0;
 
-        private PlayerControls _playerControls;
-        private bool _execute;
-
+        private PlayerController _controller;
+        
         void Start()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -39,8 +44,7 @@ namespace Managers
                 Debug.LogError("");
             }
 
-            controller = player.GetComponent<PlayerController>();
-            _playerControls = controller.playerControls;
+            _controller = player.GetComponent<PlayerController>();
         }
 
         void Awake()
@@ -52,16 +56,40 @@ namespace Managers
 
         void Update()
         {
+            if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].durability >= 0) EquipSlot(0);
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].durability >= 0) EquipSlot(1);
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].durability >= 0) EquipSlot(2);
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[3].durability >= 0) EquipSlot(3);
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[4].durability >= 0) EquipSlot(4);
+            
+            // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].Update();
         }
         
         void FixedUpdate()
         {
+            // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].FixedUpdate();
+        }
+
+        void Initialize()
+        {
+            foreach (Equippable slot in slots)
+            {
+                slot.Initialize();
+            }
+        }
+
+        void EquipSlot(int index)
+        {
+            if (equippedSlot != -1) slots[equippedSlot].OnUnEquip();
+            equippedSlot = index;
+            slots[equippedSlot].OnEquip();
         }
 
         public bool PickupItem(EquippableItem item, int quantity)
         {
+            // add durability/quantity if already have this item
             for (int i = 0; i < slots.Count; ++i)
             {
                 if (slots[i].GetName() == item.GetName())
@@ -72,12 +100,14 @@ namespace Managers
                 }
             }
             
+            // add to empty slot otherwise if one is available
             for (int i = 0; i < slots.Count; ++i)
             {
                 if (slots[i].GetName().Length == 0)
                 {
-                    slots[i] = item.CreateInstance(this, controller, quantity);
-                    equippedSlot = i;
+                    slots[i] = item.CreateInstance();
+                    slots[i].SetDurability(quantity);
+                    EquipSlot(i);
                     Debug.Log("Pickup Success");
                     return true;
                 }

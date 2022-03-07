@@ -2,11 +2,8 @@ using System;
 using Actor.Player;
 using Managers;
 using UnityEngine;
-using Util.Enums;
-using Util.Helpers;
 
-
-namespace Items
+namespace Items.Pickups
 {
     public class QuiverItem : EquippableItem
     {
@@ -21,9 +18,9 @@ namespace Items
         }
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(InventoryManager manager, PlayerController controller, int durability)
+        public override Equippable CreateInstance()
         {
-            return new Quiver(controller, durability);
+            return new Quiver();
         }
     }
     
@@ -33,11 +30,9 @@ namespace Items
     {
         private PlayerController _controller;
 
-        public Quiver(PlayerController controller, int durability)
+        public Quiver()
         {
-            _controller = controller;
-            this.durability = durability;
-            this.name = GetName();
+            name = GetName();
         }
 
         public String GetName()

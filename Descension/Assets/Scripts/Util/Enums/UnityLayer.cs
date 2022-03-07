@@ -10,5 +10,7 @@
         UI            = 1 << 5,
         UI2           = 1 << 6,
         Enemy         = 1 << 7,
+        PostProcessing= 1 << 8,
+        Boulder       = 1 << 9,
     }
 }

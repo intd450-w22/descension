@@ -21,7 +21,6 @@ namespace Environment
                 if (_instance == null) _instance = FindObjectOfType<SoundManager>();
                 return _instance;
             }
-            set => _instance = value;
         }
         
         void Awake()

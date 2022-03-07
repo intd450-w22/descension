@@ -1,5 +1,6 @@
 using System;
 using Environment;
+using Items.Pickups;
 using Managers;
 using UnityEngine;
 

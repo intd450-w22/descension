@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4487688294349091863}
   - component: {fileID: 4487688294349091856}
   - component: {fileID: 7624450830392919398}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RemobableRockPrefab
   m_TagString: Environment
   m_Icon: {fileID: 0}

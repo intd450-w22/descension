@@ -1,3 +1,4 @@
+using Actor.Player;
 using UnityEngine;
 
 namespace Managers
@@ -16,6 +17,22 @@ namespace Managers
             }
             set => _instance = value;
         }
+
+        private static PlayerController _playerController;
+        
+        public static PlayerController PlayerController
+        {
+            get
+            {
+                if (_playerController == null)
+                    _playerController = FindObjectOfType<PlayerController>();
+
+                return _playerController;
+            }
+            set => _playerController = value;
+        }
+        
+        
 
         public bool IsPaused;
 
