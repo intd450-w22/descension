@@ -65,7 +65,7 @@ namespace Managers
             // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].Update();
             
-            if (Input.GetKeyDown(KeyCode.G) && slots[0].durability >= 0) DropSlot(equippedSlot);
+            if (Input.GetKeyDown(KeyCode.R) && slots[0].durability >= 0) DropSlot(equippedSlot);
         }
         
         void FixedUpdate()

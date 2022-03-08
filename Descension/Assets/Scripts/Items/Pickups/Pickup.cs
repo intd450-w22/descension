@@ -14,7 +14,7 @@ namespace Items.Pickups
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.R) && _inRange)
+            if (Input.GetKeyDown(KeyCode.E) && _inRange)
             {
                 SoundManager.Instance.ItemFound();
                 InventoryManager.Instance.PickupItem(item, quantity);
