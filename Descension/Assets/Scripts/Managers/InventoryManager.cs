@@ -21,7 +21,6 @@ namespace Managers
                 if (_instance == null)
                 {
                     _instance = FindObjectOfType<InventoryManager>();
-                    _instance.Initialize();
                 }
                 return _instance;
             }
@@ -30,23 +29,11 @@ namespace Managers
         
         
         
-        public List<Equippable> slots = new List<Equippable>() { null, null, null, null, null };
+        public List<Equippable> slots = new List<Equippable>() { null, null, null };
         public int equippedSlot = -1;
         public float gold = 0;
-
-        private PlayerController _controller;
         
-        void Start()
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null)
-            {
-                Debug.LogError("");
-            }
-
-            _controller = player.GetComponent<PlayerController>();
-        }
-
+        
         void Awake()
         {
             if (_instance == null) _instance = this;
@@ -56,15 +43,15 @@ namespace Managers
 
         void Update()
         {
+            // check for equipped item slot change
             if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].durability >= 0) EquipSlot(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].durability >= 0) EquipSlot(1);
             else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].durability >= 0) EquipSlot(2);
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[3].durability >= 0) EquipSlot(3);
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[4].durability >= 0) EquipSlot(4);
-            
-            // run logic for equipped weapon
+
+            // run logic for equipped item
             if (equippedSlot != -1) slots[equippedSlot].Update();
             
+            // drop equipped item on R
             if (Input.GetKeyDown(KeyCode.R) && slots[0].durability >= 0) DropSlot(equippedSlot);
         }
         
@@ -72,14 +59,6 @@ namespace Managers
         {
             // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].FixedUpdate();
-        }
-
-        void Initialize()
-        {
-            foreach (Equippable slot in slots)
-            {
-                slot.Initialize();
-            }
         }
 
         void EquipSlot(int index)

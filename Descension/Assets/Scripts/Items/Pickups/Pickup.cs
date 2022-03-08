@@ -16,8 +16,14 @@ namespace Items.Pickups
         {
             if (Input.GetKeyDown(KeyCode.E) && _inRange)
             {
+                
+                if (!InventoryManager.Instance.PickupItem(item, quantity))
+                {
+                    // SoundManager.Instance.ItemFound(); //TODO fail to pick up sound
+                    UIManager.Instance.GetHudController().ShowText("Inventory full");
+                    return;
+                }
                 SoundManager.Instance.ItemFound();
-                InventoryManager.Instance.PickupItem(item, quantity);
                 UIManager.Instance.GetHudController().ShowText(pickupMessage);
                 Destroy(gameObject);
             }
@@ -31,11 +37,13 @@ namespace Items.Pickups
         
         private void OnTriggerEnter2D(Collider2D other)
         {
+            UIManager.Instance.GetHudController().ShowText("Press E to collect " + item.GetName());
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            UIManager.Instance.GetHudController().HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;
         }
     }
