@@ -12,7 +12,7 @@ namespace Items.Pickups
 {
     public class PickItem : EquippableItem
     {
-        const String Name = "Pick";
+        public static String Name = "Pick";
         public float lootChance = 20;
         
         public override string GetName()
@@ -49,7 +49,7 @@ namespace Items.Pickups
 
         public override String GetName()
         {
-            return "Pick";
+            return PickItem.Name;
         }
         
         public override void OnDrop()
@@ -83,8 +83,7 @@ namespace Items.Pickups
             
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
-            int mask = (int) UnityLayer.Boulder;
-            RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, mask);
+            RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, (int) UnityLayer.Boulder);
             if (rayCast)
             {
                 SoundManager.Instance.RemoveRock();

@@ -7,7 +7,7 @@ namespace Items.Pickups
 {
     public class ArrowsItem : EquippableItem
     {
-        const String Name = "Arrows";
+        public static String Name = "Arrows";
 
         public GameObject arrowPrefab;
         public float bowReticleDistance = 2f;
@@ -24,7 +24,7 @@ namespace Items.Pickups
         }
     }
     
-    // logic for bow
+    // logic for arrows (only used as ammo for bow)
     [Serializable]
     public class Arrows : Equippable
     {
@@ -35,7 +35,7 @@ namespace Items.Pickups
 
         public override String GetName()
         {
-            return "Arrows";
+            return ArrowsItem.Name;
         }
         
         public override void OnDrop()

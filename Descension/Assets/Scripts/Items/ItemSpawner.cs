@@ -10,6 +10,7 @@ namespace Items
     {
         public GameObject pickPickupPrefab;
         public GameObject bowPickupPrefab;
+        public GameObject swordPickupPrefab;
         public GameObject arrowsPickupPrefab;
 
         private static ItemSpawner _instance;
@@ -31,11 +32,9 @@ namespace Items
 
         public void DropItem(GameObject prefab, int quantity)
         {
-            Vector3 playerPosition = GameManager.PlayerController.transform.position;
-            
             // spawn pickup
-            SoundManager.Instance.ItemFound();
-            GameObject pickupObject = Instantiate(prefab, playerPosition, Quaternion.identity);
+            SoundManager.Instance.ItemFound(); // TODO maybe replace with unique item drop sound
+            GameObject pickupObject = Instantiate(prefab, GameManager.PlayerController.transform.position, Quaternion.identity);
             Pickup pickup = pickupObject.GetComponent<Pickup>();
             pickup.quantity = quantity;
             UIManager.Instance.GetHudController().ShowText(pickup.item.GetName() + " Dropped");

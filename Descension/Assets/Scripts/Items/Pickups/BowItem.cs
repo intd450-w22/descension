@@ -12,7 +12,7 @@ namespace Items.Pickups
 {
     public class BowItem : EquippableItem
     {
-        const String Name = "Bow";
+        public static String Name = "Bow";
 
         public GameObject arrowPrefab;
         public float bowReticleDistance = 2f;
@@ -81,7 +81,7 @@ namespace Items.Pickups
         
         public String GetName()
         {
-            return "Bow";
+            return BowItem.Name;
         }
 
         public override void OnEquip()

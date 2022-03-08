@@ -97,14 +97,7 @@ namespace Actor.Player
 
         private void OnDisable() => playerControls.Disable();
 
-        void Update()
-        {
-            // TODO: Remove this once the OnAttack callback is functioning
-            // Since our physics/movement code is in FixedUpdate, we miss
-            // input on a per-frame basis. So we calculate it here, and
-            // asses it in FixedUpdate, where it's set to false at the end. 
-            isAttack |= playerControls.Default.Shoot.WasPressedThisFrame();
-        }
+        void Update() { }
 
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
@@ -116,71 +109,6 @@ namespace Actor.Player
             if (torchQuantity > 0) {
                 torchQuantity -= 1 * Time.deltaTime;
             }
-
-            if (hasBow)
-            {
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint).normalized;
-
-                if (_reticle != null)
-                {
-                    _reticle.gameObject.SetActive(true);
-
-                    // Set the position of the reticle on the screen according to input type
-                    if (_currentControlScheme == ControlScheme.Desktop.ToString())
-                    {
-                        // Place the reticle on the cursor 
-                        // TODO: Hide the cursor ? 
-                        _reticle.position = (Vector2) playerCamera.ScreenToWorldPoint(Input.mousePosition);
-                    }
-                    else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
-                    {
-                        // Place the reticle in a ring around the player 
-                        // TODO: Add aiming with the right stick ala Enter the Gungeon 
-                        _reticle.position = transform.position + (direction * bowReticleDistance);
-                    }
-                }
-
-                Debug.DrawLine(transform.position, transform.position + direction * 3);
-
-                if (isAttack && arrowsQuantity > 0) {
-                    _soundManager.ArrowAttack();
-                    var arrowObject = Instantiate(arrowPrefab, (Vector3) transform.position + direction, Quaternion.identity);
-                    arrowObject.transform.localScale = transform.localScale;
-                    var arrow = arrowObject.GetComponent<Arrow>();
-                    arrow.Initialize(direction);
-                    arrowsQuantity -= 1;
-                } else if (isAttack && arrowsQuantity < 1) {
-                    UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
-                }             
-            }
-            else if (hasSword)
-            {
-                var screenPoint = playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint).normalized;
-
-                if (_reticle != null)
-                {
-                    _reticle.gameObject.SetActive(true);
-                    _reticle.position = transform.position + (direction * swordReticleDistance);
-                }
-
-                Debug.DrawLine(transform.position, transform.position + direction * swordReticleDistance);
-
-                if (isAttack) {
-                
-                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    var attackPoint = (Vector2) (transform.position + (direction * swordReticleDistance));
-                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, LayerMask.GetMask("Enemy"));
-                    foreach (var enemy in hitEnemies)
-                    {
-                        try { enemy.gameObject.GetComponent<AIController>().InflictDamage(swordDamage); }
-                        catch { enemy.gameObject.GetComponentInParent<AIController>().InflictDamage(swordDamage); }
-                    }
-                }
-            }
-
-            isAttack = false;
         }
 
         private void PauseMenu()
