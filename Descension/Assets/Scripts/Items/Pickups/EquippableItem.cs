@@ -53,10 +53,5 @@ namespace Items.Pickups
 
         // sets durability/quantity for this item
         public void SetDurability(int durability) { this.durability = durability; }
-
-        // prefab to spawn when dropped
-        public GameObject pickupPrefab;
-
-        
     }
 }
