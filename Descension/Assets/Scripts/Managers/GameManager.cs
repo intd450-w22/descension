@@ -1,3 +1,4 @@
+using Actor.Player;
 using UnityEngine;
 
 namespace Managers
@@ -9,13 +10,22 @@ namespace Managers
         {
             get
             {
-                if (_instance == null)
-                    _instance = FindObjectOfType<GameManager>();
-
+                if (_instance == null) _instance = FindObjectOfType<GameManager>();
                 return _instance;
             }
-            set => _instance = value;
         }
+
+        private static PlayerController _playerController;
+        
+        public static PlayerController PlayerController
+        {
+            get
+            {
+                if (_playerController == null) _playerController = FindObjectOfType<PlayerController>();
+                return _playerController;
+            }
+        }
+        
 
         public bool IsPaused;
 
@@ -24,7 +34,6 @@ namespace Managers
             if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
-                return;
             }
             else
             {

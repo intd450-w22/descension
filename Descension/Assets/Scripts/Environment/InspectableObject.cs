@@ -24,7 +24,7 @@ namespace Environment
 
         void Update() {
             if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
-                _soundManager.inspection();
+                _soundManager.Inspection();
                 UIManager.Instance.GetHudController().ShowText(inspectText);
             }
         }
