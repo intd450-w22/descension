@@ -133,6 +133,7 @@ namespace Managers
                 {
                     slots[i] = item.CreateInstance();
                     slots[i].SetDurability(quantity);
+                    slots[i].inventorySprite = item.inventorySprite;
                     EquipSlot(i);
                     Debug.Log("Pickup Success");
                     return true;

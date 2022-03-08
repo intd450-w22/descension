@@ -25,6 +25,7 @@ namespace Items.Pickups
     {
         public String name;
         public int durability = -1;
+        [HideInInspector] public Sprite inventorySprite;
         
         // initialize references, need to do this whenever scene changes
         public virtual void Initialize() {}
@@ -35,7 +36,7 @@ namespace Items.Pickups
         // called when equipped switches to different slot (equippable)
         public virtual void OnEquip() { }
         
-        // called when equipped switches to this slot (equippable)
+        // called when equipped switches from this slot (equippable)
         public virtual void OnUnEquip() { }
         
         // called when item is dropped
@@ -43,6 +44,7 @@ namespace Items.Pickups
         {
             name = "";
             durability = -1;
+            inventorySprite = null;
         }
         
         // called like regular MonoBehavior Update() if this item is equipped

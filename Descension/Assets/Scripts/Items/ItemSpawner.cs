@@ -8,13 +8,6 @@ namespace Items
 {
     public class ItemSpawner : MonoBehaviour
     {
-        // public struct Item
-        // {
-        //     public GameObject item;
-        //     public String pickupMessage;
-        // };
-        
-        
         public GameObject pickPickupPrefab;
         public GameObject bowPickupPrefab;
         public GameObject arrowsPickupPrefab;
