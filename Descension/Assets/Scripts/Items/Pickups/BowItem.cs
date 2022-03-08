@@ -35,7 +35,7 @@ namespace Items.Pickups
     [Serializable]
     class Bow : Equippable
     {
-        private Quiver _quiver;
+        private Arrows _arrows;
         private Transform _reticle;
         private GameObject _arrowPrefab;
         private String _currentControlScheme = ControlScheme.Desktop.ToString();
@@ -44,15 +44,15 @@ namespace Items.Pickups
         private PlayerControls _playerControls;
 
         // gets the arrow quiver if we have one
-        private Quiver Quiver
+        private Arrows Arrows
         {
             get
             {
-                if (_quiver == null)
+                if (_arrows == null)
                 {
-                    _quiver = (Quiver) InventoryManager.Instance.slots.Find(slot => slot.GetName() == "Quiver");
+                    _arrows = (Arrows) InventoryManager.Instance.slots.Find(slot => slot.GetName() == "Arrows");
                 }
-                return _quiver;
+                return _arrows;
             }
         }
         
@@ -96,7 +96,7 @@ namespace Items.Pickups
 
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.BowPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, durability);
             base.OnDrop();
         }
 
@@ -130,13 +130,13 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (Quiver == null || Quiver.durability <= 0)
+            if (Arrows == null || Arrows.durability <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
                 return;
             }
 
-            if (Quiver.durability <= 0)
+            if (Arrows.durability <= 0)
             {
                 Debug.Log("No arrows in quiver");
                 return;
@@ -155,7 +155,7 @@ namespace Items.Pickups
             arrow.Initialize(direction);
             
             // reduce quiver quantity
-            --_quiver.durability;
+            --_arrows.durability;
         }
         
     }

@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1744057531512730108, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Name
-      value: QuiverPickupPrefab
+      value: ArrowsPickupPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Color.a
@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
-      value: Arrow Quiver Acquired
+      value: Arrows Acquired
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}

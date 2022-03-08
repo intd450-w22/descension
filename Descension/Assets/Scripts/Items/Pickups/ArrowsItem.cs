@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Items.Pickups
 {
-    public class QuiverItem : EquippableItem
+    public class ArrowsItem : EquippableItem
     {
-        const String Name = "Quiver";
+        const String Name = "Arrows";
 
         public GameObject arrowPrefab;
         public float bowReticleDistance = 2f;
@@ -20,27 +20,27 @@ namespace Items.Pickups
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance()
         {
-            return new Quiver();
+            return new Arrows();
         }
     }
     
     // logic for bow
     [Serializable]
-    public class Quiver : Equippable
+    public class Arrows : Equippable
     {
-        public Quiver()
+        public Arrows()
         {
             name = GetName();
         }
 
-        public String GetName()
+        public override String GetName()
         {
-            return "Quiver";
+            return "Arrows";
         }
         
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.QuiverPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, durability);
             base.OnDrop();
         }
     }

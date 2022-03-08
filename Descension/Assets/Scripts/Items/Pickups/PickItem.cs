@@ -47,14 +47,14 @@ namespace Items.Pickups
             _playerControls.Enable();
         }
 
-        public String GetName()
+        public override String GetName()
         {
             return "Pick";
         }
         
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.PickPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, durability);
             base.OnDrop();
         }
 

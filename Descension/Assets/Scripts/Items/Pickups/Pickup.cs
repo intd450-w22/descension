@@ -1,36 +1,42 @@
 using System;
 using Environment;
-using Items.Pickups;
 using Managers;
 using UnityEngine;
 
-namespace Items
+namespace Items.Pickups
 {
     public class Pickup : MonoBehaviour
     {
         public EquippableItem item;
         public int quantity = 1;
         public String pickupMessage;
-        private bool _isPickedUp;
+        private bool _inRange;
         
-        private void OnValidate()
+        private void Update()
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
-        }
-
-
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (_isPickedUp) return;
-    
-            if (collision.gameObject.CompareTag("Player"))
+            if (Input.GetKeyDown(KeyCode.E) && _inRange)
             {
-                _isPickedUp = true;
                 SoundManager.Instance.ItemFound();
                 InventoryManager.Instance.PickupItem(item, quantity);
                 UIManager.Instance.GetHudController().ShowText(pickupMessage);
                 Destroy(gameObject);
             }
+
+        }
+
+        private void OnValidate()
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Player")) _inRange = true;
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Player")) _inRange = false;
         }
     }
 }

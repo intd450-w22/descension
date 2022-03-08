@@ -1,4 +1,6 @@
+using System;
 using Environment;
+using Items.Pickups;
 using Managers;
 using UnityEngine;
 
@@ -6,9 +8,16 @@ namespace Items
 {
     public class ItemSpawner : MonoBehaviour
     {
-        public GameObject PickPickupPrefab;
-        public GameObject BowPickupPrefab;
-        public GameObject QuiverPickupPrefab;
+        // public struct Item
+        // {
+        //     public GameObject item;
+        //     public String pickupMessage;
+        // };
+        
+        
+        public GameObject pickPickupPrefab;
+        public GameObject bowPickupPrefab;
+        public GameObject arrowsPickupPrefab;
 
         private static ItemSpawner _instance;
         public static ItemSpawner Instance
@@ -31,10 +40,12 @@ namespace Items
         {
             Vector3 playerPosition = GameManager.PlayerController.transform.position;
             
-            // spawn arrow
+            // spawn pickup
             SoundManager.Instance.ItemFound();
-            GameObject pickup = Instantiate(prefab, playerPosition + new Vector3(0,10,0), Quaternion.identity);
-            pickup.GetComponent<Pickup>().quantity = quantity;
+            GameObject pickupObject = Instantiate(prefab, playerPosition, Quaternion.identity);
+            Pickup pickup = pickupObject.GetComponent<Pickup>();
+            pickup.quantity = quantity;
+            UIManager.Instance.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
         }
     }
 }

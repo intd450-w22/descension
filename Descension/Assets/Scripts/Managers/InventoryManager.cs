@@ -118,7 +118,7 @@ namespace Managers
             // add durability/quantity if already have this item
             for (int i = 0; i < slots.Count; ++i)
             {
-                if (slots[i].GetName() == item.GetName())
+                if (slots[i].name == item.GetName())
                 {
                     slots[i].durability += quantity;
                     Debug.Log("Pickup Success");
@@ -129,7 +129,7 @@ namespace Managers
             // add to empty slot otherwise if one is available
             for (int i = 0; i < slots.Count; ++i)
             {
-                if (slots[i].GetName().Length == 0)
+                if (slots[i].name.Length == 0)
                 {
                     slots[i] = item.CreateInstance();
                     slots[i].SetDurability(quantity);
