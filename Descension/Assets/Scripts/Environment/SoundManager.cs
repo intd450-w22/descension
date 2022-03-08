@@ -45,7 +45,7 @@ namespace Environment
             itemFoundSound.Play();
         }
 
-        public void inspection()
+        public void Inspection()
         {
             inspectionSound.Play();
         }

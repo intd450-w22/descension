@@ -10,12 +10,9 @@ namespace Managers
         {
             get
             {
-                if (_instance == null)
-                    _instance = FindObjectOfType<GameManager>();
-
+                if (_instance == null) _instance = FindObjectOfType<GameManager>();
                 return _instance;
             }
-            set => _instance = value;
         }
 
         private static PlayerController _playerController;
@@ -24,14 +21,10 @@ namespace Managers
         {
             get
             {
-                if (_playerController == null)
-                    _playerController = FindObjectOfType<PlayerController>();
-
+                if (_playerController == null) _playerController = FindObjectOfType<PlayerController>();
                 return _playerController;
             }
-            set => _playerController = value;
         }
-        
         
 
         public bool IsPaused;
@@ -41,7 +34,6 @@ namespace Managers
             if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
-                return;
             }
             else
             {

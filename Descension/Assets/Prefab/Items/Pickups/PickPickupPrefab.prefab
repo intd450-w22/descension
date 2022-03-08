@@ -96,6 +96,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1312424675061267261, guid: aac1fcca5b02b784da9093c7112c901b, type: 3}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: self
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: quantity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
       value: Pick Acquired
       objectReference: {fileID: 0}

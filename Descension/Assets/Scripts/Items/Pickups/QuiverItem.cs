@@ -28,8 +28,6 @@ namespace Items.Pickups
     [Serializable]
     public class Quiver : Equippable
     {
-        private PlayerController _controller;
-
         public Quiver()
         {
             name = GetName();
@@ -38,6 +36,12 @@ namespace Items.Pickups
         public String GetName()
         {
             return "Quiver";
+        }
+        
+        public override void OnDrop()
+        {
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.QuiverPickupPrefab, durability);
+            base.OnDrop();
         }
     }
 }

@@ -71,8 +71,7 @@ namespace Items.Pickups
         
         public Bow(GameObject arrowPrefab, float bowReticleDistance)
         {
-            this.durability = durability;
-            this.name = GetName();
+            name = GetName();
             
             _arrowPrefab = arrowPrefab;
             _bowReticleDistance = bowReticleDistance;
@@ -93,6 +92,12 @@ namespace Items.Pickups
         public override void OnUnEquip()
         {
             Reticle.gameObject.SetActive(false);
+        }
+
+        public override void OnDrop()
+        {
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.BowPickupPrefab, durability);
+            base.OnDrop();
         }
 
         public override void Update()
@@ -152,5 +157,6 @@ namespace Items.Pickups
             // reduce quiver quantity
             --_quiver.durability;
         }
+        
     }
 }

@@ -64,6 +64,8 @@ namespace Managers
             
             // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].Update();
+            
+            if (Input.GetKeyDown(KeyCode.G) && slots[0].durability >= 0) DropSlot(equippedSlot);
         }
         
         void FixedUpdate()
@@ -82,9 +84,33 @@ namespace Managers
 
         void EquipSlot(int index)
         {
-            if (equippedSlot != -1) slots[equippedSlot].OnUnEquip();
+            if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
             equippedSlot = index;
             slots[equippedSlot].OnEquip();
+        }
+
+        void EquipFirstSlottedItem()
+        {
+            for (int i = 0; i < slots.Count; ++i)
+            {
+                if (slots[i].durability != -1)
+                {
+                    EquipSlot(i);
+                    Debug.Log("Equipped " + i);
+                    return;
+                }
+            }
+
+            equippedSlot = -1;
+        }
+
+        void DropSlot(int index)
+        {
+            if (index != -1)
+            {
+                slots[index].OnDrop();
+                EquipFirstSlottedItem();
+            }
         }
 
         public bool PickupItem(EquippableItem item, int quantity)

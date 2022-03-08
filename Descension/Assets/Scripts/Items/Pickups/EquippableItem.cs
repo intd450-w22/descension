@@ -10,19 +10,13 @@ namespace Items.Pickups
     [Serializable]
     public abstract class EquippableItem : MonoBehaviour
     {
-        
-        [HideInInspector] public PlayerController controller;
-        public Sprite inventorySprite;  // sprite displayed in inventory
-        public int quantity = 0;
-        
+        // sprite displayed in inventory UI
+        public Sprite inventorySprite;
 
         public abstract String GetName();
         
-        // should create instance of Equippable child
+        // should create instance of Equippable
         public abstract Equippable CreateInstance();
-        
-        // // Called when action button is pressed and item is equipped
-        // public abstract void Use(ref int durability);
     }
     
     // actual object with functionality
@@ -43,7 +37,13 @@ namespace Items.Pickups
         
         // called when equipped switches to this slot (equippable)
         public virtual void OnUnEquip() { }
-
+        
+        // called when item is dropped
+        public virtual void OnDrop()
+        {
+            name = "";
+            durability = -1;
+        }
         
         // called like regular MonoBehavior Update() if this item is equipped
         public virtual void Update() {}
@@ -51,6 +51,12 @@ namespace Items.Pickups
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
         public virtual void FixedUpdate() { }
 
+        // sets durability/quantity for this item
         public void SetDurability(int durability) { this.durability = durability; }
+
+        // prefab to spawn when dropped
+        public GameObject pickupPrefab;
+
+        
     }
 }

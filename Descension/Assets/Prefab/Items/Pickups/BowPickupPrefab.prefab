@@ -68,6 +68,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: self
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: eItem
       value: 
       objectReference: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
