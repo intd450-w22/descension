@@ -94,7 +94,7 @@ namespace Items.Pickups
                     
                     SoundManager.Instance.GoldFound();
                     
-                    InventoryManager.Instance.gold += Mathf.Floor(Random.Range(0f, 20f));
+                    InventoryManager.Instance.gold += gold;
                     
                     UIManager.Instance.GetHudController()
                         .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);

@@ -1,4 +1,5 @@
 using Actor.AI;
+using Managers;
 using Unity.Mathematics;
 using Util.Enums;
 using UnityEngine;
@@ -30,8 +31,10 @@ namespace Items
         }
 
         // Update is called once per frame
-        void Update() {
-            // body.velocity = transform.right * speed;
+        void Update()
+        {
+            if (GameManager.Instance.IsPaused) return;
+
             body.velocity = _velocity;
         }
 

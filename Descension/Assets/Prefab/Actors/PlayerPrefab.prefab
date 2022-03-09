@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeviceDisplaySettings: {fileID: 11400000, guid: 2aadf05eb186ee349bcd0c5547a3366f, type: 2}
-  movementSpeed: 120
+  movementSpeed: 0.15
   hitPoints: 100
   score: 0
   swordDamage: 25
@@ -182,6 +182,9 @@ MonoBehaviour:
   torchQuantity: 0
   useUI: 1
   arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
+  playerCamera: {fileID: 0}
+  playerInput: {fileID: 0}
+  isAttack: 0
 --- !u!114 &6851937908845542240
 MonoBehaviour:
   m_ObjectHideFlags: 0
