@@ -104,7 +104,7 @@ namespace Actor.Player
 
             if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.AddForce( _rawInputMovement * movementSpeed);
+            _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
                 torchQuantity -= 1 * Time.deltaTime;
