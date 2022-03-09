@@ -21,7 +21,6 @@ namespace Actor.Player
         [Header("Attributes")]
         public float movementSpeed = 10;
         public float hitPoints = 100f;
-        public float score = 0f; // TODO: Should belong to a "game manager" 
         public float swordDamage = 25f;
         public float bowReticleDistance = 2f;
         public float swordReticleDistance = 1.5f;
@@ -102,7 +101,7 @@ namespace Actor.Player
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
-            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Instance.gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
@@ -137,11 +136,6 @@ namespace Actor.Player
 
         public void OnKilled()
         {
-            //public UIType uiAfterReload;
-            //var currScene = uiManager.GetCurrentScene();
-            //uiManager.SwitchScene(currScene);
-            //if (uiAfterReload == UIType.GameHUD)
-
             if (_gameManager.IsPaused) return;
 
             _gameManager.IsPaused = true;
