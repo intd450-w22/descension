@@ -27,12 +27,9 @@ namespace Managers
             set => _instance = value;
         }
         
-        
-        
         public List<Equippable> slots = new List<Equippable>() { null, null, null };
         public int equippedSlot = -1;
-        public float gold = 0;
-        
+        public int gold = 0;
         
         void Awake()
         {
