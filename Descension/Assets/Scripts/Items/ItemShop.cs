@@ -10,14 +10,14 @@ namespace Items
     public class ItemShop : MonoBehaviour
     {
         public String dialogue = "Press F to open shop";
+        public KeyCode activationKey = KeyCode.F;
         private bool _inRange;
 
         // Update is called once per frame
         void Update()
         {
-            if (_inRange && Input.GetKeyDown(KeyCode.F))
+            if (_inRange && Input.GetKeyDown(activationKey))
             {
-                // TODO Open Item Shop UI
                 UIManager.Instance.SwitchUi(UIType.Shop);
                 UIManager.Instance.GetShopUIController().UpdateGold();
             }
