@@ -13,7 +13,6 @@ namespace UI.Controllers.ButtonController
     {
         public EquippableItem item;
         public int cost;
-        
         private TMP_Text _itemText;
         private TMP_Text ItemText
         {
@@ -24,27 +23,28 @@ namespace UI.Controllers.ButtonController
             }
         }
 
-        private void OnValidate()
+        public void Set(EquippableItem item, int cost)
         {
+            this.item = item;
+            this.cost = cost;
             ItemText.text = item.GetName() + " (" + cost + " gold)";
         }
-
+        
         protected override void OnButtonClicked()
         {
-            Debug.Log(item.GetName() + " clicked! Costs " + cost);
             float gold = InventoryManager.Instance.gold;
 
             if (gold < cost)
             {
-                // TODO Sound Effect - Error
                 UIManager.Instance.GetShopUIController().DisplayFeedback("Not enough gold!");
+                SoundManager.Instance.Error();
                 return;
             }
 
             if (!InventoryManager.Instance.PickupItem(item, 1))
             {
-                // TODO Sound Effect - Error
                 UIManager.Instance.GetShopUIController().DisplayFeedback("No room in inventory!");
+                SoundManager.Instance.Error();
                 return;
             }
             

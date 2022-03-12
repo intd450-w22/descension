@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Environment
+namespace Managers
 {
     public class SoundManager : MonoBehaviour
     {
@@ -11,7 +9,7 @@ namespace Environment
         public AudioSource itemFoundSound;
         public AudioSource arrowAttackSound;
         public AudioSource inspectionSound;
-        
+        public AudioSource errorSound;
         
         private static SoundManager _instance;
         public static SoundManager Instance
@@ -53,6 +51,12 @@ namespace Environment
         public void ArrowAttack() 
         {
             arrowAttackSound.Play();
+        }
+
+        public void Error()
+        {
+            //TODO Add error sound effect
+            //errorSound.Play();
         }
     }
 }
