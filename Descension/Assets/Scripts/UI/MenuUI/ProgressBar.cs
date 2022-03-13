@@ -53,6 +53,18 @@ namespace UI.MenuUI
             progressRectTransform = GetComponentsInChildren<RectTransform>().SingleOrDefault(x => x.name == "Progress");
         }
 
+        public void SetMax(float newMax)
+        {
+            Max = newMax;
+            UpdateProgress();
+        }
+
+        public void SetMin(float newMin)
+        {
+            Min = newMin;
+            UpdateProgress();
+        }
+
         public void SetWidth(float width)
         {
             containerRectTransform.SetWidth(width);

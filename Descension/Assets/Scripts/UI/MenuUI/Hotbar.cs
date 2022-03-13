@@ -11,12 +11,6 @@ public class Hotbar : MonoBehaviour
 
     void Awake()
     {
-        SetReferences();
-    }
-
-    public void SetReferences()
-    {
-        // TODO: Get Inventory capacity from somewhere
         hotbarSlots = GetComponentsInChildren<Image>().ToList();
     }
 

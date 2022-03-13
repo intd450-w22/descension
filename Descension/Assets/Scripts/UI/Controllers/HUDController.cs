@@ -55,7 +55,6 @@ namespace UI.Controllers
                 _healthBar = leftHudGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
-                _hotbar.SetReferences();
             }
             catch
             {
