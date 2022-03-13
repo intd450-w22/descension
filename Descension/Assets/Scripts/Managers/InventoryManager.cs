@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Actor.Player;
 using Items;
 using Items.Pickups;
 using JetBrains.Annotations;
+using UI.Controllers;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -30,7 +33,7 @@ namespace Managers
         public List<Equippable> slots = new List<Equippable>() { null, null, null };
         public int equippedSlot = -1;
         public int gold = 0;
-        
+
         void Awake()
         {
             if (_instance == null) _instance = this;
@@ -63,6 +66,7 @@ namespace Managers
             if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
             equippedSlot = index;
             slots[equippedSlot].OnEquip();
+            UIManager.Instance.Hotbar.SetActive(index);
         }
 
         void EquipFirstSlottedItem()
@@ -86,22 +90,21 @@ namespace Managers
             {
                 slots[index].OnDrop();
                 EquipFirstSlottedItem();
+                UIManager.Instance.Hotbar.DropItem(index);
             }
         }
 
         public bool PickupItem(EquippableItem item, int quantity)
         {
             // add durability/quantity if already have this item
-            for (int i = 0; i < slots.Count; ++i)
+            var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());
+            if (inventoryItem != null)
             {
-                if (slots[i].name == item.GetName())
-                {
-                    slots[i].durability += quantity;
-                    Debug.Log("Pickup Success");
-                    return true;
-                }
+                inventoryItem.durability += quantity;
+                Debug.Log("Pickup Success");
+                return true;
             }
-            
+
             // add to empty slot otherwise if one is available
             for (int i = 0; i < slots.Count; ++i)
             {
@@ -111,6 +114,7 @@ namespace Managers
                     slots[i].SetDurability(quantity);
                     slots[i].inventorySprite = item.inventorySprite;
                     EquipSlot(i);
+                    UIManager.Instance.Hotbar.PickupItem(item, i);
                     Debug.Log("Pickup Success");
                     return true;
                 }

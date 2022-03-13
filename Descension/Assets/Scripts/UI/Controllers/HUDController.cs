@@ -21,6 +21,9 @@ namespace UI.Controllers
         private Text _ropeUI;
         private Text _healthUI;
         private ProgressBar _healthBar;
+        private Hotbar _hotbar;
+
+        public Hotbar Hotbar { get => _hotbar; }
 
         void Awake()
         {
@@ -50,10 +53,13 @@ namespace UI.Controllers
                 var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
                 _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<Text>();
                 _healthBar = leftHudGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
+
+                _hotbar = GetComponentInChildren<Hotbar>();
+                _hotbar.SetReferences();
             }
             catch
             {
-                //
+                // ignored
             }
         }
 
@@ -70,14 +76,14 @@ namespace UI.Controllers
                 _ropeUI.enabled = false;
                 _healthUI.enabled = true;
                 _healthBar.enabled = true;
+                _hotbar.enabled = true;
 
                 _healthBar.Value = _healthBar.Max;
             }
             catch
             {
-                //
+                // ignored
             }
-            
         }
 
         public void HideDialogue()
