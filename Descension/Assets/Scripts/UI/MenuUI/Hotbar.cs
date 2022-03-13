@@ -11,23 +11,18 @@ public class Hotbar : MonoBehaviour
 
     void Awake()
     {
-        // TODO: Get Inventory capacity from somewhere
         SetReferences();
-    }
-
-    void Start()
-    {
-        
     }
 
     public void SetReferences()
     {
+        // TODO: Get Inventory capacity from somewhere
         hotbarSlots = GetComponentsInChildren<Image>().ToList();
     }
 
     public void SetActive(int slot)
     {
-
+        // TODO: Add a highlight around the inventory slot
     }
 
     public void PickupItem(EquippableItem item, int slot)
