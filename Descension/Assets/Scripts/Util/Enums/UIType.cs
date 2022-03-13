@@ -11,6 +11,7 @@
         ControlsMenu,
         Intro,
         Death,
-        End
+        End,
+        Shop
     }
 }
