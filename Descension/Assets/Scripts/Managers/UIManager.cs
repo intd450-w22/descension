@@ -33,6 +33,9 @@ namespace Managers
 
         public UIType DefaultUi = UIType.MainMenu;
 
+        // Helper properties
+        public Hotbar Hotbar { get => _hudController.Hotbar; }
+
         protected void Awake()
         {
             if (_instance != null && _instance != this)
