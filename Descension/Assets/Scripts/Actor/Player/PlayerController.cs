@@ -21,10 +21,9 @@ namespace Actor.Player
         [Header("Attributes")]
         public float movementSpeed = 10;
         public float hitPoints = 100f;
-        public float score = 0f; // TODO: Should belong to a "game manager" 
-        public float swordDamage = 25f;
-        public float bowReticleDistance = 2f;
-        public float swordReticleDistance = 1.5f;
+        public float swordDamage = 25f; // obsolete -> moved to inventory item
+        public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
+        public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
 
         [Header("Session Variables")]
         // TODO: Change this to a "currWeapon" type thing 
@@ -32,8 +31,8 @@ namespace Actor.Player
         public bool hasSword = false;
 
         [Header("Inventory")]
-        public float pickQuantity = 0;
-        public float arrowsQuantity = 0;
+        public float pickQuantity = 0; // obsolete -> moved to inventory item 
+        public float arrowsQuantity = 0; // obsolete -> moved to inventory item
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
@@ -50,7 +49,7 @@ namespace Actor.Player
 
         // State variable 
         private Vector2 _rawInputMovement;
-        public bool isAttack;
+        public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
         private GameManager _gameManager;
@@ -102,18 +101,13 @@ namespace Actor.Player
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
-            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Instance.gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.AddForce( _rawInputMovement * movementSpeed);
+            _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
                 torchQuantity -= 1 * Time.deltaTime;
             }
-        }
-
-        private void PauseMenu()
-        {
-
         }
 
         #region Entity Interaction
@@ -137,11 +131,6 @@ namespace Actor.Player
 
         public void OnKilled()
         {
-            //public UIType uiAfterReload;
-            //var currScene = uiManager.GetCurrentScene();
-            //uiManager.SwitchScene(currScene);
-            //if (uiAfterReload == UIType.GameHUD)
-
             if (_gameManager.IsPaused) return;
 
             _gameManager.IsPaused = true;
@@ -210,8 +199,10 @@ namespace Actor.Player
 
         #region Item Accessors
 
+        // obsolete -> moved to inventory item
         public void AddPick(float value) => pickQuantity += value;
 
+        // obsolete -> moved to inventory item
         public void AddBow()
         {
             hasBow = true;
@@ -219,8 +210,10 @@ namespace Actor.Player
                 _reticle.gameObject.SetActive(true);
         }
 
+        // obsolete -> moved to inventory item
         public void AddSword() => hasSword = true;
 
+        // obsolete -> moved to inventory item
         public void AddArrows(float value) => arrowsQuantity += value;
 
         public void AddRope(float value) => ropeQuantity += value;
