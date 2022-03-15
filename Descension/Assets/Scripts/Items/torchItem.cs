@@ -2,7 +2,6 @@ using Actor.Player;
 using Managers;
 using UI.Controllers;
 using UnityEngine;
-using Environment;
 
 namespace Items
 {

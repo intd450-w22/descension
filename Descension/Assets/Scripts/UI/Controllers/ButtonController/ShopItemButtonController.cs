@@ -1,11 +1,6 @@
-using System;
-using Environment;
-using Items;
 using Items.Pickups;
 using Managers;
 using TMPro;
-using UnityEngine;
-using Util.Helpers;
 
 namespace UI.Controllers.ButtonController
 {

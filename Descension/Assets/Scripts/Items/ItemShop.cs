@@ -1,9 +1,7 @@
 using System;
 using Managers;
 using UnityEngine;
-using UnityEngine.UI;
 using Util.Enums;
-using Util.Helpers;
 
 namespace Items
 {

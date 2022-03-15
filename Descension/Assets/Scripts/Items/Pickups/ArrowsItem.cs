@@ -1,6 +1,4 @@
 using System;
-using Actor.Player;
-using Managers;
 using UnityEngine;
 
 namespace Items.Pickups

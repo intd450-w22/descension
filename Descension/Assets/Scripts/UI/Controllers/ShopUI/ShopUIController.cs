@@ -4,8 +4,6 @@ using Items.Pickups;
 using Managers;
 using TMPro;
 using UI.Controllers.ButtonController;
-using UnityEditor;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using Util.Helpers;
 

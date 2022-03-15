@@ -1,7 +1,5 @@
 using System;
-using Actor.Player;
 using JetBrains.Annotations;
-using Managers;
 using UnityEngine;
 
 namespace Items.Pickups

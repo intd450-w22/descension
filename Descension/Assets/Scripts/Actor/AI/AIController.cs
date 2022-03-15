@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Actor.AI;
 using Actor.AI.States;
 using Actor.Player;
 using UI.Controllers;
-using Util.Enums;
 using UnityEngine;
 using UnityEngine.AI;
-using static Util.Helpers.CalculationHelper;
-using static Util.Helpers.Extensions;
 using Managers;
 using Unity.Collections;
 

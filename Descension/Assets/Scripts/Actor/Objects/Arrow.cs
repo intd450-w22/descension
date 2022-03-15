@@ -1,9 +1,7 @@
 using Actor.AI;
 using Managers;
-using Unity.Mathematics;
 using Util.Enums;
 using UnityEngine;
-using Util.Helpers;
 
 namespace Items
 {
