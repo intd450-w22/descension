@@ -21,10 +21,9 @@ namespace Actor.Player
         [Header("Attributes")]
         public float movementSpeed = 10;
         public float hitPoints = 100f;
-        public float score = 0f; // TODO: Should belong to a "game manager" 
-        public float swordDamage = 25f;
-        public float bowReticleDistance = 2f;
-        public float swordReticleDistance = 1.5f;
+        public float swordDamage = 25f; // obsolete -> moved to inventory item
+        public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
+        public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
 
         [Header("Session Variables")]
         // TODO: Change this to a "currWeapon" type thing 
@@ -32,8 +31,8 @@ namespace Actor.Player
         public bool hasSword = false;
 
         [Header("Inventory")]
-        public float pickQuantity = 0;
-        public float arrowsQuantity = 0;
+        public float pickQuantity = 0; // obsolete -> moved to inventory item 
+        public float arrowsQuantity = 0; // obsolete -> moved to inventory item
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
@@ -41,19 +40,20 @@ namespace Actor.Player
         public bool useUI = true;
         public GameObject arrowPrefab;
         
-        private Camera _playerCamera;
+        [HideInInspector] public Camera playerCamera;
 
         // Player input variables
-        private PlayerInput _playerInput;
-        private PlayerControls _playerControls;
+        [HideInInspector] public PlayerInput playerInput;
+        [HideInInspector] public PlayerControls playerControls;
         private string _currentControlScheme = ControlScheme.Desktop.ToString();
 
         // State variable 
         private Vector2 _rawInputMovement;
-        private bool _isAttack;
+        public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
         private GameManager _gameManager;
+        private InventoryManager _inventoryManager;
         private UIManager _uiManager;
         private HUDController _hudController;
         private Transform _reticle;
@@ -68,16 +68,22 @@ namespace Actor.Player
             if (_reticle != null && !hasBow && !hasSword)
                 _reticle.gameObject.SetActive(false);
 
-            _playerInput = GetComponent<PlayerInput>();
-            _playerControls = new PlayerControls();
+            playerInput = GetComponent<PlayerInput>();
+            playerControls = new PlayerControls();
 
             _rb = GetComponent<Rigidbody2D>();
         }
 
         void Start()
         {
-            _playerCamera = Camera.main;
+            playerCamera = Camera.main;
             _gameManager = GameManager.Instance;
+            _inventoryManager = FindObjectOfType<InventoryManager>();
+            if (!_inventoryManager)
+            {
+                Debug.LogError("InventoryManager not found");
+            }
+            
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
             _soundManager = FindObjectOfType<SoundManager>();
@@ -86,99 +92,22 @@ namespace Actor.Player
             _gameManager.IsPaused = false;
         }
 
-        private void OnEnable() => _playerControls.Enable();
+        private void OnEnable() => playerControls.Enable();
 
-        private void OnDisable() => _playerControls.Disable();
+        private void OnDisable() => playerControls.Disable();
 
-        void Update()
-        {
-            // TODO: Remove this once the OnAttack callback is functioning
-            // Since our physics/movement code is in FixedUpdate, we miss
-            // input on a per-frame basis. So we calculate it here, and
-            // asses it in FixedUpdate, where it's set to false at the end. 
-            _isAttack |= _playerControls.Default.Shoot.WasPressedThisFrame();
-        }
+        void Update() { }
 
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
 
-            if(useUI) _hudController.UpdateUi(score, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Instance.gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.AddForce( _rawInputMovement * movementSpeed);
+            _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
             if (torchQuantity > 0) {
                 torchQuantity -= 1 * Time.deltaTime;
             }
-
-            if (hasBow)
-            {
-                var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint).normalized;
-
-                if (_reticle != null)
-                {
-                    _reticle.gameObject.SetActive(true);
-
-                    // Set the position of the reticle on the screen according to input type
-                    if (_currentControlScheme == ControlScheme.Desktop.ToString())
-                    {
-                        // Place the reticle on the cursor 
-                        // TODO: Hide the cursor ? 
-                        _reticle.position = (Vector2) _playerCamera.ScreenToWorldPoint(Input.mousePosition);
-                    }
-                    else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
-                    {
-                        // Place the reticle in a ring around the player 
-                        // TODO: Add aiming with the right stick ala Enter the Gungeon 
-                        _reticle.position = transform.position + (direction * bowReticleDistance);
-                    }
-                }
-
-                Debug.DrawLine(transform.position, transform.position + direction * 3);
-
-                if (_isAttack && arrowsQuantity > 0) {
-                    _soundManager.ArrowAttack();
-                    var arrowObject = Instantiate(arrowPrefab, (Vector3) transform.position + direction, Quaternion.identity);
-                    arrowObject.transform.localScale = transform.localScale;
-                    var arrow = arrowObject.GetComponent<Arrow>();
-                    arrow.Initialize(direction);
-                    arrowsQuantity -= 1;
-                } else if (_isAttack && arrowsQuantity < 1) {
-                    UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
-                }             
-            }
-            else if (hasSword)
-            {
-                var screenPoint = _playerCamera.WorldToScreenPoint(transform.localPosition);
-                var direction = (Input.mousePosition - screenPoint).normalized;
-
-                if (_reticle != null)
-                {
-                    _reticle.gameObject.SetActive(true);
-                    _reticle.position = transform.position + (direction * swordReticleDistance);
-                }
-
-                Debug.DrawLine(transform.position, transform.position + direction * swordReticleDistance);
-
-                if (_isAttack) {
-                
-                    var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                    var attackPoint = (Vector2) (transform.position + (direction * swordReticleDistance));
-                    var hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, LayerMask.GetMask("Enemy"));
-                    foreach (var enemy in hitEnemies)
-                    {
-                        try { enemy.gameObject.GetComponent<AIController>().InflictDamage(swordDamage); }
-                        catch { enemy.gameObject.GetComponentInParent<AIController>().InflictDamage(swordDamage); }
-                    }
-                }
-            }
-
-            _isAttack = false;
-        }
-
-        private void PauseMenu()
-        {
-
         }
 
         #region Entity Interaction
@@ -202,11 +131,6 @@ namespace Actor.Player
 
         public void OnKilled()
         {
-            //public UIType uiAfterReload;
-            //var currScene = uiManager.GetCurrentScene();
-            //uiManager.SwitchScene(currScene);
-            //if (uiAfterReload == UIType.GameHUD)
-
             if (_gameManager.IsPaused) return;
 
             _gameManager.IsPaused = true;
@@ -250,13 +174,13 @@ namespace Actor.Player
 
         public void OnControlsChanged()
         {
-            if (!_playerInput) return;
+            if (!playerInput) return;
 
-            if (_playerInput.currentControlScheme != _currentControlScheme)
+            if (playerInput.currentControlScheme != _currentControlScheme)
             {
-                _currentControlScheme = _playerInput.currentControlScheme;
+                _currentControlScheme = playerInput.currentControlScheme;
                 
-                var deviceName = DeviceDisplaySettings.GetDeviceName(_playerInput);
+                var deviceName = DeviceDisplaySettings.GetDeviceName(playerInput);
                 Debug.Log($"Current control scheme {deviceName}");
 
                 RemoveAllBindingOverrides();
@@ -275,8 +199,10 @@ namespace Actor.Player
 
         #region Item Accessors
 
+        // obsolete -> moved to inventory item
         public void AddPick(float value) => pickQuantity += value;
 
+        // obsolete -> moved to inventory item
         public void AddBow()
         {
             hasBow = true;
@@ -284,8 +210,10 @@ namespace Actor.Player
                 _reticle.gameObject.SetActive(true);
         }
 
+        // obsolete -> moved to inventory item
         public void AddSword() => hasSword = true;
 
+        // obsolete -> moved to inventory item
         public void AddArrows(float value) => arrowsQuantity += value;
 
         public void AddRope(float value) => ropeQuantity += value;

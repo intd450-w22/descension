@@ -1,4 +1,5 @@
 using Managers;
+using UI.MenuUI;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,10 @@ namespace UI.Controllers
         private Text _torchUI;
         private Text _ropeUI;
         private Text _healthUI;
+        private ProgressBar _healthBar;
+        private Hotbar _hotbar;
+
+        public Hotbar Hotbar { get => _hotbar; }
 
         void Awake()
         {
@@ -33,27 +38,51 @@ namespace UI.Controllers
 
         public void SetReferences()
         {
-            _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
-            _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
-            var guiGroup = gameObject.GetChildObjectWithName("GuiGroup").gameObject;
-            _scoreUI = guiGroup.GetChildObjectWithName("Score").GetComponent<Text>();
-            _bowUI = guiGroup.GetChildObjectWithName("BowDurability").GetComponent<Text>();
-            _pickUI = guiGroup.GetChildObjectWithName("PickDurability").GetComponent<Text>();
-            _torchUI = guiGroup.GetChildObjectWithName("TorchDurability").GetComponent<Text>();
-            _ropeUI = guiGroup.GetChildObjectWithName("RopeDurability").GetComponent<Text>();
-            _healthUI = guiGroup.GetChildObjectWithName("Health").GetComponent<Text>();
+            try
+            {
+                _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
+                _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
+                
+                var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
+                _scoreUI = rightHudGroup.GetChildObjectWithName("Score").GetComponent<Text>();
+                _bowUI = null; // guiGroup.GetChildObjectWithName("BowDurability").GetComponent<Text>();
+                _pickUI = null; // guiGroup.GetChildObjectWithName("PickDurability").GetComponent<Text>();
+                _torchUI = rightHudGroup.GetChildObjectWithName("TorchDurability").GetComponent<Text>();
+                _ropeUI = rightHudGroup.GetChildObjectWithName("RopeDurability").GetComponent<Text>();
+
+                var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
+                _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<Text>();
+                _healthBar = leftHudGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
+
+                _hotbar = GetComponentInChildren<Hotbar>();
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public void Reset()
         {
-            _dialogueBox.enabled = false;
-            _dialogueText.enabled = false;
-            _scoreUI.enabled = true;
-            _bowUI.enabled = false;
-            _pickUI.enabled = false;
-            _torchUI.enabled = false;
-            _ropeUI.enabled = false;
-            _healthUI.enabled = true;
+            try
+            {
+                _dialogueBox.enabled = false;
+                _dialogueText.enabled = false;
+                _scoreUI.enabled = true;
+                _bowUI.enabled = false;
+                _pickUI.enabled = false;
+                _torchUI.enabled = false;
+                _ropeUI.enabled = false;
+                _healthUI.enabled = true;
+                _healthBar.enabled = true;
+                _hotbar.enabled = true;
+
+                _healthBar.Value = _healthBar.Max;
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public void HideDialogue()
@@ -82,26 +111,29 @@ namespace UI.Controllers
             {
                 _scoreUI.text = "Gold/Score: " + score.ToString();
                 _healthUI.text = "Health: " + health.ToString();
+                _healthBar.Value = health;
 
-                if (pickQuantity > 0)
-                {
-                    _pickUI.enabled = true;
-                    _pickUI.text = "Pick " + pickQuantity.ToString();
-                }
-                else
-                {
-                    _pickUI.enabled = false;
-                }
+                if(_pickUI != null)
+                    if (pickQuantity > 0)
+                    {
+                        _pickUI.enabled = true;
+                        _pickUI.text = "Pick " + pickQuantity.ToString();
+                    }
+                    else
+                    {
+                        _pickUI.enabled = false;
+                    }
 
-                if (arrowsQuantity > 0)
-                {
-                    _bowUI.enabled = true;
-                    _bowUI.text = "Arrows " + arrowsQuantity.ToString();
-                }
-                else
-                {
-                    _bowUI.enabled = false;
-                }
+                if (_bowUI != null)
+                    if (arrowsQuantity > 0)
+                    {
+                        _bowUI.enabled = true;
+                        _bowUI.text = "Arrows " + arrowsQuantity.ToString();
+                    }
+                    else
+                    {
+                        _bowUI.enabled = false;
+                    }
 
                 if (ropeQuantity > 0)
                 {

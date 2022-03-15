@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UI.Controllers;
+using UI.Controllers.ShopUI;
 using UI.Controllers.UIController;
 using Util;
 using Util.Enums;
@@ -28,8 +29,12 @@ namespace Managers
         private List<UIController> _uiControllers;
         private HUDController _hudController;
         private UIController _lastActiveUi;
+        private ShopUIController _shopUIController;
 
         public UIType DefaultUi = UIType.MainMenu;
+
+        // Helper properties
+        public Hotbar Hotbar { get => _hudController.Hotbar; }
 
         protected void Awake()
         {
@@ -45,12 +50,16 @@ namespace Managers
             }
 
             _hudController = GetComponentInChildren<HUDController>();
+            _shopUIController = GetComponentInChildren<ShopUIController>();
             _uiControllers = FindObjectsOfType<UIController>().ToList();
             _uiControllers.ForEach(x => x.gameObject.SetActive(false));
+            
             SwitchUi(DefaultUi);
         }
 
         public HUDController GetHudController() => _hudController;
+
+        public ShopUIController GetShopUIController() => _shopUIController;
 
         public string GetCurrentScene() => SceneManager.GetActiveScene().name;
 

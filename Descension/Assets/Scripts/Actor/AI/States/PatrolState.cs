@@ -25,19 +25,12 @@ namespace Actor.AI.States
             base.Start();
             _patrolTargets = new List<Transform>(transform.Find("PatrolTargets").GetComponentsInChildren<Transform>());
             _patrolTargets.Remove(transform.Find("PatrolTargets"));
-            
-            Debug.Log("Count " +   _patrolTargets.Count);
-            foreach (Transform t in _patrolTargets)
-            {
-                Debug.Log(t.name);
-            }
             _patrolIndex = FindClosest(Controller.position, ref _patrolTargets);
             currentTarget = _patrolTargets[_patrolIndex];
         }
 
         public override void Initialize()
         {
-            Debug.Log("Patrol");
             Controller.agent.speed = speed;
         }
 
