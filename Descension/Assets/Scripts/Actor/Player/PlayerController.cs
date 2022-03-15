@@ -1,5 +1,3 @@
-using Actor.AI;
-using Items;
 using Managers;
 using UI.Controllers;
 using Util.AssetMenu;
@@ -7,7 +5,6 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Environment;
 
 
 namespace Actor.Player

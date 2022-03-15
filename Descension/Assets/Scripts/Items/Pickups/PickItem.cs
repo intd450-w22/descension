@@ -1,6 +1,5 @@
 using System;
 using Actor.Player;
-using Environment;
 using Managers;
 using UnityEngine;
 using Util.Enums;

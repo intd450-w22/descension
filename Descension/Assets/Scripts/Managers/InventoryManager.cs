@@ -1,15 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Actor.Player;
-using Items;
 using Items.Pickups;
-using JetBrains.Annotations;
-using UI.Controllers;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 namespace Managers
 {

@@ -1,7 +1,4 @@
-﻿
-
-using System.Diagnostics;
-using Util.Enums;
+﻿using Util.Enums;
 
 namespace UI.Controllers.ButtonController
 {
