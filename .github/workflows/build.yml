@@ -30,7 +30,9 @@ jobs:
         projectPath: 
           - Descension
         customImage: 
-          - unityci/editor:2020.3.26f1-base-0    
+          - unityci/editor:2020.3.26f1-base-0
+        buildName: 
+          - Descension
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
