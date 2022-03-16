@@ -32,18 +32,16 @@ public class Hotbar : MonoBehaviour
 
     public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
 
-    public void PickupItem(EquippableItem item, int slot)
+    public void PickupItem(Equippable item, int slot)
     {
-        // Set sprite and quantity
-        _hotbarSlots[slot].ItemImage.sprite = item.inventorySprite;
-        // _hotbarSlots[slot].Quantity = item.Durability; TODO Get this
+        _hotbarSlots[slot].SetSprite(item.inventorySprite);
+        _hotbarSlots[slot].SetQuantity(item.durability);
     }
 
     public void DropItem(int slot)
     {
-        // Clear sprite and quantity
         _hotbarSlots[slot].ClearSprite();
-        _hotbarSlots[slot].Quantity = -1;
+        _hotbarSlots[slot].ClearQuantity();
         _hotbarSlots[slot].Deactivate();
     }
 

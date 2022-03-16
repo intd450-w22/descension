@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
 
@@ -13,14 +14,19 @@ namespace UI.MenuUI
         [SerializeField]
         private Color _inactiveOutlineColour = new Color(255, 255, 255, 16);
 
+        public int Quantity { get; set; } = -1;
+
         public Image ItemImage { get; set; }
         public Image OutlineImage { get; set; }
-        public int Quantity { get; set; } = -1;
+        public TextMeshProUGUI QuantityText { get; set; }
 
         void Awake()
         {
             ItemImage = gameObject.GetChildObjectWithName("SlotItem").GetComponent<Image>();
             OutlineImage = gameObject.GetChildObjectWithName("SlotOutline").GetComponent<Image>();
+            QuantityText = gameObject.GetChildObjectWithName("SlotQuantity").GetComponent<TextMeshProUGUI>();
+
+            UpdateQuantity();
         }
 
         public void Activate()
@@ -33,9 +39,28 @@ namespace UI.MenuUI
             OutlineImage.color = _inactiveOutlineColour;
         }
 
+        public void SetSprite(Sprite sprite)
+        {
+            ItemImage.sprite = sprite;
+        }
+
         public void ClearSprite()
         {
             ItemImage.sprite = _defaultSprite;
         }
+
+        public void SetQuantity(int quantity)
+        {
+            Quantity = quantity;
+            UpdateQuantity();
+        }
+
+        public void ClearQuantity()
+        {
+            Quantity = -1;
+            UpdateQuantity();
+        }
+
+        private void UpdateQuantity() => QuantityText.text = Quantity < 0 ? string.Empty : Quantity.ToString();
     }
 }

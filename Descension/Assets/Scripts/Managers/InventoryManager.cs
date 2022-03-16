@@ -106,7 +106,7 @@ namespace Managers
                     slots[i].SetDurability(quantity);
                     slots[i].inventorySprite = item.inventorySprite;
                     EquipSlot(i);
-                    UIManager.Instance.Hotbar.PickupItem(item, i);
+                    UIManager.Instance.Hotbar.PickupItem(slots[i], i);
                     Debug.Log("Pickup Success");
                     return true;
                 }
