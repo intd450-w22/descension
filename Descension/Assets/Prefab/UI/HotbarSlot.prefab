@@ -146,8 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40355375e79a6245a3e2d4e71b6615e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveColour: {r: 1, g: 0.60784316, b: 0, a: 0.5019608}
-  InactiveColour: {r: 1, g: 1, b: 1, a: 0.0627451}
+  _defaultSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+  _activeOutlineColour: {r: 1, g: 0.60784316, b: 0, a: 0.5019608}
+  _inactiveOutlineColour: {r: 1, g: 1, b: 1, a: 0.0627451}
 --- !u!1 &7664450636616341947
 GameObject:
   m_ObjectHideFlags: 0

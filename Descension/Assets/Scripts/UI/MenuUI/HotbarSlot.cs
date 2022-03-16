@@ -7,28 +7,35 @@ namespace UI.MenuUI
     public class HotbarSlot : MonoBehaviour
     {
         [SerializeField]
-        private Color ActiveColour;
+        private Sprite _defaultSprite;
         [SerializeField]
-        private Color InactiveColour;
+        private Color _activeOutlineColour = new Color(255, 155, 0, 128);
+        [SerializeField]
+        private Color _inactiveOutlineColour = new Color(255, 255, 255, 16);
 
-        public Image ItemSprite { get; set; }
-        public Image OutlineSprite { get; set; }
+        public Image ItemImage { get; set; }
+        public Image OutlineImage { get; set; }
         public int Quantity { get; set; } = -1;
 
         void Awake()
         {
-            ItemSprite = gameObject.GetChildObjectWithName("SlotItem").GetComponent<Image>();
-            OutlineSprite = gameObject.GetChildObjectWithName("SlotOutline").GetComponent<Image>();
+            ItemImage = gameObject.GetChildObjectWithName("SlotItem").GetComponent<Image>();
+            OutlineImage = gameObject.GetChildObjectWithName("SlotOutline").GetComponent<Image>();
         }
 
         public void Activate()
         {
-            OutlineSprite.color = ActiveColour;
+            OutlineImage.color = _activeOutlineColour;
         }
 
         public void Deactivate()
         {
-            OutlineSprite.color = InactiveColour;
+            OutlineImage.color = _inactiveOutlineColour;
+        }
+
+        public void ClearSprite()
+        {
+            ItemImage.sprite = _defaultSprite;
         }
     }
 }
