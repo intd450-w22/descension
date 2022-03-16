@@ -16,8 +16,7 @@ public class Hotbar : MonoBehaviour
 
     void Start()
     {
-        // Deactivate all slots
-        SetActive(-1);
+        DeactivateAll();
     }
 
     public void SetActive(int slot)
@@ -30,6 +29,8 @@ public class Hotbar : MonoBehaviour
                 _hotbarSlots[i].Deactivate();
         }
     }
+
+    public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
 
     public void PickupItem(EquippableItem item, int slot)
     {
