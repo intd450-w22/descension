@@ -12,6 +12,7 @@
         Intro,
         Death,
         End,
-        Shop
+        Shop,
+        Codex
     }
 }

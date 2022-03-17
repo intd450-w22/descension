@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UI.Controllers;
+using UI.Controllers.Codex;
 using UI.Controllers.ShopUI;
 using UI.Controllers.UIController;
 using Util;
@@ -30,6 +31,7 @@ namespace Managers
         private HUDController _hudController;
         private UIController _lastActiveUi;
         private ShopUIController _shopUIController;
+        private CodexController _codexController;
 
         public UIType DefaultUi = UIType.MainMenu;
 
@@ -51,6 +53,8 @@ namespace Managers
 
             _hudController = GetComponentInChildren<HUDController>();
             _shopUIController = GetComponentInChildren<ShopUIController>();
+            _codexController = GetComponentInChildren<CodexController>();
+
             _uiControllers = FindObjectsOfType<UIController>().ToList();
             _uiControllers.ForEach(x => x.gameObject.SetActive(false));
             
@@ -60,6 +64,8 @@ namespace Managers
         public HUDController GetHudController() => _hudController;
 
         public ShopUIController GetShopUIController() => _shopUIController;
+
+        public CodexController GetCodexController() => _codexController;
 
         public string GetCurrentScene() => SceneManager.GetActiveScene().name;
 
