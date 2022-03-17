@@ -80,7 +80,7 @@ namespace Items.Pickups
 
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, quantity);
             base.OnDrop();
         }
 
@@ -104,7 +104,7 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (durability <= 0)
+            if (quantity <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("Sword has no durability!");
                 return;
@@ -122,7 +122,7 @@ namespace Items.Pickups
                 enemyController.InflictDamage(_swordDamage);
             }
 
-            if (hitEnemies.Length >= 1) --durability;
+            if (hitEnemies.Length >= 1) SetQuantity(quantity-1);
         }
         
     }

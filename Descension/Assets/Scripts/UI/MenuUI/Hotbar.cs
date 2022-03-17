@@ -31,11 +31,12 @@ public class Hotbar : MonoBehaviour
     }
 
     public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
-
+    
     public void PickupItem(Equippable item, int slot)
     {
         _hotbarSlots[slot].SetSprite(item.inventorySprite);
-        _hotbarSlots[slot].SetQuantity(item.durability);
+        _hotbarSlots[slot].SetQuantity(item.quantity);
+        _hotbarSlots[slot].SetOnQuantityUpdated(ref item.OnQuantityUpdated);
     }
 
     public void DropItem(int slot)
