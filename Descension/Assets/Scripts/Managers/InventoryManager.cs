@@ -36,15 +36,15 @@ namespace Managers
         void Update()
         {
             // check for equipped item slot change
-            if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].durability >= 0) EquipSlot(0);
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].durability >= 0) EquipSlot(1);
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].durability >= 0) EquipSlot(2);
+            if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].quantity >= 0) EquipSlot(0);
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].quantity >= 0) EquipSlot(1);
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].quantity >= 0) EquipSlot(2);
 
             // run logic for equipped item
             if (equippedSlot != -1) slots[equippedSlot].Update();
             
             // drop equipped item on R
-            if (Input.GetKeyDown(KeyCode.R) && slots[0].durability >= 0) DropSlot(equippedSlot);
+            if (Input.GetKeyDown(KeyCode.R) && slots[0].quantity >= 0) DropSlot(equippedSlot);
         }
         
         void FixedUpdate()
@@ -65,7 +65,7 @@ namespace Managers
         {
             for (int i = 0; i < slots.Count; ++i)
             {
-                if (slots[i].durability != -1)
+                if (slots[i].quantity != -1)
                 {
                     EquipSlot(i);
                     Debug.Log("Equipped " + i);
@@ -92,7 +92,7 @@ namespace Managers
             var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());
             if (inventoryItem != null)
             {
-                inventoryItem.durability += quantity;
+                inventoryItem.quantity += quantity;
                 Debug.Log("Pickup Success");
                 return true;
             }
@@ -103,7 +103,7 @@ namespace Managers
                 if (slots[i].name.Length == 0)
                 {
                     slots[i] = item.CreateInstance();
-                    slots[i].SetDurability(quantity);
+                    slots[i].SetQuantity(quantity);
                     slots[i].inventorySprite = item.inventorySprite;
                     EquipSlot(i);
                     UIManager.Instance.Hotbar.PickupItem(slots[i], i);

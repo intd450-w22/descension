@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Items.Pickups;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
@@ -62,5 +63,7 @@ namespace UI.MenuUI
         }
 
         private void UpdateQuantity() => QuantityText.text = Quantity < 0 ? string.Empty : Quantity.ToString();
+        
+        public void SetOnQuantityUpdated(ref Equippable.OnQuantityUpdatedDelegate onQuantityUpdated) => onQuantityUpdated = SetQuantity;
     }
 }

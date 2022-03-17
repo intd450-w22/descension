@@ -94,7 +94,7 @@ namespace Items.Pickups
 
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, quantity);
             base.OnDrop();
         }
 
@@ -128,13 +128,13 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (Arrows == null || Arrows.durability <= 0)
+            if (Arrows == null || Arrows.quantity <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
                 return;
             }
 
-            if (Arrows.durability <= 0)
+            if (Arrows.quantity <= 0)
             {
                 Debug.Log("No arrows in quiver");
                 return;
@@ -153,7 +153,7 @@ namespace Items.Pickups
             arrow.Initialize(direction);
             
             // reduce quiver quantity
-            --_arrows.durability;
+            _arrows.SetQuantity(_arrows.quantity - 1);
         }
         
     }
