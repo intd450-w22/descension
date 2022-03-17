@@ -53,7 +53,7 @@ namespace Items.Pickups
         
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, quantity);
             base.OnDrop();
         }
 
@@ -67,7 +67,7 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (durability <= 0)
+            if (quantity <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("No picks!");
                 return;
@@ -100,8 +100,8 @@ namespace Items.Pickups
                 }
                 
                 Object.Destroy(rayCast.transform.gameObject);
-
-                --durability;
+                
+                SetQuantity(quantity-1);
             }
             else
             {

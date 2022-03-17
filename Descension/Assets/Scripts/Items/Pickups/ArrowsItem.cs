@@ -38,7 +38,7 @@ namespace Items.Pickups
         
         public override void OnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, durability);
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, quantity);
             base.OnDrop();
         }
     }

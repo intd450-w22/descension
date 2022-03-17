@@ -22,9 +22,12 @@ namespace Items.Pickups
     public class Equippable
     {
         public String name;
-        public int durability = -1;
+        public int quantity = -1;
         [HideInInspector] public Sprite inventorySprite;
         
+        public delegate void OnQuantityUpdatedDelegate(int newDurability);
+        public OnQuantityUpdatedDelegate OnQuantityUpdated;
+
         // initialize references, need to do this whenever scene changes
         public virtual void Initialize() {}
         
@@ -41,7 +44,7 @@ namespace Items.Pickups
         public virtual void OnDrop()
         {
             name = "";
-            durability = -1;
+            quantity = -1;
             inventorySprite = null;
         }
         
@@ -52,6 +55,10 @@ namespace Items.Pickups
         public virtual void FixedUpdate() { }
 
         // sets durability/quantity for this item
-        public void SetDurability(int durability) { this.durability = durability; }
+        public void SetQuantity(int quantity)
+        {
+            this.quantity = quantity;
+            OnQuantityUpdated?.Invoke(quantity);
+        }
     }
 }
