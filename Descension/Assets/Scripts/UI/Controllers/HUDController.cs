@@ -125,8 +125,6 @@ namespace UI.Controllers
             _continueButton.enabled = true;
             _continueButtonText.enabled = true;
 
-            Debug.Log(name);
-
             _dialogueName.text = name;
             _dialogueText.text = text;
         }

@@ -19,7 +19,7 @@ namespace Items
         void Awake()
         {
             // set a random starting location
-            gameObject.transform.position = potentialPositions[Random.Range(0, potentialPositions.Length)];
+            gameObject.transform.position = potentialPositions[UnityEngine.Random.Range(0, potentialPositions.Length)];
             _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
