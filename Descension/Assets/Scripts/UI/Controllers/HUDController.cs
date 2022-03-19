@@ -4,6 +4,8 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
+using System.Collections;
+
 namespace UI.Controllers
 {
     public class HUDController : MonoBehaviour
@@ -14,6 +16,8 @@ namespace UI.Controllers
 
         private Image _dialogueBox;
         private Text _dialogueText;
+        private Button _continueButton;
+        private Text _continueButtonText;
         private Text _scoreUI;
         private Text _bowUI;
         private Text _pickUI;
@@ -42,6 +46,8 @@ namespace UI.Controllers
             {
                 _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
                 _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
+                _continueButton = _dialogueBox.gameObject.GetChildObjectWithName("ContinueButton").GetComponent<Button>();
+                _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("Text").GetComponent<Text>();
                 
                 var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
                 _scoreUI = rightHudGroup.GetChildObjectWithName("Score").GetComponent<Text>();
@@ -89,6 +95,8 @@ namespace UI.Controllers
         {
             _dialogueBox.enabled = false;
             _dialogueText.enabled = false;
+            _continueButton.enabled = false;
+            _continueButtonText.enabled = false;
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
@@ -102,8 +110,14 @@ namespace UI.Controllers
         public void ShowText(string text) {
             _dialogueBox.enabled = true;
             _dialogueText.enabled = true;
+            _continueButton.enabled = true;
+            _continueButtonText.enabled = true;
             _dialogueText.text = text;
         }
+
+        // public void ShowDialogue(Queue<String> dialogue) {
+
+        // }
 
         public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity, float health)
         {
