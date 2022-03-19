@@ -10,54 +10,52 @@ namespace UI.Controllers
 {
     public class DialogueManager : MonoBehaviour
     {
-        private float index = 0;
-        private Queue<string> linesOfDialogue;
-
+        private string _name;
+        
+        private Queue<string> _linesOfDialogue;
         private HUDController _hudController;
 
         // Start is called before the first frame update
-        void Start()
-        {
-            linesOfDialogue = new Queue<string>();
+        void Start() {
+            _name = "";
+            _linesOfDialogue = new Queue<string>();
             _hudController = UIManager.Instance.GetHudController();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
+        public void StartDialogue(string objectName, string[] lines) {
+            Time.timeScale = 0; // pauses the game
 
-        public void StartDialogue(string[] lines) {
-            Debug.Log("starting conversation");
-            linesOfDialogue.Clear();
+            _name = objectName;
+            _linesOfDialogue.Clear();
 
             foreach (string line in lines) {
-                linesOfDialogue.Enqueue(line);
+                _linesOfDialogue.Enqueue(line);
             }
 
             DisplayNextLine();
         }
 
         public void DisplayNextLine() {
-            Debug.Log("Continuing dialogue");
+            if (_linesOfDialogue.Count == 0) {
+                Time.timeScale = 1; // resumes the game
 
-            if (linesOfDialogue.Count == 0) {
                 _hudController.HideDialogue();
             } else {
-                _hudController.ShowText(linesOfDialogue.Dequeue());
+                _hudController.ShowText(_linesOfDialogue.Dequeue(), _name);
             }
         }
 
-        // private void OnTriggerEnter2D(Collider2D other) {
-        //     playerInRange = true;
-        //     UIManager.Instance.GetHudController().ShowText("Press F to interact");
-        // }
+        public void ClearLines() {
+            _linesOfDialogue.Clear();
+        }
 
-        // private void OnTriggerExit2D(Collider2D other) {
-        //     playerInRange = false;
-        //     UIManager.Instance.GetHudController().HideDialogue();
-        // }
+        public void HideDialogue() {
+            _hudController.HideDialogue();
+        }
+
+        public void ShowNotification(string text) {
+            _hudController.ShowNotification(text);
+        }
     }
 }
 

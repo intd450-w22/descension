@@ -8,14 +8,19 @@ namespace Items
     public class ropeItem : MonoBehaviour
     {
         public float quantity = 1;
+        public Vector2[] potentialPositions;
 
-        private bool _isPickedUp = false;
-        private string _description = "Rope Collected.\nNecessary for going further into the mines, or other things too.";
-        private HUDController _hudController;
+        private bool _isPickedUp = false; 
+        private DialogueManager _dialogueManager;
+
+        private string[] _description = 
+            new string[] {"Rope Collected.", "Necessary for going further into the mines, or other things too."};
 
         void Awake()
         {
-            _hudController = UIManager.Instance.GetHudController();
+            // set a random starting location
+            gameObject.transform.position = potentialPositions[Random.Range(0, potentialPositions.Length)];
+            _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
         void OnCollisionEnter2D(Collision2D collision) 
@@ -27,7 +32,7 @@ namespace Items
             {
                 _isPickedUp = true;
                 FindObjectOfType<PlayerController>().AddRope(quantity);
-                UIManager.Instance.GetHudController().ShowText(_description);
+                _dialogueManager.StartDialogue("rope", _description);
                 Destroy(gameObject);
             }
         }
