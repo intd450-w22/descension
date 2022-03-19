@@ -15,12 +15,8 @@ namespace Environment
             vignette.enabled.value = true;
         }
 
-        void Update() {
-            if (FindObjectOfType<PlayerController>().torchQuantity > 0) {
-                vignette.intensity.value = 0.7f;
-            } else {
-                vignette.intensity.value = 1f;
-            }
+        public void SettVignetteIntensity(float value) {
+            vignette.intensity.value = value;
         }
     }
 }
