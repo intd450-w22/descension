@@ -32,7 +32,7 @@ namespace Items
             {
                 _isPickedUp = true;
                 FindObjectOfType<PlayerController>().AddRope(quantity);
-                _dialogueManager.StartDialogue("rope", _description);
+                _dialogueManager.StartDialogue("Rope", _description);
                 Destroy(gameObject);
             }
         }

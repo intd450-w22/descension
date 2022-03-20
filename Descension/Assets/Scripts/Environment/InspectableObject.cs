@@ -22,8 +22,8 @@ namespace Environment
 
         void Update() {
             if (_playerInRange && Input.GetKeyDown(KeyCode.F)) {
-                _soundManager.Inspection();
                 _dialogueManager.StartDialogue(name, linesOfDialogue);
+                _soundManager.Inspection();
             }
         }
 
