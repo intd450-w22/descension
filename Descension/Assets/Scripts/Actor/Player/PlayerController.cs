@@ -113,12 +113,12 @@ namespace Actor.Player
             if (_torchToggle) {
                 if (torchQuantity > 0) {
                     torchQuantity -= 1 * Time.deltaTime;
-                    _postProcessing.SettVignetteIntensity(0.4f);
+                    _postProcessing.SettVignetteIntensity(0.5f);
                 } else {
-                    _postProcessing.SettVignetteIntensity(1f);
+                    _postProcessing.SettVignetteIntensity(0.9f);
                 }
             } else {
-                _postProcessing.SettVignetteIntensity(1f);
+                _postProcessing.SettVignetteIntensity(0.9f);
             }
         }
 
