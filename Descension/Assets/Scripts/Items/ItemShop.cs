@@ -10,11 +10,11 @@ namespace Items
 {
     public class ItemShop : MonoBehaviour
     {
-        public KeyCode shopActivationKey = KeyCode.F;
-        public KeyCode talkActivationKey = KeyCode.T;
+        public KeyCode shopActivationKey = KeyCode.F; // TODO: Refactor to use the input system
+        public KeyCode talkActivationKey = KeyCode.T; // TODO: Refactor to use the input system
         private bool _inRange;
         private bool _talked = false;
-        // private DialogueManager DialogueManager;
+        private DialogueManager _dialogueManager;
 
         private string _name = "ShopKeeper";
         private List<string> _standardDialogue = new List<string>();

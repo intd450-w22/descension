@@ -35,8 +35,9 @@ namespace UI.Controllers.ButtonController
                 SoundManager.Error();
                 return;
             }
-
-            if (!InventoryManager.PickupItem(item, 1))
+            
+            int quantity = 1;
+            if (!InventoryManager.PickupItem(item, quantity))
             {
                 UIManager.Instance.GetShopUIController().DisplayFeedback("No room in inventory!");
                 SoundManager.Error();

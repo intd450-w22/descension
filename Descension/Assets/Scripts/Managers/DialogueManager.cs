@@ -47,7 +47,7 @@ namespace Managers
                 _linesOfDialogue.Enqueue(line);
             }
 
-            _instance._DisplayNextLine();
+            _DisplayNextLine();
         }
         
         public static void StartDialogue(string objectName, List<string> lines) => Instance._StartDialogue(objectName, lines);
@@ -61,7 +61,7 @@ namespace Managers
                 _linesOfDialogue.Enqueue(line);
             }
             
-            _instance._DisplayNextLine();
+            _DisplayNextLine();
         }
         
         public static void DisplayNextLine() => Instance._DisplayNextLine();

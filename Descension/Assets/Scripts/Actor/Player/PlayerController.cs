@@ -87,10 +87,12 @@ namespace Actor.Player
         private void OnDisable() => playerControls.Disable();
 
         void Update() {
+            // TODO: Move this to an input listener        
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OnTorchToggle();
             }
          }
+
 
         void FixedUpdate() {
             if (GameManager.IsPaused) return;
@@ -99,6 +101,7 @@ namespace Actor.Player
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
+            // TODO: Refactor to use a constant or variable instead of magic numbers
             if (_torchToggle) {
                 if (torchQuantity > 0) {
                     torchQuantity -= 1 * Time.deltaTime;
@@ -132,10 +135,14 @@ namespace Actor.Player
 
         public void OnKilled()
         {
+            InventoryManager.Instance.OnKilled();
+
             if (GameManager.IsPaused) return;
 
             GameManager.IsPaused = true;
+            
             _uiManager.SwitchUi(UIType.Death);
+
         }
 
         #endregion

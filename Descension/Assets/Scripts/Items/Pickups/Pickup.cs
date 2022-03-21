@@ -15,18 +15,17 @@ namespace Items.Pickups
         {
             if (Input.GetKeyDown(KeyCode.E) && _inRange)
             {
-                
                 if (!InventoryManager.PickupItem(item, quantity))
                 {
-                    // SoundManager.ItemFound(); //TODO fail to pick up sound
+                    SoundManager.Instance.Error(); //TODO fail to pick up sound
                     UIManager.Instance.GetHudController().ShowText("Inventory full");
                     return;
                 }
                 SoundManager.ItemFound();
                 UIManager.Instance.GetHudController().ShowText(pickupMessage);
-                Destroy(gameObject);
-            }
 
+                if (quantity == 0) Destroy(gameObject);
+            }
         }
 
         private void OnValidate()
