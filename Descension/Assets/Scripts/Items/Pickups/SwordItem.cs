@@ -21,9 +21,9 @@ namespace Items.Pickups
         }
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance()
+        public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Sword(damage, swordReticleDistance);
+            return new Sword(damage, swordReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -52,10 +52,10 @@ namespace Items.Pickups
             }
         }
         
-        public Sword(float swordDamage, float swordReticleDistance)
+        public Sword(float swordDamage, float swordReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
-            
+
             _swordDamage = swordDamage;
             _swordReticleDistance = swordReticleDistance;
             
@@ -67,6 +67,11 @@ namespace Items.Pickups
         {
             return SwordItem.Name;
         }
+        
+        public override void SpawnDrop()
+        {
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+        }
 
         public override void OnEquip()
         {
@@ -77,13 +82,7 @@ namespace Items.Pickups
         {
             Reticle.gameObject.SetActive(false);
         }
-
-        public override void OnDrop()
-        {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, quantity);
-            base.OnDrop();
-        }
-
+        
         public override void Update()
         {
             _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
@@ -104,7 +103,7 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (quantity <= 0)
+            if (Quantity <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("Sword has no durability!");
                 return;
@@ -122,7 +121,7 @@ namespace Items.Pickups
                 enemyController.InflictDamage(_swordDamage);
             }
 
-            if (hitEnemies.Length >= 1) SetQuantity(quantity-1);
+            if (hitEnemies.Length >= 1) --Quantity;
         }
         
     }
