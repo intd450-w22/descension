@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using Managers;
 using UnityEngine;
 
 namespace Items.Pickups
@@ -10,29 +11,71 @@ namespace Items.Pickups
     {
         // sprite displayed in inventory UI
         public Sprite inventorySprite;
+    
+        // the maximum quantity/durability for this item
+        public int maxQuantity = 30;
 
         public abstract String GetName();
         
         // should create instance of Equippable
-        public abstract Equippable CreateInstance();
+        public abstract Equippable CreateInstance(int slotIndex, int quantity);
     }
     
-    // actual object with functionality
+    // actual object with functionality, would be abstract but then it doesn't display in inspector
     [Serializable, CanBeNull]
     public class Equippable
     {
+        public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+        {
+            _slotIndex = slotIndex;
+            _maxQuantity = maxQuantity;
+            
+            Quantity = quantity;
+            inventorySprite = sprite;
+        }
+        
         public String name;
-        public int quantity = -1;
         [HideInInspector] public Sprite inventorySprite;
+        [SerializeField] private int _quantity = 0;
+        private int _maxQuantity;
+        private int _slotIndex;
+
+        // quantity/durability for item
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                _quantity = Math.Min(value, _maxQuantity);
+
+                if (_quantity <= 0) InventoryManager.Instance.DropSlot(_slotIndex);  // auto drop from slot if quantity/durability hits 0
+                else OnQuantityUpdated?.Invoke(_quantity);  // update UI
+            }
+        }
         
         public delegate void OnQuantityUpdatedDelegate(int newDurability);
         public OnQuantityUpdatedDelegate OnQuantityUpdated;
 
-        // initialize references, need to do this whenever scene changes
-        public virtual void Initialize() {}
-        
-        // should return name of equippable item
+        // return name of equippable item
         public virtual String GetName() { return name; }
+        
+        // should override to spawn pickup item
+        public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }
+
+        // returns the max quantity/durability for this item
+        public int GetMaxQuantity()
+        {
+            return _maxQuantity;
+        }
+        
+        // removes data from class instance and UI
+        public void Clear()
+        {
+            name = "";
+            _quantity = -1;
+            inventorySprite = null;
+            UIManager.Instance.Hotbar.DropItem(_slotIndex);
+        }
 
         // called when equipped switches to different slot (equippable)
         public virtual void OnEquip() { }
@@ -41,24 +84,16 @@ namespace Items.Pickups
         public virtual void OnUnEquip() { }
         
         // called when item is dropped
-        public virtual void OnDrop()
+        public void OnDrop()
         {
-            name = "";
-            quantity = -1;
-            inventorySprite = null;
+            SpawnDrop();
+            Clear();
         }
-        
+
         // called like regular MonoBehavior Update() if this item is equipped
         public virtual void Update() {}
 
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
         public virtual void FixedUpdate() { }
-
-        // sets durability/quantity for this item
-        public void SetQuantity(int quantity)
-        {
-            this.quantity = quantity;
-            OnQuantityUpdated?.Invoke(quantity);
-        }
     }
 }

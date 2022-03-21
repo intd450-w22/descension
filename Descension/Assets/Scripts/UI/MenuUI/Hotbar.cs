@@ -35,7 +35,7 @@ public class Hotbar : MonoBehaviour
     public void PickupItem(Equippable item, int slot)
     {
         _hotbarSlots[slot].SetSprite(item.inventorySprite);
-        _hotbarSlots[slot].SetQuantity(item.quantity);
+        _hotbarSlots[slot].SetQuantity(item.Quantity);
         _hotbarSlots[slot].SetOnQuantityUpdated(ref item.OnQuantityUpdated);
     }
 

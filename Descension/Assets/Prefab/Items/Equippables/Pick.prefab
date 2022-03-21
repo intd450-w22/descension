@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45137cb7b1afe594b8aa035e4b719420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   inventorySprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
-  quantity: 20
+  maxQuantity: 20
   lootChance: 20

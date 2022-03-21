@@ -43,8 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9de04496ba64aa4ba11507d0bb2141e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
   inventorySprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
-  quantity: 10
-  arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
-  bowReticleDistance: 2
+  maxQuantity: 20

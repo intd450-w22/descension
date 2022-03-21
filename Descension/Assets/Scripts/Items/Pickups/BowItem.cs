@@ -21,9 +21,9 @@ namespace Items.Pickups
         }
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance()
+        public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Bow(arrowPrefab, bowReticleDistance);
+            return new Bow(arrowPrefab, bowReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -48,12 +48,13 @@ namespace Items.Pickups
             {
                 if (_arrows == null)
                 {
-                    _arrows = (Arrows) InventoryManager.Instance.slots.Find(slot => slot.GetName() == "Arrows");
+                    _arrows = (Arrows) InventoryManager.Instance.slots.Find(slot => slot.name == "Arrows");
                 }
                 return _arrows;
             }
+            set => _arrows = value;
         }
-        
+
         // gets the reticle object
         private Transform Reticle
         {
@@ -67,10 +68,9 @@ namespace Items.Pickups
             }
         }
         
-        public Bow(GameObject arrowPrefab, float bowReticleDistance)
+        public Bow(GameObject arrowPrefab, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
-            
             _arrowPrefab = arrowPrefab;
             _bowReticleDistance = bowReticleDistance;
             _playerControls = new PlayerControls();
@@ -80,6 +80,11 @@ namespace Items.Pickups
         public String GetName()
         {
             return BowItem.Name;
+        }
+        
+        public override void SpawnDrop()
+        {
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, Quantity);
         }
 
         public override void OnEquip()
@@ -91,13 +96,7 @@ namespace Items.Pickups
         {
             Reticle.gameObject.SetActive(false);
         }
-
-        public override void OnDrop()
-        {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, quantity);
-            base.OnDrop();
-        }
-
+        
         public override void Update()
         {
             _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
@@ -106,7 +105,6 @@ namespace Items.Pickups
         public override void FixedUpdate()
         {
             var screenPoint = GameManager.PlayerController.playerCamera.WorldToScreenPoint(GameManager.PlayerController.transform.localPosition);
-            // var screenPoint = _controller.playerCamera.WorldToScreenPoint(_transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
             
             // Set the position of the reticle on the screen according to input type
@@ -128,18 +126,11 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (Arrows == null || Arrows.quantity <= 0)
+            if (Arrows == null)
             {
                 UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
                 return;
             }
-
-            if (Arrows.quantity <= 0)
-            {
-                Debug.Log("No arrows in quiver");
-                return;
-            }
-
 
             Vector3 playerPosition = GameManager.PlayerController.transform.position;
             
@@ -152,8 +143,8 @@ namespace Items.Pickups
             Arrow arrow = arrowObject.GetComponent<Arrow>();
             arrow.Initialize(direction);
             
-            // reduce quiver quantity
-            _arrows.SetQuantity(_arrows.quantity - 1);
+            // reduce arrows quantity
+            if (--Arrows.Quantity <= 0) Arrows = null;
         }
         
     }
