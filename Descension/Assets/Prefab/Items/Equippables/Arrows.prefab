@@ -46,3 +46,4 @@ MonoBehaviour:
   inventorySprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
   arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
   bowReticleDistance: 2
+  maxQuantity: 20

@@ -143,10 +143,15 @@ namespace Actor.Player
 
         public void OnKilled()
         {
+            
+            InventoryManager.Instance.OnKilled();
+            
             if (_gameManager.IsPaused) return;
-
+            
             _gameManager.IsPaused = true;
             _uiManager.SwitchUi(UIType.Death);
+
+            
         }
 
         #endregion

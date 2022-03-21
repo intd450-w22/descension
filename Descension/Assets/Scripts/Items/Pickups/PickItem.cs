@@ -20,9 +20,9 @@ namespace Items.Pickups
         }
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance()
+        public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Pick(lootChance);
+            return new Pick(lootChance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -37,7 +37,7 @@ namespace Items.Pickups
         private PlayerControls _playerControls;
         
         
-        public Pick(float lootChance)
+        public Pick(float lootChance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             this.name = GetName();
             _lootChance = lootChance;
@@ -50,11 +50,10 @@ namespace Items.Pickups
         {
             return PickItem.Name;
         }
-        
-        public override void OnDrop()
+
+        public override void SpawnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, quantity);
-            base.OnDrop();
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, Quantity);
         }
 
         public override void Update()
@@ -67,7 +66,7 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (quantity <= 0)
+            if (Quantity <= 0)
             {
                 UIManager.Instance.GetHudController().ShowText("No picks!");
                 return;
@@ -100,8 +99,7 @@ namespace Items.Pickups
                 }
                 
                 Object.Destroy(rayCast.transform.gameObject);
-                
-                SetQuantity(quantity-1);
+                --Quantity;
             }
             else
             {
