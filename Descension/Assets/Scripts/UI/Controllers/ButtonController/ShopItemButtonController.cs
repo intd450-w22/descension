@@ -32,19 +32,19 @@ namespace UI.Controllers.ButtonController
             if (gold < cost)
             {
                 UIManager.Instance.GetShopUIController().DisplayFeedback("Not enough gold!");
-                SoundManager.Instance.Error();
+                SoundManager.Error();
                 return;
             }
 
-            if (!InventoryManager.Instance.PickupItem(item, 1))
+            if (!InventoryManager.PickupItem(item, 1))
             {
                 UIManager.Instance.GetShopUIController().DisplayFeedback("No room in inventory!");
-                SoundManager.Instance.Error();
+                SoundManager.Error();
                 return;
             }
             
             InventoryManager.Instance.gold -= cost;
-            SoundManager.Instance.ItemFound();
+            SoundManager.ItemFound();
             UIManager.Instance.GetShopUIController().UpdateGold();
             UIManager.Instance.GetShopUIController().DisplayFeedback(item.GetName() + " purchased for " + cost + " gold!");
         }

@@ -28,32 +28,38 @@ namespace Managers
             DontDestroyOnLoad(gameObject);
         }
 
-        public void RemoveRock() 
+        public static void RemoveRock() { Instance._RemoveRock(); }
+        private void _RemoveRock() 
         {
             removeRockSound.Play();
         }
 
-        public void GoldFound() 
+        public static void GoldFound() { Instance._GoldFound(); }
+        private void _GoldFound() 
         {
             goldFoundSound.Play();
         }
 
-        public void ItemFound() 
+        public static void ItemFound() { Instance._ItemFound(); }
+        private void _ItemFound() 
         {
             itemFoundSound.Play();
         }
 
-        public void Inspection()
+        public static void Inspection() { Instance._Inspection(); }
+        private void _Inspection()
         {
             inspectionSound.Play();
         }
 
-        public void ArrowAttack() 
+        public static void ArrowAttack() { Instance._ArrowAttack(); }
+        private void _ArrowAttack() 
         {
             arrowAttackSound.Play();
         }
 
-        public void Error()
+        public static void Error() { Instance._Error(); }
+        public void _Error()
         {
             //TODO Add error sound effect
             //errorSound.Play();

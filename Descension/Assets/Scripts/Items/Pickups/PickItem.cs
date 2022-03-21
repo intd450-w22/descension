@@ -85,13 +85,13 @@ namespace Items.Pickups
             RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, (int) UnityLayer.Boulder);
             if (rayCast)
             {
-                SoundManager.Instance.RemoveRock();
+                SoundManager.RemoveRock();
                 
                 if (Random.Range(0f, 100f) < _lootChance)
                 {
                     int gold = (int) Mathf.Floor(Random.Range(0f, 20f));
                     
-                    SoundManager.Instance.GoldFound();
+                    SoundManager.GoldFound();
                     
                     InventoryManager.Instance.gold += gold;
                     

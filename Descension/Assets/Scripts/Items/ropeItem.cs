@@ -10,8 +10,7 @@ namespace Items
         public float quantity = 1;
         public Vector2[] potentialPositions;
 
-        private bool _isPickedUp = false; 
-        private DialogueManager _dialogueManager;
+        private bool _isPickedUp = false;
 
         private string[] _description = 
             new string[] {"Rope Collected.", "Necessary for going further into the mines, or other things too."};
@@ -20,19 +19,18 @@ namespace Items
         {
             // set a random starting location
             gameObject.transform.position = potentialPositions[UnityEngine.Random.Range(0, potentialPositions.Length)];
-            _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
         void OnCollisionEnter2D(Collision2D collision) 
         {
             if (_isPickedUp) return;
 
-            FindObjectOfType<SoundManager>().ItemFound();
+            SoundManager.ItemFound();
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
                 FindObjectOfType<PlayerController>().AddRope(quantity);
-                _dialogueManager.StartDialogue("Rope", _description);
+                DialogueManager.StartDialogue("Rope", _description);
                 Destroy(gameObject);
             }
         }

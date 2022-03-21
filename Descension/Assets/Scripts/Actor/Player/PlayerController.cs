@@ -51,13 +51,10 @@ namespace Actor.Player
         public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
-        private GameManager _gameManager;
-        private InventoryManager _inventoryManager;
         private UIManager _uiManager;
         private HUDController _hudController;
         private Transform _reticle;
         private Rigidbody2D _rb;
-        private SoundManager _soundManager;
         private postProcessingScript _postProcessing;
 
         // current scene for death
@@ -77,20 +74,12 @@ namespace Actor.Player
         void Start()
         {
             playerCamera = Camera.main;
-            _gameManager = GameManager.Instance;
-            _inventoryManager = FindObjectOfType<InventoryManager>();
-            if (!_inventoryManager)
-            {
-                Debug.LogError("InventoryManager not found");
-            }
-            
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
-            _soundManager = FindObjectOfType<SoundManager>();
             _postProcessing = FindObjectOfType<postProcessingScript>();
 
             // TODO: Find a better way to ensure game is started
-            _gameManager.IsPaused = false;
+            GameManager.IsPaused = false;
         }
 
         private void OnEnable() => playerControls.Enable();
@@ -104,7 +93,7 @@ namespace Actor.Player
          }
 
         void FixedUpdate() {
-            if (_gameManager.IsPaused) return;
+            if (GameManager.IsPaused) return;
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Instance.gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
@@ -143,9 +132,9 @@ namespace Actor.Player
 
         public void OnKilled()
         {
-            if (_gameManager.IsPaused) return;
+            if (GameManager.IsPaused) return;
 
-            _gameManager.IsPaused = true;
+            GameManager.IsPaused = true;
             _uiManager.SwitchUi(UIType.Death);
         }
 
@@ -155,9 +144,9 @@ namespace Actor.Player
 
         public void OnPause()
         {
-            if (_gameManager.IsPaused) return;
+            if (GameManager.IsPaused) return;
 
-            _gameManager.IsPaused = true;
+            GameManager.IsPaused = true;
 
             // Display menu 
             _uiManager.SwitchUi(UIType.PauseMenu);
@@ -165,7 +154,7 @@ namespace Actor.Player
 
         public void OnResume()
         {
-            _gameManager.IsPaused = false;
+            GameManager.IsPaused = false;
         }
 
         public void OnMovement(InputAction.CallbackContext value)

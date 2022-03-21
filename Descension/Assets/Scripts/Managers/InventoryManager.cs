@@ -21,7 +21,14 @@ namespace Managers
             }
             set => _instance = value;
         }
-        
+
+        public static List<Equippable> Slots => Instance.slots;
+        public static int Gold
+        {
+            get => Instance.gold;
+            set => Instance.gold = value;
+        }
+
         public List<Equippable> slots = new List<Equippable>() { null, null, null };
         public int equippedSlot = -1;
         public int gold = 0;
@@ -86,7 +93,8 @@ namespace Managers
             }
         }
 
-        public bool PickupItem(EquippableItem item, int quantity)
+        public static bool PickupItem(EquippableItem item, int quantity) => Instance._PickupItem(item, quantity);
+        private bool _PickupItem(EquippableItem item, int quantity)
         {
             // add durability/quantity if already have this item
             var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());

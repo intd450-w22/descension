@@ -14,7 +14,7 @@ namespace Items
         public KeyCode talkActivationKey = KeyCode.T;
         private bool _inRange;
         private bool _talked = false;
-        private DialogueManager _dialogueManager;
+        // private DialogueManager DialogueManager;
 
         private string _name = "ShopKeeper";
         private List<string> _standardDialogue = new List<string>();
@@ -25,7 +25,6 @@ namespace Items
         void Awake()
         {
             InitDialogue();
-            _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
         // Update is called once per frame
@@ -44,21 +43,21 @@ namespace Items
                 dialogue.Add("Press F to open the shop.");
                 dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
 
-                _dialogueManager.StartDialogue(_name, dialogue);
+                DialogueManager.StartDialogue(_name, dialogue);
             }
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _dialogueManager.ShowNotification("Press T to talk");   
+            DialogueManager.ShowNotification("Press T to talk");   
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             // UIManager.Instance.GetHudController().HideDialogue();
-            _dialogueManager.ClearLines();
-            _dialogueManager.HideDialogue();
+            DialogueManager.ClearLines();
+            DialogueManager.HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;
         }
 

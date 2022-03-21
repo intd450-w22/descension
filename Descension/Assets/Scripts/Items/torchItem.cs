@@ -28,9 +28,9 @@ namespace Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                FindObjectOfType<SoundManager>().ItemFound();
-                FindObjectOfType<PlayerController>().AddTorch(quantity);
-                _dialogueManager.StartDialogue("Torch", _description);
+                SoundManager.ItemFound();
+                GameManager.PlayerController.AddTorch(quantity);
+                DialogueManager.StartDialogue("Torch", _description);
                 Destroy(gameObject);
             }
         }
