@@ -98,10 +98,12 @@ namespace Actor.Player
         private void OnDisable() => playerControls.Disable();
 
         void Update() {
+            // TODO: Move this to an input listener        
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OnTorchToggle();
             }
          }
+
 
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
