@@ -4,6 +4,8 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
+using System.Collections;
+
 namespace UI.Controllers
 {
     public class HUDController : MonoBehaviour
@@ -12,8 +14,12 @@ namespace UI.Controllers
         public GameObject FloatingTextDamagePrefab;
         public GameObject FloatingTextDialoguePrefab;
 
+        private Text _notificationText;
         private Image _dialogueBox;
+        private Text _dialogueName;
         private Text _dialogueText;
+        private Button _continueButton;
+        private Text _continueButtonText;
         private Text _scoreUI;
         private Text _bowUI;
         private Text _pickUI;
@@ -40,8 +46,12 @@ namespace UI.Controllers
         {
             try
             {
+                _notificationText = gameObject.GetChildObjectWithName("NotificationText").GetComponent<Text>();
                 _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
+                _dialogueName = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxName").GetComponent<Text>();
                 _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
+                _continueButton = _dialogueBox.gameObject.GetChildObjectWithName("ContinueButton").GetComponent<Button>();
+                _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("Text").GetComponent<Text>();
                 
                 var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
                 _scoreUI = rightHudGroup.GetChildObjectWithName("Score").GetComponent<Text>();
@@ -66,8 +76,12 @@ namespace UI.Controllers
         {
             try
             {
+                _notificationText.enabled = false;
                 _dialogueBox.enabled = false;
+                _dialogueName.enabled = false;
                 _dialogueText.enabled = false;
+                _continueButton.enabled = false;
+                _continueButtonText.enabled = false;
                 _scoreUI.enabled = true;
                 _bowUI.enabled = false;
                 _pickUI.enabled = false;
@@ -87,8 +101,12 @@ namespace UI.Controllers
 
         public void HideDialogue()
         {
+            _notificationText.enabled = false;
             _dialogueBox.enabled = false;
+            _dialogueName.enabled = false;
             _dialogueText.enabled = false;
+            _continueButton.enabled = false;
+            _continueButtonText.enabled = false;
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
@@ -99,10 +117,21 @@ namespace UI.Controllers
             t.color = color ?? Color.black;
         }
 
-        public void ShowText(string text) {
+        public void ShowText(string text, string name = "") {
+            _notificationText.enabled = false;
             _dialogueBox.enabled = true;
+            _dialogueName.enabled = true;
             _dialogueText.enabled = true;
+            _continueButton.enabled = true;
+            _continueButtonText.enabled = true;
+
+            _dialogueName.text = name;
             _dialogueText.text = text;
+        }
+
+        public void ShowNotification(string text) {
+            _notificationText.enabled = true;
+            _notificationText.text = text;
         }
 
         public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity, float health)

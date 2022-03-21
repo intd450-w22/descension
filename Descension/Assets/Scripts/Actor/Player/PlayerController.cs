@@ -5,6 +5,7 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Environment;
 
 
 namespace Actor.Player
@@ -21,6 +22,7 @@ namespace Actor.Player
         public float swordDamage = 25f; // obsolete -> moved to inventory item
         public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
         public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
+        private bool _torchToggle = true;
 
         [Header("Session Variables")]
         // TODO: Change this to a "currWeapon" type thing 
@@ -56,6 +58,7 @@ namespace Actor.Player
         private Transform _reticle;
         private Rigidbody2D _rb;
         private SoundManager _soundManager;
+        private postProcessingScript _postProcessing;
 
         // current scene for death
         private string scene;
@@ -84,6 +87,7 @@ namespace Actor.Player
             _uiManager = UIManager.Instance;
             _hudController = _uiManager.GetHudController();
             _soundManager = FindObjectOfType<SoundManager>();
+            _postProcessing = FindObjectOfType<postProcessingScript>();
 
             // TODO: Find a better way to ensure game is started
             _gameManager.IsPaused = false;
@@ -93,7 +97,13 @@ namespace Actor.Player
 
         private void OnDisable() => playerControls.Disable();
 
-        void Update() { }
+        void Update() {
+            // TODO: Move this to an input listener        
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                OnTorchToggle();
+            }
+         }
+
 
         void FixedUpdate() {
             if (_gameManager.IsPaused) return;
@@ -102,8 +112,17 @@ namespace Actor.Player
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
-            if (torchQuantity > 0) {
-                torchQuantity -= 1 * Time.deltaTime;
+            // TODO: Refactor to use a constant or variable instead of magic numbers
+            if (_torchToggle) {
+                if (torchQuantity > 0) {
+                    torchQuantity -= 1 * Time.deltaTime;
+                    _postProcessing.SettVignetteIntensity(0.5f);
+                } else {
+                    _postProcessing.SettVignetteIntensity(0.9f);
+                }
+            } else {
+                _postProcessing.SettVignetteIntensity(0.9f);
+
             }
         }
 
@@ -172,6 +191,13 @@ namespace Actor.Player
         {
             if(value.started)
                 _hudController.HideDialogue();
+        }
+
+        public void OnTorchToggle()
+        {
+            if (torchQuantity > 0) {
+                _torchToggle = !_torchToggle;
+            }
         }
 
         public void OnControlsChanged()
