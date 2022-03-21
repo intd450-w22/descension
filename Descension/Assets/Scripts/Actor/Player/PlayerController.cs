@@ -110,6 +110,7 @@ namespace Actor.Player
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
+            // TODO: Refactor to use a constant or variable instead of magic numbers
             if (_torchToggle) {
                 if (torchQuantity > 0) {
                     torchQuantity -= 1 * Time.deltaTime;
@@ -119,6 +120,7 @@ namespace Actor.Player
                 }
             } else {
                 _postProcessing.SettVignetteIntensity(0.9f);
+
             }
         }
 
