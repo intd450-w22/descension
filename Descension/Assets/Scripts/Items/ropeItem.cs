@@ -29,7 +29,7 @@ namespace Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                FindObjectOfType<PlayerController>().AddRope(quantity);
+                GameManager.PlayerController.AddRope(quantity);
                 DialogueManager.StartDialogue("Rope", _description);
                 Destroy(gameObject);
             }

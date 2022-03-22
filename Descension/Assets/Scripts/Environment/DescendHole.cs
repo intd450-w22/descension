@@ -21,8 +21,8 @@ namespace Environment
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
-                if (FindObjectOfType<PlayerController>().ropeQuantity > 0) {
-                    FindObjectOfType<PlayerController>().AddRope(-1);
+                if (GameManager.PlayerController.ropeQuantity > 0) {
+                    GameManager.PlayerController.AddRope(-1);
                     UIManager.GetHudController().ShowText("Descend to level two...");
 
                     if(nextLevel == Scene.Other)

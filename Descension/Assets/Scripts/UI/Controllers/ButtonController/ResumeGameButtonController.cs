@@ -10,7 +10,7 @@ namespace UI.Controllers.ButtonController
         {
             UIManager.SwitchUi(UIType.GameHUD);
         
-            var player = FindObjectOfType<PlayerController>();
+            var player = GameManager.PlayerController;
             if (player != null)
             {
                 player.OnResume();
