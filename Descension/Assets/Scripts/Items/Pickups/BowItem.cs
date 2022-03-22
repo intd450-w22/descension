@@ -1,4 +1,5 @@
 using System;
+using Actor.Objects;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -48,7 +49,7 @@ namespace Items.Pickups
             {
                 if (_arrows == null)
                 {
-                    _arrows = (Arrows) InventoryManager.Instance.slots.Find(slot => slot.name == "Arrows");
+                    _arrows = (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
                 }
                 return _arrows;
             }
@@ -128,7 +129,7 @@ namespace Items.Pickups
             
             if (Arrows == null)
             {
-                UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
+                UIManager.GetHudController().ShowText("No arrows to shoot!");
                 return;
             }
 
@@ -137,7 +138,7 @@ namespace Items.Pickups
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
             // spawn arrow
-            SoundManager.Instance.ArrowAttack();
+            SoundManager.ArrowAttack();
             GameObject arrowObject = Object.Instantiate(_arrowPrefab, (Vector3)playerPosition + direction, Quaternion.identity);
             arrowObject.transform.localScale = GameManager.PlayerController.transform.localScale;
             Arrow arrow = arrowObject.GetComponent<Arrow>();

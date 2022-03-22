@@ -25,15 +25,14 @@ namespace Items
         void Awake()
         {
             InitDialogue();
-            _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
             if (_inRange && Input.GetKeyDown(shopActivationKey)) {
-                UIManager.Instance.SwitchUi(UIType.Shop);
-                UIManager.Instance.GetShopUIController().UpdateGold();
+                UIManager.SwitchUi(UIType.Shop);
+                UIManager.GetShopUIController().UpdateGold();
             }
 
             if (_inRange && Input.GetKeyDown(talkActivationKey)) {
@@ -44,21 +43,20 @@ namespace Items
                 dialogue.Add("Press F to open the shop.");
                 dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
 
-                _dialogueManager.StartDialogue(_name, dialogue);
+                DialogueManager.StartDialogue(_name, dialogue);
             }
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _dialogueManager.ShowNotification("Press T to talk");   
+            DialogueManager.ShowNotification("Press T to talk");   
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            // UIManager.Instance.GetHudController().HideDialogue();
-            _dialogueManager.ClearLines();
-            _dialogueManager.HideDialogue();
+            DialogueManager.ClearLines();
+            DialogueManager.HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;
         }
 

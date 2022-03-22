@@ -1,21 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
+using UI.Controllers;
 using UnityEngine;
 
-using Managers;
-using UI.Controllers;
-using UnityEngine.UI;
-
-namespace UI.Controllers
+namespace Managers
 {
     public class DialogueManager : MonoBehaviour
     {
         private string _name  = "";
         private Queue<string> _linesOfDialogue = new Queue<string>();
         private HUDController _hudController;
+        
+        private static DialogueManager _instance;
+        private static DialogueManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<DialogueManager>();
+                }
+                return _instance;
+            }
+        }
 
         void Awake() {
-            _hudController = UIManager.Instance.GetHudController();
+            if (_instance == null) _instance = this;
+            else if (_instance != this) Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
+            _hudController = UIManager.GetHudController();
         }
 
         void Update() {
@@ -24,7 +36,8 @@ namespace UI.Controllers
             }
         }
 
-        public void StartDialogue(string objectName, string[] lines) {
+        public static void StartDialogue(string objectName, string[] lines) => Instance._StartDialogue(objectName, lines);
+        private void _StartDialogue(string objectName, string[] lines) {
             Time.timeScale = 0; // pause the game
 
             _name = objectName;
@@ -34,10 +47,11 @@ namespace UI.Controllers
                 _linesOfDialogue.Enqueue(line);
             }
 
-            DisplayNextLine();
+            _DisplayNextLine();
         }
-
-        public void StartDialogue(string objectName, List<string> lines) {
+        
+        public static void StartDialogue(string objectName, List<string> lines) => Instance._StartDialogue(objectName, lines);
+        private void _StartDialogue(string objectName, List<string> lines) {
             Time.timeScale = 0; // pause the game
 
             _name = objectName;
@@ -46,11 +60,12 @@ namespace UI.Controllers
             foreach (string line in lines) {
                 _linesOfDialogue.Enqueue(line);
             }
-
-            DisplayNextLine();
+            
+            _DisplayNextLine();
         }
-
-        public void DisplayNextLine() {
+        
+        public static void DisplayNextLine() => Instance._DisplayNextLine();
+        private void _DisplayNextLine() {
             if (_linesOfDialogue.Count == 0) {
                 Time.timeScale = 1; // resume the game
                 _hudController.HideDialogue();
@@ -58,16 +73,19 @@ namespace UI.Controllers
                 _hudController.ShowText(_linesOfDialogue.Dequeue(), _name);
             }
         }
-
-        public void ClearLines() {
+        
+        public static void ClearLines() => Instance._ClearLines();
+        private void _ClearLines() {
             _linesOfDialogue.Clear();
         }
 
-        public void HideDialogue() {
+        public static void HideDialogue() => Instance._HideDialogue();
+        private void _HideDialogue() {
             _hudController.HideDialogue();
         }
 
-        public void ShowNotification(string text) {
+        public static void ShowNotification(string text) => Instance._ShowNotification(text);
+        private void _ShowNotification(string text) {
             _hudController.ShowNotification(text);
         }
     }

@@ -34,11 +34,11 @@ namespace Items
             if (quantity <= 0) return;
             
             // spawn pickup
-            SoundManager.Instance.ItemFound(); // TODO maybe replace with unique item drop sound
+            SoundManager.ItemFound(); // TODO maybe replace with unique item drop sound
             GameObject pickupObject = Instantiate(prefab, GameManager.PlayerController.transform.position, Quaternion.identity);
             Pickup pickup = pickupObject.GetComponent<Pickup>();
             pickup.quantity = quantity;
-            UIManager.Instance.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
+            UIManager.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
         }
     }
 }

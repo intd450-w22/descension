@@ -10,7 +10,6 @@ namespace Items
         public float quantity = 20;
         
         private bool _isPickedUp = false;
-        private DialogueManager _dialogueManager;
 
         private string[] _description = 
             new string[] {"Torch Collected. Use with caution.", "There are things down here that have more eyes than you.", 
@@ -18,7 +17,6 @@ namespace Items
 
         void Awake()
         {
-            _dialogueManager = FindObjectOfType<DialogueManager>();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -28,9 +26,9 @@ namespace Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                FindObjectOfType<SoundManager>().ItemFound();
-                FindObjectOfType<PlayerController>().AddTorch(quantity);
-                _dialogueManager.StartDialogue("Torch", _description);
+                SoundManager.ItemFound();
+                GameManager.PlayerController.AddTorch(quantity);
+                DialogueManager.StartDialogue("Torch", _description);
                 Destroy(gameObject);
             }
         }

@@ -68,7 +68,7 @@ namespace Items.Pickups
             
             if (Quantity <= 0)
             {
-                UIManager.Instance.GetHudController().ShowText("No picks!");
+                UIManager.GetHudController().ShowText("No picks!");
                 return;
             }
             
@@ -84,17 +84,17 @@ namespace Items.Pickups
             RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, (int) UnityLayer.Boulder);
             if (rayCast)
             {
-                SoundManager.Instance.RemoveRock();
+                SoundManager.RemoveRock();
                 
                 if (Random.Range(0f, 100f) < _lootChance)
                 {
                     int gold = (int) Mathf.Floor(Random.Range(0f, 20f));
                     
-                    SoundManager.Instance.GoldFound();
+                    SoundManager.GoldFound();
                     
-                    InventoryManager.Instance.gold += gold;
+                    InventoryManager.Gold += gold;
                     
-                    UIManager.Instance.GetHudController()
+                    UIManager.GetHudController()
                         .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);
                 }
                 

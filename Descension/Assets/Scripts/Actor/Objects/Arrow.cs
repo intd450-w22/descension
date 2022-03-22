@@ -1,9 +1,9 @@
 using Actor.AI;
 using Managers;
-using Util.Enums;
 using UnityEngine;
+using Util.Enums;
 
-namespace Items
+namespace Actor.Objects
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Arrow : MonoBehaviour
@@ -31,7 +31,7 @@ namespace Items
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.Instance.IsPaused) return;
+            if (GameManager.IsPaused) return;
 
             body.velocity = _velocity;
         }
