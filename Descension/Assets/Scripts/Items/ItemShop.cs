@@ -31,8 +31,8 @@ namespace Items
         void Update()
         {
             if (_inRange && Input.GetKeyDown(shopActivationKey)) {
-                UIManager.Instance.SwitchUi(UIType.Shop);
-                UIManager.Instance.GetShopUIController().UpdateGold();
+                UIManager.SwitchUi(UIType.Shop);
+                UIManager.GetShopUIController().UpdateGold();
             }
 
             if (_inRange && Input.GetKeyDown(talkActivationKey)) {
@@ -55,7 +55,6 @@ namespace Items
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            // UIManager.Instance.GetHudController().HideDialogue();
             DialogueManager.ClearLines();
             DialogueManager.HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;

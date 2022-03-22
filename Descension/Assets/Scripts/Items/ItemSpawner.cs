@@ -38,7 +38,7 @@ namespace Items
             GameObject pickupObject = Instantiate(prefab, GameManager.PlayerController.transform.position, Quaternion.identity);
             Pickup pickup = pickupObject.GetComponent<Pickup>();
             pickup.quantity = quantity;
-            UIManager.Instance.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
+            UIManager.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
         }
     }
 }

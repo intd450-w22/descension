@@ -11,7 +11,7 @@ namespace UI.Controllers.Codex.ButtonController
         {
             // Get codex controller
             // Change page to codexTab
-            var codexController = UIManager.Instance.GetCodexController();
+            var codexController = UIManager.GetCodexController();
             codexController.SetPage(codexTab);
         }
     }

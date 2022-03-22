@@ -68,7 +68,7 @@ namespace Items.Pickups
             
             if (Quantity <= 0)
             {
-                UIManager.Instance.GetHudController().ShowText("No picks!");
+                UIManager.GetHudController().ShowText("No picks!");
                 return;
             }
             
@@ -92,9 +92,9 @@ namespace Items.Pickups
                     
                     SoundManager.GoldFound();
                     
-                    InventoryManager.Instance.gold += gold;
+                    InventoryManager.Gold += gold;
                     
-                    UIManager.Instance.GetHudController()
+                    UIManager.GetHudController()
                         .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);
                 }
                 

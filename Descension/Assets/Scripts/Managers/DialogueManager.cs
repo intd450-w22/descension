@@ -9,8 +9,8 @@ namespace Managers
         private string _name  = "";
         private Queue<string> _linesOfDialogue = new Queue<string>();
         private HUDController _hudController;
-        private static DialogueManager _instance;
         
+        private static DialogueManager _instance;
         private static DialogueManager Instance
         {
             get
@@ -27,7 +27,7 @@ namespace Managers
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
             DontDestroyOnLoad(gameObject);
-            _hudController = UIManager.Instance.GetHudController();
+            _hudController = UIManager.GetHudController();
         }
 
         void Update() {

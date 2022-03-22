@@ -105,7 +105,7 @@ namespace Items.Pickups
             
             if (Quantity <= 0)
             {
-                UIManager.Instance.GetHudController().ShowText("Sword has no durability!");
+                UIManager.GetHudController().ShowText("Sword has no durability!");
                 return;
             }
             

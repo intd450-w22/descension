@@ -1,4 +1,5 @@
 using Actor.Player;
+using Managers;
 using Util.Enums;
 
 namespace UI.Controllers.ButtonController
@@ -7,7 +8,7 @@ namespace UI.Controllers.ButtonController
     {
         protected override void OnButtonClicked()
         {
-            uiManager.SwitchUi(UIType.GameHUD);
+            UIManager.SwitchUi(UIType.GameHUD);
         
             var player = FindObjectOfType<PlayerController>();
             if (player != null)

@@ -1,4 +1,5 @@
-﻿using Util.Enums;
+﻿using Managers;
+using Util.Enums;
 
 namespace UI.Controllers.ButtonController
 {
@@ -12,9 +13,9 @@ namespace UI.Controllers.ButtonController
         protected override void OnButtonClicked()
         {
             if(TargetScene == Scene.Other)
-                uiManager.SwitchScene(OtherTargetScene, UiType);
+                UIManager.SwitchScene(OtherTargetScene, UiType);
             else
-                uiManager.SwitchScene(TargetScene, UiType);
+                UIManager.SwitchScene(TargetScene, UiType);
         }
     }
 }

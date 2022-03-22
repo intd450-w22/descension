@@ -51,7 +51,6 @@ namespace Actor.Player
         public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
-        private UIManager _uiManager;
         private HUDController _hudController;
         private Transform _reticle;
         private Rigidbody2D _rb;
@@ -74,8 +73,7 @@ namespace Actor.Player
         void Start()
         {
             playerCamera = Camera.main;
-            _uiManager = UIManager.Instance;
-            _hudController = _uiManager.GetHudController();
+            _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
 
             // TODO: Find a better way to ensure game is started
@@ -97,7 +95,7 @@ namespace Actor.Player
         void FixedUpdate() {
             if (GameManager.IsPaused) return;
 
-            if (useUI) _hudController.UpdateUi(InventoryManager.Instance.gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
 
@@ -135,14 +133,13 @@ namespace Actor.Player
 
         public void OnKilled()
         {
-            InventoryManager.Instance.OnKilled();
+            InventoryManager.OnKilled();
 
             if (GameManager.IsPaused) return;
 
             GameManager.IsPaused = true;
             
-            _uiManager.SwitchUi(UIType.Death);
-
+            UIManager.SwitchUi(UIType.Death);
         }
 
         #endregion
@@ -156,7 +153,7 @@ namespace Actor.Player
             GameManager.IsPaused = true;
 
             // Display menu 
-            _uiManager.SwitchUi(UIType.PauseMenu);
+            UIManager.SwitchUi(UIType.PauseMenu);
         }
 
         public void OnResume()

@@ -12,7 +12,7 @@ namespace Managers
         public AudioSource errorSound;
         
         private static SoundManager _instance;
-        public static SoundManager Instance
+        private static SoundManager Instance
         {
             get
             {
@@ -28,37 +28,37 @@ namespace Managers
             DontDestroyOnLoad(gameObject);
         }
 
-        public static void RemoveRock() { Instance._RemoveRock(); }
+        public static void RemoveRock() => Instance._RemoveRock();
         private void _RemoveRock() 
         {
             removeRockSound.Play();
         }
 
-        public static void GoldFound() { Instance._GoldFound(); }
+        public static void GoldFound() => Instance._GoldFound();
         private void _GoldFound() 
         {
             goldFoundSound.Play();
         }
 
-        public static void ItemFound() { Instance._ItemFound(); }
+        public static void ItemFound() => Instance._ItemFound();
         private void _ItemFound() 
         {
             itemFoundSound.Play();
         }
 
-        public static void Inspection() { Instance._Inspection(); }
+        public static void Inspection() => Instance._Inspection();
         private void _Inspection()
         {
             inspectionSound.Play();
         }
 
-        public static void ArrowAttack() { Instance._ArrowAttack(); }
+        public static void ArrowAttack() => Instance._ArrowAttack();
         private void _ArrowAttack() 
         {
             arrowAttackSound.Play();
         }
 
-        public static void Error() { Instance._Error(); }
+        public static void Error() => Instance._Error();
         public void _Error()
         {
             //TODO Add error sound effect

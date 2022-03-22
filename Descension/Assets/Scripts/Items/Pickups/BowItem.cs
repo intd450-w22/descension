@@ -49,7 +49,7 @@ namespace Items.Pickups
             {
                 if (_arrows == null)
                 {
-                    _arrows = (Arrows) InventoryManager.Instance.slots.Find(slot => slot.name == "Arrows");
+                    _arrows = (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
                 }
                 return _arrows;
             }
@@ -129,7 +129,7 @@ namespace Items.Pickups
             
             if (Arrows == null)
             {
-                UIManager.Instance.GetHudController().ShowText("No arrows to shoot!");
+                UIManager.GetHudController().ShowText("No arrows to shoot!");
                 return;
             }
 

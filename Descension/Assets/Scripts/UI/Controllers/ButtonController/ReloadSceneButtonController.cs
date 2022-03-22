@@ -1,3 +1,4 @@
+using Managers;
 using Util.Enums;
 
 namespace UI.Controllers.ButtonController
@@ -8,13 +9,13 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
-            var currScene = uiManager.GetCurrentScene();
-            uiManager.SwitchScene(currScene);
+            var currScene = UIManager.GetCurrentScene();
+            UIManager.SwitchScene(currScene);
 
             if(uiAfterReload == UIType.GameHUD)
-                uiManager.GetHudController().Reset();
+                UIManager.GetHudController().Reset();
 
-            uiManager.SwitchUi(uiAfterReload);
+            UIManager.SwitchUi(uiAfterReload);
         }
     }
 }

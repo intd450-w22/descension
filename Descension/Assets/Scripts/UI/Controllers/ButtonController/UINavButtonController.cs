@@ -1,3 +1,4 @@
+using Managers;
 using Util.Enums;
 
 namespace UI.Controllers.ButtonController
@@ -8,7 +9,7 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
-            uiManager.SwitchUi(TargetUI);
+            UIManager.SwitchUi(TargetUI);
         }
     }
 }

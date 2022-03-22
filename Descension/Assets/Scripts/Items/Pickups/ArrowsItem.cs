@@ -49,7 +49,7 @@ namespace Items.Pickups
             // if player tries to execute, equip bow if we have one
             if (_playerControls.Default.Shoot.WasPressedThisFrame())
             {
-                InventoryManager.Instance.EquipFirstSlottedItem(BowItem.Name, false);
+                InventoryManager.EquipFirstSlottedItem(BowItem.Name, false);
             }
         }
 

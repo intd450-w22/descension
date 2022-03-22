@@ -48,7 +48,7 @@ namespace Actor.AI
             agent.updateUpAxis = false;
             
             _player = FindObjectOfType<PlayerController>().transform;
-            _hudController = UIManager.Instance.GetHudController();
+            _hudController = UIManager.GetHudController();
             
             _alive = true;
         }

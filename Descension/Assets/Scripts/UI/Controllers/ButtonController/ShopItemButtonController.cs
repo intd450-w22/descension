@@ -27,27 +27,27 @@ namespace UI.Controllers.ButtonController
         
         protected override void OnButtonClicked()
         {
-            float gold = InventoryManager.Instance.gold;
+            float gold = InventoryManager.Gold;
 
             if (gold < cost)
             {
-                UIManager.Instance.GetShopUIController().DisplayFeedback("Not enough gold!");
+                UIManager.GetShopUIController().DisplayFeedback("Not enough gold!");
                 SoundManager.Error();
                 return;
             }
             
             int quantity = 1;
-            if (!InventoryManager.PickupItem(item, quantity))
+            if (!InventoryManager.PickupItem(item, ref quantity))
             {
-                UIManager.Instance.GetShopUIController().DisplayFeedback("No room in inventory!");
+                UIManager.GetShopUIController().DisplayFeedback("No room in inventory!");
                 SoundManager.Error();
                 return;
             }
             
-            InventoryManager.Instance.gold -= cost;
+            InventoryManager.Gold -= cost;
             SoundManager.ItemFound();
-            UIManager.Instance.GetShopUIController().UpdateGold();
-            UIManager.Instance.GetShopUIController().DisplayFeedback(item.GetName() + " purchased for " + cost + " gold!");
+            UIManager.GetShopUIController().UpdateGold();
+            UIManager.GetShopUIController().DisplayFeedback(item.GetName() + " purchased for " + cost + " gold!");
         }
     }
 }
