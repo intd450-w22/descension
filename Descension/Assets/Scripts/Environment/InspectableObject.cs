@@ -7,35 +7,27 @@ namespace Environment
 {
     public class InspectableObject : MonoBehaviour
     {
-        public string inspectText;
-        public Image dialogueBox;
-        public Text dialogueText;
+        public string name;
+        public string[] linesOfDialogue;
 
-        private bool playerInRange = false;
-
-        private HUDController _hudController;
-        private SoundManager _soundManager;
-
-        void Awake()
-        {
-            _hudController = UIManager.Instance.GetHudController();
-            _soundManager = FindObjectOfType<SoundManager>();
-        }
-
+        private bool _playerInRange = false;
+        
         void Update() {
-            if (playerInRange && Input.GetKeyDown(KeyCode.F)) {
-                _soundManager.Inspection();
-                UIManager.Instance.GetHudController().ShowText(inspectText);
+            if (_playerInRange && Input.GetKeyDown(KeyCode.F)) {
+                DialogueManager.StartDialogue(name, linesOfDialogue);
+                SoundManager.Inspection();
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
-            playerInRange = true;
-            UIManager.Instance.GetHudController().ShowText("Press F to interact");
+            _playerInRange = true;
+            DialogueManager.ShowNotification("Press F to interact");
         }
 
         private void OnTriggerExit2D(Collider2D other) {
-            playerInRange = false;
+            _playerInRange = false;
+            DialogueManager.ClearLines();
+            DialogueManager.HideDialogue();
         }
     }
 }

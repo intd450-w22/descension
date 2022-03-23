@@ -13,8 +13,6 @@ namespace UI.Controllers.ShopUI
     {
         public String goldText = "Gold: ";
         public GameObject shopMenuItemPrefab;
-        
-        // [Header("Can only edit shop items in prefab!")] 
         public List<ShopItem> shopItems;  // Items set here will be spawned as menu items automatically on start
 
         [HideInInspector] public List<GameObject> spawned;
@@ -54,7 +52,7 @@ namespace UI.Controllers.ShopUI
 
         public void UpdateGold()
         {
-            _goldText.text = goldText + " " + InventoryManager.Instance.gold;
+            _goldText.text = goldText + " " + InventoryManager.Gold;
         }
 
         public void DisplayFeedback(String text)
@@ -69,26 +67,6 @@ namespace UI.Controllers.ShopUI
             _feedbackText.text = "";
         }
     }
-    
-    // // custom editor so shop items can be set in inspector and will populate in editor, can only change items in prefab
-    // [CustomEditor(typeof(ShopUIController))]
-    // public class ShopUIControllerEditor : Editor
-    // {
-    //     public override void OnInspectorGUI()
-    //     {
-    //         EditorGUILayout.PropertyField(serializedObject.FindProperty("goldText"));
-    //         EditorGUILayout.PropertyField(serializedObject.FindProperty("shopMenuItemPrefab"));
-    //         // EditorGUI.BeginChangeCheck();
-    //         
-    //         // makes un-editable unless editing the prefab, spawn logic in UpdateItemList() works better this way
-    //         bool inPrefab = PrefabUtility.GetPrefabAssetType((ShopUIController)target) != PrefabAssetType.NotAPrefab;
-    //         if (inPrefab) GUI.enabled = false;
-    //         EditorGUILayout.PropertyField(serializedObject.FindProperty("shopItems"));
-    //         if (inPrefab) GUI.enabled = true;
-    //
-    //         // if (EditorGUI.EndChangeCheck());
-    //     }
-    // }
     
     
     [Serializable]

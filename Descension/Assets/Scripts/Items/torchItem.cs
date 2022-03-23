@@ -10,12 +10,13 @@ namespace Items
         public float quantity = 20;
         
         private bool _isPickedUp = false;
-        private string _description = "Torch Collected.\n Use with caution. There are things down here that have more eyes than you.";
-        private HUDController _hudController;
+
+        private string[] _description = 
+            new string[] {"Torch Collected. Use with caution.", "There are things down here that have more eyes than you.", 
+            "Press Q to toggle it on and off."};
 
         void Awake()
         {
-            _hudController = UIManager.Instance.GetHudController();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -25,9 +26,9 @@ namespace Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                FindObjectOfType<SoundManager>().ItemFound();
-                FindObjectOfType<PlayerController>().AddTorch(quantity);
-                UIManager.Instance.GetHudController().ShowText(_description);
+                SoundManager.ItemFound();
+                GameManager.PlayerController.AddTorch(quantity);
+                DialogueManager.StartDialogue("Torch", _description);
                 Destroy(gameObject);
             }
         }

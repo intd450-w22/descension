@@ -31,14 +31,12 @@ namespace UI.Controllers.UIController
                 _timerStarted = false;
                 _timeRemaining = 0;
 
-                var uiManager = UIManager.Instance;
-
                 if(NextScene == Scene.Other)
-                    uiManager.SwitchScene(OtherScene);
+                    UIManager.SwitchScene(OtherScene);
                 else if(NextScene != Scene.None)
-                    uiManager.SwitchScene(NextScene);
+                    UIManager.SwitchScene(NextScene);
                 
-                uiManager.SwitchUi(NextUi);
+                UIManager.SwitchUi(NextUi);
             }
 
 

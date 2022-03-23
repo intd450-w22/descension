@@ -1,33 +1,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using Items.Pickups;
+using UI.MenuUI;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Hotbar : MonoBehaviour
 {
-    private List<Image> hotbarSlots;
+    private List<HotbarSlot> _hotbarSlots;
 
     void Awake()
     {
-        hotbarSlots = GetComponentsInChildren<Image>().ToList();
+        _hotbarSlots = GetComponentsInChildren<HotbarSlot>().ToList();
+    }
+
+    void Start()
+    {
+        DeactivateAll();
     }
 
     public void SetActive(int slot)
     {
-        // TODO: Add a highlight around the inventory slot
+        for (var i = 0; i < _hotbarSlots.Count; i++)
+        {
+            if (i == slot)
+                _hotbarSlots[i].Activate();
+            else
+                _hotbarSlots[i].Deactivate();
+        }
     }
 
-    public void PickupItem(EquippableItem item, int slot)
+    public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
+    
+    public void PickupItem(Equippable item, int slot)
     {
-        // Set sprite and quantity
-        hotbarSlots[slot].sprite = item.inventorySprite;
+        _hotbarSlots[slot].SetSprite(item.inventorySprite);
+        _hotbarSlots[slot].SetQuantity(item.Quantity);
+        _hotbarSlots[slot].SetOnQuantityUpdated(ref item.OnQuantityUpdated);
     }
 
     public void DropItem(int slot)
     {
-        // Clear sprite and quantity
-        hotbarSlots[slot].sprite = null;
+        _hotbarSlots[slot].ClearSprite();
+        _hotbarSlots[slot].ClearQuantity();
+        _hotbarSlots[slot].Deactivate();
     }
 
 }

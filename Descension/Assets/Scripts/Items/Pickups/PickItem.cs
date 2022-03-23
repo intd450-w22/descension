@@ -20,9 +20,9 @@ namespace Items.Pickups
         }
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance()
+        public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Pick(lootChance);
+            return new Pick(lootChance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -37,7 +37,7 @@ namespace Items.Pickups
         private PlayerControls _playerControls;
         
         
-        public Pick(float lootChance)
+        public Pick(float lootChance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             this.name = GetName();
             _lootChance = lootChance;
@@ -50,11 +50,10 @@ namespace Items.Pickups
         {
             return PickItem.Name;
         }
-        
-        public override void OnDrop()
+
+        public override void SpawnDrop()
         {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, durability);
-            base.OnDrop();
+            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, Quantity);
         }
 
         public override void Update()
@@ -67,9 +66,9 @@ namespace Items.Pickups
             if (!_execute) return;
             _execute = false;
             
-            if (durability <= 0)
+            if (Quantity <= 0)
             {
-                UIManager.Instance.GetHudController().ShowText("No picks!");
+                UIManager.GetHudController().ShowText("No picks!");
                 return;
             }
             
@@ -85,23 +84,22 @@ namespace Items.Pickups
             RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, (int) UnityLayer.Boulder);
             if (rayCast)
             {
-                SoundManager.Instance.RemoveRock();
+                SoundManager.RemoveRock();
                 
                 if (Random.Range(0f, 100f) < _lootChance)
                 {
                     int gold = (int) Mathf.Floor(Random.Range(0f, 20f));
                     
-                    SoundManager.Instance.GoldFound();
+                    SoundManager.GoldFound();
                     
-                    InventoryManager.Instance.gold += gold;
+                    InventoryManager.Gold += gold;
                     
-                    UIManager.Instance.GetHudController()
+                    UIManager.GetHudController()
                         .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);
                 }
                 
                 Object.Destroy(rayCast.transform.gameObject);
-
-                --durability;
+                --Quantity;
             }
             else
             {

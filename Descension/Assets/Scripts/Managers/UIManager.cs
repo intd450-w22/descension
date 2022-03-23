@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UI.Controllers;
+using UI.Controllers.Codex;
 using UI.Controllers.ShopUI;
 using UI.Controllers.UIController;
 using Util;
@@ -14,7 +15,7 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
         private static UIManager _instance;
-        public static UIManager Instance
+        private static UIManager Instance
         {
             get
             {
@@ -30,11 +31,12 @@ namespace Managers
         private HUDController _hudController;
         private UIController _lastActiveUi;
         private ShopUIController _shopUIController;
+        private CodexController _codexController;
 
         public UIType DefaultUi = UIType.MainMenu;
 
         // Helper properties
-        public Hotbar Hotbar { get => _hudController.Hotbar; }
+        public static Hotbar Hotbar => Instance._hudController.Hotbar;
 
         protected void Awake()
         {
@@ -51,25 +53,31 @@ namespace Managers
 
             _hudController = GetComponentInChildren<HUDController>();
             _shopUIController = GetComponentInChildren<ShopUIController>();
+            _codexController = GetComponentInChildren<CodexController>();
+
             _uiControllers = FindObjectsOfType<UIController>().ToList();
             _uiControllers.ForEach(x => x.gameObject.SetActive(false));
             
             SwitchUi(DefaultUi);
         }
+        
+        public static HUDController GetHudController() => Instance._hudController;
 
-        public HUDController GetHudController() => _hudController;
+        public static ShopUIController GetShopUIController() => Instance._shopUIController;
 
-        public ShopUIController GetShopUIController() => _shopUIController;
+        public static CodexController GetCodexController() => Instance._codexController;
 
-        public string GetCurrentScene() => SceneManager.GetActiveScene().name;
+        public static string GetCurrentScene() => SceneManager.GetActiveScene().name;
 
-        public void ReinitHudController()
+        public static void ReinitHudController() => Instance._ReinitHudController();
+        private void _ReinitHudController()
         {
             _hudController = GetComponentInChildren<HUDController>();
             _hudController.Init();
         }
 
-        public void SwitchUi(UIType uiType)
+        public static void SwitchUi(UIType uiType) => Instance._SwitchUi(uiType);
+        private void _SwitchUi(UIType uiType)
         {
             if (_lastActiveUi != null)
                 _lastActiveUi.gameObject.SetActive(false);
@@ -89,9 +97,9 @@ namespace Managers
             }
         }
 
-        public void SwitchScene(Scene scene, UIType uiType = UIType.None) => SwitchScene(scene.ToString(), uiType);
-
-        public void SwitchScene(string scene, UIType uiType = UIType.None)
+        public static void SwitchScene(Scene scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene.ToString(), uiType);
+        public static void SwitchScene(string scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene, uiType);
+        private void _SwitchScene(string scene, UIType uiType = UIType.None)
         {
             SceneLoader.Load(scene);
             SwitchUi(uiType);

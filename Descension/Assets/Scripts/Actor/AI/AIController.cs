@@ -19,9 +19,7 @@ namespace Actor.AI
         [HideInInspector] public Vector3 position;           // cached current position
         [HideInInspector] public NavMeshAgent agent;         // agent script
         [HideInInspector] public GameObject player;          // read only reference to player
-
-        private GameManager _gameManager;
-
+        
         private Transform _player;                          // player transform
         private bool _alive;                                // is the player alive
 
@@ -37,8 +35,7 @@ namespace Actor.AI
                 return;
             }
             
-            _gameManager = GameManager.Instance;
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameManager.PlayerController.gameObject;
 
             if (!state)
             {
@@ -50,8 +47,8 @@ namespace Actor.AI
             agent.updateRotation = false;
             agent.updateUpAxis = false;
             
-            _player = FindObjectOfType<PlayerController>().transform;
-            _hudController = UIManager.Instance.GetHudController();
+            _player = GameManager.PlayerController.transform;
+            _hudController = UIManager.GetHudController();
             
             _alive = true;
         }
@@ -59,7 +56,7 @@ namespace Actor.AI
         // Update is called once per frame
         void Update()
         {
-            if (_gameManager.IsPaused || !_alive) return;
+            if (GameManager.IsPaused || !_alive) return;
 
             if (hitPoints <= 0)
             {

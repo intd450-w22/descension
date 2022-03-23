@@ -15,18 +15,17 @@ namespace Items.Pickups
         {
             if (Input.GetKeyDown(KeyCode.E) && _inRange)
             {
-                
-                if (!InventoryManager.Instance.PickupItem(item, quantity))
+                if (!InventoryManager.PickupItem(item, ref quantity))
                 {
-                    // SoundManager.Instance.ItemFound(); //TODO fail to pick up sound
-                    UIManager.Instance.GetHudController().ShowText("Inventory full");
+                    SoundManager.Error(); //TODO fail to pick up sound
+                    UIManager.GetHudController().ShowText("Inventory full");
                     return;
                 }
-                SoundManager.Instance.ItemFound();
-                UIManager.Instance.GetHudController().ShowText(pickupMessage);
-                Destroy(gameObject);
-            }
+                SoundManager.ItemFound();
+                UIManager.GetHudController().ShowText(pickupMessage);
 
+                if (quantity == 0) Destroy(gameObject);
+            }
         }
 
         private void OnValidate()
@@ -36,13 +35,13 @@ namespace Items.Pickups
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            UIManager.Instance.GetHudController().ShowText("Press E to collect " + item.GetName());
+            UIManager.GetHudController().ShowText("Press E to collect " + item.GetName());
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            UIManager.Instance.GetHudController().HideDialogue();
+            UIManager.GetHudController().HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;
         }
     }

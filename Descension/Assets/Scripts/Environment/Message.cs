@@ -17,12 +17,12 @@ namespace Environment
 
         void Awake()
         {
-            _hudController = UIManager.Instance.GetHudController();
+            _hudController = UIManager.GetHudController();
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
             if (!triggered) {
-                UIManager.Instance.GetHudController().ShowText(textToShow);
+                UIManager.GetHudController().ShowText(textToShow);
                 triggered = true;
             }
         }

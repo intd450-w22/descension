@@ -6,7 +6,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameManager _instance;
-        public static GameManager Instance
+        private static GameManager Instance
         {
             get
             {
@@ -25,9 +25,13 @@ namespace Managers
                 return _playerController;
             }
         }
-        
 
-        public bool IsPaused;
+        public static bool IsPaused
+        {
+            get => Instance.isPaused;
+            set => Instance.isPaused = value;
+        }
+        public bool isPaused;
 
         protected void Awake()
         {

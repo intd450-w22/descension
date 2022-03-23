@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Util.Helpers
@@ -89,7 +93,31 @@ namespace Util.Helpers
 
         public static void SetBottom(this RectTransform rt, float bottom) =>
             rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
-        
+
+        #endregion
+
+        #region String
+
+        public static string RemoveWhitespace(this string str) =>
+            string.Concat(str.Where(c => !char.IsWhiteSpace(c)));
+
+        public static bool IsNullOrEmpty([CanBeNull] this string str) => string.IsNullOrEmpty(str);
+
+        #endregion
+
+        #region IEnumerable
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            if (enumerable == null) return true;
+
+            var collection = enumerable as ICollection<T>;
+            if (collection != null)
+                return collection.Count < 1;
+
+            return !enumerable.Any();
+        }
+
         #endregion
 
     }
