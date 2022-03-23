@@ -12,8 +12,8 @@ namespace Items.Pickups
     public class BowItem : EquippableItem
     {
         public static String Name = "Bow";
-
         public GameObject arrowPrefab;
+        public float damage = 10;
         public float bowReticleDistance = 2f;
         
         public override string GetName()
@@ -24,7 +24,7 @@ namespace Items.Pickups
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Bow(arrowPrefab, bowReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
+            return new Bow(arrowPrefab, damage, bowReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -37,6 +37,7 @@ namespace Items.Pickups
         private Arrows _arrows;
         private Transform _reticle;
         private GameObject _arrowPrefab;
+        private float _damage;
         private String _currentControlScheme = ControlScheme.Desktop.ToString();
         private float _bowReticleDistance;
         private bool _execute;
@@ -69,10 +70,11 @@ namespace Items.Pickups
             }
         }
         
-        public Bow(GameObject arrowPrefab, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
             _arrowPrefab = arrowPrefab;
+            _damage = damage;
             _bowReticleDistance = bowReticleDistance;
             _playerControls = new PlayerControls();
             _playerControls.Enable();
@@ -138,11 +140,7 @@ namespace Items.Pickups
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
             // spawn arrow
-            SoundManager.ArrowAttack();
-            GameObject arrowObject = Object.Instantiate(_arrowPrefab, (Vector3)playerPosition + direction, Quaternion.identity);
-            arrowObject.transform.localScale = GameManager.PlayerController.transform.localScale;
-            Arrow arrow = arrowObject.GetComponent<Arrow>();
-            arrow.Initialize(direction);
+            Projectile.Instantiate(_arrowPrefab, playerPosition + direction, direction, _damage, Tag.Enemy);
             
             // reduce arrows quantity
             if (--Arrows.Quantity <= 0) Arrows = null;

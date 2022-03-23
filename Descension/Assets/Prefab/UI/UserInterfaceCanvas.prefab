@@ -6133,12 +6133,16 @@ MonoBehaviour:
   shopItems:
   - item: {fileID: 1312424675061267261, guid: aac1fcca5b02b784da9093c7112c901b, type: 3}
     cost: 6
+    quantity: 1
   - item: {fileID: 2165583528553325103, guid: a4953c3c2e3be914e8779e576b8f6344, type: 3}
     cost: 1
+    quantity: 1
   - item: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
     cost: 2
+    quantity: 1
   - item: {fileID: -3056033874401481543, guid: 2abfd37df650e804a816404c2cab43ee, type: 3}
     cost: 500
+    quantity: 1
   spawned:
   - {fileID: 0}
   - {fileID: 0}

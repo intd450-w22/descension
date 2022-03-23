@@ -12,9 +12,6 @@ namespace Actor.AI.States
         }
         public abstract void UpdateState();
 
-        public virtual void Initialize()
-        {
-        
-        }
+        public abstract void Initialize();
     }
 }

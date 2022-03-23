@@ -1,5 +1,6 @@
 using System;
 using Actor.AI;
+using Actor.Interface;
 using Actor.Player;
 using Managers;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Items.Pickups
         public static String Name = "Sword";
         public float damage = 10f;
         public float swordReticleDistance = 2f;
-        
+        public float knockBack = 0;
         public override string GetName()
         {
             return Name;
@@ -23,7 +24,7 @@ namespace Items.Pickups
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new Sword(damage, swordReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
+            return new Sword(damage, knockBack, swordReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
     
@@ -35,6 +36,7 @@ namespace Items.Pickups
     {
         private Transform _reticle;
         private float _swordDamage;
+        private float _knockBack;
         private float _swordReticleDistance;
         private bool _execute;
         private PlayerControls _playerControls;
@@ -52,11 +54,12 @@ namespace Items.Pickups
             }
         }
         
-        public Sword(float swordDamage, float swordReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Sword(float swordDamage, float knockBack, float swordReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
 
             _swordDamage = swordDamage;
+            _knockBack = knockBack;
             _swordReticleDistance = swordReticleDistance;
             
             _playerControls = new PlayerControls();
@@ -115,10 +118,10 @@ namespace Items.Pickups
             Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, (int) UnityLayer.Enemy);
             foreach (Collider2D hit in hitEnemies)
             {
-                AIController enemyController = hit.gameObject.GetComponent<AIController>();
-                if (enemyController == null) enemyController = hit.gameObject.GetComponentInParent<AIController>();
+                IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
+                if (damageable == null) damageable = hit.gameObject.GetComponentInParent<IDamageable>();
                 
-                enemyController.InflictDamage(_swordDamage);
+                damageable.InflictDamage(GameManager.PlayerController.gameObject, _swordDamage, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;

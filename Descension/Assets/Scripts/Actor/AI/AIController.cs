@@ -1,4 +1,5 @@
 using Actor.AI.States;
+using Actor.Interface;
 using Actor.Player;
 using UI.Controllers;
 using UnityEngine;
@@ -9,7 +10,7 @@ using Unity.Collections;
 namespace Actor.AI
 {
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
-    public class AIController : MonoBehaviour
+    public class AIController : MonoBehaviour, IDamageable
     {
         public float hitPoints = 100;
         public float touchDamage = 10;
@@ -75,11 +76,11 @@ namespace Actor.AI
             this.state.Initialize();
         }
         
-        public virtual void InflictDamage(float dmg)
+        public virtual void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
         {
-            Debug.Log($"Enemy hit for {dmg} damage");
-            hitPoints -= dmg;
-            _hudController.ShowFloatingText(position, "Hp-" + dmg, Color.red);
+            Debug.Log($"Enemy hit for {damage} damage");
+            hitPoints -= damage;
+            _hudController.ShowFloatingText(position, "Hp-" + damage, Color.red);
         }
         
         protected virtual void OnKilled()
