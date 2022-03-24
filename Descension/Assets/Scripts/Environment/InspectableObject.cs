@@ -20,14 +20,20 @@ namespace Environment
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
-            _playerInRange = true;
-            DialogueManager.ShowNotification("Press F to interact");
+            if (other.gameObject.CompareTag("Player"))
+            {
+                _playerInRange = true;
+                DialogueManager.ShowNotification("Press F to interact");
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other) {
-            _playerInRange = false;
-            DialogueManager.ClearLines();
-            DialogueManager.HideDialogue();
+            if (other.gameObject.CompareTag("Player"))
+            {
+                _playerInRange = false;
+                DialogueManager.ClearLines();
+                DialogueManager.HideDialogue();
+            }
         }
     }
 }
