@@ -30,6 +30,7 @@ namespace Actor.AI.States
             Speed = movementSpeed;
             _patrolIndex = FindClosest(Position, PatrolTargets);
             currentTarget = PatrolTargets[_patrolIndex];
+            SetDestination(currentTarget.position);
         }
 
         public override void EndState(){}
@@ -58,8 +59,6 @@ namespace Actor.AI.States
             }
         
             if ((currentTarget.position - Position).magnitude < reachThreshold) GetNextTarget();
-
-            SetDestination(currentTarget.position);
         }
     
         // sets target to next in patrolTargets list
@@ -82,6 +81,7 @@ namespace Actor.AI.States
 
             _patrolIndex = SafeIndex(_patrolIndex, PatrolTargets.Count);
             currentTarget = PatrolTargets[_patrolIndex];
+            SetDestination(currentTarget.position);
         }
     }
 }
