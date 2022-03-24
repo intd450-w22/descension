@@ -35,14 +35,21 @@ namespace Items.Pickups
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            UIManager.GetHudController().ShowText("Press E to collect " + item.GetName());
-            if (other.gameObject.CompareTag("Player")) _inRange = true;
+
+            if (other.gameObject.CompareTag("Player"))
+            {
+                UIManager.GetHudController().ShowText("Press E to collect " + item.GetName());
+                _inRange = true;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            UIManager.GetHudController().HideDialogue();
-            if (other.gameObject.CompareTag("Player")) _inRange = false;
+            if (other.gameObject.CompareTag("Player"))
+            {
+                UIManager.GetHudController().HideDialogue();
+                _inRange = false;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Actor.AI
     public class AIController : MonoBehaviour, IDamageable
     {
         public float hitPoints = 100;
+        public AIState initialState;
         [SerializeField, ReadOnly] private AIState state;   // current state
 
         [HideInInspector] public NavMeshAgent agent;
@@ -38,7 +39,7 @@ namespace Actor.AI
                 return;
             }
             
-            SetState(GetComponent<AIState>());
+            SetState(initialState);
 
             _hudController = UIManager.GetHudController();
             
