@@ -42,7 +42,7 @@ namespace UI.Controllers.ShopUI
                 if (shopItem.item != null)
                 {
                     GameObject menuItem = Instantiate(shopMenuItemPrefab, MenuRoot);
-                    menuItem.GetComponent<ShopItemButtonController>().Set(shopItem.item, shopItem.cost);
+                    menuItem.GetComponent<ShopItemButtonController>().Set(shopItem);
                     menuItem.name = shopItem.item.GetName() + "MenuItem";
                     menuItem.transform.SetAsLastSibling();
                 }
@@ -74,5 +74,6 @@ namespace UI.Controllers.ShopUI
     {
         public EquippableItem item;
         public int cost;
+        public int quantity;
     }
 }

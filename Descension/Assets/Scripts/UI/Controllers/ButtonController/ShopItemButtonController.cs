@@ -1,13 +1,13 @@
 using Items.Pickups;
 using Managers;
 using TMPro;
+using UI.Controllers.ShopUI;
 
 namespace UI.Controllers.ButtonController
 {
     public class ShopItemButtonController : ButtonController
     {
-        public EquippableItem item;
-        public int cost;
+        public ShopItem shopItem;
         private TMP_Text _itemText;
         private TMP_Text ItemText
         {
@@ -18,36 +18,35 @@ namespace UI.Controllers.ButtonController
             }
         }
 
-        public void Set(EquippableItem item, int cost)
+        public void Set(ShopItem item)
         {
-            this.item = item;
-            this.cost = cost;
-            ItemText.text = item.GetName() + " (" + cost + " gold)";
+            shopItem = item;
+            ItemText.text = shopItem.item.GetName() + " (" + shopItem.cost + " gold)";
         }
         
         protected override void OnButtonClicked()
         {
             float gold = InventoryManager.Gold;
 
-            if (gold < cost)
+            if (gold < shopItem.cost)
             {
                 UIManager.GetShopUIController().DisplayFeedback("Not enough gold!");
                 SoundManager.Error();
                 return;
             }
-            
-            int quantity = 1;
-            if (!InventoryManager.PickupItem(item, ref quantity))
+
+            int quantity = shopItem.quantity;
+            if (!InventoryManager.PickupItem(shopItem.item, ref quantity))
             {
                 UIManager.GetShopUIController().DisplayFeedback("No room in inventory!");
                 SoundManager.Error();
                 return;
             }
             
-            InventoryManager.Gold -= cost;
+            InventoryManager.Gold -= shopItem.cost;
             SoundManager.ItemFound();
             UIManager.GetShopUIController().UpdateGold();
-            UIManager.GetShopUIController().DisplayFeedback(item.GetName() + " purchased for " + cost + " gold!");
+            UIManager.GetShopUIController().DisplayFeedback(shopItem.item.GetName() + " purchased for " + shopItem.cost + " gold!");
         }
     }
 }

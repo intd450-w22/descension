@@ -79,6 +79,7 @@ namespace Managers
         public static void SwitchUi(UIType uiType) => Instance._SwitchUi(uiType);
         private void _SwitchUi(UIType uiType)
         {
+            Debug.Log("Switch UI to " + uiType);
             if (_lastActiveUi != null)
                 _lastActiveUi.gameObject.SetActive(false);
 

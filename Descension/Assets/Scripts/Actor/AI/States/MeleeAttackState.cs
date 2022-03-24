@@ -6,50 +6,42 @@ namespace Actor.AI.States
 {
     public class MeleeAttackState : AIState
     {
-        public AIState onComplete;
+        [Header("Settings")]
         public float knockBack;
         public float damage = 10;
         public float attackDelay = 1;
         public float attackRange = 5;
         public float postDelay = 1;
         
-        private bool _attackStarted;
+        [Header("Transitions")]
+        public AIState onComplete;
+        
         private Vector3 _direction;
-        public new void Start()
-        {
-            base.Start();
-        }
+        
 
-        public override void Initialize()
+        public override void StartState()
         {
-            Debug.Log("Melee Attack");
-            Controller.agent.speed = 0;
-            _attackStarted = false;
-        }
-
-        public override void UpdateState()
-        {
-            if (_attackStarted) return;
-            _attackStarted = true;
-            
-            _direction = (Controller.player.transform.position - Controller.position).normalized;
-            
+            Speed = 0;
+            _direction = (PlayerPosition - Position).normalized;
             Invoke(nameof(Execute), attackDelay);
         }
+        
+        public override void EndState(){}
+
+        public override void UpdateState(){}
 
         public void Execute()
         {
-            int mask = (int) UnityLayer.Player;
-            RaycastHit2D rayCast = Physics2D.BoxCast(Controller.position, new Vector2(1, 1), 0, _direction, attackRange, mask);
+            RaycastHit2D rayCast = Physics2D.BoxCast(Position, new Vector2(1, 1), 0, _direction, attackRange, (int) UnityLayer.Player);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
-                Controller.player.GetComponent<PlayerController>().InflictDamage(gameObject, damage, knockBack);
+                Player.InflictDamage(gameObject, damage, knockBack);
                 Debug.Log("Attack Hit!");
-                Debug.DrawLine(Controller.position, rayCast.point, Color.red, 3);
+                Debug.DrawLine(Position, rayCast.point, Color.red, 3);
             }
             else
             {
-                Debug.DrawLine(Controller.position, Controller.position + _direction*attackRange, Color.yellow,3 );
+                Debug.DrawLine(Position, Position + _direction*attackRange, Color.yellow,3 );
             }
 
             Invoke(nameof(OnComplete), postDelay);
@@ -57,7 +49,7 @@ namespace Actor.AI.States
 
         public void OnComplete()
         {
-            Controller.SetState(onComplete);
+            ChangeState(onComplete);
         }
     }
 }

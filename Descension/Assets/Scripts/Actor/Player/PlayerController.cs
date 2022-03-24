@@ -1,3 +1,4 @@
+using Actor.Interface;
 using Managers;
 using UI.Controllers;
 using Util.AssetMenu;
@@ -11,7 +12,7 @@ using Environment;
 namespace Actor.Player
 {
     [RequireComponent(typeof(PlayerInput))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamageable
     {
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
