@@ -10,7 +10,7 @@ namespace Util.Helpers
             return (b - a).sqrMagnitude;
         }
     
-        public static int FindClosest(Vector2 pos, ref List<Transform> objects)
+        public static int FindClosest(Vector2 pos, List<Transform> objects)
         {
             int closestIndex = 0;
             float closestDistance = DistanceSq(pos, objects[0].transform.position);
@@ -24,6 +24,13 @@ namespace Util.Helpers
                 }
             }
             return closestIndex;
+        }
+        
+        // wraps index if out of range
+        public static int SafeIndex(int x, int length)
+        {
+            int index = x % length;
+            return index < 0 ? index + length : index;
         }
     }
 }

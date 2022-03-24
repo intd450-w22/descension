@@ -8,8 +8,6 @@ namespace Managers
     {
         private string _name  = "";
         private Queue<string> _linesOfDialogue = new Queue<string>();
-        private HUDController _hudController;
-        
         private static DialogueManager _instance;
         private static DialogueManager Instance
         {
@@ -27,7 +25,6 @@ namespace Managers
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
             DontDestroyOnLoad(gameObject);
-            _hudController = UIManager.GetHudController();
         }
 
         void Update() {
@@ -68,9 +65,9 @@ namespace Managers
         private void _DisplayNextLine() {
             if (_linesOfDialogue.Count == 0) {
                 Time.timeScale = 1; // resume the game
-                _hudController.HideDialogue();
+                UIManager.GetHudController().HideDialogue();
             } else {
-                _hudController.ShowText(_linesOfDialogue.Dequeue(), _name);
+                UIManager.GetHudController().ShowText(_linesOfDialogue.Dequeue(), _name);
             }
         }
         
@@ -81,12 +78,12 @@ namespace Managers
 
         public static void HideDialogue() => Instance._HideDialogue();
         private void _HideDialogue() {
-            _hudController.HideDialogue();
+            UIManager.GetHudController().HideDialogue();
         }
 
         public static void ShowNotification(string text) => Instance._ShowNotification(text);
         private void _ShowNotification(string text) {
-            _hudController.ShowNotification(text);
+            UIManager.GetHudController().ShowNotification(text);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Util.Enums;
 
@@ -5,31 +6,28 @@ namespace Actor.AI.States
 {
     public class GuardState : AIState
     {
-        public AIState onPlayerSpotted;
+        [Header("Settings")]
         public float sightDistance = 15;
+
+        [Header("Transitions")]
+        public AIState onPlayerSpotted;
         
-        public new void Start()
+        public override void StartState()
         {
-            base.Start();
+            SetDestination(PatrolTargets[0].position);
         }
 
-        public override void Initialize()
-        {
-            Debug.Log("Guard");
-        }
+        public override void EndState(){}
 
         public override void UpdateState()
         {
-            Vector3 v = Controller.player.transform.position - Controller.position;
-            Vector2 direction = v.normalized;
-            if (v.magnitude < sightDistance)
+            Vector3 toPlayer = PlayerPosition - Position;
+            if (toPlayer.magnitude < sightDistance)
             {
-                int mask = (int)~UnityLayer.Enemy;
-                RaycastHit2D rayCast = Physics2D.BoxCast(Controller.position, new Vector2(1, 1), 0, direction, sightDistance, mask);
+                RaycastHit2D rayCast = Physics2D.Raycast(Position, toPlayer.normalized, sightDistance, (int)~UnityLayer.Enemy);
                 if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
                 {
-                    Controller.SetState(onPlayerSpotted);
-                    return;
+                    ChangeState(onPlayerSpotted);
                 }
             }
         }
