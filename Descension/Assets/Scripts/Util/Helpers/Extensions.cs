@@ -51,6 +51,11 @@ namespace Util.Helpers
             
             return new Vector2(cos*vector.x - sin*vector.y, sin*vector.x + cos*vector.y);
         }
+        
+        public static Vector2 GetRotated(this Vector3 vector, float degrees)
+        {
+            return GetRotated((Vector2)vector, degrees);
+        }
 
         #endregion
 

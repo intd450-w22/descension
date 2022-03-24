@@ -5,66 +5,54 @@ namespace Actor.AI.States
 {
     public class ChaseLostState : AIState
     {
-        public AIState onPlayerSpotted;
-        public AIState onPlayerLost;
+        [Header("Settings")]
         public float reachThreshold = 5;
         public float sightDistance = 15;
         public float speed = 10;
         
+        [Header("Transitions")]
+        public AIState onPlayerSpotted;
+        public AIState onPlayerLost;
+        
         private Vector3 _target;
 
-        public new void Start()
+        
+        public override void StartState()
         {
-            base.Start();
+            Speed = speed;
+            _target = PlayerPosition;
+            SetDestination(_target);
         }
 
-        public override void Initialize()
-        {
-            Debug.Log("Chase Lost");
-            Controller.agent.speed = speed;
-            _target = Controller.player.transform.position;
-        }
+        public override void EndState() {}
 
         public override void UpdateState()
         {
-            Vector3 v = _target - Controller.position;
-            Vector3 direction = v.normalized;
+            Vector3 toTarget = _target - Position;
             
-            int mask = (int)~UnityLayer.Enemy;
-            RaycastHit2D rayCast = Physics2D.BoxCast(Controller.position, new Vector2(1, 1), 0, direction, sightDistance, mask);
+            RaycastHit2D rayCast = Physics2D.Raycast(Position, toTarget.normalized, sightDistance, (int)~UnityLayer.Enemy);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
-                Controller.SetState(onPlayerSpotted);
+                ChangeState(onPlayerSpotted);
                 return;
             }
             
-            Debug.DrawLine(Controller.position, _target, Color.yellow);
+            Debug.DrawLine(Position, _target, Color.yellow);
 
-            float distance = v.magnitude;
-            if (distance < reachThreshold)
-            {
-                Look();
-            }
-            else
-            {
-                // continue moving towards last position player was seen
-                Controller.agent.SetDestination(_target);
-            }
+            if (toTarget.magnitude < reachThreshold) Look();
         }
         
-        // Look in all directions to see if PlayerController is still visible
+        // Look in all directions to see if Player is still visible
         private void Look()
         {
-            Vector2 direction = (Controller.player.transform.position - Controller.position).normalized;
-            int mask = (int)~UnityLayer.Enemy;
-            RaycastHit2D rayCast = Physics2D.Raycast(Controller.position, direction, sightDistance, mask);
+            RaycastHit2D rayCast = Physics2D.Raycast(Position, (PlayerPosition - Position).normalized, sightDistance, (int)~UnityLayer.Enemy);
             if (rayCast && rayCast.collider.gameObject.CompareTag("Player"))
             {
-                Controller.SetState(onPlayerSpotted);
+                ChangeState(onPlayerSpotted);
             }
             else
             {
-                Controller.SetState(onPlayerLost);
+                ChangeState(onPlayerLost);
             }
         }
     }

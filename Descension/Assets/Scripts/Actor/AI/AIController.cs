@@ -1,3 +1,4 @@
+using System;
 using Actor.AI.States;
 using Actor.Interface;
 using Actor.Player;
@@ -5,7 +6,7 @@ using UI.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
 using Managers;
-using Unity.Collections;
+using Util.EditorHelpers;
 
 namespace Actor.AI
 {
@@ -13,18 +14,19 @@ namespace Actor.AI
     public class AIController : MonoBehaviour, IDamageable
     {
         public float hitPoints = 100;
-        public float touchDamage = 10;
-        
-        [ReadOnly] public AIState state;                     // current state in the state machine, read only
-        [HideInInspector] public Vector2 forward;            // cached current forward direction
-        [HideInInspector] public Vector3 position;           // cached current position
-        [HideInInspector] public NavMeshAgent agent;         // agent script
-        [HideInInspector] public GameObject player;          // read only reference to player
-        
-        private Transform _player;                          // player transform
-        private bool _alive;                                // is the player alive
+        [SerializeField, ReadOnly] private AIState state;   // current state
 
+        [HideInInspector] public NavMeshAgent agent;
+        
+        private bool _alive;                                // is the player alive
         private HUDController _hudController;
+
+        void Awake()
+        {
+            agent = GetComponentInChildren<NavMeshAgent>();
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+        }
         
         void Start()
         {
@@ -36,64 +38,41 @@ namespace Actor.AI
                 return;
             }
             
-            player = GameManager.PlayerController.gameObject;
+            SetState(GetComponent<AIState>());
 
-            if (!state)
-            {
-                Debug.LogWarning("Must set variable \"state\" to an attached AIState script.");
-                state = GetComponent<AIState>();
-            }
-            
-            agent = GetComponentInChildren<NavMeshAgent>();
-            agent.updateRotation = false;
-            agent.updateUpAxis = false;
-            
-            _player = GameManager.PlayerController.transform;
             _hudController = UIManager.GetHudController();
             
             _alive = true;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (GameManager.IsPaused || !_alive) return;
 
-            if (hitPoints <= 0)
-            {
-                OnKilled();
-                return;
-            }
-
-            Cache();
-
-            if (state) state.UpdateState();
+            if (hitPoints <= 0) OnKilled();
+            
+            else if (state) state.UpdateState();
         }
         
-        public void SetState(AIState state)
-        {
-            this.state = state;
-            this.state.Initialize();
-        }
-        
-        public virtual void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
+        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
         {
             Debug.Log($"Enemy hit for {damage} damage");
             hitPoints -= damage;
-            _hudController.ShowFloatingText(position, "Hp-" + damage, Color.red);
+            _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
         }
         
-        protected virtual void OnKilled()
+        void OnKilled()
         {
             _alive = false;
             Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
         }
-        
-        private void Cache()
+
+        public void SetState(AIState newState)
         {
-            forward = (_player.position - position).normalized;
-            position = agent.transform.position;
+            if (state) state.EndState();
+            state = newState;
+            if (state) state.StartState();
         }
     }
 }

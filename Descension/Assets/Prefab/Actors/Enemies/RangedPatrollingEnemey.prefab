@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6721669065007134262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347327920443717875}
+  m_Layer: 7
+  m_Name: T2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347327920443717875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721669065007134262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7811447492875730834}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7333320478777490087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,24 +108,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3333621911742645914, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 7333320478777490087}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2757074259880830835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!4 &7811447492875730834 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 694370199903143221, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+  m_PrefabInstance: {fileID: 7333320478777490087}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5442133305409420349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d1e6d51def4134e81dd5166d3d1004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onComplete: {fileID: 7717075333068623217}
-  projectilePrefab: {fileID: 1130725838682376733, guid: 7fa8938704920444ba75242b407ff99e, type: 3}
-  damage: 10
-  attackDelay: 0.5
-  postDelay: 0.5
---- !u!114 &2929114567599098885
+--- !u!114 &937527437646884023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,12 +125,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerSpotted: {fileID: 7717075333068623217}
-  onPlayerLost: {fileID: 8446171691210239767}
   reachThreshold: 3
   sightDistance: 15
-  speed: 10
---- !u!114 &7717075333068623217
+  speed: 7
+  onPlayerSpotted: {fileID: 7904606063305443725}
+  onPlayerLost: {fileID: 8446171691210239767}
+--- !u!114 &6584073188895253326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442133305409420349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d1e6d51def4134e81dd5166d3d1004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 1130725838682376733, guid: 7fa8938704920444ba75242b407ff99e, type: 3}
+  damage: 10
+  attackDelay: 0.5
+  postDelay: 0.1
+  onComplete: {fileID: 7904606063305443725}
+--- !u!114 &7904606063305443725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,11 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerReached: {fileID: 2757074259880830835}
-  onPlayerLost: {fileID: 2929114567599098885}
-  reachThreshold: 10
+  reachThreshold: 5
   sightDistance: 15
-  speed: 7
+  speed: 5
+  onPlayerReached: {fileID: 6584073188895253326}
+  onPlayerLost: {fileID: 937527437646884023}
 --- !u!114 &8446171691210239767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,9 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerSpotted: {fileID: 7717075333068623217}
-  sightDistance: 15
-  speed: 5
-  reachThreshold: 3
+  sightSwayDegrees: 30
+  sightSwaySpeed: 2
+  sightDistance: 12
+  movementSpeed: 3
+  reachThreshold: 2
   loopTargets: 0
+  onPlayerSpotted: {fileID: 7904606063305443725}
   currentTarget: {fileID: 0}
