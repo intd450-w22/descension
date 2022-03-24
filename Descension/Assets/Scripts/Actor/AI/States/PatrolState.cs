@@ -19,7 +19,7 @@ namespace Actor.AI.States
         [Header("Transitions")]
         public AIState onPlayerSpotted;
         
-        [Header("State")]
+        [Header("This state patrol between child objects of PatrolTargets")]
         [SerializeField, ReadOnly] private Transform currentTarget;
         
         private int _patrolIndex;               // index of current patrol target
