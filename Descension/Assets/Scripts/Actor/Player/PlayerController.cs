@@ -19,7 +19,9 @@ namespace Actor.Player
 
         [Header("Attributes")]
         public float movementSpeed = 10;
+        public float maxHitPoints = 100f;
         public float hitPoints = 100f;
+        
         public float swordDamage = 25f; // obsolete -> moved to inventory item
         public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
         public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
@@ -130,6 +132,13 @@ namespace Actor.Player
             {
                 OnKilled();
             }
+        }
+
+        public void HealDamage(float heal)
+        {
+            float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
+            hitPoints += healthRestored;
+            _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
         }
 
         public void OnKilled()
