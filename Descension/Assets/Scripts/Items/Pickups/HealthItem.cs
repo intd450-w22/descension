@@ -11,7 +11,8 @@ namespace Items.Pickups
     public class HealthItem : EquippableItem
     {
         public static String Name = "Health Potion";
-        
+        public float healAmount = 50f;
+
 
         public override string GetName()
         {
@@ -21,7 +22,7 @@ namespace Items.Pickups
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)
         {
-            return new HealthPotion(slotIndex, quantity, maxQuantity, inventorySprite);
+            return new HealthPotion(healAmount, slotIndex, quantity, maxQuantity, inventorySprite);
         }
     }
 
@@ -29,13 +30,14 @@ namespace Items.Pickups
     [Serializable]
     class HealthPotion : Equippable
     {
-        public float healAmount = 50;
         private bool _execute;
         private PlayerControls _playerControls;
+        private float _healAmount;
 
-        public HealthPotion(int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public HealthPotion(float healAmount, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
+            _healAmount = healAmount;
 
             _playerControls = new PlayerControls();
             _playerControls.Enable();
@@ -58,10 +60,6 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            PlayerController controller = GameManager.PlayerController;
-            Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
-            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
-            Vector3 position = controller.transform.position;
 
 
             //******** Try to Execute if key pressed *******//
@@ -73,7 +71,7 @@ namespace Items.Pickups
                 UIManager.GetHudController().ShowText("No Health Potions remaining!");
                 return;
             }
-            controller.GetComponent<PlayerController>().HealDamage(healAmount);
+            GameManager.PlayerController.HealDamage(_healAmount);
             //Todo Add sound
             //SoundManager.Heal();
             --Quantity;
