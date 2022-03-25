@@ -73,9 +73,9 @@ namespace Items.Pickups
                 UIManager.GetHudController().ShowText("No Health Potions remaining!");
                 return;
             }
-            //player = GameManager.PlayerController.gameObject;
-            PlayerController.GetComponent<PlayerController>().healDamage(healAmount);
-            //Controller.player.GetComponent<PlayerController>().healDamage(healAmount);
+            controller.GetComponent<PlayerController>().HealDamage(healAmount);
+            //Todo Add sound
+            //SoundManager.Heal();
             --Quantity;
         }
 
