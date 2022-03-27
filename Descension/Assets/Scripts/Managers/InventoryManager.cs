@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items.Pickups;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Managers
 {
@@ -72,10 +73,13 @@ namespace Managers
         void EquipSlot(int index)
         {
             if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
-            equippedSlot = index;
-            slots[equippedSlot].OnEquip();
-            UIManager.Hotbar.SetActive(index);
-            Debug.Log("Slot " + index + " equipped");
+            if (slots[index]?.Quantity != -1)
+            {
+                equippedSlot = index;
+                slots[equippedSlot].OnEquip();
+                UIManager.Hotbar.SetActive(index);
+                Debug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
+            }
         }
         
         // find first slot with equippable item and set it to equipped state
