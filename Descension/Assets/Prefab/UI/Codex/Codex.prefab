@@ -263,7 +263,7 @@ MonoBehaviour:
     - ItemName: Health Potion
       ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
         its red colour. '
-      ItemSprite: {fileID: 7482667652216324306, guid: e6bf10aa4a60a6b4a91b66a0945d9810, type: 3}
+      ItemSprite: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
     - ItemName: Gold
       ItemDescription: 'Who knew there''d be so much of this down here. Use for purchasing
         goods, or keep for later. '
