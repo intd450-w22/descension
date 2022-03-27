@@ -229,12 +229,15 @@ MonoBehaviour:
     - ItemName: Enemy #1
       ItemDescription: This is the description for enemy #1. He is a bug.
       ItemSprite: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
+      Fact: 8
     - ItemName: Enemy #2
       ItemDescription: No info for enemy #2
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
+      Fact: 9
     - ItemName: Enemy #3
       ItemDescription: No info for enemy #3
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
+      Fact: 10
   - PageTitle: 'Items '
     PageType: 1
     PageItems:
@@ -242,38 +245,47 @@ MonoBehaviour:
       ItemDescription: Made for mining since the ancient eras. Who knew we'd still
         be using them?
       ItemSprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
+      Fact: 1
     - ItemName: Torch
       ItemDescription: Use with caution. There are things down here that have more
         eyes than you.
       ItemSprite: {fileID: 21300000, guid: 6d06fae830df5dd448290d0f78c069de, type: 3}
+      Fact: 2
     - ItemName: Sword
       ItemDescription: 'For, "personal defence". Tetanus risk. Use with caution. '
       ItemSprite: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
+      Fact: 3
     - ItemName: Bow
       ItemDescription: It may just be wire on a stick, but it sure helps keep you
         safe down here.
       ItemSprite: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
+      Fact: 4
     - ItemName: Arrows
       ItemDescription: 'The pointy end points away from you. '
       ItemSprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
+      Fact: 5
     - ItemName: Rope
       ItemDescription: 'Be sure to hold on with both hands while descending. When
         ascending...well...God help you. '
       ItemSprite: {fileID: 21300000, guid: 57b66bf43ed712444aa2677264d0c60b, type: 3}
+      Fact: 6
     - ItemName: Health Potion
       ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
         its red colour. '
       ItemSprite: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
+      Fact: 7
     - ItemName: Gold
       ItemDescription: 'Who knew there''d be so much of this down here. Use for purchasing
         goods, or keep for later. '
       ItemSprite: {fileID: 21300000, guid: 85f0378bd54863a4c9c81e4344724ebe, type: 3}
+      Fact: 8
   - PageTitle: World
     PageType: 2
     PageItems:
     - ItemName: Player
       ItemDescription: amogus
       ItemSprite: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+      Fact: 0
   CodexPagePrefab: {fileID: 2132612497713076992, guid: d37cbe851c7f2a9449082ca41b41a776, type: 3}
   CodexMenuItemPrefab: {fileID: 7981041191608929116, guid: 69b293ac91cd3eb44be8462ca6184ec5, type: 3}
 --- !u!1 &3728979248397331883

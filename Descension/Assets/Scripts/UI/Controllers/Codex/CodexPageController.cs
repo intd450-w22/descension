@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Managers;
 using TMPro;
 using UI.Controllers.Codex.ButtonController;
 using UnityEngine;
@@ -27,6 +28,8 @@ namespace UI.Controllers.Codex
         private Image _pageDetailImage;
         private TextMeshProUGUI _pageDetailText;
 
+        private Sprite _defaultSprite;
+
         void Awake()
         {
             var leftPage = gameObject.GetChildObjectWithName("LeftPage");
@@ -36,6 +39,8 @@ namespace UI.Controllers.Codex
             var rightPage = gameObject.GetChildObjectWithName("RightPage");
             _pageDetailImage = rightPage.GetChildObjectWithName("PageDetailImage").GetComponent<Image>();
             _pageDetailText = rightPage.GetChildObjectWithName("PageDetailText").GetComponent<TextMeshProUGUI>();
+
+            _defaultSprite = _pageDetailImage.sprite;
         }
 
         public void Init(CodexPage page)
@@ -51,7 +56,7 @@ namespace UI.Controllers.Codex
             foreach (var pageItem in page.PageItems)
                 CreatePageItem(pageItem);
 
-            SetDetails(page.PageItems.First());
+            SetFirstDetail();
         }
 
         public void CreatePageItem(CodexPageItem pageItem)
@@ -63,13 +68,34 @@ namespace UI.Controllers.Codex
             var btnController = pageItemGameObject.GetComponent<CodexItemButtonController>();
             btnController.Init(this, pageItem);
 
+            if (pageItem.Fact != Fact.None)
+            {
+                enabled = FactManager.GetFact(pageItem.Fact);
+                pageItemGameObject.SetActive(enabled);
+            }
+
             _buttonControllers.Add(btnController);
+        }
+
+        public void SetFirstDetail()
+        {
+            var firstVisible = _buttonControllers.FirstOrDefault(x => x.Visible);
+            if (firstVisible != null) 
+                SetDetails(firstVisible.PageItem);
+            else
+                ClearDetails();
         }
 
         public void SetDetails(CodexPageItem pageItem)
         {
             _pageDetailImage.sprite = pageItem.ItemSprite;
             _pageDetailText.text = pageItem.ItemDescription;
+        }
+
+        public void ClearDetails()
+        {
+            _pageDetailImage.sprite = _defaultSprite;
+            _pageDetailText.text = string.Empty;
         }
 
         public void Activate()
@@ -80,6 +106,14 @@ namespace UI.Controllers.Codex
         public void Deactivate()
         {
             gameObject.SetActive(false);
+        }
+
+        private void CheckFacts()
+        {
+            foreach (var item in _buttonControllers.Where(x => x.PageItem.Fact != Fact.None))
+            {
+                item.Visible = FactManager.GetFact(item.PageItem.Fact);
+            }
         }
     }
 }
