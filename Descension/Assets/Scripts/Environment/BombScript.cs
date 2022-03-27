@@ -16,7 +16,6 @@ namespace Environment
         private bool _inRange;
 
         void Update() {
-            Debug.Log(_inRange);
             if (_inRange && Input.GetKeyDown(interactionKey)) {
                 DialogueManager.StartDialogue(name, linesOfDialogue);
                 SoundManager.Inspection();
@@ -25,14 +24,12 @@ namespace Environment
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("enter");
             DialogueManager.ShowNotification("Press F to interact");   
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Debug.Log("exit");
             DialogueManager.ClearLines();
             DialogueManager.HideDialogue();
             if (other.gameObject.CompareTag("Player")) _inRange = false;
