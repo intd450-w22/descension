@@ -12,7 +12,7 @@ namespace Items.Pickups
     public class PickItem : EquippableItem
     {
         public static String Name = "Pick";
-        public float lootChance = 20;
+        public float lootChance = 40;
         
         public override string GetName()
         {

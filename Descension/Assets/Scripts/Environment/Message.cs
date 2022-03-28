@@ -7,7 +7,8 @@ namespace Environment
 {
     public class Message : MonoBehaviour
     {
-        public string textToShow;
+        public string name;
+        public string[] linesOfDialogue;
         public Image dialogueBox;
         public Text dialogueText;
 
@@ -22,7 +23,9 @@ namespace Environment
 
         private void OnTriggerEnter2D(Collider2D other) {
             if (!triggered) {
-                UIManager.GetHudController().ShowText(textToShow);
+                DialogueManager.StartDialogue(name, linesOfDialogue);
+                SoundManager.Inspection();
+
                 triggered = true;
             }
         }

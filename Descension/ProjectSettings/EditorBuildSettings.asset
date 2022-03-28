@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level2-Perspective.unity
     guid: 48ce86583fac5944cb7d39c1bcfa9628
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level3Final.unity
+    guid: 3b1f6feabd384594099541748c524bf1
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level4Final.unity
+    guid: 8c5a106f11dc4b54eb7108f8cb32a0b0
   m_configObjects: {}
