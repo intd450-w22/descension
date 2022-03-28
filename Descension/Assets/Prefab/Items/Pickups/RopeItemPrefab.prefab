@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 3478606036034188478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -275.47, y: -185.27, z: 32.48214}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 18, y: 18, z: 1}
   m_Children:
   - {fileID: 7658111362742693756}
   m_Father: {fileID: 0}
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quantity: 1
+  potentialPositions: []
 --- !u!208 &8123661732534834007
 NavMeshObstacle:
   m_ObjectHideFlags: 0
