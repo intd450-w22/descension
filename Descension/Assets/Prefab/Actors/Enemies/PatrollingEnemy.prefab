@@ -136,22 +136,34 @@ PrefabInstance:
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+      objectReference: {fileID: 21300000, guid: 13d9b6a5f53f54042b13f577c4ce4bf1, type: 3}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9490196
+      objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.56105375
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.56105375
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.6037736
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856947, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172,6 +184,10 @@ PrefabInstance:
     - target: {fileID: 3333621911985856951, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477702635066654964, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Speed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3477702635066654964, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Height
@@ -197,6 +213,10 @@ PrefabInstance:
       propertyPath: state
       value: 
       objectReference: {fileID: 1729076812}
+    - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: hitPoints
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: initialState
       value: 
@@ -234,20 +254,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 694370199903143221, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 2888192982479225895}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &193949180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456986996008773008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34bdbc3bab09a1e4f8cd5e001a414f44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  knockBack: 1000
 --- !u!114 &1729076809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockBack: 3000
-  damage: 10
+  damage: 4
   attackDelay: 0.2
   attackRange: 4
   postDelay: 0.5
@@ -320,3 +326,17 @@ MonoBehaviour:
   loopTargets: 0
   onPlayerSpotted: {fileID: 1729076811}
   currentTarget: {fileID: 0}
+--- !u!114 &193949180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996008773008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bdbc3bab09a1e4f8cd5e001a414f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 4
+  knockBack: 1000
