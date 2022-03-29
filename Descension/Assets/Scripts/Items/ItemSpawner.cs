@@ -10,6 +10,7 @@ namespace Items
         public GameObject bowPickupPrefab;
         public GameObject swordPickupPrefab;
         public GameObject arrowsPickupPrefab;
+        public GameObject healthPickupPrefab;
 
         private static ItemSpawner _instance;
         public static ItemSpawner Instance
