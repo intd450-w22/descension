@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rules;
 using UnityEngine;
+using Util.AssetMenu;
+using Util.Enums;
 
 namespace Managers
 {
@@ -27,37 +30,47 @@ namespace Managers
             {
                 DontDestroyOnLoad(gameObject);
                 _instance = this;
+                Init();
             }
         }
 
-        private Dictionary<Fact, bool> _facts = Enum.GetValues(typeof(Fact))
-            .Cast<Fact>().ToDictionary(x => x, _ => true);
+        private void Init()
+        {
+            Facts = new Dictionary<string, int>();
+            foreach(var fact in FactsLists.SelectMany(x => x.Facts))
+            {
+                Facts.Add(fact.Key, fact.Value);
+            }
+        }
 
-        public static bool GetFact(Fact fact) => Instance._facts[fact];
-        public static bool SetFact(Fact fact, bool val) => Instance._facts[fact] = val;
-    }
+        public List<FactList> FactsLists;
+        public Dictionary<string, int> Facts;
 
-    [Serializable]
-    public enum Fact
-    {
-        None,
+        public static int GetFact(string key) => Instance.Facts[key];
+        public static int GetFact(FactKey key) => GetFact(key.ToString());
+        
+        public static bool IsFactTrue(string key) => Instance.Facts[key] > 0;
+        public static bool IsFactTrue(FactKey key) => IsFactTrue(key.ToString());
+        
+        public static void SetFact(string key, int val)
+        {
+            Debug.Log($"[FactManager] Setting {key} to {val}");
+            if (key == FactKey.None.ToString()) return;
+            Instance.Facts[key] = val;
+        }
+        public static void SetFact(FactKey key, int val) => SetFact(key.ToString(), val);
+        
+        public static void SetFact(string key, bool val) => SetFact(key, val ? 1 : 0);
+        public static void SetFact(FactKey key, bool val) => SetFact(key.ToString(), val);
 
-        // Items
-        HasSeenPick,
-        HasSeenTorch,
-        HasSeenSword,
-        HasSeenBow,
-        HasSeenArrow,
-        HasSeenRope,
-        HasSeenHealthPotion,
-        HasSeenGold,
+        public static void IncrementFact(string key, int val) => SetFact(key, Instance.Facts[key] + 1);
+        public static void IncrementFact(FactKey key, int val) => IncrementFact(key.ToString(), val);
 
-        // Enemies
-        HasKilledEnemy1,
-        HasKilledEnemy2,
-        HasKilledEnemy3,
-
-        // World
-        HasMetShopkeeper,
+        public static bool Query(Rule rule)
+        {
+            // print($"[FactManager] Querying {rule.Criteria.FirstOrDefault()?.Key ?? ""}");
+            var query = new Query(Instance.Facts);
+            return rule.Evaluate(query);
+        }
     }
 }

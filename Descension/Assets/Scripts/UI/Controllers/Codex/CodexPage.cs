@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Managers;
+using Rules;
 using UnityEngine;
+using Util.Enums;
 
 namespace UI.Controllers.Codex
 {
@@ -20,7 +21,7 @@ namespace UI.Controllers.Codex
         public string ItemName;
         public string ItemDescription;
         public Sprite ItemSprite;
-        public Fact Fact;
+        public Rule Rule;
     }
 
 }

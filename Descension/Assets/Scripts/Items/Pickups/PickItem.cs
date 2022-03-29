@@ -12,12 +12,11 @@ namespace Items.Pickups
     public class PickItem : EquippableItem
     {
         public static String Name = "Pick";
+
+        [Header("Pick")]
         public float lootChance = 40;
-        
-        public override string GetName()
-        {
-            return Name;
-        }
+
+        public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)

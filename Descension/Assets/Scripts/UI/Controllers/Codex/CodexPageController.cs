@@ -5,6 +5,7 @@ using TMPro;
 using UI.Controllers.Codex.ButtonController;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Enums;
 using Util.Helpers;
 
 namespace UI.Controllers.Codex
@@ -56,7 +57,7 @@ namespace UI.Controllers.Codex
             foreach (var pageItem in page.PageItems)
                 CreatePageItem(pageItem);
 
-            SetFirstDetail();
+            OnStart();
         }
 
         public void CreatePageItem(CodexPageItem pageItem)
@@ -68,22 +69,34 @@ namespace UI.Controllers.Codex
             var btnController = pageItemGameObject.GetComponent<CodexItemButtonController>();
             btnController.Init(this, pageItem);
 
-            if (pageItem.Fact != Fact.None)
+            if (pageItem.Rule.Size() > 0)
             {
-                enabled = FactManager.GetFact(pageItem.Fact);
+                var enabled = FactManager.Query(pageItem.Rule);
                 pageItemGameObject.SetActive(enabled);
             }
 
             _buttonControllers.Add(btnController);
         }
 
+        public void OnStart()
+        {
+            CheckFacts();
+            SetFirstDetail();
+        }
+
         public void SetFirstDetail()
         {
             var firstVisible = _buttonControllers.FirstOrDefault(x => x.Visible);
-            if (firstVisible != null) 
+            if (firstVisible != null)
+            {
                 SetDetails(firstVisible.PageItem);
+                Debug.Log("Setting first detail");
+            }
             else
+            {
                 ClearDetails();
+                Debug.Log("Clearing first detail");
+            }
         }
 
         public void SetDetails(CodexPageItem pageItem)
@@ -110,10 +123,8 @@ namespace UI.Controllers.Codex
 
         private void CheckFacts()
         {
-            foreach (var item in _buttonControllers.Where(x => x.PageItem.Fact != Fact.None))
-            {
-                item.Visible = FactManager.GetFact(item.PageItem.Fact);
-            }
+            foreach (var item in _buttonControllers.Where(x => x.PageItem.Rule.Any()))
+                item.Visible = FactManager.Query(item.PageItem.Rule);
         }
     }
 }

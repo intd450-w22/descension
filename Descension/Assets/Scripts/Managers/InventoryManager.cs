@@ -134,7 +134,8 @@ namespace Managers
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
             int initialQuantity = quantity;
-            
+            FactManager.SetFact(item.Fact, true);
+
             // keep code in case we dont want multiple slots of same item
             // // add durability/quantity if already have this item
             // var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());

@@ -1,14 +1,26 @@
 ﻿using TMPro;
+using UnityEngine;
 using Util.Helpers;
 
 namespace UI.Controllers.Codex.ButtonController
 {
     public class CodexItemButtonController : Controllers.ButtonController.ButtonController
     {
-        public bool Visible
+        public bool Active
         {
             get => gameObject.activeInHierarchy;
             set => gameObject.SetActive(value);
+        }
+
+        private bool _visible = true;
+        public bool Visible
+        {
+            get => _visible;
+            set
+            {
+                _visible = value;
+                Active = _visible;
+            }
         }
         
         private CodexPageController _pageController;
