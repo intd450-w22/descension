@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 875270e74725cc34fac5844c9add29a9, type: 3}
+      objectReference: {fileID: 21300000, guid: bb588d838b195234a85935ae85248cc8, type: 3}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -228,7 +228,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.8, y: 0.9}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -237,6 +237,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &46958103590121935
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958336963484157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbb231d4ffb4897478532a94018d89db, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &281865418
 MonoBehaviour:
   m_ObjectHideFlags: 0
