@@ -11,13 +11,12 @@ namespace Items.Pickups
     public class HealthItem : EquippableItem
     {
         public static String Name = "Health Potion";
+
+        [Header("Health Potion")]
         public float healAmount = 50f;
 
 
-        public override string GetName()
-        {
-            return Name;
-        }
+        public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)

@@ -165,7 +165,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6011113098307077373}
-  - component: {fileID: 5167651498930051216}
   - component: {fileID: 3312719346170173102}
   m_Layer: 5
   m_Name: Codex
@@ -197,19 +196,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5167651498930051216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087741007074785269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b8e7b1a5834944ab49e00c9f82ed0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiType: 11
 --- !u!114 &3312719346170173102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab2ad82216793544a579662844b0a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiType: 11
   CodexPages:
   - PageTitle: Enemies
     PageType: 0
@@ -229,12 +216,27 @@ MonoBehaviour:
     - ItemName: Enemy #1
       ItemDescription: This is the description for enemy #1. He is a bug.
       ItemSprite: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 9
+          ComparisonType: 3
+          Value: 0
     - ItemName: Enemy #2
       ItemDescription: No info for enemy #2
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 10
+          ComparisonType: 3
+          Value: 0
     - ItemName: Enemy #3
       ItemDescription: No info for enemy #3
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 11
+          ComparisonType: 3
+          Value: 0
   - PageTitle: 'Items '
     PageType: 1
     PageItems:
@@ -242,38 +244,80 @@ MonoBehaviour:
       ItemDescription: Made for mining since the ancient eras. Who knew we'd still
         be using them?
       ItemSprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 1
+          ComparisonType: 0
+          Value: 1
     - ItemName: Torch
       ItemDescription: Use with caution. There are things down here that have more
         eyes than you.
       ItemSprite: {fileID: 21300000, guid: 6d06fae830df5dd448290d0f78c069de, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 2
+          ComparisonType: 0
+          Value: 1
     - ItemName: Sword
       ItemDescription: 'For, "personal defence". Tetanus risk. Use with caution. '
       ItemSprite: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 3
+          ComparisonType: 0
+          Value: 1
     - ItemName: Bow
       ItemDescription: It may just be wire on a stick, but it sure helps keep you
         safe down here.
       ItemSprite: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 4
+          ComparisonType: 0
+          Value: 1
     - ItemName: Arrows
       ItemDescription: 'The pointy end points away from you. '
       ItemSprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 5
+          ComparisonType: 0
+          Value: 1
     - ItemName: Rope
       ItemDescription: 'Be sure to hold on with both hands while descending. When
         ascending...well...God help you. '
       ItemSprite: {fileID: 21300000, guid: 57b66bf43ed712444aa2677264d0c60b, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 6
+          ComparisonType: 0
+          Value: 1
     - ItemName: Health Potion
       ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
         its red colour. '
-      ItemSprite: {fileID: 7482667652216324306, guid: e6bf10aa4a60a6b4a91b66a0945d9810, type: 3}
+      ItemSprite: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 7
+          ComparisonType: 0
+          Value: 1
     - ItemName: Gold
       ItemDescription: 'Who knew there''d be so much of this down here. Use for purchasing
         goods, or keep for later. '
       ItemSprite: {fileID: 21300000, guid: 85f0378bd54863a4c9c81e4344724ebe, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 8
+          ComparisonType: 0
+          Value: 1
   - PageTitle: World
     PageType: 2
     PageItems:
     - ItemName: Player
       ItemDescription: amogus
       ItemSprite: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+      Rule:
+        Criteria: []
   CodexPagePrefab: {fileID: 2132612497713076992, guid: d37cbe851c7f2a9449082ca41b41a776, type: 3}
   CodexMenuItemPrefab: {fileID: 7981041191608929116, guid: 69b293ac91cd3eb44be8462ca6184ec5, type: 3}
 --- !u!1 &3728979248397331883
