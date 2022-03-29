@@ -79,8 +79,7 @@ namespace Actor.Player
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
 
-            // TODO: Find a better way to ensure game is started
-            GameManager.IsPaused = false;
+            GameManager.Resume();
         }
 
         private void OnEnable() => playerControls.Enable();
@@ -92,11 +91,11 @@ namespace Actor.Player
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OnTorchToggle();
             }
-         }
+        }
 
 
         void FixedUpdate() {
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen) return;
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
@@ -145,9 +144,9 @@ namespace Actor.Player
         {
             InventoryManager.OnKilled();
 
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen) return;
 
-            GameManager.IsPaused = true;
+            GameManager.Pause();
             
             UIManager.SwitchUi(UIType.Death);
         }
@@ -160,7 +159,7 @@ namespace Actor.Player
         {
             if (GameManager.IsPaused) return;
 
-            GameManager.IsPaused = true;
+            GameManager.Pause();
 
             // Display menu 
             UIManager.SwitchUi(UIType.PauseMenu);
@@ -168,7 +167,7 @@ namespace Actor.Player
 
         public void OnResume()
         {
-            GameManager.IsPaused = false;
+            GameManager.Resume();
         }
 
         public void OnMovement(InputAction.CallbackContext value)
@@ -183,8 +182,8 @@ namespace Actor.Player
 
         public void OnSpace(InputAction.CallbackContext value)
         {
-            if(value.started)
-                _hudController.HideDialogue();
+            // if(value.started)
+            //     _hudController.HideDialogue();
         }
 
         public void OnTorchToggle()
@@ -220,23 +219,6 @@ namespace Actor.Player
         #endregion
 
         #region Item Accessors
-
-        // obsolete -> moved to inventory item
-        public void AddPick(float value) => pickQuantity += value;
-
-        // obsolete -> moved to inventory item
-        public void AddBow()
-        {
-            hasBow = true;
-            if (_reticle != null)
-                _reticle.gameObject.SetActive(true);
-        }
-
-        // obsolete -> moved to inventory item
-        public void AddSword() => hasSword = true;
-
-        // obsolete -> moved to inventory item
-        public void AddArrows(float value) => arrowsQuantity += value;
 
         public void AddRope(float value) => ropeQuantity += value;
 

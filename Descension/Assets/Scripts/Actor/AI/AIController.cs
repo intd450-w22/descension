@@ -48,7 +48,7 @@ namespace Actor.AI
 
         void Update()
         {
-            if (GameManager.IsPaused || !_alive) return;
+            if (GameManager.IsFrozen || !_alive) return;
 
             if (hitPoints <= 0) OnKilled();
             

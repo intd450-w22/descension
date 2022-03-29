@@ -42,7 +42,7 @@ namespace Actor.Objects
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen) return;
 
             body.velocity = _velocity;
         }
