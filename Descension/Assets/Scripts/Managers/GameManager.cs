@@ -75,6 +75,5 @@ namespace Managers
             Debug.Log("OnResume");
             SoundManager.ResumeBackgroundAudio();
         }
-
     }
 }
