@@ -30,6 +30,7 @@ namespace Managers
         private List<UIController> _uiControllers;
         private HUDController _hudController;
         private UIController _lastActiveUi;
+        private UIController _previousActiveUI;
         private ShopUIController _shopUIController;
         private CodexController _codexController;
 
@@ -69,6 +70,8 @@ namespace Managers
 
         public static string GetCurrentScene() => SceneManager.GetActiveScene().name;
 
+        public static UIType GetPreviousUI() => Instance._previousActiveUI.uiType;
+
         public static void ReinitHudController() => Instance._ReinitHudController();
         private void _ReinitHudController()
         {
@@ -80,7 +83,7 @@ namespace Managers
         private void _SwitchUi(UIType uiType)
         {
             Debug.Log("Switch UI to " + uiType);
-            if (_lastActiveUi != null)
+            if (_lastActiveUi != null) 
                 _lastActiveUi.gameObject.SetActive(false);
 
             if(uiType == UIType.None) return;
@@ -90,6 +93,7 @@ namespace Managers
             {
                 targetUi.gameObject.SetActive(true);
                 targetUi.OnStart();
+                _previousActiveUI = _lastActiveUi;
                 _lastActiveUi = targetUi;
             }
             else

@@ -1,7 +1,9 @@
 using System;
 using JetBrains.Annotations;
 using Managers;
+using Rules;
 using UnityEngine;
+using Util.Enums;
 
 namespace Items.Pickups
 {
@@ -9,6 +11,7 @@ namespace Items.Pickups
     [Serializable]
     public abstract class EquippableItem : MonoBehaviour
     {
+        [Header("Equippable")]
         // sprite displayed in inventory UI
         public Sprite inventorySprite;
     
@@ -16,6 +19,8 @@ namespace Items.Pickups
         public int maxQuantity = 30;
 
         public abstract String GetName();
+
+        public FactKey Fact;
         
         // should create instance of Equippable
         public abstract Equippable CreateInstance(int slotIndex, int quantity);

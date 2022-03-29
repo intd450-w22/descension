@@ -1,12 +1,30 @@
 ﻿using TMPro;
+using UnityEngine;
 using Util.Helpers;
 
 namespace UI.Controllers.Codex.ButtonController
 {
     public class CodexItemButtonController : Controllers.ButtonController.ButtonController
     {
+        public bool Active
+        {
+            get => gameObject.activeInHierarchy;
+            set => gameObject.SetActive(value);
+        }
+
+        private bool _visible = true;
+        public bool Visible
+        {
+            get => _visible;
+            set
+            {
+                _visible = value;
+                Active = _visible;
+            }
+        }
+        
         private CodexPageController _pageController;
-        private CodexPageItem _pageItem;
+        public CodexPageItem PageItem;
 
         private TextMeshProUGUI _itemNameText;
 
@@ -18,14 +36,14 @@ namespace UI.Controllers.Codex.ButtonController
         public void Init(CodexPageController pageController, CodexPageItem pageItem)
         {
             _pageController = pageController;
-            _pageItem = pageItem;
+            PageItem = pageItem;
 
             _itemNameText.text = pageItem.ItemName;
         }
 
         protected override void OnButtonClicked()
         {
-            _pageController.SetDetails(_pageItem);
+            _pageController.SetDetails(PageItem);
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Items.Pickups
 {
     public class SwordItem : EquippableItem
     {
-        public static String Name = "Sword";
+        public static string Name = "Sword";
+
+        [Header("Sword")]
         public float damage = 10f;
         public float swordReticleDistance = 2f;
         public float knockBack = 0;
-        public override string GetName()
-        {
-            return Name;
-        }
+
+        public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)

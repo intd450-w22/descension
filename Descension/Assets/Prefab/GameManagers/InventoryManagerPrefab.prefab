@@ -45,19 +45,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots:
   - name: 
-    durability: -1
-    pickupPrefab: {fileID: 0}
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   - name: 
-    durability: -1
-    pickupPrefab: {fileID: 0}
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   - name: 
-    durability: -1
-    pickupPrefab: {fileID: 0}
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   - name: 
-    durability: -1
-    pickupPrefab: {fileID: 0}
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   - name: 
-    durability: -1
-    pickupPrefab: {fileID: 0}
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   equippedSlot: -1
   gold: 0
