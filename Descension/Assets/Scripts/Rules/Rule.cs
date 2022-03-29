@@ -30,7 +30,6 @@ namespace Rules
     public class Rule
     {
         public List<Criteria> Criteria;
-        public Event Response;
 
         public Rule() => Criteria = new List<Criteria>();
         public Rule(List<Criteria> criteria) => Criteria = criteria;
