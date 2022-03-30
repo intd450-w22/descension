@@ -35,8 +35,7 @@ namespace Actor.Player
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-        public GameObject arrowPrefab;
-        
+
         [HideInInspector] public Camera playerCamera;
 
         // Player input variables
@@ -46,7 +45,6 @@ namespace Actor.Player
 
         // State variable 
         private Vector2 _rawInputMovement;
-        public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
         private HUDController _hudController;
