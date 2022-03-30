@@ -37,12 +37,20 @@ namespace Items.Pickups
             Quantity = quantity;
             inventorySprite = sprite;
         }
+
+        public Equippable DeepCopy() => DeepCopy(_slotIndex, Quantity, _maxQuantity, inventorySprite);
+        
+        // must override
+        public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+        {
+            return new Equippable(slotIndex, quantity, maxQuantity, sprite);
+        }
         
         public String name;
         [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity = 0;
-        private int _maxQuantity;
-        private int _slotIndex;
+        protected int _maxQuantity;
+        protected int _slotIndex;
 
         // quantity/durability for item
         public int Quantity

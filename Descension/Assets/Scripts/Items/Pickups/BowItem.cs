@@ -78,6 +78,11 @@ namespace Items.Pickups
             _playerControls.Enable();
         }
         
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+        {
+            return new Bow(_arrowPrefab, _damage, _bowReticleDistance, slotIndex, quantity, maxQuantity, sprite);
+        }
+        
         public String GetName()
         {
             return BowItem.Name;

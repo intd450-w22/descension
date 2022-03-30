@@ -9,6 +9,8 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
+            InventoryManager.OnReloadScene();
+            
             var currScene = UIManager.GetCurrentScene();
             UIManager.SwitchScene(currScene);
 

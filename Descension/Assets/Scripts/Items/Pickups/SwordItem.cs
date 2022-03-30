@@ -65,6 +65,11 @@ namespace Items.Pickups
             _playerControls.Enable();
         }
         
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+        {
+            return new Sword(_swordDamage, _knockBack, _swordReticleDistance, slotIndex, quantity, maxQuantity, sprite);
+        }
+        
         public override String GetName()
         {
             return SwordItem.Name;

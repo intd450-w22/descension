@@ -37,6 +37,11 @@ namespace Items.Pickups
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
+        
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+        {
+            return new HealthPotion(_healAmount, slotIndex, quantity, maxQuantity, sprite);
+        }
 
         public override String GetName()
         {
