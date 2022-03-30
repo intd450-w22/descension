@@ -79,5 +79,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage
+      value: 'It looks like a clock, but with no numbers. If you wind it, it ticks
+        for about five minutes. It doesn''t make a sound when it''s done. '
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
