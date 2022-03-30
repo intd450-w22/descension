@@ -5,7 +5,6 @@ using TMPro;
 using UI.Controllers.Codex.ButtonController;
 using UnityEngine;
 using UnityEngine.UI;
-using Util.Enums;
 using Util.Helpers;
 
 namespace UI.Controllers.Codex

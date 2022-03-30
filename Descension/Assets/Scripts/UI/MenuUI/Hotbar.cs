@@ -3,7 +3,6 @@ using System.Linq;
 using Items.Pickups;
 using UI.MenuUI;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Hotbar : MonoBehaviour
 {

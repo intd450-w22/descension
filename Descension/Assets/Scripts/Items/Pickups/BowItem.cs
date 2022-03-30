@@ -4,7 +4,6 @@ using Managers;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
-using Object = UnityEngine.Object;
 
 
 namespace Items.Pickups

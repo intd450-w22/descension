@@ -1,10 +1,6 @@
 using System;
-using Actor.AI;
-using Actor.Player;
 using Managers;
 using UnityEngine;
-using Util.Enums;
-using Util.Helpers;
 
 namespace Items.Pickups
 {
