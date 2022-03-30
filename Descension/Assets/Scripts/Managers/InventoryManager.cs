@@ -158,7 +158,6 @@ namespace Managers
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
             int initialQuantity = quantity;
-            FactManager.SetFact(item.Fact, true);
 
             // add durability/quantity if already have this item
             for (int i = 0; i < slots.Count && quantity > 0; ++i)

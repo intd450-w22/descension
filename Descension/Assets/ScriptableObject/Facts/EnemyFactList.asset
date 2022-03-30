@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EnemyFactList
   m_EditorClassIdentifier: 
   Facts:
-  - FactKey: 9
+  - FactKey: 12
     Value: 0
-  - FactKey: 10
+  - FactKey: 13
     Value: 0
-  - FactKey: 11
+  - FactKey: 14
     Value: 0
