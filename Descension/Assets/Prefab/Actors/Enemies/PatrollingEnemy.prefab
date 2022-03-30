@@ -277,7 +277,7 @@ MonoBehaviour:
   knockBack: 3000
   damage: 4
   attackDelay: 0.2
-  attackRange: 4
+  attackRange: 10
   postDelay: 0.5
   onComplete: {fileID: 1729076811}
 --- !u!114 &1729076810
@@ -293,8 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reachThreshold: 5
-  sightDistance: 10
-  speed: 8
+  sightDistance: 45
+  speed: 20
   onPlayerSpotted: {fileID: 1729076811}
   onPlayerLost: {fileID: 1729076812}
 --- !u!114 &1729076811
@@ -310,8 +310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reachThreshold: 5
-  sightDistance: 10
-  speed: 8
+  sightDistance: 45
+  speed: 20
   onPlayerReached: {fileID: 1729076809}
   onPlayerLost: {fileID: 1729076810}
 --- !u!114 &1729076812
@@ -326,10 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightSwayDegrees: 30
-  sightSwaySpeed: 1
-  sightDistance: 7
-  movementSpeed: 10
+  sightSwayDegrees: 60
+  sightSwaySpeed: 6
+  sightDistance: 30
+  movementSpeed: 15
   reachThreshold: 5
   loopTargets: 0
   onPlayerSpotted: {fileID: 1729076811}

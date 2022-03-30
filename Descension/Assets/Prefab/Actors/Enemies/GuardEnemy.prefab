@@ -219,6 +219,39 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3333621911985856951, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 3241515827172292682}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1252343655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958337391247056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDistance: 30
+  speed: 30
+  onPlayerSpotted: {fileID: 1252343656}
+--- !u!114 &1252343656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958337391247056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 6000
+  damage: 30
+  attackDelay: 0.2
+  attackRange: 3
+  postDelay: 0.5
+  onComplete: {fileID: 1252343655}
 --- !u!61 &281865423
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -278,35 +311,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 30
   knockBack: 0
---- !u!114 &1252343655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958337391247056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 3
-  onPlayerSpotted: {fileID: 1252343656}
---- !u!114 &1252343656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958337391247056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 6000
-  damage: 30
-  attackDelay: 0.2
-  attackRange: 3
-  postDelay: 0.5
-  onComplete: {fileID: 1252343655}
