@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 0}
   maxQuantity: 1
-  Fact: 0
+  Fact: 11
   seconds: 10
