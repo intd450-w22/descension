@@ -22,9 +22,6 @@ namespace Actor.Player
         public float maxHitPoints = 100f;
         public float hitPoints = 100f;
         
-        public float swordDamage = 25f; // obsolete -> moved to inventory item
-        public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
-        public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
         private bool _torchToggle = true;
 
         [Header("Session Variables")]
@@ -33,8 +30,6 @@ namespace Actor.Player
         public bool hasSword = false;
 
         [Header("Inventory")]
-        public float pickQuantity = 0; // obsolete -> moved to inventory item 
-        public float arrowsQuantity = 0; // obsolete -> moved to inventory item
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
@@ -116,7 +111,7 @@ namespace Actor.Player
                 return;
             }
 
-            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
@@ -125,12 +120,12 @@ namespace Actor.Player
             if (_torchToggle) {
                 if (torchQuantity > 0) {
                     torchQuantity -= 1 * Time.deltaTime;
-                    _postProcessing.SettVignetteIntensity(0.5f);
+                    _postProcessing?.SettVignetteIntensity(0.5f);
                 } else {
-                    _postProcessing.SettVignetteIntensity(0.9f);
+                    _postProcessing?.SettVignetteIntensity(0.9f);
                 }
             } else {
-                _postProcessing.SettVignetteIntensity(0.9f);
+                _postProcessing?.SettVignetteIntensity(0.9f);
             }
         }
 
