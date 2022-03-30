@@ -135,8 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95caccdcca40e264db1fccb5fef8ba6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  damage: 40
+  speed: 30
   timeToLive: 5
   body: {fileID: 0}
   sprite: {fileID: 1048845303807588368}

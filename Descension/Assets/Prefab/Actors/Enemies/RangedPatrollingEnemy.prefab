@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reachThreshold: 5
-  sightDistance: 15
-  speed: 7
+  sightDistance: 45
+  speed: 20
   onPlayerSpotted: {fileID: 7904606063305443725}
   onPlayerLost: {fileID: 8446171691210239767}
 --- !u!114 &6584073188895253326
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reachThreshold: 15
-  sightDistance: 15
-  speed: 5
+  sightDistance: 45
+  speed: 20
   onPlayerReached: {fileID: 6584073188895253326}
   onPlayerLost: {fileID: 937527437646884023}
 --- !u!114 &8446171691210239767
@@ -217,10 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightSwayDegrees: 30
-  sightSwaySpeed: 2
-  sightDistance: 12
-  movementSpeed: 3
+  sightSwayDegrees: 60
+  sightSwaySpeed: 6
+  sightDistance: 30
+  movementSpeed: 15
   reachThreshold: 5
   loopTargets: 0
   onPlayerSpotted: {fileID: 7904606063305443725}
