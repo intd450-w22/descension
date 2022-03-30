@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4068ee6836ce2c54db0aa5f12501ec1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantity: 10
+  quantity: 15
 --- !u!208 &7522742209708412609
 NavMeshObstacle:
   m_ObjectHideFlags: 0

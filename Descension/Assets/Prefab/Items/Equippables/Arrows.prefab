@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
-  maxQuantity: 20
+  maxQuantity: 30
   Fact: 5

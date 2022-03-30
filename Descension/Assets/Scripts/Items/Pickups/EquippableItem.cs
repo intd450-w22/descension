@@ -37,7 +37,13 @@ namespace Items.Pickups
             Quantity = quantity;
             inventorySprite = sprite;
         }
+
+        public Equippable DeepCopy() => DeepCopy(_slotIndex, Quantity, _maxQuantity, inventorySprite);
         
+        // must override
+        public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
+            => new Equippable(slotIndex, quantity, maxQuantity, sprite);
+
         public String name;
         [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity = 0;
@@ -67,11 +73,8 @@ namespace Items.Pickups
         public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }
 
         // returns the max quantity/durability for this item
-        public int GetMaxQuantity()
-        {
-            return _maxQuantity;
-        }
-        
+        public int GetMaxQuantity() => _maxQuantity;
+
         // removes data from class instance and UI
         public void Clear()
         {
