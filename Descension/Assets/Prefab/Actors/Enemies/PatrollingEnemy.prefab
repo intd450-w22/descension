@@ -262,6 +262,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 694370199903143221, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 2888192982479225895}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1729076809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996134527677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBack: 3000
+  damage: 4
+  attackDelay: 0.2
+  attackRange: 4
+  postDelay: 0.5
+  onComplete: {fileID: 1729076811}
+--- !u!114 &1729076810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996134527677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reachThreshold: 5
+  sightDistance: 10
+  speed: 8
+  onPlayerSpotted: {fileID: 1729076811}
+  onPlayerLost: {fileID: 1729076812}
+--- !u!114 &1729076811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996134527677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reachThreshold: 5
+  sightDistance: 10
+  speed: 8
+  onPlayerReached: {fileID: 1729076809}
+  onPlayerLost: {fileID: 1729076810}
+--- !u!114 &1729076812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996134527677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightSwayDegrees: 30
+  sightSwaySpeed: 1
+  sightDistance: 7
+  movementSpeed: 10
+  reachThreshold: 5
+  loopTargets: 0
+  onPlayerSpotted: {fileID: 1729076811}
+  currentTarget: {fileID: 0}
 --- !u!95 &8118050996141649227
 Animator:
   serializedVersion: 3
@@ -295,75 +367,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 4
   knockBack: 1000
---- !u!114 &1729076809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456986996134527677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 3000
-  damage: 4
-  attackDelay: 0.2
-  attackRange: 4
-  postDelay: 0.5
-  onComplete: {fileID: 1729076811}
---- !u!114 &1729076810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456986996134527677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reachThreshold: 3
-  sightDistance: 10
-  speed: 8
-  onPlayerSpotted: {fileID: 1729076811}
-  onPlayerLost: {fileID: 1729076812}
---- !u!114 &1729076811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456986996134527677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reachThreshold: 3
-  sightDistance: 10
-  speed: 8
-  onPlayerReached: {fileID: 1729076809}
-  onPlayerLost: {fileID: 1729076810}
---- !u!114 &1729076812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456986996134527677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightSwayDegrees: 30
-  sightSwaySpeed: 1
-  sightDistance: 7
-  movementSpeed: 10
-  reachThreshold: 3
-  loopTargets: 0
-  onPlayerSpotted: {fileID: 1729076811}
-  currentTarget: {fileID: 0}
