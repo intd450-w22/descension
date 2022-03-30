@@ -218,7 +218,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
       Rule:
         Criteria:
-        - FactKey: 9
+        - FactKey: 12
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #2
@@ -226,7 +226,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
       Rule:
         Criteria:
-        - FactKey: 10
+        - FactKey: 13
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #3
@@ -234,7 +234,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
       Rule:
         Criteria:
-        - FactKey: 11
+        - FactKey: 14
           ComparisonType: 3
           Value: 0
   - PageTitle: 'Items '
@@ -310,14 +310,171 @@ MonoBehaviour:
         - FactKey: 8
           ComparisonType: 0
           Value: 1
+    - ItemName: Explosives
+      ItemDescription: Doesn't look like any explosive you've ever seen. It's like
+        a canteen, with stuff sloshing inside. But instead of a screw cap, there
+        are prongs sticking out the top.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 9
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Trigger
+      ItemDescription: It's a button. As big as the palm of your hand, and there's
+        a satisfying click when you press it.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 10
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Timer
+      ItemDescription: 'It looks like a clock, but with no numbers. If you wind it,
+        it ticks for about five minutes. It doesn''t make a sound when it''s done. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 11
+          ComparisonType: 0
+          Value: 1
   - PageTitle: World
     PageType: 2
     PageItems:
     - ItemName: Player
-      ItemDescription: amogus
-      ItemSprite: {fileID: 21300000, guid: d26447ce37cc0864e8cb8eabe529d3b2, type: 3}
+      ItemDescription: Damn, I look great.
+      ItemSprite: {fileID: 21300000, guid: 42b94dde9507456428452be71a0261e3, type: 3}
       Rule:
         Criteria: []
+    - ItemName: Mysterious Shopkeeper
+      ItemDescription: 
+      ItemSprite: {fileID: 21300000, guid: 4688a890e6c8b6643b54478a692ea26b, type: 3}
+      Rule:
+        Criteria: []
+    - ItemName: Ripped Note 1
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        We
+        came down here in a squad of nine. Watched my friends get eaten alive one
+        by one until I was alone in the dark. If anyone finds this, tell my mom that
+        I miss her.'
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 17
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Ripped Note 2
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        Captain
+        said this job would be easy. "Just plug in 3 batteries and push the button,"
+        he said. "You''ll be home before you know it," he said. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 18
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Ripped Note 3
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        There
+        is scratching in the walls. I can feel it in my skull. The scratching. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 19
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Ripped Note 4
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        I
+        lost the timer. We got ambushed by something in the dark, and by the time
+        we had torches lit, it was gone. I think one of the creatures ran off with
+        it.'
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 20
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Ripped Note 5
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        Martin.
+        If you see this, I''m sorry. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 21
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Ripped Note 6
+      ItemDescription: 'A frayed piece of paper. There''s something written on it:
+
+
+        It''s
+        been a month. I can''t find my way out. If the gods can hear me, please,
+        get me out of here. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 22
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Half a Journal
+      ItemDescription: 'Half of a journal. What pages remain are hanging to the binding
+        by literal threads:
+
+
+        Yesterday, a team of scientists from some elite
+        university came to the village. They were looking for something, I don''t
+        know what, but when we showed them the hole Beez''n found last week. Once
+        they reached it, they started taking measurements and kept muttering to each
+        other. I think I overheard one of them say, "it''s so much more worse than
+        we thought."'
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 23
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Half a Journal
+      ItemDescription: 'Half of a journal. What pages remain are hanging to the binding
+        by literal threads:
+
+
+        Day 16. The village has no hope of recovery.
+        The beasts have destroyed all of our homes and eaten all of our neighbours.
+        The last squadron of soldiers were supposed to come back two hours ago. I
+        heard screaming down the road. Now, all I hear is quiet.'
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 24
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Half a Journal
+      ItemDescription: 'Half of a journal. What pages remain are hanging to the binding
+        by literal threads:
+
+
+        Day 22. I never thought it would be like this,
+        but I''m leaving. The village goes quiet once the sun comes up so I''m gonna
+        make a break for the road and never look back. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 25
+          ComparisonType: 0
+          Value: 1
   CodexPagePrefab: {fileID: 2132612497713076992, guid: d37cbe851c7f2a9449082ca41b41a776, type: 3}
   CodexMenuItemPrefab: {fileID: 7981041191608929116, guid: 69b293ac91cd3eb44be8462ca6184ec5, type: 3}
 --- !u!1 &3728979248397331883

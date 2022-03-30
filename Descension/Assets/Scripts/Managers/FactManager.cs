@@ -4,6 +4,7 @@ using Rules;
 using UnityEngine;
 using Util.AssetMenu;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Managers
 {
@@ -54,7 +55,7 @@ namespace Managers
         public static void SetFact(string key, int val)
         {
             Debug.Log($"[FactManager] Setting {key} to {val}");
-            if (key == FactKey.None.ToString()) return;
+            if (key == FactKey.None.ToString() || key.IsNullOrEmpty()) return;
             Instance.Facts[key] = val;
         }
         public static void SetFact(FactKey key, int val) => SetFact(key.ToString(), val);
@@ -67,7 +68,6 @@ namespace Managers
 
         public static bool Query(Rule rule)
         {
-            // print($"[FactManager] Querying {rule.Criteria.FirstOrDefault()?.Key ?? ""}");
             var query = new Query(Instance.Facts);
             return rule.Evaluate(query);
         }

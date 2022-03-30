@@ -18,6 +18,7 @@ namespace UI.Controllers.Codex
     public class CodexPageItem
     {
         public string ItemName;
+        [TextArea(5,10)]
         public string ItemDescription;
         public Sprite ItemSprite;
         public Rule Rule;

@@ -48,3 +48,6 @@ MonoBehaviour:
   swordPickupPrefab: {fileID: 3079942900109169968, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
   arrowsPickupPrefab: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
   healthPickupPrefab: {fileID: 256131215267094610, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
+  explosivesPickupPrefab: {fileID: 6561169276671324964, guid: e024ff88e6e996f4b840fc05af68cf46, type: 3}
+  timerPickupPrefab: {fileID: 8046490906781319, guid: 0eb278df4ecc42543b97fff55d2b1002, type: 3}
+  triggerPickupPrefab: {fileID: 6912803517155078273, guid: b638d27f47a8d6048a30fd7c56c9e583, type: 3}

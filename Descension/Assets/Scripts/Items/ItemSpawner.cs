@@ -11,6 +11,9 @@ namespace Items
         public GameObject swordPickupPrefab;
         public GameObject arrowsPickupPrefab;
         public GameObject healthPickupPrefab;
+        public GameObject explosivesPickupPrefab;
+        public GameObject timerPickupPrefab;
+        public GameObject triggerPickupPrefab;
 
         private static ItemSpawner _instance;
         public static ItemSpawner Instance
@@ -31,6 +34,12 @@ namespace Items
 
         public void DropItem(GameObject prefab, int quantity)
         {
+            if (prefab == null)
+            {
+                Debug.LogError("ItemSpawner DropItem called with null prefab.");
+                return;
+            }
+            
             // do not spawn if no quantity
             if (quantity <= 0) return;
             

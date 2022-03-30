@@ -132,35 +132,13 @@ namespace UI.Controllers
             _notificationText.text = text;
         }
 
-        public void UpdateUi(float score, float pickQuantity, float arrowsQuantity, float ropeQuantity, float torchQuantity, float health)
+        public void UpdateUi(float score, float ropeQuantity, float torchQuantity, float health)
         {
             try
             {
                 _scoreUI.text = "Gold/Score: " + score.ToString();
                 _healthUI.text = "Health: " + health.ToString();
                 _healthBar.Value = health;
-
-                if(_pickUI != null)
-                    if (pickQuantity > 0)
-                    {
-                        _pickUI.enabled = true;
-                        _pickUI.text = "Pick " + pickQuantity.ToString();
-                    }
-                    else
-                    {
-                        _pickUI.enabled = false;
-                    }
-
-                if (_bowUI != null)
-                    if (arrowsQuantity > 0)
-                    {
-                        _bowUI.enabled = true;
-                        _bowUI.text = "Arrows " + arrowsQuantity.ToString();
-                    }
-                    else
-                    {
-                        _bowUI.enabled = false;
-                    }
 
                 if (ropeQuantity > 0)
                 {
