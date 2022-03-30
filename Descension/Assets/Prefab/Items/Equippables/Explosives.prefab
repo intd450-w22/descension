@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581f8cee3f610024fbf67aa1a6571996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySprite: {fileID: 0}
+  inventorySprite: {fileID: -6282230022168425544, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
   maxQuantity: 1
   Fact: 9

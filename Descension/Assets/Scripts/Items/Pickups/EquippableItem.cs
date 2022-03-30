@@ -31,14 +31,14 @@ namespace Items.Pickups
     {
         public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
         {
-            _slotIndex = slotIndex;
-            _maxQuantity = maxQuantity;
+            SlotIndex = slotIndex;
+            MaxQuantity = maxQuantity;
             
             Quantity = quantity;
             inventorySprite = sprite;
         }
 
-        public Equippable DeepCopy() => DeepCopy(_slotIndex, Quantity, _maxQuantity, inventorySprite);
+        public Equippable DeepCopy() => DeepCopy(SlotIndex, Quantity, MaxQuantity, inventorySprite);
         
         // must override
         public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
@@ -49,8 +49,8 @@ namespace Items.Pickups
         public String name;
         [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity = 0;
-        protected int _maxQuantity;
-        protected int _slotIndex;
+        protected int MaxQuantity;
+        protected int SlotIndex;
 
         // quantity/durability for item
         public int Quantity
@@ -58,9 +58,9 @@ namespace Items.Pickups
             get => _quantity;
             set
             {
-                _quantity = Math.Min(value, _maxQuantity);
+                _quantity = Math.Min(value, MaxQuantity);
 
-                if (_quantity <= 0) InventoryManager.DropSlot(_slotIndex);  // auto drop from slot if quantity/durability hits 0
+                if (_quantity <= 0) InventoryManager.DropSlot(SlotIndex);  // auto drop from slot if quantity/durability hits 0
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
         }
@@ -77,7 +77,7 @@ namespace Items.Pickups
         // returns the max quantity/durability for this item
         public int GetMaxQuantity()
         {
-            return _maxQuantity;
+            return MaxQuantity;
         }
         
         // removes data from class instance and UI
@@ -86,7 +86,7 @@ namespace Items.Pickups
             name = "";
             _quantity = -1;
             inventorySprite = null;
-            UIManager.Hotbar.DropItem(_slotIndex);
+            UIManager.Hotbar.DropItem(SlotIndex);
         }
 
         // called when equipped switches to different slot (equippable)

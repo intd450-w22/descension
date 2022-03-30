@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5830c3cf22dade34191f7aaaf3e096b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySprite: {fileID: 0}
-  maxQuantity: 1
+  inventorySprite: {fileID: -7963549056090711241, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
+  maxQuantity: 300
   Fact: 11
-  seconds: 10
+  activationMessage: Timer is ticking down!
