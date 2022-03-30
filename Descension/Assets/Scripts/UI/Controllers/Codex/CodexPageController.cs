@@ -55,8 +55,6 @@ namespace UI.Controllers.Codex
 
             foreach (var pageItem in page.PageItems)
                 CreatePageItem(pageItem);
-
-            OnStart();
         }
 
         public void CreatePageItem(CodexPageItem pageItem)
@@ -67,12 +65,6 @@ namespace UI.Controllers.Codex
 
             var btnController = pageItemGameObject.GetComponent<CodexItemButtonController>();
             btnController.Init(this, pageItem);
-
-            if (pageItem.Rule.Size() > 0)
-            {
-                var enabled = FactManager.Query(pageItem.Rule);
-                pageItemGameObject.SetActive(enabled);
-            }
 
             _buttonControllers.Add(btnController);
         }

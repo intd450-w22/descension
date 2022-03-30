@@ -68,7 +68,6 @@ namespace Managers
 
         public static bool Query(Rule rule)
         {
-            // print($"[FactManager] Querying {rule.Criteria.FirstOrDefault()?.Key ?? ""}");
             var query = new Query(Instance.Facts);
             return rule.Evaluate(query);
         }
