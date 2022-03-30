@@ -101,7 +101,11 @@ namespace Actor.Player
 
 
         void FixedUpdate() {
-            if (GameManager.IsFrozen) return;
+            if (GameManager.IsFrozen)
+            {
+                _animator.SetBool("IsMoving", false);
+                return;
+            }
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
