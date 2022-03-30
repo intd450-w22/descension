@@ -1,6 +1,4 @@
 ﻿using TMPro;
-using UnityEngine;
-using Util.Helpers;
 
 namespace UI.Controllers.Codex.ButtonController
 {

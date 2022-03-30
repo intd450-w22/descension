@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Rules;
 using UnityEngine;
-using Util.Enums;
 
 namespace UI.Controllers.Codex
 {

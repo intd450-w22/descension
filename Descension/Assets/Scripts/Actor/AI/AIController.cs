@@ -1,7 +1,5 @@
-using System;
 using Actor.AI.States;
 using Actor.Interface;
-using Actor.Player;
 using UI.Controllers;
 using UnityEngine;
 using UnityEngine.AI;

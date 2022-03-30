@@ -1,4 +1,3 @@
-using Items.Pickups;
 using Managers;
 using TMPro;
 using UI.Controllers.ShopUI;
