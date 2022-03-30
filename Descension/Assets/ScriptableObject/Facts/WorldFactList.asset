@@ -13,5 +13,25 @@ MonoBehaviour:
   m_Name: WorldFactList
   m_EditorClassIdentifier: 
   Facts:
+  - FactKey: 12
+    Value: 0
   - FactKey: 13
+    Value: 0
+  - FactKey: 14
+    Value: 0
+  - FactKey: 15
+    Value: 0
+  - FactKey: 16
+    Value: 0
+  - FactKey: 17
+    Value: 0
+  - FactKey: 18
+    Value: 0
+  - FactKey: 19
+    Value: 0
+  - FactKey: 20
+    Value: 1
+  - FactKey: 21
+    Value: 0
+  - FactKey: 22
     Value: 0

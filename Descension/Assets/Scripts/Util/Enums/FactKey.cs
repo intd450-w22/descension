@@ -24,6 +24,15 @@ namespace Util.Enums
 
         // World
         HasMetShopkeeper,
-        NumItemsPurchased
+        NumItemsPurchased,
+        HasFoundNote1,
+        HasFoundNote2,
+        HasFoundNote3,
+        HasFoundNote4,
+        HasFoundNote5,
+        HasFoundNote6,
+        HasFoundJournal1,
+        HasFoundJournal2,
+        HasFoundJournal3,
     }
 }

@@ -93,8 +93,17 @@ namespace Actor.Player
         void Update() {
             if (GameManager.IsFrozen) return;
 
+            // TODO: Move this to an input listener
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                GameManager.Pause();
+                UIManager.SwitchUi(UIType.Codex);
+                return;
+            }
+
             // TODO: Move this to an input listener        
-            if (Input.GetKeyDown(KeyCode.Q)) {
+            if (Input.GetKeyDown(KeyCode.Q)) 
+            {
                 OnTorchToggle();
             }
         }
