@@ -49,11 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8fa77c71e3f724c91fa75d6ffb9ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeInTime: 0.25
+  _fadeOutTime: 0.25
+  backgroundAudio: {fileID: 2936234159684182990}
   removeRockSound: {fileID: 9199269419552853141}
   goldFoundSound: {fileID: 8624032212727912650}
   itemFoundSound: {fileID: 7237400701073778777}
   arrowAttackSound: {fileID: 4614568124388767702}
   inspectionSound: {fileID: 5260166072882306369}
+  errorSound: {fileID: 0}
 --- !u!82 &9199269419552853141
 AudioSource:
   m_ObjectHideFlags: 0
@@ -545,7 +549,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0b971774aefa0464fabff4c38628158c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
