@@ -65,35 +65,18 @@ namespace Items.Pickups
             _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-        {
-            return new Sword(_swordDamage, _knockBack, _swordReticleDistance, slotIndex, quantity, maxQuantity, sprite);
-        }
-        
-        public override String GetName()
-        {
-            return SwordItem.Name;
-        }
-        
-        public override void SpawnDrop()
-        {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
-        }
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
+            => new Sword(_swordDamage, _knockBack, _swordReticleDistance, slotIndex, quantity, maxQuantity, sprite);
 
-        public override void OnEquip()
-        {
-            Reticle.gameObject.SetActive(true);
-        }
+        public override String GetName() => SwordItem.Name;
 
-        public override void OnUnEquip()
-        {
-            Reticle.gameObject.SetActive(false);
-        }
-        
-        public override void Update()
-        {
-            _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-        }
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+
+        public override void OnEquip() => Reticle.gameObject.SetActive(true);
+
+        public override void OnUnEquip() => Reticle.gameObject.SetActive(false);
+
+        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
         {

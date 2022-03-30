@@ -19,10 +19,8 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-        {
-            return new Pick(lootChance, slotIndex, quantity, maxQuantity, inventorySprite);
-        }
+        public override Equippable CreateInstance(int slotIndex, int quantity) 
+            => new Pick(lootChance, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -46,24 +44,13 @@ namespace Items.Pickups
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-        {
-            return new Pick(_lootChance, slotIndex, quantity, maxQuantity, sprite);
-        }
+            => new Pick(_lootChance, slotIndex, quantity, maxQuantity, sprite);
 
-        public override String GetName()
-        {
-            return PickItem.Name;
-        }
+        public override String GetName() => PickItem.Name;
 
-        public override void SpawnDrop()
-        {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, Quantity);
-        }
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.pickPickupPrefab, Quantity);
 
-        public override void Update()
-        {
-            _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-        }
+        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
         {

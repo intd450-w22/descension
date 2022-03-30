@@ -31,26 +31,24 @@ namespace Items.Pickups
     {
         public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
         {
-            SlotIndex = slotIndex;
-            MaxQuantity = maxQuantity;
+            _slotIndex = slotIndex;
+            _maxQuantity = maxQuantity;
             
             Quantity = quantity;
             inventorySprite = sprite;
         }
 
-        public Equippable DeepCopy() => DeepCopy(SlotIndex, Quantity, MaxQuantity, inventorySprite);
+        public Equippable DeepCopy() => DeepCopy(_slotIndex, Quantity, _maxQuantity, inventorySprite);
         
         // must override
-        public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-        {
-            return new Equippable(slotIndex, quantity, maxQuantity, sprite);
-        }
-        
+        public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
+            => new Equippable(slotIndex, quantity, maxQuantity, sprite);
+
         public String name;
         [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity = 0;
-        protected int MaxQuantity;
-        protected int SlotIndex;
+        private int _maxQuantity;
+        private int _slotIndex;
 
         // quantity/durability for item
         public int Quantity
@@ -58,9 +56,9 @@ namespace Items.Pickups
             get => _quantity;
             set
             {
-                _quantity = Math.Min(value, MaxQuantity);
+                _quantity = Math.Min(value, _maxQuantity);
 
-                if (_quantity <= 0) InventoryManager.DropSlot(SlotIndex);  // auto drop from slot if quantity/durability hits 0
+                if (_quantity <= 0) InventoryManager.DropSlot(_slotIndex);  // auto drop from slot if quantity/durability hits 0
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
         }
@@ -75,18 +73,15 @@ namespace Items.Pickups
         public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }
 
         // returns the max quantity/durability for this item
-        public int GetMaxQuantity()
-        {
-            return MaxQuantity;
-        }
-        
+        public int GetMaxQuantity() => _maxQuantity;
+
         // removes data from class instance and UI
         public void Clear()
         {
             name = "";
             _quantity = -1;
             inventorySprite = null;
-            UIManager.Hotbar.DropItem(SlotIndex);
+            UIManager.Hotbar.DropItem(_slotIndex);
         }
 
         // called when equipped switches to different slot (equippable)

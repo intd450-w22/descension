@@ -14,10 +14,8 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-        {
-            return new Timer(activationMessage, slotIndex, quantity, maxQuantity, inventorySprite);
-        }
+        public override Equippable CreateInstance(int slotIndex, int quantity) 
+            => new Timer(activationMessage, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -40,10 +38,8 @@ namespace Items.Pickups
             _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-        {
-            return new Timer(_activationMessage, slotIndex, quantity, maxQuantity, sprite);
-        }
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
+            => new Timer(_activationMessage, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => TimerItem.Name;
 
@@ -53,10 +49,7 @@ namespace Items.Pickups
 
         public override void OnUnEquip() {}
         
-        public override void Update()
-        {
-            _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-        }
+        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
         {

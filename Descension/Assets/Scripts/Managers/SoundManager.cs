@@ -17,6 +17,7 @@ namespace Managers
         [SerializeField] private AudioSource arrowAttackSound;
         [SerializeField] private AudioSource inspectionSound;
         [SerializeField] private AudioSource errorSound;
+        [SerializeField] private AudioSource healSound;
 
         private static SoundManager _instance;
         private static SoundManager Instance
@@ -68,6 +69,13 @@ namespace Managers
         {
             //TODO Add error sound effect
             //errorSound.Play();
+        }
+
+        public static void Heal() => Instance._Heal();
+        private void _Heal()
+        {
+            //TODO add heal sound effect
+            //healSound?.Play();
         }
     }
 }
