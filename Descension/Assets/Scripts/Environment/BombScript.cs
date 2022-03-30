@@ -9,14 +9,16 @@ namespace Environment
         public string[] linesOfDialogue;
         public KeyCode interactionKey = KeyCode.F;
         private bool _inRange;
-        private bool hasExplosives;
-        private bool hasTrigger;
+        private bool _hasExplosives;
+        private bool _hasTrigger;
+        private bool _hasTimer;
 
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
 
-        public void AddExplosives() => hasExplosives = true;
-        public void AddTrigger() => hasTrigger = true;
+        public void AddExplosives() => _hasExplosives = true;
+        public void AddTrigger() => _hasTrigger = true;
+        public void AddTimer() => _hasTimer = true;
         
         void Update() {
             if (_inRange && Input.GetKeyDown(interactionKey)) {
