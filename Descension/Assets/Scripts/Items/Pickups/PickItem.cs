@@ -57,8 +57,6 @@ namespace Items.Pickups
 
         public override void Update()
         {
-            if (GameManager.IsFrozen) return;
-
             _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
         }
 
