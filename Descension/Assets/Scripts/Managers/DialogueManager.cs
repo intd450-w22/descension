@@ -81,6 +81,7 @@ namespace Managers
             UIManager.GetHudController().HideDialogue();
         }
 
+        // TODO: Change the name of this, these aren't really notifications, but prompts
         public static void ShowNotification(string text) => Instance._ShowNotification(text);
         private void _ShowNotification(string text)
         {
