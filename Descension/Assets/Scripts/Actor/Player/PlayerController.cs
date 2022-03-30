@@ -24,11 +24,6 @@ namespace Actor.Player
         
         private bool _torchToggle = true;
 
-        [Header("Session Variables")]
-        // TODO: Change this to a "currWeapon" type thing 
-        public bool hasBow = false;
-        public bool hasSword = false;
-
         [Header("Inventory")]
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
@@ -59,8 +54,7 @@ namespace Actor.Player
 
         void Awake() {
             _reticle = gameObject.GetChildTransformWithName("Reticle");
-            if (_reticle != null && !hasBow && !hasSword)
-                _reticle.gameObject.SetActive(false);
+            _reticle.gameObject.SetActive(false);
 
             playerInput = GetComponent<PlayerInput>();
             playerControls = new PlayerControls();
