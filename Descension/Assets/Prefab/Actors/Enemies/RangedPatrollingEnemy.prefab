@@ -94,9 +94,13 @@ PrefabInstance:
       value: RangedPatrollingEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b875801e9858938448319608edb8e30f, type: 3}
+      objectReference: {fileID: 21300000, guid: e0cb2742f54b48b4bba6ef4d413a503f, type: 3}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
       value: 0.5943396
@@ -140,6 +144,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3333621911742645914, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 7333320478777490087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5442133305099098896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333621911985856951, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+  m_PrefabInstance: {fileID: 7333320478777490087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7811447492875730834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 694370199903143221, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
@@ -157,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reachThreshold: 3
+  reachThreshold: 5
   sightDistance: 15
   speed: 7
   onPlayerSpotted: {fileID: 7904606063305443725}
@@ -191,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reachThreshold: 5
+  reachThreshold: 15
   sightDistance: 15
   speed: 5
   onPlayerReached: {fileID: 6584073188895253326}
@@ -212,7 +221,26 @@ MonoBehaviour:
   sightSwaySpeed: 2
   sightDistance: 12
   movementSpeed: 3
-  reachThreshold: 2
+  reachThreshold: 5
   loopTargets: 0
   onPlayerSpotted: {fileID: 7904606063305443725}
   currentTarget: {fileID: 0}
+--- !u!95 &6885919469585909513
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442133305099098896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 23a65ab6a4c4e74478048dd762292d51, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

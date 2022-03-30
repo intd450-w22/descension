@@ -58,6 +58,8 @@ namespace Actor.Player
         private Transform _reticle;
         private Rigidbody2D _rb;
         private postProcessingScript _postProcessing;
+        private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
 
         // current scene for death
         private string scene;
@@ -69,6 +71,8 @@ namespace Actor.Player
 
             playerInput = GetComponent<PlayerInput>();
             playerControls = new PlayerControls();
+            _animator = GetComponentInChildren<Animator>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
             _rb = GetComponent<Rigidbody2D>();
         }
@@ -100,6 +104,7 @@ namespace Actor.Player
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+            _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
             // TODO: Refactor to use a constant or variable instead of magic numbers
             if (_torchToggle) {
@@ -173,6 +178,7 @@ namespace Actor.Player
         public void OnMovement(InputAction.CallbackContext value)
         {
             _rawInputMovement = value.ReadValue<Vector2>();
+            _animator.SetBool("IsMoving", _rawInputMovement != Vector2.zero);
         }
 
         public void OnAttack(InputAction.CallbackContext value)

@@ -134,9 +134,17 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 13d9b6a5f53f54042b13f577c4ce4bf1, type: 3}
+      objectReference: {fileID: 21300000, guid: c2f77462a267d914e854e1787170fe81, type: 3}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.a
       value: 0.9490196
@@ -284,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reachThreshold: 3
+  reachThreshold: 5
   sightDistance: 10
   speed: 8
   onPlayerSpotted: {fileID: 1729076811}
@@ -301,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reachThreshold: 3
+  reachThreshold: 5
   sightDistance: 10
   speed: 8
   onPlayerReached: {fileID: 1729076809}
@@ -322,10 +330,29 @@ MonoBehaviour:
   sightSwaySpeed: 1
   sightDistance: 7
   movementSpeed: 10
-  reachThreshold: 3
+  reachThreshold: 5
   loopTargets: 0
   onPlayerSpotted: {fileID: 1729076811}
   currentTarget: {fileID: 0}
+--- !u!95 &8118050996141649227
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456986996008773008}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0f2afe615dd7a942b3b90b5635a78ae, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &193949180
 MonoBehaviour:
   m_ObjectHideFlags: 0
