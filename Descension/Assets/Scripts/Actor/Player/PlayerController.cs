@@ -22,26 +22,15 @@ namespace Actor.Player
         public float maxHitPoints = 100f;
         public float hitPoints = 100f;
         
-        public float swordDamage = 25f; // obsolete -> moved to inventory item
-        public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
-        public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
         private bool _torchToggle = true;
 
-        [Header("Session Variables")]
-        // TODO: Change this to a "currWeapon" type thing 
-        public bool hasBow = false;
-        public bool hasSword = false;
-
         [Header("Inventory")]
-        public float pickQuantity = 0; // obsolete -> moved to inventory item 
-        public float arrowsQuantity = 0; // obsolete -> moved to inventory item
         public float ropeQuantity = 0;
         public float torchQuantity = 0;
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-        public GameObject arrowPrefab;
-        
+
         [HideInInspector] public Camera playerCamera;
 
         // Player input variables
@@ -51,7 +40,6 @@ namespace Actor.Player
 
         // State variable 
         private Vector2 _rawInputMovement;
-        public bool isAttack; // obsolete -> sort of moved to items, can be refactored a lil bit 
 
         // Components and GameObjects
         private HUDController _hudController;
@@ -66,8 +54,7 @@ namespace Actor.Player
 
         void Awake() {
             _reticle = gameObject.GetChildTransformWithName("Reticle");
-            if (_reticle != null && !hasBow && !hasSword)
-                _reticle.gameObject.SetActive(false);
+            _reticle.gameObject.SetActive(false);
 
             playerInput = GetComponent<PlayerInput>();
             playerControls = new PlayerControls();
@@ -93,17 +80,30 @@ namespace Actor.Player
         void Update() {
             if (GameManager.IsFrozen) return;
 
+            // TODO: Move this to an input listener
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                GameManager.Pause();
+                UIManager.SwitchUi(UIType.Codex);
+                return;
+            }
+
             // TODO: Move this to an input listener        
-            if (Input.GetKeyDown(KeyCode.Q)) {
+            if (Input.GetKeyDown(KeyCode.Q)) 
+            {
                 OnTorchToggle();
             }
         }
 
 
         void FixedUpdate() {
-            if (GameManager.IsFrozen) return;
+            if (GameManager.IsFrozen)
+            {
+                _animator.SetBool("IsMoving", false);
+                return;
+            }
 
-            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
+            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
@@ -112,12 +112,12 @@ namespace Actor.Player
             if (_torchToggle) {
                 if (torchQuantity > 0) {
                     torchQuantity -= 1 * Time.deltaTime;
-                    _postProcessing.SettVignetteIntensity(0.5f);
+                    _postProcessing?.SettVignetteIntensity(0.5f);
                 } else {
-                    _postProcessing.SettVignetteIntensity(0.9f);
+                    _postProcessing?.SettVignetteIntensity(0.9f);
                 }
             } else {
-                _postProcessing.SettVignetteIntensity(0.9f);
+                _postProcessing?.SettVignetteIntensity(0.9f);
             }
         }
 

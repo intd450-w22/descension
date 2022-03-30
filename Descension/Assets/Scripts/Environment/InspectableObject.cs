@@ -1,5 +1,7 @@
 using Managers;
+using Rules;
 using UnityEngine;
+using Util.Enums;
 
 namespace Environment
 {
@@ -8,12 +10,16 @@ namespace Environment
         public string name;
         public string[] linesOfDialogue;
 
+        public FactKey Fact;
+
         private bool _playerInRange = false;
         
         void Update() {
             if (_playerInRange && Input.GetKeyDown(KeyCode.F)) {
                 DialogueManager.StartDialogue(name, linesOfDialogue);
                 SoundManager.Inspection();
+
+                FactManager.SetFact(Fact, true);
             }
         }
 

@@ -1305,6 +1305,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1029016458}
     m_Modifications:
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: Fact
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: name
       value: Ripped Notes 3
       objectReference: {fileID: 0}
@@ -8240,6 +8244,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: Fact
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: name
       value: Half Journal 1
