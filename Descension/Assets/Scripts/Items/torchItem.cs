@@ -1,5 +1,6 @@
 using Actor.Player;
 using Managers;
+using Rules;
 using UI.Controllers;
 using UnityEngine;
 using Util.Enums;
@@ -16,6 +17,8 @@ namespace Items
             new string[] {"Torch Collected. Use with caution.", "There are things down here that have more eyes than you.", 
             "Press Q to toggle it on and off."};
 
+        private static bool _hasSeenTorch;
+
         void Awake() { }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -27,8 +30,10 @@ namespace Items
                 _isPickedUp = true;
                 SoundManager.ItemFound();
                 GameManager.PlayerController.AddTorch(quantity);
-                DialogueManager.StartDialogue("Torch", _description);
+                if(!_hasSeenTorch)
+                    DialogueManager.StartDialogue("Torch", _description);
                 FactManager.SetFact(FactKey.HasSeenTorch, true);
+                _hasSeenTorch = true;
                 Destroy(gameObject);
             }
         }

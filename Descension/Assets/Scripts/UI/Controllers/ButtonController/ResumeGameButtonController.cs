@@ -9,12 +9,7 @@ namespace UI.Controllers.ButtonController
         protected override void OnButtonClicked()
         {
             UIManager.SwitchUi(UIType.GameHUD);
-        
-            var player = GameManager.PlayerController;
-            if (player != null)
-            {
-                player.OnResume();
-            }
+            GameManager.Resume();
         }
     }
 }
