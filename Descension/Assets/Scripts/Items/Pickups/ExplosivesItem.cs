@@ -9,15 +9,16 @@ namespace Items.Pickups
     {
         public static string Name = "Explosives";
 
-        [Header("Explosives")]
-        public string outOfRangeMessage = "Explosives added to bomb!";
-        public string addToBombMessage = "Need to add this to the bomb.";
+        [Header("Explosives")] 
+        public float range = 10; // how close to bomb to add to bomb
+        public string outOfRangeMessage = "Need to add this to the bomb.";
+        public string addToBombMessage = "Explosives added to bomb!";
         
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Explosives(outOfRangeMessage, addToBombMessage, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Explosives(range, outOfRangeMessage, addToBombMessage, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -25,14 +26,16 @@ namespace Items.Pickups
     [Serializable]
     class Explosives : Equippable
     {
+        private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
         private bool _execute;
         private PlayerControls _playerControls;
 
-        public Explosives(string outOfRangeMessage, string addToBombMessage, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Explosives(float range, string outOfRangeMessage, string addToBombMessage, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = GetName();
+            _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
             _playerControls = new PlayerControls();
@@ -40,7 +43,7 @@ namespace Items.Pickups
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Explosives(_outOfRangeMessage, _addToBombMessage, slotIndex, quantity, maxQuantity, sprite);
+            => new Explosives(_range, _outOfRangeMessage, _addToBombMessage, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => ExplosivesItem.Name;
 
@@ -61,14 +64,18 @@ namespace Items.Pickups
             if (BombScript.Instance)
             {
                 float distance = (BombScript.Instance.transform.position - GameManager.PlayerController.transform.position).magnitude;
-                if (distance < 15)
+                Debug.Log("Distance: " + distance);
+                if (distance <= _range)
                 {
-                    BombScript.Instance.AddTrigger();
+                    Debug.Log("In Range");
+                    BombScript.Instance.AddExplosives();
                     DialogueManager.ShowNotification(_addToBombMessage);
-                    Quantity = 0;
+                    Quantity = -1;
                 }
                 else
                 {
+                    Debug.Log("Out of Range");
+
                     DialogueManager.ShowNotification(_outOfRangeMessage);
                 }
             }

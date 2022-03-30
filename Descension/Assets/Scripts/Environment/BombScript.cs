@@ -13,7 +13,7 @@ namespace Environment
         private bool hasTrigger;
 
         private static BombScript _instance;
-        public static BombScript Instance = _instance ? _instance : _instance = FindObjectOfType<BombScript>();
+        public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
 
         public void AddExplosives() => hasExplosives = true;
         public void AddTrigger() => hasTrigger = true;
