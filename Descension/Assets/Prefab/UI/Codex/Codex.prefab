@@ -218,7 +218,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
       Rule:
         Criteria:
-        - FactKey: 9
+        - FactKey: 12
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #2
@@ -226,7 +226,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
       Rule:
         Criteria:
-        - FactKey: 10
+        - FactKey: 13
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #3
@@ -234,7 +234,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
       Rule:
         Criteria:
-        - FactKey: 11
+        - FactKey: 14
           ComparisonType: 3
           Value: 0
   - PageTitle: 'Items '
