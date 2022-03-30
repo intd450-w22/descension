@@ -43,6 +43,8 @@ namespace Managers
 
         void Update()
         {
+            if (GameManager.IsFrozen) return;
+
             // check for equipped item slot change
             if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);

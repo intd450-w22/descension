@@ -91,6 +91,8 @@ namespace Actor.Player
         private void OnDisable() => playerControls.Disable();
 
         void Update() {
+            if (GameManager.IsFrozen) return;
+
             // TODO: Move this to an input listener        
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OnTorchToggle();
