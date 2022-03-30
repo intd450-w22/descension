@@ -334,7 +334,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 14
+        - FactKey: 17
           ComparisonType: 0
           Value: 1
     - ItemName: Ripped Note 2
@@ -347,7 +347,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 15
+        - FactKey: 18
           ComparisonType: 0
           Value: 1
     - ItemName: Ripped Note 3
@@ -359,7 +359,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 16
+        - FactKey: 19
           ComparisonType: 0
           Value: 1
     - ItemName: Ripped Note 4
@@ -373,7 +373,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 17
+        - FactKey: 20
           ComparisonType: 0
           Value: 1
     - ItemName: Ripped Note 5
@@ -385,7 +385,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 18
+        - FactKey: 21
           ComparisonType: 0
           Value: 1
     - ItemName: Ripped Note 6
@@ -398,7 +398,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 19
+        - FactKey: 22
           ComparisonType: 0
           Value: 1
     - ItemName: Half a Journal
@@ -415,7 +415,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 20
+        - FactKey: 23
           ComparisonType: 0
           Value: 1
     - ItemName: Half a Journal
@@ -430,7 +430,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 21
+        - FactKey: 24
           ComparisonType: 0
           Value: 1
     - ItemName: Half a Journal
@@ -444,7 +444,7 @@ MonoBehaviour:
       ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
       Rule:
         Criteria:
-        - FactKey: 22
+        - FactKey: 25
           ComparisonType: 0
           Value: 1
   CodexPagePrefab: {fileID: 2132612497713076992, guid: d37cbe851c7f2a9449082ca41b41a776, type: 3}
