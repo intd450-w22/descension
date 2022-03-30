@@ -16,6 +16,9 @@ namespace Util.Enums
         HasSeenRope,
         HasSeenHealthPotion,
         HasSeenGold,
+        HasSeenExplosives,
+        HasSeenTrigger,
+        HasSeenTimer,
 
         // Enemies
         NumKilledEnemy1,

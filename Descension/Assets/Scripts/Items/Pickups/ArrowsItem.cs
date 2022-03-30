@@ -8,16 +8,11 @@ namespace Items.Pickups
     {
         public static String Name = "Arrows";
         
-        public override string GetName()
-        {
-            return Name;
-        }
+        public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-        {
-            return new Arrows(slotIndex, quantity, maxQuantity, inventorySprite);
-        }
+        public override Equippable CreateInstance(int slotIndex, int quantity) 
+            => new Arrows(slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     // logic for arrows (only used as ammo for bow)
@@ -33,17 +28,14 @@ namespace Items.Pickups
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
+        
+        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
+            => new Arrows(slotIndex, quantity, maxQuantity, sprite);
 
-        public override String GetName()
-        {
-            return ArrowsItem.Name;
-        }
-        
-        public override void SpawnDrop()
-        {
-            ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, Quantity);
-        }
-        
+        public override String GetName() => ArrowsItem.Name;
+
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, Quantity);
+
         public override void Update()
         {
             // if player tries to execute, equip bow if we have one

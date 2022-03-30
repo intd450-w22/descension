@@ -6347,19 +6347,19 @@ MonoBehaviour:
   shopMenuItemPrefab: {fileID: 8114141504499861455, guid: 19f2b9f499e0c434bba4cd894ff46252, type: 3}
   shopItems:
   - item: {fileID: 1312424675061267261, guid: aac1fcca5b02b784da9093c7112c901b, type: 3}
-    cost: 6
-    quantity: 1
+    cost: 30
+    quantity: 10
   - item: {fileID: 2165583528553325103, guid: a4953c3c2e3be914e8779e576b8f6344, type: 3}
-    cost: 1
-    quantity: 1
+    cost: 30
+    quantity: 20
   - item: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
-    cost: 2
+    cost: 20
     quantity: 1
   - item: {fileID: -3056033874401481543, guid: 2abfd37df650e804a816404c2cab43ee, type: 3}
-    cost: 500
-    quantity: 30
+    cost: 20
+    quantity: 50
   - item: {fileID: 8256232585060741582, guid: 9ff47cef087ec6743a9c22fa591095f0, type: 3}
-    cost: 500
+    cost: 20
     quantity: 1
   spawned:
   - {fileID: 0}

@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Items.Pickups;
 using UnityEngine;
+using Util.EditorHelpers;
 
 namespace Managers
 {
     public class InventoryManager : MonoBehaviour
     {
         [SerializeField] private List<Equippable> slots = new List<Equippable>() { null, null, null, null };
+        [SerializeField, ReadOnly] private List<Equippable> cachedSlots = new List<Equippable>() { null, null, null, null };
         [SerializeField] private int equippedSlot = -1;
         [SerializeField] private int gold = 0;
         
@@ -25,6 +28,17 @@ namespace Managers
         }
 
         public static List<Equippable> Slots => Instance.slots;
+        private static List<Equippable> CachedSlots => Instance.cachedSlots;
+
+        private static void CacheSlots()
+        {
+            for (int i = 0; i < Slots.Count; ++i) CachedSlots[i] = Slots[i].DeepCopy();
+        }
+        
+        private static void LoadCachedSlots()
+        {
+            for (int i = 0; i < Slots.Count; ++i) Slots[i] = CachedSlots[i].DeepCopy();
+        }
         
         public static int Gold
         {
@@ -35,7 +49,11 @@ namespace Managers
         void Awake()
         {
             if (_instance == null) _instance = this;
-            else if (_instance != this) Destroy(gameObject);
+            else if (_instance != this)
+            {
+                Destroy(gameObject);
+                CacheSlots();
+            }
             DontDestroyOnLoad(gameObject);
         }
 
@@ -64,11 +82,17 @@ namespace Managers
         
         // inventory logic for when player is killed
         public static void OnKilled() => Instance._OnKilled();
-        private void _OnKilled()
-        {
-            ClearSlots();
-        }
+        private void _OnKilled() => ClearSlots();
         
+        // called when reset is selected in menu
+        public static void OnReloadScene() => Instance._OnReset();
+        private void _OnReset()
+        {
+            // restart with items we had at the beginning of the level
+            LoadCachedSlots();
+            for (int i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
+        }
+
         // sets item at index to equipped state
         void EquipSlot(int index)
         {
@@ -134,24 +158,7 @@ namespace Managers
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
             int initialQuantity = quantity;
-            FactManager.SetFact(item.Fact, true);
 
-            // keep code in case we dont want multiple slots of same item
-            // // add durability/quantity if already have this item
-            // var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());
-            // if (inventoryItem != null && inventoryItem.Quantity < inventoryItem.GetMax())
-            // {
-            //     extra = quantity - (inventoryItem.GetMax() - inventoryItem.Quantity);
-            //     inventoryItem.Quantity += quantity;
-            //     if (extra == quantity)
-            //     {
-            //         Debug.Log("Pickup Failed, Item at Max");
-            //         return false;
-            //     }
-            //     Debug.Log("Pickup Success");
-            //     return true;
-            // }
-            
             // add durability/quantity if already have this item
             for (int i = 0; i < slots.Count && quantity > 0; ++i)
             {
@@ -183,13 +190,15 @@ namespace Managers
         }
         
         // remove item from slot and update UI
+        
         void ClearSlot(int slotIndex)
         {
             slots[slotIndex].Quantity = -1;
         }
-        
+
+        public static void ClearSlots() => Instance._ClearSlots();
         // remove all items from slots and update UI
-        void ClearSlots()
+        void _ClearSlots()
         {
             for (int i = 0; i < slots.Count; ++i) ClearSlot(i);
         }

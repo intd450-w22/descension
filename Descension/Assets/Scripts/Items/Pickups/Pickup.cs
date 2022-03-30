@@ -21,9 +21,15 @@ namespace Items.Pickups
                     return;
                 }
                 SoundManager.ItemFound();
-                UIManager.GetHudController().ShowText(pickupMessage);
-
+                
                 if (quantity == 0) Destroy(gameObject);
+                
+                // only show pickup dialogue once
+                if (!FactManager.IsFactTrue(item.Fact))
+                {
+                    UIManager.GetHudController().ShowText(pickupMessage);
+                    FactManager.SetFact(item.Fact, true);
+                }
             }
         }
 
