@@ -42,9 +42,9 @@ namespace Items.Pickups
             return new Timer(_seconds, slotIndex, quantity, maxQuantity, sprite);
         }
 
-        public override String GetName() => SwordItem.Name;
+        public override String GetName() => TimerItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.timerPickupPrefab, Quantity);
 
         public override void OnEquip() {}
 

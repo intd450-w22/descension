@@ -39,9 +39,9 @@ namespace Items.Pickups
             return new Explosives(slotIndex, quantity, maxQuantity, sprite);
         }
 
-        public override String GetName() => SwordItem.Name;
+        public override String GetName() => ExplosivesItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.explosivesPickupPrefab, Quantity);
 
         public override void OnEquip() {}
 

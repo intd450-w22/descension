@@ -38,9 +38,9 @@ namespace Items.Pickups
             return new Trigger(slotIndex, quantity, maxQuantity, sprite);
         }
 
-        public override String GetName() => SwordItem.Name;
+        public override String GetName() => TriggerItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.triggerPickupPrefab, Quantity);
 
         public override void OnEquip() {}
 
