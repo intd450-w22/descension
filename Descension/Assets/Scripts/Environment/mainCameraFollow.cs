@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 namespace Environment
@@ -9,6 +10,11 @@ namespace Environment
 
         // zoom out from target
         public Vector3 offset = new Vector3(0f, 0f, -1f);
+
+        void Awake()
+        {
+            if (target == null) target = GameManager.PlayerController.transform;
+        }
 
         void LateUpdate() {
             transform.position = target.position + offset;
