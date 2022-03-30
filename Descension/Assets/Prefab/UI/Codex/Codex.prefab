@@ -310,6 +310,34 @@ MonoBehaviour:
         - FactKey: 8
           ComparisonType: 0
           Value: 1
+    - ItemName: Explosives
+      ItemDescription: Doesn't look like any explosive you've ever seen. It's like
+        a canteen, with stuff sloshing inside. But instead of a screw cap, there
+        are prongs sticking out the top.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 9
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Trigger
+      ItemDescription: It's a button. As big as the palm of your hand, and there's
+        a satisfying click when you press it.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 10
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Timer
+      ItemDescription: 'It looks like a clock, but with no numbers. If you wind it,
+        it ticks for about five minutes. It doesn''t make a sound when it''s done. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 11
+          ComparisonType: 0
+          Value: 1
   - PageTitle: World
     PageType: 2
     PageItems:
