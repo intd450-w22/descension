@@ -46,4 +46,6 @@ MonoBehaviour:
   inventorySprite: {fileID: -7963549056090711241, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
   maxQuantity: 300
   Fact: 11
-  activationMessage: Timer is ticking down!
+  range: 15
+  outOfRangeMessage: Need to add this to the bomb.
+  addToBombMessage: Timer added to bomb!
