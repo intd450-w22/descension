@@ -1,4 +1,3 @@
-using Actor.AI;
 using Actor.Interface;
 using Managers;
 using UnityEngine;
@@ -36,13 +35,20 @@ namespace Actor.Objects
         void Start()
         {
             SoundManager.ArrowAttack();
-            Destroy(gameObject, timeToLive);
+            Invoke("_Destroy", timeToLive);
         }
+
+        private void _Destroy() => Destroy(gameObject);
 
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen)
+            {
+                body.velocity = Vector2.zero;
+                CancelInvoke("_Destroy");
+                return;
+            }
 
             body.velocity = _velocity;
         }

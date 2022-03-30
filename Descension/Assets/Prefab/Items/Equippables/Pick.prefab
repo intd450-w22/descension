@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
+  maxQuantity: 30
+  Fact: 1
   lootChance: 20

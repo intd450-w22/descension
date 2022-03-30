@@ -1,4 +1,3 @@
-using Actor.Player;
 using Managers;
 using UI.Controllers;
 using Util;
@@ -11,6 +10,7 @@ namespace Environment
     {
         public Scene nextLevel;
         public string otherLevelName;
+        public string showText;
         
         private HUDController _hudController;
 
@@ -23,7 +23,7 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player")) {
                 if (GameManager.PlayerController.ropeQuantity > 0) {
                     GameManager.PlayerController.AddRope(-1);
-                    UIManager.GetHudController().ShowText("Descend to level two...");
+                    UIManager.GetHudController().ShowText(showText);
 
                     if(nextLevel == Scene.Other)
                         SceneLoader.Load(otherLevelName);

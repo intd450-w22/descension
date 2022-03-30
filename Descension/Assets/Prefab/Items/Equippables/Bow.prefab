@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
+  maxQuantity: 1
+  Fact: 4
   arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
+  damage: 10
   bowReticleDistance: 2

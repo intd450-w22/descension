@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Items.Pickups;
 using UnityEngine;
 
@@ -42,6 +41,8 @@ namespace Managers
 
         void Update()
         {
+            if (GameManager.IsFrozen) return;
+
             // check for equipped item slot change
             if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);
@@ -72,10 +73,13 @@ namespace Managers
         void EquipSlot(int index)
         {
             if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
-            equippedSlot = index;
-            slots[equippedSlot].OnEquip();
-            UIManager.Hotbar.SetActive(index);
-            Debug.Log("Slot " + index + " equipped");
+            if (slots[index]?.Quantity != -1)
+            {
+                equippedSlot = index;
+                slots[equippedSlot].OnEquip();
+                UIManager.Hotbar.SetActive(index);
+                Debug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
+            }
         }
         
         // find first slot with equippable item and set it to equipped state
@@ -130,7 +134,8 @@ namespace Managers
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
             int initialQuantity = quantity;
-            
+            FactManager.SetFact(item.Fact, true);
+
             // keep code in case we dont want multiple slots of same item
             // // add durability/quantity if already have this item
             // var inventoryItem = slots.SingleOrDefault(x => x.name == item.GetName());

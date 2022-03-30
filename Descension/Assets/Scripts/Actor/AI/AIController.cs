@@ -1,7 +1,5 @@
-using System;
 using Actor.AI.States;
 using Actor.Interface;
-using Actor.Player;
 using UI.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -48,7 +46,7 @@ namespace Actor.AI
 
         void Update()
         {
-            if (GameManager.IsPaused || !_alive) return;
+            if (GameManager.IsFrozen || !_alive) return;
 
             if (hitPoints <= 0) OnKilled();
             

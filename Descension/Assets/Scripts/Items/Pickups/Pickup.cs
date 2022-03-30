@@ -1,4 +1,3 @@
-using System;
 using Managers;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Items.Pickups
     {
         public EquippableItem item;
         public int quantity = 1;
-        public String pickupMessage;
+        public string pickupMessage;
         private bool _inRange;
         
         private void Update()

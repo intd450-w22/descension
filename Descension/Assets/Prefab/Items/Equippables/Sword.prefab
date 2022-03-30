@@ -45,5 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
   maxQuantity: 50
+  Fact: 3
   damage: 10
-  swordReticleDistance: 2
+  swordReticleDistance: 8
+  knockBack: 0

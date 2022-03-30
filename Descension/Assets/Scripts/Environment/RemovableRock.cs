@@ -1,6 +1,3 @@
-using Actor.Player;
-using Managers;
-using UI.Controllers;
 using UnityEngine;
 
 namespace Environment

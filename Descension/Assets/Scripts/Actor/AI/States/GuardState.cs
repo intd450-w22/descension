@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Util.Enums;
 
@@ -8,12 +7,14 @@ namespace Actor.AI.States
     {
         [Header("Settings")]
         public float sightDistance = 15;
+        public float speed = 30;
 
         [Header("Transitions")]
         public AIState onPlayerSpotted;
         
         public override void StartState()
         {
+            Speed = speed;
             SetDestination(PatrolTargets[0].position);
         }
 

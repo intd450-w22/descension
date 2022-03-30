@@ -1,6 +1,4 @@
 using Actor.Objects;
-using Actor.Player;
-using Managers;
 using UnityEngine;
 using Util.Enums;
 

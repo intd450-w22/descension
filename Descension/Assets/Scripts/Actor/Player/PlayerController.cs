@@ -19,7 +19,9 @@ namespace Actor.Player
 
         [Header("Attributes")]
         public float movementSpeed = 10;
+        public float maxHitPoints = 100f;
         public float hitPoints = 100f;
+        
         public float swordDamage = 25f; // obsolete -> moved to inventory item
         public float bowReticleDistance = 2f; // obsolete -> moved to inventory item
         public float swordReticleDistance = 1.5f; // obsolete -> moved to inventory item
@@ -56,6 +58,8 @@ namespace Actor.Player
         private Transform _reticle;
         private Rigidbody2D _rb;
         private postProcessingScript _postProcessing;
+        private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
 
         // current scene for death
         private string scene;
@@ -67,6 +71,8 @@ namespace Actor.Player
 
             playerInput = GetComponent<PlayerInput>();
             playerControls = new PlayerControls();
+            _animator = GetComponentInChildren<Animator>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
             _rb = GetComponent<Rigidbody2D>();
         }
@@ -77,8 +83,7 @@ namespace Actor.Player
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
 
-            // TODO: Find a better way to ensure game is started
-            GameManager.IsPaused = false;
+            GameManager.Resume();
         }
 
         private void OnEnable() => playerControls.Enable();
@@ -86,19 +91,22 @@ namespace Actor.Player
         private void OnDisable() => playerControls.Disable();
 
         void Update() {
+            if (GameManager.IsFrozen) return;
+
             // TODO: Move this to an input listener        
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OnTorchToggle();
             }
-         }
+        }
 
 
         void FixedUpdate() {
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen) return;
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, pickQuantity, arrowsQuantity, ropeQuantity, torchQuantity, hitPoints);
 
             _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+            _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
             // TODO: Refactor to use a constant or variable instead of magic numbers
             if (_torchToggle) {
@@ -132,13 +140,20 @@ namespace Actor.Player
             }
         }
 
+        public void HealDamage(float heal)
+        {
+            float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
+            hitPoints += healthRestored;
+            _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
+        }
+
         public void OnKilled()
         {
             InventoryManager.OnKilled();
 
-            if (GameManager.IsPaused) return;
+            if (GameManager.IsFrozen) return;
 
-            GameManager.IsPaused = true;
+            GameManager.Pause();
             
             UIManager.SwitchUi(UIType.Death);
         }
@@ -151,7 +166,7 @@ namespace Actor.Player
         {
             if (GameManager.IsPaused) return;
 
-            GameManager.IsPaused = true;
+            GameManager.Pause();
 
             // Display menu 
             UIManager.SwitchUi(UIType.PauseMenu);
@@ -159,12 +174,13 @@ namespace Actor.Player
 
         public void OnResume()
         {
-            GameManager.IsPaused = false;
+            GameManager.Resume();
         }
 
         public void OnMovement(InputAction.CallbackContext value)
         {
             _rawInputMovement = value.ReadValue<Vector2>();
+            _animator.SetBool("IsMoving", _rawInputMovement != Vector2.zero);
         }
 
         public void OnAttack(InputAction.CallbackContext value)
@@ -174,8 +190,8 @@ namespace Actor.Player
 
         public void OnSpace(InputAction.CallbackContext value)
         {
-            if(value.started)
-                _hudController.HideDialogue();
+            // if(value.started)
+            //     _hudController.HideDialogue();
         }
 
         public void OnTorchToggle()
@@ -211,23 +227,6 @@ namespace Actor.Player
         #endregion
 
         #region Item Accessors
-
-        // obsolete -> moved to inventory item
-        public void AddPick(float value) => pickQuantity += value;
-
-        // obsolete -> moved to inventory item
-        public void AddBow()
-        {
-            hasBow = true;
-            if (_reticle != null)
-                _reticle.gameObject.SetActive(true);
-        }
-
-        // obsolete -> moved to inventory item
-        public void AddSword() => hasSword = true;
-
-        // obsolete -> moved to inventory item
-        public void AddArrows(float value) => arrowsQuantity += value;
 
         public void AddRope(float value) => ropeQuantity += value;
 

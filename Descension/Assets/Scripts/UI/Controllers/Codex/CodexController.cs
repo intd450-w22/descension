@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Util.Helpers;
 
 namespace UI.Controllers.Codex
 {
-    public class CodexController : MonoBehaviour
+    public class CodexController : UIController.UIController
     {
         [Header("Page Configuration")] 
         public List<CodexPage> CodexPages; // readonly
@@ -38,6 +37,12 @@ namespace UI.Controllers.Codex
 
             _codexPageControllers.ForEach(x => x.Deactivate());
             SetPage(CodexPages.First().PageType);
+        }
+
+        public override void OnStart()
+        {
+            foreach(var page in _codexPageControllers)
+                page.OnStart();
         }
 
         public void CreatePage(CodexPage page)

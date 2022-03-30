@@ -40,6 +40,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -92,9 +100,17 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
+      objectReference: {fileID: 21300000, guid: bb588d838b195234a85935ae85248cc8, type: 3}
     - target: {fileID: 3333621911985856946, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -117,11 +133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -168,6 +184,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1252343655}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: hitPoints
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: initialState
       value: 
       objectReference: {fileID: 1252343655}
@@ -211,7 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDistance: 3
+  sightDistance: 30
+  speed: 30
   onPlayerSpotted: {fileID: 1252343656}
 --- !u!114 &1252343656
 MonoBehaviour:
@@ -248,15 +269,34 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.2, y: 3.2}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.8, y: 0.9}
+    newSize: {x: 0.8, y: 0.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &46958103590121935
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958336963484157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbb231d4ffb4897478532a94018d89db, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &281865418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,5 +309,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bdbc3bab09a1e4f8cd5e001a414f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 30
   knockBack: 0

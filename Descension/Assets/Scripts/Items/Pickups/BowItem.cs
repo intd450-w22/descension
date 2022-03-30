@@ -4,7 +4,6 @@ using Managers;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
-using Object = UnityEngine.Object;
 
 
 namespace Items.Pickups
@@ -12,14 +11,13 @@ namespace Items.Pickups
     public class BowItem : EquippableItem
     {
         public static String Name = "Bow";
+        
+        [Header("Bow")]
         public GameObject arrowPrefab;
         public float damage = 10;
         public float bowReticleDistance = 2f;
-        
-        public override string GetName()
-        {
-            return Name;
-        }
+
+        public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)

@@ -47,3 +47,4 @@ MonoBehaviour:
   bowPickupPrefab: {fileID: 265401263657021110, guid: bb82f1bd952075448aafefb8e81a32de, type: 3}
   swordPickupPrefab: {fileID: 3079942900109169968, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
   arrowsPickupPrefab: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+  healthPickupPrefab: {fileID: 256131215267094610, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}

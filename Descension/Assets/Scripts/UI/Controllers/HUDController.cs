@@ -4,8 +4,6 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
-using System.Collections;
-
 namespace UI.Controllers
 {
     public class HUDController : MonoBehaviour

@@ -1,7 +1,5 @@
 using Managers;
-using UI.Controllers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Environment
 {

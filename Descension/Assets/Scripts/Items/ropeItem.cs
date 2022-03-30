@@ -1,7 +1,6 @@
-using Actor.Player;
 using Managers;
-using UI.Controllers;
 using UnityEngine;
+using Util.Enums;
 
 namespace Items
 {
@@ -13,7 +12,7 @@ namespace Items
         private bool _isPickedUp = false;
 
         private string[] _description = 
-            new string[] {"Rope Collected.", "Necessary for going further into the mines, or other things too."};
+            new string[] {"Rope Collected.", "Be sure to hold on with both hands while descending. When ascending...well...God help you."};
 
         void Awake()
         {
@@ -31,6 +30,7 @@ namespace Items
                 _isPickedUp = true;
                 GameManager.PlayerController.AddRope(quantity);
                 DialogueManager.StartDialogue("Rope", _description);
+                FactManager.SetFact(FactKey.HasSeenRope, true);
                 Destroy(gameObject);
             }
         }
