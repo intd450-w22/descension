@@ -47,7 +47,7 @@ namespace Items.Pickups
 
         public override String GetName() => ExplosivesItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.explosivesPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void OnEquip() {}
 

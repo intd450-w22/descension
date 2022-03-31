@@ -158,13 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b560237e5dab4cadead68add3b48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSpawnChance: 30
   hitPoints: 100
-  touchDamage: 10
+  initialState: {fileID: 0}
   state: {fileID: 0}
-  forward: {x: 0, y: 0}
-  position: {x: 0, y: 0, z: 0}
   agent: {fileID: 0}
-  player: {fileID: 0}
 --- !u!1 &3333621911985856951
 GameObject:
   m_ObjectHideFlags: 0
