@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 7948271253840551811, guid: 69ca7dcee58784343adaa4e224a3cdab, type: 3}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: quantity
-      value: 300
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
