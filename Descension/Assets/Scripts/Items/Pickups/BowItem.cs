@@ -81,7 +81,7 @@ namespace Items.Pickups
 
         public String GetName() => BowItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.bowPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void OnEquip() => Reticle.gameObject.SetActive(true);
 

@@ -1,5 +1,6 @@
 using Actor.AI.States;
 using Actor.Interface;
+using Items;
 using UI.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +12,7 @@ namespace Actor.AI
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
     public class AIController : MonoBehaviour, IDamageable
     {
+        public int itemSpawnChance = 20;                    // percent chance of spawning a random item
         public float hitPoints = 100;
         public AIState initialState;
         [SerializeField, ReadOnly] private AIState state;   // current state
@@ -63,6 +65,9 @@ namespace Actor.AI
         void OnKilled()
         {
             _alive = false;
+            
+            if (Random.Range(0,101) <= itemSpawnChance) ItemSpawner.SpawnRandom(agent.transform.position);
+
             Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
         }

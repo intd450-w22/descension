@@ -48,7 +48,7 @@ namespace Items.Pickups
 
         public override String GetName() => TimerItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.timerPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TimerPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void OnEquip() {}
 
