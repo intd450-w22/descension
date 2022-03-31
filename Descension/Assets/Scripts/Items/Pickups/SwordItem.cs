@@ -70,7 +70,7 @@ namespace Items.Pickups
 
         public override String GetName() => SwordItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.swordPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void OnEquip() => Reticle.gameObject.SetActive(true);
 

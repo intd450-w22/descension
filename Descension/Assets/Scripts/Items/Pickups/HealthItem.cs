@@ -41,7 +41,7 @@ namespace Items.Pickups
 
         public override String GetName() => HealthItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.healthPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
