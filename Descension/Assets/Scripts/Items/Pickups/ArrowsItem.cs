@@ -34,7 +34,7 @@ namespace Items.Pickups
 
         public override String GetName() => ArrowsItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.arrowsPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void Update()
         {

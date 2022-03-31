@@ -48,7 +48,7 @@ namespace Items.Pickups
 
         public override String GetName() => TriggerItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.Instance.DropItem(ItemSpawner.Instance.triggerPickupPrefab, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TriggerPrefab, GameManager.PlayerController.transform.position, Quantity);
 
         public override void OnEquip() {}
 
