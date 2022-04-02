@@ -15,12 +15,21 @@ namespace Actor.Player
     public class PlayerController : MonoBehaviour, IDamageable
     {
         // static accessors
-        private static PlayerController _instance;
-        public static Transform Reticle => _instance._reticle;
-        public static Vector3 Position => _instance.transform.position;
-        public static Transform ItemObject => _instance._itemObject;
-        public static Sprite ItemSprite { get => _instance._itemSpriteRenderer.sprite; set => _instance._itemSpriteRenderer.sprite = value; }
-
+        public static PlayerController Instance;
+        public static Transform Reticle => Instance._reticle;
+        public static Vector3 Position => Instance.transform.position;
+        public static Transform ItemObject => Instance._itemObject;
+        public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
+        
+        // for singleton
+        // public static void OnReset() => Instance._OnReset();
+        //
+        // void _OnReset()
+        // {
+        //     hitPoints = maxHitPoints;
+        // }
+        
+        
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
@@ -62,15 +71,19 @@ namespace Actor.Player
         // current scene for death
         private string scene;
 
-        void Awake() {
-            if (_instance == null) _instance = this;
-            else if (_instance != this)
-            {
-                _instance.transform.position = transform.position;
-                Destroy(gameObject);
-            }
+        void Awake()
+        {
+            Instance = this;
             
-            DontDestroyOnLoad(gameObject);
+            // TODO should probably be a singleton, but causes bugs currently when loading new level
+            // if (Instance == null) Instance = this;
+            // else if (Instance != this)
+            // {
+            //     Instance.transform.position = transform.position;
+            //     Destroy(gameObject);
+            // }
+            //
+            // DontDestroyOnLoad(gameObject);
 
             _reticle = gameObject.GetChildTransformWithName("Reticle");
             _reticle.gameObject.SetActive(false);
@@ -146,6 +159,8 @@ namespace Actor.Player
 
         #region Entity Interaction
 
+
+        public static void InflictDamageStatic(GameObject instigator, float damage, float knockBack = 0) => Instance.InflictDamage(instigator, damage, knockBack);
         public void InflictDamage(GameObject instigator, float damage, float knockBack = 0) 
         {
             hitPoints -= damage;
@@ -170,7 +185,7 @@ namespace Actor.Player
             _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
         }
 
-        public void OnKilled()
+        void OnKilled()
         {
             InventoryManager.OnKilled();
 
@@ -217,7 +232,7 @@ namespace Actor.Player
             //     _hudController.HideDialogue();
         }
 
-        public void OnTorchToggle()
+        void OnTorchToggle()
         {
             if (torchQuantity > 0) {
                 _torchToggle = !_torchToggle;
@@ -251,9 +266,11 @@ namespace Actor.Player
 
         #region Item Accessors
 
-        public void AddRope(float value) => ropeQuantity += value;
+        public static void AddRope(int value) => Instance._AddRope(value);
+        void _AddRope(int value) => ropeQuantity += value;
 
-        public void AddTorch(float value) => torchQuantity += value;
+        public static void AddTorch(int value) => Instance._AddTorch(value);
+        void _AddTorch(float value) => torchQuantity += value;
         
         #endregion
 

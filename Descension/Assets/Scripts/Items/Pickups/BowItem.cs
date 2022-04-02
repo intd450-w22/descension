@@ -1,5 +1,6 @@
 using System;
 using Actor.Objects;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -60,7 +61,7 @@ namespace Items.Pickups
             {
                 if (_reticle == null)
                 {
-                    _reticle = GameManager.PlayerController.gameObject.GetChildTransformWithName("Reticle");
+                    _reticle = PlayerController.Instance.gameObject.GetChildTransformWithName("Reticle");
                 }
                 return _reticle;
             }
@@ -68,7 +69,7 @@ namespace Items.Pickups
         
         public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
-            name = GetName();
+            name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
             _damage = damage;
             _bowReticleDistance = bowReticleDistance;
@@ -79,9 +80,9 @@ namespace Items.Pickups
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
             => new Bow(_arrowPrefab, _damage, _bowReticleDistance, slotIndex, quantity, maxQuantity, sprite);
 
-        public String GetName() => BowItem.Name;
+        public override String GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, PlayerPosition, Quantity);
 
         public override void OnEquip() => Reticle.gameObject.SetActive(true);
 
@@ -91,7 +92,7 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            var screenPoint = GameManager.PlayerController.playerCamera.WorldToScreenPoint(GameManager.PlayerController.transform.localPosition);
+            var screenPoint = PlayerController.Instance.playerCamera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
             
             // Set the position of the reticle on the screen according to input type
@@ -99,13 +100,13 @@ namespace Items.Pickups
             {
                 // Place the reticle on the cursor 
                 // TODO: Hide the cursor ? 
-                Reticle.position = (Vector2) GameManager.PlayerController.playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                Reticle.position = (Vector2) PlayerController.Instance.playerCamera.ScreenToWorldPoint(Input.mousePosition);
             }
             else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
             {
                 // Place the reticle in a ring around the player 
                 // TODO: Add aiming with the right stick ala Enter the Gungeon 
-                Reticle.position = GameManager.PlayerController.transform.position + (direction * _bowReticleDistance);
+                Reticle.position = PlayerPosition + (direction * _bowReticleDistance);
             }
             
             
@@ -119,7 +120,7 @@ namespace Items.Pickups
                 return;
             }
 
-            Vector3 playerPosition = GameManager.PlayerController.transform.position;
+            Vector3 playerPosition = PlayerPosition;
             
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             

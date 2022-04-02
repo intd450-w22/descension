@@ -35,8 +35,6 @@ namespace Items.Pickups
     [Serializable]
     class Sword : Equippable
     {
-        private Transform _reticle;
-        private Transform _itemObject;
         private float _damage;
         private float _knockBack;
         private float _reticleDistance;
@@ -45,11 +43,6 @@ namespace Items.Pickups
         private bool _execute;
         private int _swing;
         private PlayerControls _playerControls;
-        
-        // gets the reticle object
-        private Transform Reticle => _reticle ? _reticle : _reticle = PlayerController.Reticle;
-        private Transform ItemObject => _itemObject ? _itemObject : _itemObject = PlayerController.ItemObject;
-        
 
         public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
@@ -70,19 +63,19 @@ namespace Items.Pickups
 
         public override String GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, PlayerPosition, Quantity);
 
         public override void OnEquip()
         {
             Reticle.gameObject.SetActive(true);
-            PlayerController.ItemSprite = inventorySprite;
-            ItemObject.gameObject.SetActive(true);
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
         }
 
         public override void OnUnEquip()
         {
             Reticle.gameObject.SetActive(false);
-            ItemObject.gameObject.SetActive(false);
+            SpriteTransform.gameObject.SetActive(false);
         }
 
         public override void Update()
@@ -93,33 +86,30 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            PlayerController controller = GameManager.PlayerController;
+            PlayerController controller = PlayerController.Instance;
             Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
             Vector3 direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = controller.transform.position;
             
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
             float absAngle = Math.Abs(angle);
             
             if (absAngle >= 90 && _swing > -45) _swing -= 15; 
             else if (absAngle < 90 && _swing < 45) _swing += 15; 
-            
             
             float swordAngle = angle - _spriteRotationOffset + _swing;
             Debug.Log(angle);
             // Vector3 swordDirection = new Vector3(0, 1, 0).GetRotated(swordAngle);
             
             Reticle.position = position + (direction * _reticleDistance);
-            ItemObject.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, swordAngle) });
+            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, swordAngle) });
             Debug.DrawLine(position, Reticle.position);
 
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
-            {
-                _execute = false;
-                _swing = absAngle >= 90 ? 45 : -45;
-            }
+            _execute = false;
+            _swing = absAngle >= 90 ? 45 : -45;
+            
             
             
             if (Quantity <= 0)
@@ -136,7 +126,7 @@ namespace Items.Pickups
                 IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
                 if (damageable == null) damageable = hit.gameObject.GetComponentInParent<IDamageable>();
                 
-                damageable.InflictDamage(GameManager.PlayerController.gameObject, _damage, _knockBack);
+                damageable.InflictDamage(PlayerController.Instance.gameObject, _damage, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;

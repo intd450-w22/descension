@@ -1,4 +1,5 @@
 using System;
+using Actor.Player;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
@@ -64,6 +65,14 @@ namespace Items.Pickups
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
         }
+        
+        private Transform _reticle;
+        protected Transform Reticle => _reticle ? _reticle : _reticle = PlayerController.Reticle;
+        
+        private Transform _itemObject;
+        protected Transform SpriteTransform => _itemObject ? _itemObject : _itemObject = PlayerController.ItemObject;
+        protected Sprite Sprite { set => PlayerController.ItemSprite = value; }
+        protected Vector3 PlayerPosition => PlayerController.Position;
         
         public delegate void OnQuantityUpdatedDelegate(int newDurability);
         public OnQuantityUpdatedDelegate OnQuantityUpdated;

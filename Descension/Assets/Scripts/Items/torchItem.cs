@@ -1,3 +1,4 @@
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -6,7 +7,7 @@ namespace Items
 {
     public class torchItem : MonoBehaviour
     {
-        public float quantity = 20;
+        public int quantity = 20;
         
         private bool _isPickedUp = false;
 
@@ -26,7 +27,7 @@ namespace Items
             {
                 _isPickedUp = true;
                 SoundManager.ItemFound();
-                GameManager.PlayerController.AddTorch(quantity);
+                PlayerController.AddTorch(quantity);
                 if(!_hasSeenTorch)
                     DialogueManager.StartDialogue("Torch", _description);
                 FactManager.SetFact(FactKey.HasSeenTorch, true);

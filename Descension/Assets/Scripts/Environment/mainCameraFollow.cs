@@ -1,3 +1,4 @@
+using Actor.Player;
 using Managers;
 using UnityEngine;
 
@@ -13,11 +14,11 @@ namespace Environment
 
         void Awake()
         {
-            if (target == null) target = GameManager.PlayerController.transform;
+            if (target == null) target = PlayerController.Instance.transform;
         }
 
         void LateUpdate() {
-            transform.position = target.position + offset;
+            transform.position = PlayerController.Instance.transform.position + offset;
         }
     }
 }
