@@ -14,6 +14,14 @@ namespace Actor.Player
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour, IDamageable
     {
+        // static accessors
+        private static PlayerController _instance;
+        public static Transform Reticle => _instance._reticle;
+        public static Vector3 Position => _instance.transform.position;
+        public static Transform ItemObject => _instance._itemObject;
+        public static Sprite ItemSprite { get => _instance._itemSpriteRenderer.sprite; set => _instance._itemSpriteRenderer.sprite = value; }
+
+
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
 
@@ -44,6 +52,8 @@ namespace Actor.Player
         // Components and GameObjects
         private HUDController _hudController;
         private Transform _reticle;
+        private Transform _itemObject;
+        private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
         private postProcessingScript _postProcessing;
         private Animator _animator;
@@ -53,8 +63,21 @@ namespace Actor.Player
         private string scene;
 
         void Awake() {
+            if (_instance == null) _instance = this;
+            else if (_instance != this)
+            {
+                _instance.transform.position = transform.position;
+                Destroy(gameObject);
+            }
+            
+            DontDestroyOnLoad(gameObject);
+
             _reticle = gameObject.GetChildTransformWithName("Reticle");
             _reticle.gameObject.SetActive(false);
+
+            _itemObject = gameObject.GetChildTransformWithName("Item");
+            _itemObject.gameObject.SetActive(false);
+            _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
 
             playerInput = GetComponent<PlayerInput>();
             playerControls = new PlayerControls();

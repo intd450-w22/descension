@@ -96,6 +96,7 @@ namespace Items.Pickups
         public void OnDrop()
         {
             SpawnDrop();
+            OnUnEquip();
             Clear();
         }
 

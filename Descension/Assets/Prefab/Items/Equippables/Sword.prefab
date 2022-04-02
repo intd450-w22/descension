@@ -47,5 +47,7 @@ MonoBehaviour:
   maxQuantity: 50
   Fact: 3
   damage: 10
-  swordReticleDistance: 8
+  spriteOffset: 2
+  spriteRotationOffset: 45
+  reticleDistance: 8
   knockBack: 0
