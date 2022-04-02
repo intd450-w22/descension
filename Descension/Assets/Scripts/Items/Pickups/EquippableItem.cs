@@ -29,6 +29,8 @@ namespace Items.Pickups
     [Serializable, CanBeNull]
     public class Equippable
     {
+        // do not use
+        public Equippable() { _quantity = -1; }
         public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
         {
             _slotIndex = slotIndex;
@@ -46,7 +48,7 @@ namespace Items.Pickups
 
         public String name;
         [HideInInspector] public Sprite inventorySprite;
-        [SerializeField] private int _quantity = 0;
+        [SerializeField] private int _quantity = -1;
         private int _maxQuantity;
         private int _slotIndex;
 
