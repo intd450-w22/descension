@@ -232,6 +232,22 @@ PrefabInstance:
       propertyPath: slots.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4903851544598157347, guid: 0bda8dec269ef824084a013c2fac1d99, type: 3}
+      propertyPath: cachedSlots.Array.data[0]._quantity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903851544598157347, guid: 0bda8dec269ef824084a013c2fac1d99, type: 3}
+      propertyPath: cachedSlots.Array.data[1]._quantity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903851544598157347, guid: 0bda8dec269ef824084a013c2fac1d99, type: 3}
+      propertyPath: cachedSlots.Array.data[2]._quantity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903851544598157347, guid: 0bda8dec269ef824084a013c2fac1d99, type: 3}
+      propertyPath: cachedSlots.Array.data[3]._quantity
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bda8dec269ef824084a013c2fac1d99, type: 3}
 --- !u!4 &3431768164710772119 stripped
