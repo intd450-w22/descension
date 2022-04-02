@@ -37,7 +37,10 @@ namespace Items.Pickups
         private float _spriteOffset;
         private float _spriteRotationOffset;
         private bool _execute;
-        private float _swing = 45;
+        private int _swing = 45;
+        private bool _swinging;
+        private Vector3 _position;
+        private Vector3 _direction;
         private PlayerControls _playerControls;
         
         public Pick(float lootChance, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
@@ -76,12 +79,11 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            PlayerController controller = PlayerController.Instance;
-            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(controller.transform.localPosition);
-            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
-            Vector3 position = controller.transform.position;
+            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
+            _direction = (Input.mousePosition - screenPoint).normalized;
+            _position = PlayerPosition;
             
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
             float absAngle = Math.Abs(angle); 
             
             if (absAngle >= 90 && _swing > -45) _swing -= 15; 
@@ -89,26 +91,55 @@ namespace Items.Pickups
             
             float pickAngle = angle - _spriteRotationOffset + _swing;
             
-            Reticle.position = position + (direction * _reticleDistance);
-            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, pickAngle) });
+            Reticle.position = _position + (_direction * _reticleDistance);
+            SpriteTransform.SetPositionAndRotation(_position + _direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, pickAngle) });
             
-            Debug.DrawLine(position, Reticle.position);
+            Debug.DrawLine(_position, Reticle.position);
+
+            if (_swinging && _swing == 0) CheckHit();
 
             if (!_execute) return;
             _execute = false;
             _swing = absAngle >= 90 ? 45 : -45;
-            
-            if (Quantity <= 0)
-            {
-                UIManager.GetHudController().ShowText("No picks!");
-                return;
-            }
+            _swinging = true;
 
-            Vector3 playerPosition = controller.transform.position;
+            SoundManager.Swing();
+
+            // Debug.DrawLine(_position, _position + _direction * 3);
+            //
+            // RaycastHit2D rayCast = Physics2D.Raycast(_position, _direction, 3, (int) UnityLayer.Boulder);
+            // if (rayCast)
+            // {
+            //     SoundManager.RemoveRock();
+            //     
+            //     if (Random.Range(0f, 100f) < _lootChance)
+            //     {
+            //         int gold = Random.Range(1, 21);
+            //         
+            //         SoundManager.GoldFound();
+            //         
+            //         InventoryManager.Gold += gold;
+            //         
+            //         UIManager.GetHudController()
+            //             .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);
+            //     }
+            //     
+            //     Object.Destroy(rayCast.transform.gameObject);
+            //     --Quantity;
+            // }
+            // else
+            // {
+            //     Debug.Log("Raycast Miss");
+            // }
+        }
+
+        void CheckHit()
+        {
+            _swinging = false;
             
-            Debug.DrawLine(playerPosition, playerPosition + direction * 3);
+            Debug.DrawLine(_position, _position + _direction * 3);
             
-            RaycastHit2D rayCast = Physics2D.Raycast(playerPosition, direction, 3, (int) UnityLayer.Boulder);
+            RaycastHit2D rayCast = Physics2D.Raycast(_position, _direction, 3, (int) UnityLayer.Boulder);
             if (rayCast)
             {
                 SoundManager.RemoveRock();
@@ -133,6 +164,7 @@ namespace Items.Pickups
                 Debug.Log("Raycast Miss");
             }
         }
+        
         
     }
 }

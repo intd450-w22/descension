@@ -39,7 +39,9 @@ namespace Items.Pickups
         private float _spriteOffset;
         private float _spriteRotationOffset;
         private bool _execute;
+        private float _angle;
         private int _swing;
+        private bool _swinging;
         private PlayerControls _playerControls;
 
         public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
@@ -85,28 +87,35 @@ namespace Items.Pickups
             Vector3 direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = controller.transform.position;
             
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            float absAngle = Math.Abs(angle);
+            _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float absAngle = Math.Abs(_angle);
             
             if (absAngle >= 90 && _swing > -45) _swing -= 15; 
             else if (absAngle < 90 && _swing < 45) _swing += 15; 
             
-            float swordAngle = angle - _spriteRotationOffset + _swing;
-            Debug.Log(angle);
+            float swordAngle = _angle - _spriteRotationOffset + _swing;
+            Debug.Log(_angle);
             
             Reticle.position = position + (direction * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, swordAngle) });
             Debug.DrawLine(position, Reticle.position);
 
-            
+            if (_swinging && _swing == 0) CheckHit();
             
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
             _execute = false;
             _swing = absAngle >= 90 ? 45 : -45;
+            _swinging = true;
             
+            SoundManager.Swing();
+        }
+
+        void CheckHit()
+        {
+            _swinging = false;
             
-            Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(Reticle.position, new Vector2(2, 2), angle, (int) UnityLayer.Enemy);
+            Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(Reticle.position, new Vector2(2, 2), _angle, (int) UnityLayer.Enemy);
             foreach (Collider2D hit in hitEnemies)
             {
                 IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
