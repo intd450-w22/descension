@@ -16,13 +16,16 @@ namespace Items.Pickups
         [Header("Bow")]
         public GameObject arrowPrefab;
         public float damage = 10;
+        public float spriteOffset = 2;
+        public float spriteRotationOffset = 45;
+        public Vector2 spritePositionOffset;
         public float bowReticleDistance = 2f;
-
+         
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Bow(arrowPrefab, damage, bowReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Bow(arrowPrefab, damage, bowReticleDistance, spriteOffset, spriteRotationOffset, spritePositionOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -32,61 +35,58 @@ namespace Items.Pickups
     class Bow : Equippable
     {
         private Arrows _arrows;
-        private Transform _reticle;
         private GameObject _arrowPrefab;
         private float _damage;
         private String _currentControlScheme = ControlScheme.Desktop.ToString();
         private float _bowReticleDistance;
+        private float _spriteOffset;
+        private float _spriteRotationOffset;
+        private Vector3 _positionOffset;
         private bool _execute;
         private PlayerControls _playerControls;
 
         // gets the arrow quiver if we have one
         private Arrows Arrows
         {
-            get
-            {
-                if (_arrows == null)
-                {
-                    _arrows = (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
-                }
-                return _arrows;
-            }
+            get => _arrows ??= (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
             set => _arrows = value;
         }
 
-        // gets the reticle object
-        private Transform Reticle
-        {
-            get
-            {
-                if (_reticle == null)
-                {
-                    _reticle = PlayerController.Instance.gameObject.GetChildTransformWithName("Reticle");
-                }
-                return _reticle;
-            }
-        }
         
-        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        
+        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
             _damage = damage;
             _bowReticleDistance = bowReticleDistance;
+            _spriteOffset = spriteOffset;
+            _spriteRotationOffset = spriteRotationOffset;
+            _positionOffset = positionOffset;
             _playerControls = new PlayerControls();
             _playerControls.Enable();
+            
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, slotIndex, quantity, maxQuantity, sprite);
+            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, PlayerPosition, Quantity);
 
-        public override void OnEquip() => Reticle.gameObject.SetActive(true);
+        public override void OnEquip()
+        {
+            Reticle.gameObject.SetActive(true);
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
+        }
 
-        public override void OnUnEquip() => Reticle.gameObject.SetActive(false);
+        public override void OnUnEquip()
+        {
+            Reticle.gameObject.SetActive(false);
+            SpriteTransform.gameObject.SetActive(false);
+        }
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
@@ -109,6 +109,11 @@ namespace Items.Pickups
                 Reticle.position = PlayerPosition + (direction * _bowReticleDistance);
             }
             
+            float bowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _spriteRotationOffset;
+            Vector3 bowPosition = PlayerPosition + _positionOffset + direction * _spriteOffset;
+            SpriteTransform.SetPositionAndRotation(bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
+
+            
             
             //******** Try to Execute if key pressed and have arrows *******//
             if (!_execute) return;
@@ -125,7 +130,7 @@ namespace Items.Pickups
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
             // spawn arrow
-            Projectile.Instantiate(_arrowPrefab, playerPosition + direction, direction, _damage, Tag.Enemy);
+            Projectile.Instantiate(_arrowPrefab, bowPosition - _positionOffset, direction, _damage, Tag.Enemy);
             
             // reduce arrows quantity
             if (--Arrows.Quantity <= 0) Arrows = null;
