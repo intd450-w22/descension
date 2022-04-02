@@ -15,12 +15,13 @@ namespace Items.Pickups
 
         [Header("Pick")]
         public float lootChance = 40;
+        public float reticleDistance = 2;
 
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Pick(lootChance, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Pick(lootChance, reticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -30,23 +31,31 @@ namespace Items.Pickups
     class Pick : Equippable
     {
         private float _lootChance;
+        private float _reticleDistance;
         private bool _execute;
         private PlayerControls _playerControls;
-        
-        
-        public Pick(float lootChance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+
+        private Transform _reticle;
+        private Transform Reticle => _reticle ? _reticle : _reticle = PlayerController.Reticle;
+
+        public Pick(float lootChance, float reticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
-            this.name = GetName();
+            name = PickItem.Name;
             _lootChance = lootChance;
+            _reticleDistance = reticleDistance;
             
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Pick(_lootChance, slotIndex, quantity, maxQuantity, sprite);
+            => new Pick(_lootChance, _reticleDistance, slotIndex, quantity, maxQuantity, sprite);
 
-        public override String GetName() => PickItem.Name;
+        public override String GetName() => name;
+        
+        public override void OnEquip() => Reticle.gameObject.SetActive(true);
+
+        public override void OnUnEquip() => Reticle.gameObject.SetActive(false);
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.PickPrefab, GameManager.PlayerController.transform.position, Quantity);
 
@@ -54,6 +63,17 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
+            PlayerController controller = GameManager.PlayerController;
+            Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
+            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
+            Vector3 position = controller.transform.position;
+            
+            Reticle.position = position + (direction * _reticleDistance);
+            
+            Debug.DrawLine(position, Reticle.position);
+            
+            
+            
             if (!_execute) return;
             _execute = false;
             
@@ -62,12 +82,7 @@ namespace Items.Pickups
                 UIManager.GetHudController().ShowText("No picks!");
                 return;
             }
-            
-            PlayerController controller = GameManager.PlayerController;
-            
-            var screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
-            var direction = (Input.mousePosition - screenPoint).normalized;
-            
+
             Vector3 playerPosition = controller.transform.position;
             
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
