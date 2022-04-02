@@ -92,7 +92,7 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            var screenPoint = PlayerController.Instance.playerCamera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
+            var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
             
             // Set the position of the reticle on the screen according to input type
@@ -100,7 +100,7 @@ namespace Items.Pickups
             {
                 // Place the reticle on the cursor 
                 // TODO: Hide the cursor ? 
-                Reticle.position = (Vector2) PlayerController.Instance.playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
             }
             else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
             {

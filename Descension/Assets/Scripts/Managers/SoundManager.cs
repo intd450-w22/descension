@@ -20,15 +20,8 @@ namespace Managers
         [SerializeField] private AudioSource healSound;
 
         private static SoundManager _instance;
-        private static SoundManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = FindObjectOfType<SoundManager>();
-                return _instance;
-            }
-        }
-        
+        private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
+
         void Awake()
         {
             if (_instance == null) _instance = this;

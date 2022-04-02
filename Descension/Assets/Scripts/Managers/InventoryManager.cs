@@ -15,28 +15,20 @@ namespace Managers
         [SerializeField] private int gold = 0;
         
         private static InventoryManager _instance;
-        private static InventoryManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<InventoryManager>();
-                }
-                return _instance;
-            }
-        }
+        private static InventoryManager Instance => _instance ??= FindObjectOfType<InventoryManager>();
 
         public static List<Equippable> Slots => Instance.slots;
         private static List<Equippable> CachedSlots => Instance.cachedSlots;
 
         private static void CacheSlots()
         {
+            Debug.Log("CacheSlots()");
             for (int i = 0; i < Slots.Count; ++i) CachedSlots[i] = Slots[i].DeepCopy();
         }
         
         private static void LoadCachedSlots()
         {
+            Debug.Log("LoadCachedSlots()");
             for (int i = 0; i < Slots.Count; ++i) Slots[i] = CachedSlots[i].DeepCopy();
         }
         
@@ -142,6 +134,7 @@ namespace Managers
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
         {
+            Debug.Log("DropSlot(" + index + ")");
             if (index != -1)
             {
                 var itemName = slots[index].name;

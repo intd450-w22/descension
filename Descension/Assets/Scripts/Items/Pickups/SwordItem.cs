@@ -23,10 +23,8 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-        {
-            return new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
-        }
+        public override Equippable CreateInstance(int slotIndex, int quantity) 
+            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -78,16 +76,12 @@ namespace Items.Pickups
             SpriteTransform.gameObject.SetActive(false);
         }
 
-        public override void Update()
-        {
-            _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-            
-        }
+        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
         {
             PlayerController controller = PlayerController.Instance;
-            Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
+            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(controller.transform.localPosition);
             Vector3 direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = controller.transform.position;
             
@@ -99,25 +93,17 @@ namespace Items.Pickups
             
             float swordAngle = angle - _spriteRotationOffset + _swing;
             Debug.Log(angle);
-            // Vector3 swordDirection = new Vector3(0, 1, 0).GetRotated(swordAngle);
             
             Reticle.position = position + (direction * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, swordAngle) });
             Debug.DrawLine(position, Reticle.position);
 
+            
+            
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
             _execute = false;
             _swing = absAngle >= 90 ? 45 : -45;
-            
-            
-            
-            if (Quantity <= 0)
-            {
-                UIManager.GetHudController().ShowText("Sword has no durability!");
-                return;
-            }
-            
             
             
             Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(Reticle.position, new Vector2(2, 2), angle, (int) UnityLayer.Enemy);

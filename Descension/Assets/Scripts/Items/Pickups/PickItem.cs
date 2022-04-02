@@ -77,7 +77,7 @@ namespace Items.Pickups
         public override void FixedUpdate()
         {
             PlayerController controller = PlayerController.Instance;
-            Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
+            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(controller.transform.localPosition);
             Vector3 direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = controller.transform.position;
             

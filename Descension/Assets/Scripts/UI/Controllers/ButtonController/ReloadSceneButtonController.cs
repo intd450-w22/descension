@@ -1,3 +1,4 @@
+using Actor.Player;
 using Managers;
 using Util.Enums;
 
@@ -10,6 +11,7 @@ namespace UI.Controllers.ButtonController
         protected override void OnButtonClicked()
         {
             InventoryManager.OnReloadScene();
+            PlayerController.OnReloadScene();
             
             var currScene = UIManager.GetCurrentScene();
             UIManager.SwitchScene(currScene);

@@ -20,14 +20,14 @@ namespace Actor.Player
         public static Vector3 Position => Instance.transform.position;
         public static Transform ItemObject => Instance._itemObject;
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
+        private Camera _camera;
+        public static Camera Camera => Instance._camera ??= Camera.main;
         
-        // for singleton
-        // public static void OnReset() => Instance._OnReset();
-        //
-        // void _OnReset()
-        // {
-        //     hitPoints = maxHitPoints;
-        // }
+        public static void OnReloadScene() => Instance._OnReloadScene();
+        void _OnReloadScene()
+        {
+            hitPoints = maxHitPoints;
+        }
         
         
 
@@ -48,7 +48,7 @@ namespace Actor.Player
         [Header("Scene Elements")] 
         public bool useUI = true;
 
-        [HideInInspector] public Camera playerCamera;
+        // [HideInInspector] public Camera playerCamera;
 
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
@@ -73,36 +73,36 @@ namespace Actor.Player
 
         void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+                
+                _reticle = gameObject.GetChildTransformWithName("Reticle");
+                _reticle.gameObject.SetActive(false);
+
+                _itemObject = gameObject.GetChildTransformWithName("Item");
+                _itemObject.gameObject.SetActive(false);
+                _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
+
+                playerInput = GetComponent<PlayerInput>();
+                playerControls = new PlayerControls();
+                _animator = GetComponentInChildren<Animator>();
+                _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+                _rb = GetComponent<Rigidbody2D>();
+            }
+            else if (Instance != this)
+            {
+                Instance.transform.position = transform.position;
+                Destroy(gameObject);
+            }
             
-            // TODO should probably be a singleton, but causes bugs currently when loading new level
-            // if (Instance == null) Instance = this;
-            // else if (Instance != this)
-            // {
-            //     Instance.transform.position = transform.position;
-            //     Destroy(gameObject);
-            // }
-            //
-            // DontDestroyOnLoad(gameObject);
-
-            _reticle = gameObject.GetChildTransformWithName("Reticle");
-            _reticle.gameObject.SetActive(false);
-
-            _itemObject = gameObject.GetChildTransformWithName("Item");
-            _itemObject.gameObject.SetActive(false);
-            _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
-
-            playerInput = GetComponent<PlayerInput>();
-            playerControls = new PlayerControls();
-            _animator = GetComponentInChildren<Animator>();
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-            _rb = GetComponent<Rigidbody2D>();
+            DontDestroyOnLoad(gameObject);
         }
 
         void Start()
         {
-            playerCamera = Camera.main;
+            // playerCamera = Camera.main;
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
 
@@ -110,7 +110,7 @@ namespace Actor.Player
         }
 
         private void OnEnable() => playerControls.Enable();
-
+        
         private void OnDisable() => playerControls.Disable();
 
         void Update() {

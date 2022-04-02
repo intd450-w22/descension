@@ -31,7 +31,10 @@ namespace Items.Pickups
     public class Equippable
     {
         // do not use
-        public Equippable() { _quantity = -1; }
+        public Equippable() { 
+            _quantity = -1;
+            _slotIndex = -1;
+        }
         public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
         {
             _slotIndex = slotIndex;
@@ -49,7 +52,7 @@ namespace Items.Pickups
 
         public String name;
         [HideInInspector] public Sprite inventorySprite;
-        [SerializeField] private int _quantity = -1;
+        [SerializeField] private int _quantity;
         private int _maxQuantity;
         private int _slotIndex;
 
@@ -66,11 +69,8 @@ namespace Items.Pickups
             }
         }
         
-        private Transform _reticle;
-        protected Transform Reticle => _reticle ? _reticle : _reticle = PlayerController.Reticle;
-        
-        private Transform _itemObject;
-        protected Transform SpriteTransform => _itemObject ? _itemObject : _itemObject = PlayerController.ItemObject;
+        protected Transform Reticle => PlayerController.Reticle;
+        protected Transform SpriteTransform => PlayerController.ItemObject;
         protected Sprite Sprite { set => PlayerController.ItemSprite = value; }
         protected Vector3 PlayerPosition => PlayerController.Position;
         

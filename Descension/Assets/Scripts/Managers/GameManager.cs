@@ -6,7 +6,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameManager _instance;
-        private static GameManager Instance => _instance ? _instance : _instance = FindObjectOfType<GameManager>();
+        private static GameManager Instance => _instance ??= FindObjectOfType<GameManager>();
 
         protected void Awake()
         {

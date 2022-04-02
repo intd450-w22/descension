@@ -11,14 +11,7 @@ namespace Managers
     public class FactManager : MonoBehaviour
     {
         private static FactManager _instance;
-        private static FactManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = FindObjectOfType<FactManager>();
-                return _instance;
-            }
-        }
+        private static FactManager Instance => _instance ??= FindObjectOfType<FactManager>();
 
         protected void Awake()
         {
