@@ -79,7 +79,7 @@ namespace Items.Pickups
                 
                 if (Random.Range(0f, 100f) < _lootChance)
                 {
-                    int gold = (int) Mathf.Floor(Random.Range(0f, 20f));
+                    int gold = Random.Range(1, 21);
                     
                     SoundManager.GoldFound();
                     
