@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Items.Pickups;
+using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Items
 {
@@ -70,24 +73,45 @@ namespace Items
             return pickup;
         }
 
-        public static void SpawnRandom(Vector3 position, GameObject[] prefabs = null) => Instance._SpawnRandom(position, prefabs);
-        private void _SpawnRandom(Vector3 position, GameObject[] prefabs = null)
+        
+        public static void SpawnRandom(Vector3 position, DropStruct[] prefabs) => Instance._SpawnRandom(position, prefabs);
+        private void _SpawnRandom(Vector3 position, DropStruct[] prefabs)
         {
-            if (prefabs == null)
+            if (prefabs == null) return;
+
+            float roll = Random.Range(0f, 100f);
+            float i = 0;
+            foreach (DropStruct prefab in prefabs)
             {
-                prefabs = new[]
+                i += prefab.dropChance;
+                if (i >= roll)
                 {
-                    pickPickupPrefab, 
-                    bowPickupPrefab, 
-                    swordPickupPrefab, 
-                    arrowsPickupPrefab, 
-                    healthPickupPrefab,
-                    torchPickupPrefab
-                };
+                    if (prefab.quantity != 0) _SpawnItem(prefab.item, position, prefab.quantity);
+                    else _SpawnItem(prefab.item, position);
+                    return;
+                }
             }
-                
-            int index = Random.Range(0, prefabs.Length);
-            _SpawnItem(prefabs[index], position);
+        }
+        
+        [Serializable]
+        public struct DropStruct
+        {
+            public DropStruct(GameObject item, int dropChance, int quantity = 0)
+            {
+                this.item = item;
+                this.dropChance = dropChance;
+                this.quantity = quantity;
+            }
+            
+            [Header("Item must be a pickup prefab")]
+            public GameObject item; // item pickup prefab
+            public float dropChance;  // percent drop chance
+            [Header("Leave quantity at 0 for prefab default quantity")]
+            public int quantity;    // leave at 0 for default quantity
         }
     }
+    
+    
+
+    
 }
