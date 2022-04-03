@@ -198,14 +198,28 @@ namespace Managers
                     if (equippedSlot == -1) EquipSlot(i); // auto equip if we have nothing equipped
                 }
             }
-            
-            Debug.Log("Remaining Extra " + quantity);
+
+            if (quantity == initialQuantity)
+            {
+                SwapEquipped(item, ref quantity);
+                return true;
+            }
             // returns false only if no items were picked up
             return quantity != initialQuantity;
         }
+
+        // drops currently equipped item and picks up item
+        public static void SwapEquipped(EquippableItem item, ref int quantity) => Instance._SwapEquipped(item, ref quantity);
+        void _SwapEquipped(EquippableItem item, ref int quantity)
+        {
+            int slot = equippedSlot;
+            DropSlot(equippedSlot);
+            PickupItem(item, ref quantity);
+            EquipSlot(slot);
+            quantity = 0;
+        }
         
         // remove item from slot and update UI
-        
         void ClearSlot(int slotIndex)
         {
             slots[slotIndex].Quantity = -1;
