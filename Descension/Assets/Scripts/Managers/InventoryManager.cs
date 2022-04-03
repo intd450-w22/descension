@@ -6,6 +6,7 @@ using Actor.Player;
 using Items.Pickups;
 using UnityEngine;
 using Util.EditorHelpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Managers
 {
@@ -54,7 +55,14 @@ namespace Managers
             if (GameManager.IsFrozen) return;
 
             // check for equipped item slot change
-            if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
+            int scroll;
+            if (equippedSlot != -1 && (scroll = (int) Input.mouseScrollDelta.y) != 0)
+            {
+                int i = equippedSlot;
+                while (slots[i = SafeIndex(i+scroll, slots.Count)].Quantity <= 0) {}
+                if (i != equippedSlot) EquipSlot(i);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);
             else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].Quantity >= 0) EquipSlot(2);
             else if (Input.GetKeyDown(KeyCode.Alpha4) && slots[3].Quantity >= 0) EquipSlot(3);
