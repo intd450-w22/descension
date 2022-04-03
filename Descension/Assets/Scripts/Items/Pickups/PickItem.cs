@@ -124,9 +124,9 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            Debug.DrawLine(_position, _position + _direction * 3);
+            Debug.DrawLine(_position, _position + _direction * _reticleDistance);
             
-            RaycastHit2D rayCast = Physics2D.Raycast(_position, _direction, 3, (int) UnityLayer.Boulder);
+            RaycastHit2D rayCast = Physics2D.Raycast(_position, _direction, _reticleDistance, (int) UnityLayer.Boulder);
             if (rayCast)
             {
                 SoundManager.RemoveRock();
