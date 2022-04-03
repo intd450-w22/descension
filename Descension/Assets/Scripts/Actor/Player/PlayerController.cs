@@ -28,8 +28,6 @@ namespace Actor.Player
         {
             hitPoints = maxHitPoints;
         }
-        
-        
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
@@ -47,9 +45,7 @@ namespace Actor.Player
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-
-        // [HideInInspector] public Camera playerCamera;
-
+        
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
         [HideInInspector] public PlayerControls playerControls;
@@ -73,6 +69,7 @@ namespace Actor.Player
 
         void Awake()
         {
+            Debug.Log("Awake()");
             if (Instance == null)
             {
                 Instance = this;
@@ -90,14 +87,17 @@ namespace Actor.Player
                 _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
                 _rb = GetComponent<Rigidbody2D>();
+                
+                DontDestroyOnLoad(gameObject);
             }
             else if (Instance != this)
             {
                 Instance.transform.position = transform.position;
+                
                 Destroy(gameObject);
             }
             
-            DontDestroyOnLoad(gameObject);
+            GameManager.Resume();
         }
 
         void Start()
@@ -105,13 +105,18 @@ namespace Actor.Player
             // playerCamera = Camera.main;
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
-
-            GameManager.Resume();
         }
 
-        private void OnEnable() => playerControls.Enable();
-        
-        private void OnDisable() => playerControls.Disable();
+        private void OnEnable()
+        {
+            playerControls?.Enable();
+        }
+
+        //
+        private void OnDisable()
+        {
+            playerControls?.Disable();
+        }
 
         void Update() {
             if (GameManager.IsFrozen) return;

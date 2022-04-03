@@ -29,7 +29,6 @@ namespace Managers
         {
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
-            DontDestroyOnLoad(gameObject);
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();

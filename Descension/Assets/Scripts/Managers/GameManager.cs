@@ -16,21 +16,21 @@ namespace Managers
             }
             else
             {
-                DontDestroyOnLoad(gameObject);
                 _instance = this;
             }
         }
 
-        private bool _isPaused;
+        [SerializeField] private bool _isPaused;
         public static bool IsPaused => Instance._isPaused;
 
-        private bool _isFrozen;
+        [SerializeField] private bool _isFrozen;
         public static bool IsFrozen => Instance._isPaused || Instance._isFrozen;
 
         public static void Freeze() => Instance.OnFreeze();
 
         private void OnFreeze()
         {
+            Debug.Log("OnFreeze");
             _isFrozen = true;
         }
 
@@ -38,6 +38,7 @@ namespace Managers
 
         private void OnUnFreeze()
         {
+            Debug.Log("OnUnFreeze");
             _isFrozen = false;
         }
 

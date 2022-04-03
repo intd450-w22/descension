@@ -104,33 +104,6 @@ namespace Items.Pickups
             _swinging = true;
 
             SoundManager.Swing();
-
-            // Debug.DrawLine(_position, _position + _direction * 3);
-            //
-            // RaycastHit2D rayCast = Physics2D.Raycast(_position, _direction, 3, (int) UnityLayer.Boulder);
-            // if (rayCast)
-            // {
-            //     SoundManager.RemoveRock();
-            //     
-            //     if (Random.Range(0f, 100f) < _lootChance)
-            //     {
-            //         int gold = Random.Range(1, 21);
-            //         
-            //         SoundManager.GoldFound();
-            //         
-            //         InventoryManager.Gold += gold;
-            //         
-            //         UIManager.GetHudController()
-            //             .ShowFloatingText(rayCast.transform.position, "Gold +" + gold, Color.yellow);
-            //     }
-            //     
-            //     Object.Destroy(rayCast.transform.gameObject);
-            //     --Quantity;
-            // }
-            // else
-            // {
-            //     Debug.Log("Raycast Miss");
-            // }
         }
 
         void CheckHit()

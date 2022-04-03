@@ -50,4 +50,4 @@ MonoBehaviour:
   spriteOffset: 2
   spriteRotationOffset: 45
   reticleDistance: 8
-  knockBack: 0
+  knockBack: 1000

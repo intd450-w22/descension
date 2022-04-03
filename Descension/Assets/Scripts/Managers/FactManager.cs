@@ -21,7 +21,6 @@ namespace Managers
             }
             else
             {
-                DontDestroyOnLoad(gameObject);
                 _instance = this;
                 Init();
             }

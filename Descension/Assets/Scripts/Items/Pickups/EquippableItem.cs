@@ -32,6 +32,7 @@ namespace Items.Pickups
     {
         // do not use
         public Equippable() { 
+            name = "";
             _quantity = -1;
             _slotIndex = -1;
         }
@@ -50,7 +51,7 @@ namespace Items.Pickups
         public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
             => new Equippable(slotIndex, quantity, maxQuantity, sprite);
 
-        public String name;
+        public String name = "";
         [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity;
         private int _maxQuantity;
@@ -68,11 +69,17 @@ namespace Items.Pickups
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
         }
-        
-        protected Transform Reticle => PlayerController.Reticle;
-        protected Transform SpriteTransform => PlayerController.ItemObject;
+
+        private Transform _reticle;
+        protected Transform Reticle => _reticle ??= PlayerController.Reticle;
+
+        private Transform _spriteTransform;
+        protected Transform SpriteTransform => _spriteTransform ??= PlayerController.ItemObject;
         protected Sprite Sprite { set => PlayerController.ItemSprite = value; }
-        protected Vector3 PlayerPosition => PlayerController.Position;
+
+        private Transform _playerTransform;
+        protected Transform PlayerTransform => _playerTransform ??= PlayerController.Instance.transform;
+        protected Vector3 PlayerPosition => PlayerTransform.position;
         
         public delegate void OnQuantityUpdatedDelegate(int newDurability);
         public OnQuantityUpdatedDelegate OnQuantityUpdated;

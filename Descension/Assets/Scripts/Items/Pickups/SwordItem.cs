@@ -19,12 +19,13 @@ namespace Items.Pickups
         public float spriteRotationOffset = 45;
         public float reticleDistance = 4;
         public float knockBack = 0;
+        public int updateInterval = 3;
 
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -42,9 +43,13 @@ namespace Items.Pickups
         private float _angle;
         private int _swing;
         private bool _swinging;
+        private int _updateCount;
+        private int _updateInterval;
+        private Transform _playerTransform;
+        private Camera _camera;
         private PlayerControls _playerControls;
 
-        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = SwordItem.Name;
 
@@ -53,13 +58,17 @@ namespace Items.Pickups
             _reticleDistance = reticleDistance;
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
+            _updateInterval = updateInterval;
+            
+            _playerTransform = PlayerController.Instance.transform;
+            _camera = PlayerController.Camera;
             
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, slotIndex, quantity, maxQuantity, sprite);
+            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
 
@@ -80,24 +89,23 @@ namespace Items.Pickups
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
+        
         public override void FixedUpdate()
         {
-            PlayerController controller = PlayerController.Instance;
-            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(controller.transform.localPosition);
+            if (_updateCount++ % _updateInterval != 0) return;
+
+            Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
             Vector3 direction = (Input.mousePosition - screenPoint).normalized;
-            Vector3 position = controller.transform.position;
+            Vector3 position = _playerTransform.position;
             
             _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            
             float absAngle = Math.Abs(_angle);
-            
             if (absAngle >= 90 && _swing > -45) _swing -= 15; 
-            else if (absAngle < 90 && _swing < 45) _swing += 15; 
-            
-            float swordAngle = _angle - _spriteRotationOffset + _swing;
-            Debug.Log(_angle);
-            
+            else if (absAngle < 90 && _swing < 45) _swing += 15;
+
             Reticle.position = position + (direction * _reticleDistance);
-            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, swordAngle) });
+            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
             Debug.DrawLine(position, Reticle.position);
 
             if (_swinging && _swing == 0) CheckHit();
@@ -105,7 +113,7 @@ namespace Items.Pickups
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
             _execute = false;
-            _swing = absAngle >= 90 ? 45 : -45;
+            _swing = Math.Abs(_angle) >= 90 ? 45 : -45;
             _swinging = true;
             
             SoundManager.Swing();
