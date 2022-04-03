@@ -47,4 +47,7 @@ MonoBehaviour:
   maxQuantity: 30
   Fact: 1
   lootChance: 20
-  reticleDistance: 6
+  reticleDistance: 8
+  spriteOffset: 2
+  spriteRotationOffset: 45
+  updateInterval: 3
