@@ -42,7 +42,7 @@ namespace UI.MenuUI
 
         public void SetSprite(Sprite sprite)
         {
-            ItemImage.sprite = sprite;
+            ItemImage.sprite = sprite ? sprite : _defaultSprite;
         }
 
         public void ClearSprite()

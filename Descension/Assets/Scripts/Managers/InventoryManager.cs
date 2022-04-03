@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Actor.Player;
 using Items.Pickups;
 using UnityEngine;
 using Util.EditorHelpers;
@@ -9,27 +11,17 @@ namespace Managers
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] private List<Equippable> slots = new List<Equippable>() { null, null, null, null };
-        [SerializeField, ReadOnly] private List<Equippable> cachedSlots = new List<Equippable>() { null, null, null, null };
+        [SerializeField] private List<Equippable> slots = new List<Equippable>() { new Equippable(), new Equippable(), new Equippable(), new Equippable() };
+        [SerializeField, ReadOnly] private List<Equippable> cachedSlots = new List<Equippable>() { new Equippable(), new Equippable(), new Equippable(), new Equippable() };
         [SerializeField] private int equippedSlot = -1;
         [SerializeField] private int gold = 0;
         
         private static InventoryManager _instance;
-        private static InventoryManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<InventoryManager>();
-                }
-                return _instance;
-            }
-        }
+        private static InventoryManager Instance => _instance ??= FindObjectOfType<InventoryManager>();
 
         public static List<Equippable> Slots => Instance.slots;
         private static List<Equippable> CachedSlots => Instance.cachedSlots;
-
+        
         private static void CacheSlots()
         {
             for (int i = 0; i < Slots.Count; ++i) CachedSlots[i] = Slots[i].DeepCopy();
@@ -37,9 +29,10 @@ namespace Managers
         
         private static void LoadCachedSlots()
         {
+            ClearSlots();
             for (int i = 0; i < Slots.Count; ++i) Slots[i] = CachedSlots[i].DeepCopy();
         }
-        
+
         public static int Gold
         {
             get => Instance.gold;
@@ -54,7 +47,6 @@ namespace Managers
                 Destroy(gameObject);
                 CacheSlots();
             }
-            DontDestroyOnLoad(gameObject);
         }
 
         void Update()
@@ -76,6 +68,8 @@ namespace Managers
         
         void FixedUpdate()
         {
+            if (GameManager.IsFrozen) return;
+            
             // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].FixedUpdate();
         }
@@ -89,8 +83,10 @@ namespace Managers
         private void _OnReset()
         {
             // restart with items we had at the beginning of the level
+            
             LoadCachedSlots();
             for (int i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
+            EquipFirstSlottedItem();
         }
 
         // sets item at index to equipped state
@@ -107,7 +103,8 @@ namespace Managers
         }
         
         // find first slot with equippable item and set it to equipped state
-        void EquipFirstSlottedItem()
+        public static void EquipFirstSlottedItem() => Instance._EquipFirstSlottedItem();
+        void _EquipFirstSlottedItem()
         {
             for (int i = 0; i < slots.Count; ++i)
             {
@@ -117,7 +114,7 @@ namespace Managers
                     return;
                 }
             }
-
+            
             equippedSlot = -1;
         }
         
@@ -142,6 +139,7 @@ namespace Managers
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
         {
+            // Debug.Log("DropSlot(" + index + ")");
             if (index != -1)
             {
                 var itemName = slots[index].name;
@@ -167,10 +165,10 @@ namespace Managers
                     var extra = Math.Max(0, quantity - (slots[i].GetMaxQuantity() - slots[i].Quantity));
                     slots[i].Quantity += quantity;
                     quantity = extra;
-                    Debug.Log("Extra " + extra);
                 }
             }
-
+            
+            
             // add to empty slot if one is available
             for (int i = 0; i < slots.Count && quantity > 0; ++i)
             {
@@ -201,6 +199,13 @@ namespace Managers
         void _ClearSlots()
         {
             for (int i = 0; i < slots.Count; ++i) ClearSlot(i);
+        }
+        
+        public static void ClearCachedSlots() => Instance._ClearSlots();
+        // remove all items from slots and update UI
+        void _ClearCachedSlots()
+        {
+            for (int i = 0; i < cachedSlots.Count; ++i) cachedSlots[i].Clear();
         }
         
 

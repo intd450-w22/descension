@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -35,7 +36,8 @@ namespace Items.Pickups
 
         private void OnValidate()
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+            gameObject.GetChildObjectWithName("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+            // gameObject.GetComponentInChildren<SpriteRenderer>().sprite = item.inventorySprite;
         }
         
         private void OnTriggerEnter2D(Collider2D other)

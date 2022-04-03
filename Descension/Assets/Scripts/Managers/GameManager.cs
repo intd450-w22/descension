@@ -6,24 +6,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameManager _instance;
-        private static GameManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = FindObjectOfType<GameManager>();
-                return _instance;
-            }
-        }
-
-        private static PlayerController _playerController;
-        public static PlayerController PlayerController
-        {
-            get
-            {
-                if (_playerController == null) _playerController = FindObjectOfType<PlayerController>();
-                return _playerController;
-            }
-        }
+        private static GameManager Instance => _instance ??= FindObjectOfType<GameManager>();
 
         protected void Awake()
         {
@@ -33,21 +16,21 @@ namespace Managers
             }
             else
             {
-                DontDestroyOnLoad(gameObject);
                 _instance = this;
             }
         }
 
-        private bool _isPaused;
+        [SerializeField] private bool _isPaused;
         public static bool IsPaused => Instance._isPaused;
 
-        private bool _isFrozen;
+        [SerializeField] private bool _isFrozen;
         public static bool IsFrozen => Instance._isPaused || Instance._isFrozen;
 
         public static void Freeze() => Instance.OnFreeze();
 
         private void OnFreeze()
         {
+            Debug.Log("OnFreeze");
             _isFrozen = true;
         }
 
@@ -55,6 +38,7 @@ namespace Managers
 
         private void OnUnFreeze()
         {
+            Debug.Log("OnUnFreeze");
             _isFrozen = false;
         }
 

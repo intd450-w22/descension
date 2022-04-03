@@ -18,22 +18,17 @@ namespace Managers
         [SerializeField] private AudioSource inspectionSound;
         [SerializeField] private AudioSource errorSound;
         [SerializeField] private AudioSource healSound;
-
-        private static SoundManager _instance;
-        private static SoundManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = FindObjectOfType<SoundManager>();
-                return _instance;
-            }
-        }
+        [SerializeField] private AudioSource swingSound;
+        [SerializeField] private AudioSource playerHitSound;
+        [SerializeField] private AudioSource enemyHitSound;
         
+        private static SoundManager _instance;
+        private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
+
         void Awake()
         {
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
-            DontDestroyOnLoad(gameObject);
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();
@@ -68,14 +63,35 @@ namespace Managers
         public void _Error()
         {
             //TODO Add error sound effect
-            //errorSound.Play();
+            if (errorSound) errorSound.Play();
         }
 
         public static void Heal() => Instance._Heal();
         private void _Heal()
         {
             //TODO add heal sound effect
-            //healSound?.Play();
+            if (healSound) healSound.Play();
+        }
+        
+        public static void Swing() => Instance._Swing();
+        private void _Swing()
+        {
+            // TODO add weapon swing sound effect
+            if (swingSound) swingSound.Play();
+        }
+        
+        public static void PlayerHit() => Instance._PlayerHit();
+        private void _PlayerHit()
+        {
+            // TODO add player hit swing sound effect
+            if (playerHitSound) playerHitSound.Play();
+        }
+        
+        public static void EnemyHit() => Instance._EnemyHit();
+        private void _EnemyHit()
+        {
+            // TODO add enemy hit sound effect
+            if (enemyHitSound) enemyHitSound.Play();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Items.Pickups
 
         public override String GetName() => ArrowsItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, PlayerPosition, Quantity);
 
         public override void Update()
         {

@@ -15,17 +15,7 @@ namespace Managers
     public class UIManager : MonoBehaviour
     {
         private static UIManager _instance;
-        private static UIManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = FindObjectOfType<UIManager>();
-                
-                return _instance;
-            }
-            set => _instance = value;
-        }
+        private static UIManager Instance => _instance ??= FindObjectOfType<UIManager>();
 
         private List<UIController> _uiControllers;
         private HUDController _hudController;

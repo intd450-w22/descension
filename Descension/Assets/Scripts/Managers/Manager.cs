@@ -3,17 +3,7 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     private static Manager _instance;
-    private static Manager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<Manager>();
-            }
-            return _instance;
-        }
-    }
+    private static Manager Instance => _instance ??= FindObjectOfType<Manager>();
 
     void Awake()
     {

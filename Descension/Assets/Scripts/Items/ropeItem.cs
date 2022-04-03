@@ -1,3 +1,4 @@
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -6,7 +7,7 @@ namespace Items
 {
     public class ropeItem : MonoBehaviour
     {
-        public float quantity = 1;
+        public int quantity = 1;
         public Vector2[] potentialPositions;
 
         private bool _isPickedUp = false;
@@ -28,7 +29,7 @@ namespace Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                GameManager.PlayerController.AddRope(quantity);
+                PlayerController.AddRope(quantity);
                 DialogueManager.StartDialogue("Rope", _description);
                 FactManager.SetFact(FactKey.HasSeenRope, true);
                 Destroy(gameObject);

@@ -17,7 +17,7 @@ namespace Actor.Objects
         private Tag _targetTag;
         private Vector2 _velocity;
         
-        public override void Initialize(Vector2 direction, float damage, Tag targetTag)
+        protected override void Initialize(Vector2 direction, float damage, Tag targetTag)
         {
             direction.Normalize();
             float angle = Vector2.SignedAngle(direction, Vector2.up);

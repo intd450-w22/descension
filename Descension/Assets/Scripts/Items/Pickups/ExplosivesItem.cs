@@ -1,4 +1,5 @@
 using System;
+using Actor.Player;
 using Environment;
 using Managers;
 using UnityEngine;
@@ -47,12 +48,8 @@ namespace Items.Pickups
 
         public override String GetName() => ExplosivesItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, PlayerPosition, Quantity);
 
-        public override void OnEquip() {}
-
-        public override void OnUnEquip() {}
-        
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
@@ -63,7 +60,7 @@ namespace Items.Pickups
             
             if (BombScript.Instance)
             {
-                float distance = (BombScript.Instance.transform.position - GameManager.PlayerController.transform.position).magnitude;
+                float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
                 Debug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {

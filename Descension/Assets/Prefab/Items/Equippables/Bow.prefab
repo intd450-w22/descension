@@ -48,4 +48,7 @@ MonoBehaviour:
   Fact: 4
   arrowPrefab: {fileID: 7911246415520734231, guid: 223d738c21d8c174da39104ad28d6bf0, type: 3}
   damage: 10
+  spriteOffset: 2
+  spriteRotationOffset: 45
+  spritePositionOffset: {x: 0, y: 1}
   bowReticleDistance: 2

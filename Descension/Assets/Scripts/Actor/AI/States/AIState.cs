@@ -17,8 +17,8 @@ namespace Actor.AI.States
             }
         }
         
-        protected PlayerController Player => GameManager.PlayerController;
-        protected Vector3 PlayerPosition => Player.transform.position;
+        // protected PlayerController Player => PlayerController.Instance;
+        protected Vector3 PlayerPosition => PlayerController.Position;
         protected Vector3 Position => Controller.agent.transform.position;
         protected Vector3 Velocity => Controller.agent.velocity;
         protected float Speed { set => Controller.agent.speed = value; }

@@ -12,7 +12,7 @@ public class AiCollision : MonoBehaviour {
         GameObject obj = other.gameObject;
         if (obj.CompareTag("Player"))
         {
-            GameManager.PlayerController.InflictDamage(gameObject, damage, knockBack);
+            PlayerController.InflictDamageStatic(gameObject, damage, knockBack);
         }
     }
 }

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b560237e5dab4cadead68add3b48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSpawnChance: 30
+  itemSpawnChance: 10
   hitPoints: 100
   initialState: {fileID: 0}
   state: {fileID: 0}
