@@ -8,12 +8,13 @@ namespace Items.Pickups
     {
         public EquippableItem item;
         public int quantity = 1;
-        public string pickupMessage;
+        public string[] pickupMessage;
+        public bool autoPickup;
         private bool _inRange;
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && _inRange)
+            if (_inRange && (autoPickup || Input.GetKeyDown(KeyCode.E)))
             {
                 if (!InventoryManager.PickupItem(item, ref quantity))
                 {
@@ -28,18 +29,15 @@ namespace Items.Pickups
                 // only show pickup dialogue once
                 if (!FactManager.IsFactTrue(item.Fact))
                 {
-                    UIManager.GetHudController().ShowText(pickupMessage);
+                    DialogueManager.StartDialogue(item.GetName(), pickupMessage);
+
                     FactManager.SetFact(item.Fact, true);
                 }
             }
         }
 
-        private void OnValidate()
-        {
-            gameObject.GetChildObjectWithName("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
-            // gameObject.GetComponentInChildren<SpriteRenderer>().sprite = item.inventorySprite;
-        }
-        
+        private void OnValidate() => gameObject.GetChildObjectWithName("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+
         private void OnTriggerEnter2D(Collider2D other)
         {
 

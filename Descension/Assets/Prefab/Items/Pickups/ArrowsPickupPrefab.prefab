@@ -117,7 +117,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
-      value: Arrows Acquired
+      value: 'Arrows Acquired. The pointy end points away from you. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[0]
+      value: Arrows Acquired.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[1]
+      value: 'The pointy end points away from you. '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}

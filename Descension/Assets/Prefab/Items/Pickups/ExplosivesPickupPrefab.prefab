@@ -109,5 +109,25 @@ PrefabInstance:
         with stuff sloshing inside. But instead of a screw cap, there are prongs
         sticking out the top.
       objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[0]
+      value: Explosives Acquired.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[1]
+      value: Doesn't look like any explosive you've ever seen.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[2]
+      value: It's like a canteen, with stuff sloshing inside.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[3]
+      value: But instead of a screw cap, there are prongs sticking out the top.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}

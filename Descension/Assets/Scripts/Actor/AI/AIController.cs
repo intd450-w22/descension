@@ -15,6 +15,7 @@ namespace Actor.AI
         public int itemSpawnChance = 20;                    // percent chance of spawning a random item
         public float hitPoints = 100;
         public AIState initialState;
+        public ItemSpawner.DropStruct[] drops;
         [SerializeField, ReadOnly] private AIState state;   // current state
 
         [HideInInspector] public NavMeshAgent agent;
@@ -67,7 +68,7 @@ namespace Actor.AI
         {
             _alive = false;
             
-            if (Random.Range(0,101) <= itemSpawnChance) ItemSpawner.SpawnRandom(agent.transform.position);
+            ItemSpawner.SpawnRandom(agent.transform.position, drops);
 
             Destroy(gameObject); // for now 
             // TODO change to dead sprite / make body searchable? 
