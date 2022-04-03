@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862479983850683178, guid: bf0f6a740e93c4c4c9c376db4c04d865, type: 3}
       propertyPath: offset.z
-      value: -5
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4862479983850683179, guid: bf0f6a740e93c4c4c9c376db4c04d865, type: 3}
       propertyPath: m_RootOrder
