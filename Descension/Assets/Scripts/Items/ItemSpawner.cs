@@ -24,17 +24,12 @@ namespace Items
         public GameObject timerPickupPrefab;
         public static GameObject TriggerPrefab => Instance.triggerPickupPrefab;
         public GameObject triggerPickupPrefab;
-
-        private static ItemSpawner _instance;
-        private static ItemSpawner Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = FindObjectOfType<ItemSpawner>();
-                return _instance;
-            }
-        }
+        public static GameObject TorchPrefab => Instance.torchPickupPrefab;
+        public GameObject torchPickupPrefab;
         
+        private static ItemSpawner _instance;
+        private static ItemSpawner Instance => _instance ??= FindObjectOfType<ItemSpawner>();
+
         void Awake()
         {
             if (_instance == null) _instance = this;
@@ -76,7 +71,7 @@ namespace Items
         }
 
         public static void SpawnRandom(Vector3 position, GameObject[] prefabs = null) => Instance._SpawnRandom(position, prefabs);
-        private void _SpawnRandom( Vector3 position, GameObject[] prefabs = null)
+        private void _SpawnRandom(Vector3 position, GameObject[] prefabs = null)
         {
             if (prefabs == null)
             {
@@ -86,7 +81,8 @@ namespace Items
                     bowPickupPrefab, 
                     swordPickupPrefab, 
                     arrowsPickupPrefab, 
-                    healthPickupPrefab
+                    healthPickupPrefab,
+                    torchPickupPrefab
                 };
             }
                 

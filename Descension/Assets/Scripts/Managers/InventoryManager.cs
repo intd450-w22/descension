@@ -163,6 +163,15 @@ namespace Managers
         public static bool PickupItem(EquippableItem item, ref int quantity) => Instance._PickupItem(item, ref quantity);
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
+            // torch custom logic
+            if (item.name == TorchItem.Name)
+            {
+                PlayerController.AddTorch(quantity);
+                quantity = 0;
+                return true;
+            }
+            
+            
             int initialQuantity = quantity;
 
             // add durability/quantity if already have this item

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1989120020451319626
+--- !u!1001 &937758192329408148
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,16 +8,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4392157
+      objectReference: {fileID: 0}
+    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Color.g
-      value: 0.9832286
-      objectReference: {fileID: 0}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 218398793189861090, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_RootOrder
@@ -65,36 +65,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.034
+      value: 0.035
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.061
+      value: 0.026
       objectReference: {fileID: 0}
     - target: {fileID: 1744057531512730108, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Name
-      value: BowPickupPrefab
+      value: TorchPickupPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Size.x
-      value: 0.15
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Size.y
-      value: 0.15
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
+      objectReference: {fileID: 21300000, guid: 6d06fae830df5dd448290d0f78c069de, type: 3}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -102,23 +102,19 @@ PrefabInstance:
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
-    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: self
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: eItem
-      value: 
-      objectReference: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
+      objectReference: {fileID: 851537908566591154, guid: e1ad0b54328ae6b45bf1eea31b7d376d, type: 3}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: quantity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: autoPickup
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
-      value: Bow Acquired. It may just be wire on a stick, but it sure helps keep
-        you safe down here.
+      value: Use with caution. There are things down here that have more eyes than
+        you.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
