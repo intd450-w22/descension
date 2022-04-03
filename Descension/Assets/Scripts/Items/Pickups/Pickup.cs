@@ -8,7 +8,7 @@ namespace Items.Pickups
     {
         public EquippableItem item;
         public int quantity = 1;
-        public string pickupMessage;
+        public string[] pickupMessage;
         public bool autoPickup;
         private bool _inRange;
         
@@ -29,7 +29,8 @@ namespace Items.Pickups
                 // only show pickup dialogue once
                 if (!FactManager.IsFactTrue(item.Fact))
                 {
-                    UIManager.GetHudController().ShowText(pickupMessage);
+                    DialogueManager.StartDialogue(item.GetName(), pickupMessage);
+
                     FactManager.SetFact(item.Fact, true);
                 }
             }
