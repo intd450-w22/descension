@@ -8,20 +8,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Size.x
-      value: 9.6
-      objectReference: {fileID: 0}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Size.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_WasSpriteAssigned
+      propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.90297055
+      objectReference: {fileID: 0}
+    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 218398793189861090, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_RootOrder
@@ -67,21 +63,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1744057531512730108, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Name
       value: HealthPotionPickupPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Color.b
-      value: 0
+      propertyPath: m_Size.x
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Color.g
+      propertyPath: m_Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Color.r
-      value: 0.046080828
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: item

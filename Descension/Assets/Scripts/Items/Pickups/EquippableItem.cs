@@ -1,4 +1,5 @@
 using System;
+using Actor.Player;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
@@ -29,6 +30,12 @@ namespace Items.Pickups
     [Serializable, CanBeNull]
     public class Equippable
     {
+        // do not use
+        public Equippable() { 
+            name = "";
+            _quantity = -1;
+            _slotIndex = -1;
+        }
         public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
         {
             _slotIndex = slotIndex;
@@ -44,9 +51,9 @@ namespace Items.Pickups
         public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
             => new Equippable(slotIndex, quantity, maxQuantity, sprite);
 
-        public String name;
+        public String name = "";
         [HideInInspector] public Sprite inventorySprite;
-        [SerializeField] private int _quantity = 0;
+        [SerializeField] private int _quantity;
         private int _maxQuantity;
         private int _slotIndex;
 
@@ -62,6 +69,17 @@ namespace Items.Pickups
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
         }
+
+        private Transform _reticle;
+        protected Transform Reticle => _reticle ??= PlayerController.Reticle;
+
+        private Transform _spriteTransform;
+        protected Transform SpriteTransform => _spriteTransform ??= PlayerController.ItemObject;
+        protected Sprite Sprite { set => PlayerController.ItemSprite = value; }
+
+        private Transform _playerTransform;
+        protected Transform PlayerTransform => _playerTransform ??= PlayerController.Instance.transform;
+        protected Vector3 PlayerPosition => PlayerTransform.position;
         
         public delegate void OnQuantityUpdatedDelegate(int newDurability);
         public OnQuantityUpdatedDelegate OnQuantityUpdated;
@@ -85,15 +103,21 @@ namespace Items.Pickups
         }
 
         // called when equipped switches to different slot (equippable)
-        public virtual void OnEquip() { }
+        public virtual void OnEquip()
+        {
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
+            SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(2, 0,0), Quaternion.identity);
+        }
         
         // called when equipped switches from this slot (equippable)
-        public virtual void OnUnEquip() { }
-        
+        public virtual void OnUnEquip() => SpriteTransform.gameObject.SetActive(false);
+
         // called when item is dropped
         public void OnDrop()
         {
             SpawnDrop();
+            OnUnEquip();
             Clear();
         }
 

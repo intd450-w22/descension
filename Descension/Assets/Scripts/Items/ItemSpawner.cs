@@ -39,7 +39,6 @@ namespace Items
         {
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
-            DontDestroyOnLoad(gameObject);
         }
 
         public static Pickup SpawnItem(GameObject prefab, Vector3 position) => Instance._SpawnItem(prefab, position);

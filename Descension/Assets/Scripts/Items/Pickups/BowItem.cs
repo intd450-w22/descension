@@ -1,5 +1,6 @@
 using System;
 using Actor.Objects;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -15,13 +16,18 @@ namespace Items.Pickups
         [Header("Bow")]
         public GameObject arrowPrefab;
         public float damage = 10;
+        public float spriteOffset = 2;
+        public float spriteRotationOffset = 45;
+        public Vector2 spritePositionOffset;
         public float bowReticleDistance = 2f;
-
+        public int updateInterval = 3;
+        
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Bow(arrowPrefab, damage, bowReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity)
+            => new Bow(arrowPrefab, damage, bowReticleDistance, spriteOffset, spriteRotationOffset,
+                spritePositionOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -31,67 +37,68 @@ namespace Items.Pickups
     class Bow : Equippable
     {
         private Arrows _arrows;
-        private Transform _reticle;
         private GameObject _arrowPrefab;
         private float _damage;
         private String _currentControlScheme = ControlScheme.Desktop.ToString();
         private float _bowReticleDistance;
+        private float _spriteOffset;
+        private float _spriteRotationOffset;
+        private Vector3 _positionOffset;
+        private int _updateInterval;
+        private int _updateCount;
         private bool _execute;
         private PlayerControls _playerControls;
 
         // gets the arrow quiver if we have one
         private Arrows Arrows
         {
-            get
-            {
-                if (_arrows == null)
-                {
-                    _arrows = (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
-                }
-                return _arrows;
-            }
+            get => _arrows ??= (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
             set => _arrows = value;
         }
 
-        // gets the reticle object
-        private Transform Reticle
-        {
-            get
-            {
-                if (_reticle == null)
-                {
-                    _reticle = GameManager.PlayerController.gameObject.GetChildTransformWithName("Reticle");
-                }
-                return _reticle;
-            }
-        }
         
-        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
-            name = GetName();
+            name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
             _damage = damage;
             _bowReticleDistance = bowReticleDistance;
+            _spriteOffset = spriteOffset;
+            _spriteRotationOffset = spriteRotationOffset;
+            _positionOffset = positionOffset;
+            _updateInterval = updateInterval;
             _playerControls = new PlayerControls();
             _playerControls.Enable();
+            
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, slotIndex, quantity, maxQuantity, sprite);
+            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
 
-        public String GetName() => BowItem.Name;
+        public override String GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, PlayerPosition, Quantity);
 
-        public override void OnEquip() => Reticle.gameObject.SetActive(true);
+        public override void OnEquip()
+        {
+            Reticle.gameObject.SetActive(true);
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
+        }
 
-        public override void OnUnEquip() => Reticle.gameObject.SetActive(false);
+        public override void OnUnEquip()
+        {
+            Reticle.gameObject.SetActive(false);
+            SpriteTransform.gameObject.SetActive(false);
+        }
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()
         {
-            var screenPoint = GameManager.PlayerController.playerCamera.WorldToScreenPoint(GameManager.PlayerController.transform.localPosition);
+            if (_updateCount++ % _updateInterval != 0) return;
+            
+            var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
             
             // Set the position of the reticle on the screen according to input type
@@ -99,14 +106,19 @@ namespace Items.Pickups
             {
                 // Place the reticle on the cursor 
                 // TODO: Hide the cursor ? 
-                Reticle.position = (Vector2) GameManager.PlayerController.playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
             }
             else if (_currentControlScheme == ControlScheme.Gamepad.ToString())
             {
                 // Place the reticle in a ring around the player 
                 // TODO: Add aiming with the right stick ala Enter the Gungeon 
-                Reticle.position = GameManager.PlayerController.transform.position + (direction * _bowReticleDistance);
+                Reticle.position = PlayerPosition + (direction * _bowReticleDistance);
             }
+            
+            float bowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _spriteRotationOffset;
+            Vector3 bowPosition = PlayerPosition + _positionOffset + direction * _spriteOffset;
+            SpriteTransform.SetPositionAndRotation(bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
+
             
             
             //******** Try to Execute if key pressed and have arrows *******//
@@ -119,12 +131,12 @@ namespace Items.Pickups
                 return;
             }
 
-            Vector3 playerPosition = GameManager.PlayerController.transform.position;
+            Vector3 playerPosition = PlayerPosition;
             
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
             // spawn arrow
-            Projectile.Instantiate(_arrowPrefab, playerPosition + direction, direction, _damage, Tag.Enemy);
+            Projectile.Instantiate(_arrowPrefab, bowPosition - _positionOffset, direction, _damage, Tag.Enemy);
             
             // reduce arrows quantity
             if (--Arrows.Quantity <= 0) Arrows = null;

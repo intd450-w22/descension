@@ -14,6 +14,21 @@ namespace Actor.Player
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour, IDamageable
     {
+        // static accessors
+        public static PlayerController Instance;
+        public static Transform Reticle => Instance._reticle;
+        public static Vector3 Position => Instance.transform.position;
+        public static Transform ItemObject => Instance._itemObject;
+        public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
+        private Camera _camera;
+        public static Camera Camera => Instance._camera ??= Camera.main;
+        
+        public static void OnReloadScene() => Instance._OnReloadScene();
+        void _OnReloadScene()
+        {
+            hitPoints = maxHitPoints;
+        }
+
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
 
@@ -30,9 +45,7 @@ namespace Actor.Player
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-
-        [HideInInspector] public Camera playerCamera;
-
+        
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
         [HideInInspector] public PlayerControls playerControls;
@@ -44,6 +57,8 @@ namespace Actor.Player
         // Components and GameObjects
         private HUDController _hudController;
         private Transform _reticle;
+        private Transform _itemObject;
+        private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
         private postProcessingScript _postProcessing;
         private Animator _animator;
@@ -52,30 +67,56 @@ namespace Actor.Player
         // current scene for death
         private string scene;
 
-        void Awake() {
-            _reticle = gameObject.GetChildTransformWithName("Reticle");
-            _reticle.gameObject.SetActive(false);
+        void Awake()
+        {
+            Debug.Log("Awake()");
+            if (Instance == null)
+            {
+                Instance = this;
+                
+                _reticle = gameObject.GetChildTransformWithName("Reticle");
+                _reticle.gameObject.SetActive(false);
 
-            playerInput = GetComponent<PlayerInput>();
-            playerControls = new PlayerControls();
-            _animator = GetComponentInChildren<Animator>();
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+                _itemObject = gameObject.GetChildTransformWithName("Item");
+                _itemObject.gameObject.SetActive(false);
+                _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
 
-            _rb = GetComponent<Rigidbody2D>();
+                playerInput = GetComponent<PlayerInput>();
+                playerControls = new PlayerControls();
+                _animator = GetComponentInChildren<Animator>();
+                _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+                _rb = GetComponent<Rigidbody2D>();
+                
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (Instance != this)
+            {
+                Instance.transform.position = transform.position;
+                
+                Destroy(gameObject);
+            }
+            
+            GameManager.Resume();
         }
 
         void Start()
         {
-            playerCamera = Camera.main;
+            // playerCamera = Camera.main;
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
-
-            GameManager.Resume();
         }
 
-        private void OnEnable() => playerControls.Enable();
+        private void OnEnable()
+        {
+            playerControls?.Enable();
+        }
 
-        private void OnDisable() => playerControls.Disable();
+        //
+        private void OnDisable()
+        {
+            playerControls?.Disable();
+        }
 
         void Update() {
             if (GameManager.IsFrozen) return;
@@ -123,6 +164,8 @@ namespace Actor.Player
 
         #region Entity Interaction
 
+
+        public static void InflictDamageStatic(GameObject instigator, float damage, float knockBack = 0) => Instance.InflictDamage(instigator, damage, knockBack);
         public void InflictDamage(GameObject instigator, float damage, float knockBack = 0) 
         {
             hitPoints -= damage;
@@ -147,7 +190,7 @@ namespace Actor.Player
             _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
         }
 
-        public void OnKilled()
+        void OnKilled()
         {
             InventoryManager.OnKilled();
 
@@ -194,7 +237,7 @@ namespace Actor.Player
             //     _hudController.HideDialogue();
         }
 
-        public void OnTorchToggle()
+        void OnTorchToggle()
         {
             if (torchQuantity > 0) {
                 _torchToggle = !_torchToggle;
@@ -228,9 +271,11 @@ namespace Actor.Player
 
         #region Item Accessors
 
-        public void AddRope(float value) => ropeQuantity += value;
+        public static void AddRope(int value) => Instance._AddRope(value);
+        void _AddRope(int value) => ropeQuantity += value;
 
-        public void AddTorch(float value) => torchQuantity += value;
+        public static void AddTorch(int value) => Instance._AddTorch(value);
+        void _AddTorch(float value) => torchQuantity += value;
         
         #endregion
 

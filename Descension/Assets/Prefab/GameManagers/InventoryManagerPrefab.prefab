@@ -56,6 +56,16 @@ MonoBehaviour:
   - name: 
     inventorySprite: {fileID: 0}
     _quantity: -1
+  cachedSlots:
+  - name: 
+    inventorySprite: {fileID: 0}
+    _quantity: -1
+  - name: 
+    inventorySprite: {fileID: 0}
+    _quantity: -1
+  - name: 
+    inventorySprite: {fileID: 0}
+    _quantity: -1
   - name: 
     inventorySprite: {fileID: 0}
     _quantity: -1

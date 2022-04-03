@@ -1,4 +1,5 @@
 using System;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Items.Pickups
 
         public override String GetName() => HealthItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, PlayerPosition, Quantity);
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
@@ -56,7 +57,7 @@ namespace Items.Pickups
                 UIManager.GetHudController().ShowText("No Health Potions remaining!");
                 return;
             }
-            GameManager.PlayerController.HealDamage(_healAmount);
+            PlayerController.Instance.HealDamage(_healAmount);
             SoundManager.Heal();
             --Quantity;
         }

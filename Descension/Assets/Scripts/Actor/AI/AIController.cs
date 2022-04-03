@@ -60,6 +60,7 @@ namespace Actor.AI
             Debug.Log($"Enemy hit for {damage} damage");
             hitPoints -= damage;
             _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
+            SoundManager.EnemyHit();
         }
         
         void OnKilled()

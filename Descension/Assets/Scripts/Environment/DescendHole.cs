@@ -1,3 +1,4 @@
+using Actor.Player;
 using Managers;
 using UI.Controllers;
 using Util;
@@ -21,8 +22,8 @@ namespace Environment
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player")) {
-                if (GameManager.PlayerController.ropeQuantity > 0) {
-                    GameManager.PlayerController.AddRope(-1);
+                if (PlayerController.Instance.ropeQuantity > 0) {
+                    PlayerController.AddRope(-1);
                     UIManager.GetHudController().ShowText(showText);
 
                     if(nextLevel == Scene.Other)

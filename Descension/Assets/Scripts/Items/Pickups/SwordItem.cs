@@ -14,17 +14,18 @@ namespace Items.Pickups
         public static string Name = "Sword";
 
         [Header("Sword")]
-        public float damage = 10f;
-        public float swordReticleDistance = 2f;
+        public float damage = 10;
+        public float spriteOffset = 2;
+        public float spriteRotationOffset = 45;
+        public float reticleDistance = 4;
         public float knockBack = 0;
+        public int updateInterval = 3;
 
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-        {
-            return new Sword(damage, knockBack, swordReticleDistance, slotIndex, quantity, maxQuantity, inventorySprite);
-        }
+        public override Equippable CreateInstance(int slotIndex, int quantity) 
+            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -33,82 +34,112 @@ namespace Items.Pickups
     [Serializable]
     class Sword : Equippable
     {
-        private Transform _reticle;
-        private float _swordDamage;
+        private float _damage;
         private float _knockBack;
-        private float _swordReticleDistance;
+        private float _reticleDistance;
+        private float _spriteOffset;
+        private float _spriteRotationOffset;
         private bool _execute;
+        private float _angle;
+        private int _swing;
+        private bool _swinging;
+        private int _updateCount;
+        private int _updateInterval;
+        private int _swingHit;
+        private Transform _playerTransform;
+        private Camera _camera;
         private PlayerControls _playerControls;
-        
-        // gets the reticle object
-        private Transform Reticle
-        {
-            get
-            {
-                if (_reticle == null)
-                {
-                    _reticle = GameManager.PlayerController.gameObject.GetChildTransformWithName("Reticle");
-                }
-                return _reticle;
-            }
-        }
-        
-        public Sword(float swordDamage, float knockBack, float swordReticleDistance, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
-        {
-            name = GetName();
 
-            _swordDamage = swordDamage;
+        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        {
+            name = SwordItem.Name;
+
+            _damage = damage;
             _knockBack = knockBack;
-            _swordReticleDistance = swordReticleDistance;
+            _reticleDistance = reticleDistance;
+            _spriteOffset = spriteOffset;
+            _spriteRotationOffset = spriteRotationOffset;
+            _updateInterval = updateInterval;
+            _playerTransform = PlayerController.Instance.transform;
+            _camera = PlayerController.Camera;
             
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Sword(_swordDamage, _knockBack, _swordReticleDistance, slotIndex, quantity, maxQuantity, sprite);
+            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
 
-        public override String GetName() => SwordItem.Name;
+        public override String GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, GameManager.PlayerController.transform.position, Quantity);
+        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, PlayerPosition, Quantity);
 
-        public override void OnEquip() => Reticle.gameObject.SetActive(true);
+        public override void OnEquip()
+        {
+            Reticle.gameObject.SetActive(true);
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
+        }
 
-        public override void OnUnEquip() => Reticle.gameObject.SetActive(false);
+        public override void OnUnEquip()
+        {
+            Reticle.gameObject.SetActive(false);
+            SpriteTransform.gameObject.SetActive(false);
+        }
 
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
+        
         public override void FixedUpdate()
         {
-            PlayerController controller = GameManager.PlayerController;
-            Vector3 screenPoint = controller.playerCamera.WorldToScreenPoint(controller.transform.localPosition);
-            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
-            Vector3 position = controller.transform.position;
-            
-            Reticle.position = position + (direction * _swordReticleDistance);
-            
-            Debug.DrawLine(position, position + direction * _swordReticleDistance);
+            if (_updateCount++ % _updateInterval != 0) return;
 
+            Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
+            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
+            Vector3 position = _playerTransform.position;
+            
+            _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            
+            Reticle.position = position + (direction * _reticleDistance);
+            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
+            Debug.DrawLine(position, Reticle.position);
+
+            if (_swinging && _swing == _swingHit) CheckHit();
+            
+            float absAngle = Math.Abs(_angle);
+            if (absAngle >= 90 && _swing > -45) _swing -= 30;
+            else if (absAngle < 90 && _swing < 45) _swing += 30;
+            
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
             _execute = false;
+            _swinging = true;
             
-            if (Quantity <= 0)
+            if (absAngle >= 90)
             {
-                UIManager.GetHudController().ShowText("Sword has no durability!");
-                return;
+                _swing = 45;
+                _swingHit = 15;
             }
+            else
+            {
+                _swing = -45;
+                _swingHit = -15;
+            }
+
+            SoundManager.Swing();
+        }
+
+        void CheckHit()
+        {
+            _swinging = false;
             
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Vector2 attackPoint = position + (direction * _swordReticleDistance);
-            
-            Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint, new Vector2(2, 2), angle, (int) UnityLayer.Enemy);
+            Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(Reticle.position, new Vector2(2, 2), _angle, (int) UnityLayer.Enemy);
             foreach (Collider2D hit in hitEnemies)
             {
                 IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
                 if (damageable == null) damageable = hit.gameObject.GetComponentInParent<IDamageable>();
                 
-                damageable.InflictDamage(GameManager.PlayerController.gameObject, _swordDamage, _knockBack);
+                damageable.InflictDamage(PlayerController.Instance.gameObject, _damage, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;

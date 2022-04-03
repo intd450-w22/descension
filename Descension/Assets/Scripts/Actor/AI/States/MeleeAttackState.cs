@@ -1,3 +1,4 @@
+using Actor.Player;
 using UnityEngine;
 using Util.Enums;
 
@@ -34,7 +35,7 @@ namespace Actor.AI.States
             RaycastHit2D rayCast = Physics2D.BoxCast(Position, new Vector2(1, 1), 0, _direction, attackRange, (int) UnityLayer.Player);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
-                Player.InflictDamage(gameObject, damage, knockBack);
+                PlayerController.InflictDamageStatic(gameObject, damage, knockBack);
                 Debug.Log("Attack Hit!");
                 Debug.DrawLine(Position, rayCast.point, Color.red, 3);
             }
