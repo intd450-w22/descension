@@ -50,10 +50,6 @@ namespace Items.Pickups
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, PlayerPosition, Quantity);
 
-        public override void OnEquip() {}
-
-        public override void OnUnEquip() {}
-        
         public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
         public override void FixedUpdate()

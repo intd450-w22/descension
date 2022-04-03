@@ -103,11 +103,16 @@ namespace Items.Pickups
         }
 
         // called when equipped switches to different slot (equippable)
-        public virtual void OnEquip() { }
+        public virtual void OnEquip()
+        {
+            Sprite = inventorySprite;
+            SpriteTransform.gameObject.SetActive(true);
+            SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(2, 0,0), Quaternion.identity);
+        }
         
         // called when equipped switches from this slot (equippable)
-        public virtual void OnUnEquip() { }
-        
+        public virtual void OnUnEquip() => SpriteTransform.gameObject.SetActive(false);
+
         // called when item is dropped
         public void OnDrop()
         {
