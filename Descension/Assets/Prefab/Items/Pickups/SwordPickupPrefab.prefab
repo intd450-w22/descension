@@ -8,20 +8,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Size.x
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Size.y
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
-    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
-      propertyPath: m_WasSpriteAssigned
+      propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.009963036
+      objectReference: {fileID: 0}
+    - target: {fileID: -3944321773231228988, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 218398793189861090, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_RootOrder
@@ -67,9 +63,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1744057531512730108, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Name
       value: SwordPickupPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
+    - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: item
