@@ -40,7 +40,8 @@ namespace Items.Pickups
         private int _updateInterval;
         private int _updateCount;
         private bool _execute;
-        private int _swing = 45;
+        private int _swing;
+        private int _swingHit;
         private bool _swinging;
         private Vector3 _position;
         private Vector3 _direction;
@@ -90,24 +91,31 @@ namespace Items.Pickups
             _position = PlayerPosition;
             
             float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
-            float absAngle = Math.Abs(angle); 
-            
-            if (absAngle >= 90 && _swing > -45) _swing -= 15; 
-            else if (absAngle < 90 && _swing < 45) _swing += 15; 
-            
-            float pickAngle = angle - _spriteRotationOffset + _swing;
-            
             Reticle.position = _position + (_direction * _reticleDistance);
-            SpriteTransform.SetPositionAndRotation(_position + _direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, pickAngle) });
+            SpriteTransform.SetPositionAndRotation(_position + _direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, angle - _spriteRotationOffset + _swing) });
             
             Debug.DrawLine(_position, Reticle.position);
 
-            if (_swinging && _swing == 0) CheckHit();
+            if (_swinging && _swing == _swingHit) CheckHit();
+            
+            float absAngle = Math.Abs(angle);
+            if (absAngle >= 90 && _swing > -45) _swing -= 30; 
+            else if (absAngle < 90 && _swing < 45) _swing += 30; 
 
             if (!_execute) return;
             _execute = false;
-            _swing = absAngle >= 90 ? 45 : -45;
             _swinging = true;
+            
+            if (absAngle >= 90)
+            {
+                _swing = 45;
+                _swingHit = 15;
+            }
+            else
+            {
+                _swing = -45;
+                _swingHit = -15;
+            }
 
             SoundManager.Swing();
         }

@@ -45,6 +45,7 @@ namespace Items.Pickups
         private bool _swinging;
         private int _updateCount;
         private int _updateInterval;
+        private int _swingHit;
         private Transform _playerTransform;
         private Camera _camera;
         private PlayerControls _playerControls;
@@ -59,7 +60,6 @@ namespace Items.Pickups
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
             _updateInterval = updateInterval;
-            
             _playerTransform = PlayerController.Instance.transform;
             _camera = PlayerController.Camera;
             
@@ -100,22 +100,32 @@ namespace Items.Pickups
             
             _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
-            float absAngle = Math.Abs(_angle);
-            if (absAngle >= 90 && _swing > -45) _swing -= 15; 
-            else if (absAngle < 90 && _swing < 45) _swing += 15;
-
             Reticle.position = position + (direction * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
             Debug.DrawLine(position, Reticle.position);
 
-            if (_swinging && _swing == 0) CheckHit();
+            if (_swinging && _swing == _swingHit) CheckHit();
+            
+            float absAngle = Math.Abs(_angle);
+            if (absAngle >= 90 && _swing > -45) _swing -= 30;
+            else if (absAngle < 90 && _swing < 45) _swing += 30;
             
             //******** Try to Execute if key pressed *******//
             if (!_execute) return;
             _execute = false;
-            _swing = Math.Abs(_angle) >= 90 ? 45 : -45;
             _swinging = true;
             
+            if (absAngle >= 90)
+            {
+                _swing = 45;
+                _swingHit = 15;
+            }
+            else
+            {
+                _swing = -45;
+                _swingHit = -15;
+            }
+
             SoundManager.Swing();
         }
 
