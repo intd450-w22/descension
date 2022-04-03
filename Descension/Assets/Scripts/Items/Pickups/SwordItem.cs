@@ -41,6 +41,7 @@ namespace Items.Pickups
         private float _spriteRotationOffset;
         private bool _execute;
         private float _angle;
+        private Vector3 _direction;
         private int _swing;
         private bool _swinging;
         private int _updateCount;
@@ -95,14 +96,13 @@ namespace Items.Pickups
             if (_updateCount++ % _updateInterval != 0) return;
 
             Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
-            Vector3 direction = (Input.mousePosition - screenPoint).normalized;
+            _direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = _playerTransform.position;
             
-            _angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            _angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
             
-            Reticle.position = position + (direction * _reticleDistance);
-            SpriteTransform.SetPositionAndRotation(position + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
-            Debug.DrawLine(position, Reticle.position);
+            Reticle.position = position + (_direction * _reticleDistance);
+            SpriteTransform.SetPositionAndRotation(position + _direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
 
             if (_swinging && _swing == _swingHit) CheckHit();
             
@@ -133,11 +133,13 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(Reticle.position, new Vector2(2, 2), _angle, (int) UnityLayer.Enemy);
-            foreach (Collider2D hit in hitEnemies)
+            DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _angle, _direction, _reticleDistance, 0.5f, Color.blue);
+            
+            RaycastHit2D[] hitEnemies;
+            foreach (RaycastHit2D hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _angle, _direction, _reticleDistance, (int) UnityLayer.Enemy))
             {
-                IDamageable damageable = hit.gameObject.GetComponent<IDamageable>();
-                if (damageable == null) damageable = hit.gameObject.GetComponentInParent<IDamageable>();
+                IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
+                if (damageable == null) damageable = hit.collider.gameObject.GetComponentInParent<IDamageable>();
                 
                 damageable.InflictDamage(PlayerController.Instance.gameObject, _damage, _knockBack);
             }
