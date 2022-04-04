@@ -1,3 +1,4 @@
+using System;
 using Actor.AI.States;
 using Actor.Interface;
 using Items;
@@ -14,12 +15,14 @@ namespace Actor.AI
     {
         public int itemSpawnChance = 20;                    // percent chance of spawning a random item
         public float hitPoints = 100;
+        public int updateInterval = 3;
         public AIState initialState;
         public ItemSpawner.DropStruct[] drops;
         [SerializeField, ReadOnly] private AIState state;   // current state
 
         [HideInInspector] public NavMeshAgent agent;
-        
+
+        private int _updateCount;
         private bool _alive;                                // is the player alive
         private HUDController _hudController;
 
@@ -46,16 +49,16 @@ namespace Actor.AI
             
             _alive = true;
         }
-
-        void Update()
+        
+        private void FixedUpdate()
         {
-            if (GameManager.IsFrozen || !_alive) return;
-
+            if (GameManager.IsFrozen || !_alive || _updateCount++ % updateInterval != 0) return;
+            
             if (hitPoints <= 0) OnKilled();
             
-            else if (state) state.UpdateState();
+            if (state) state.UpdateState();
         }
-        
+
         public void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
         {
             Debug.Log($"Enemy hit for {damage} damage");

@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSpawnChance: 10
   hitPoints: 100
+  updateInterval: 3
   initialState: {fileID: 0}
   drops:
   - item: {fileID: 1528889670831214440, guid: 82785cde61f472c40be42416fe58e1c2, type: 3}
