@@ -68,6 +68,11 @@ namespace Items.Pickups
         
         public override void OnEquip()
         {
+            if (Reticle.localPosition.magnitude < 0.5)
+            {
+                Reticle.position = PlayerPosition + new Vector3(_reticleDistance,0,0);
+                SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(_spriteOffset,0,0), new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
+            }
             Reticle.gameObject.SetActive(true);
             PlayerController.ItemSprite = inventorySprite;
             SpriteTransform.gameObject.SetActive(true);

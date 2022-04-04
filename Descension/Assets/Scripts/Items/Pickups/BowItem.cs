@@ -81,6 +81,11 @@ namespace Items.Pickups
 
         public override void OnEquip()
         {
+            Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
+            var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
+            var direction = (Input.mousePosition - screenPoint).normalized;
+            SpriteTransform.SetPositionAndRotation(PlayerPosition + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
+            
             Reticle.gameObject.SetActive(true);
             Sprite = inventorySprite;
             SpriteTransform.gameObject.SetActive(true);
