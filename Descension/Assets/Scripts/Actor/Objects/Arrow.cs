@@ -14,16 +14,18 @@ namespace Actor.Objects
         public Transform sprite;
 
         private float _damage;
+        private float _knockBack;
         private Tag _targetTag;
         private Vector2 _velocity;
         
-        protected override void Initialize(Vector2 direction, float damage, Tag targetTag)
+        protected override void Initialize(Vector2 direction, float damage, float knockBack, Tag targetTag)
         {
             direction.Normalize();
             float angle = Vector2.SignedAngle(direction, Vector2.up);
             sprite.Rotate(Vector3.forward, -angle);
             _damage = damage;
             _velocity = direction * speed;
+            _knockBack = knockBack;
             _targetTag = targetTag;
         }
 
@@ -35,7 +37,7 @@ namespace Actor.Objects
         void Start()
         {
             SoundManager.ArrowAttack();
-            Invoke("_Destroy", timeToLive);
+            Invoke(nameof(_Destroy), timeToLive);
         }
 
         private void _Destroy() => Destroy(gameObject);
@@ -57,8 +59,8 @@ namespace Actor.Objects
             // set "Enemy" Tag to enemy object for this to work
             if (collision.CompareTag(_targetTag.ToString()))
             {
-                try { collision.gameObject.GetComponent<IDamageable>().InflictDamage(gameObject, _damage); }
-                catch { collision.gameObject.GetComponentInParent<IDamageable>().InflictDamage(gameObject, _damage); }
+                try { collision.gameObject.GetComponent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
+                catch { collision.gameObject.GetComponentInParent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
                 Destroy(gameObject);
             }
             else if (collision.CompareTag(Tag.Environment.ToString()))

@@ -16,6 +16,7 @@ namespace Items.Pickups
         [Header("Bow")]
         public GameObject arrowPrefab;
         public float damage = 10;
+        public float knockBack = 100;
         public float spriteOffset = 2;
         public float spriteRotationOffset = 45;
         public Vector2 spritePositionOffset;
@@ -25,7 +26,7 @@ namespace Items.Pickups
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)
-            => new Bow(arrowPrefab, damage, bowReticleDistance, spriteOffset, spriteRotationOffset,
+            => new Bow(arrowPrefab, damage, knockBack, bowReticleDistance, spriteOffset, spriteRotationOffset,
                 spritePositionOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
@@ -38,6 +39,7 @@ namespace Items.Pickups
         private Arrows _arrows;
         private GameObject _arrowPrefab;
         private float _damage;
+        private float _knockBack;
         private String _currentControlScheme = ControlScheme.Desktop.ToString();
         private float _bowReticleDistance;
         private float _spriteOffset;
@@ -55,11 +57,12 @@ namespace Items.Pickups
         }
 
         
-        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Bow(GameObject arrowPrefab, float damage, float knockBack, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
             _damage = damage;
+            _knockBack = knockBack;
             _bowReticleDistance = bowReticleDistance;
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
@@ -70,7 +73,7 @@ namespace Items.Pickups
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, slotIndex, quantity, maxQuantity, sprite);
+            => new Bow(_arrowPrefab, _damage, _knockBack, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
 
@@ -81,7 +84,10 @@ namespace Items.Pickups
             Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
-            SpriteTransform.SetPositionAndRotation(PlayerPosition + direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
+            
+            float bowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _spriteRotationOffset;
+            Vector3 bowPosition = PlayerPosition + _positionOffset + direction * _spriteOffset;
+            SpriteTransform.SetPositionAndRotation(bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
             
             Reticle.gameObject.SetActive(true);
             Sprite = inventorySprite;
@@ -136,7 +142,7 @@ namespace Items.Pickups
             Debug.DrawLine(playerPosition, playerPosition + direction * 3);
             
             // spawn arrow
-            Projectile.Instantiate(_arrowPrefab, bowPosition - _positionOffset, direction, _damage, Tag.Enemy);
+            Projectile.Instantiate(_arrowPrefab, bowPosition - _positionOffset, direction, _damage, _knockBack, Tag.Enemy);
             
             // reduce arrows quantity
             if (--Arrows.Quantity <= 0) Arrows = null;

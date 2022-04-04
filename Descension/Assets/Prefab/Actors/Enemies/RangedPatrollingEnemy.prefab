@@ -126,6 +126,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: onHit
+      value: 
+      objectReference: {fileID: 7904606063305443725}
+    - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: state
       value: 
       objectReference: {fileID: 8446171691210239767}
@@ -185,8 +189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1130725838682376733, guid: 7fa8938704920444ba75242b407ff99e, type: 3}
   damage: 8
-  attackDelay: 0.5
-  postDelay: 0.1
+  knockBack: 50
+  attackDelay: 0.2
+  postDelay: 0.5
   onComplete: {fileID: 7904606063305443725}
 --- !u!114 &7904606063305443725
 MonoBehaviour:
@@ -200,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reachThreshold: 15
+  reachThreshold: 25
   sightDistance: 45
   speed: 20
   onPlayerReached: {fileID: 6584073188895253326}

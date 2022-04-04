@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -54,6 +55,17 @@ namespace Util.Helpers
         public static Vector2 GetRotated(this Vector3 vector, float degrees)
         {
             return GetRotated((Vector2)vector, degrees);
+        }
+
+        public static float ToDegrees(this Vector3 vector)
+        {
+            return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+        }
+
+        public static Vector2 ToVector(this float angle)
+        {
+            double radians = angle * Mathf.Deg2Rad;
+            return new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians));
         }
 
         #endregion

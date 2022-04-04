@@ -141,7 +141,7 @@ namespace Items.Pickups
                 IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
                 if (damageable == null) damageable = hit.collider.gameObject.GetComponentInParent<IDamageable>();
                 
-                damageable.InflictDamage(PlayerController.Instance.gameObject, _damage, _knockBack);
+                damageable.InflictDamage(_damage, _direction, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;
