@@ -190,8 +190,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1130725838682376733, guid: 7fa8938704920444ba75242b407ff99e, type: 3}
   damage: 8
   knockBack: 50
-  attackDelay: 0.2
-  postDelay: 0.5
+  attackDelay: 0.3
+  postDelay: 0.8
   onComplete: {fileID: 7904606063305443725}
 --- !u!114 &7904606063305443725
 MonoBehaviour:
