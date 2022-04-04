@@ -13,10 +13,14 @@ namespace Environment
         public bool destroyAfterInteraction = true;
         public FactKey Fact;
 
-        private bool _playerInRange = false;
+        private bool _inspected;
+        private bool _playerInRange;
         
         void Update() {
-            if (_playerInRange && Input.GetKeyDown(KeyCode.F)) {
+            if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
+            {
+                _inspected = true;
+                
                 SoundManager.Inspection();
                 FactManager.SetFact(Fact, true);
                 
