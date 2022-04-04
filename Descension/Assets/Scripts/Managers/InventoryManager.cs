@@ -6,6 +6,7 @@ using Actor.Player;
 using Items.Pickups;
 using UnityEngine;
 using Util.EditorHelpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Managers
 {
@@ -54,7 +55,14 @@ namespace Managers
             if (GameManager.IsFrozen) return;
 
             // check for equipped item slot change
-            if      (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
+            int scroll;
+            if (equippedSlot != -1 && (scroll = (int) Input.mouseScrollDelta.y) != 0)
+            {
+                int i = equippedSlot;
+                while (slots[i = SafeIndex(i+scroll, slots.Count)].Quantity <= 0) {}
+                if (i != equippedSlot) EquipSlot(i);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
             else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);
             else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].Quantity >= 0) EquipSlot(2);
             else if (Input.GetKeyDown(KeyCode.Alpha4) && slots[3].Quantity >= 0) EquipSlot(3);
@@ -155,6 +163,15 @@ namespace Managers
         public static bool PickupItem(EquippableItem item, ref int quantity) => Instance._PickupItem(item, ref quantity);
         private bool _PickupItem(EquippableItem item, ref int quantity)
         {
+            // torch custom logic
+            if (item.name == TorchItem.Name)
+            {
+                PlayerController.AddTorch(quantity);
+                quantity = 0;
+                return true;
+            }
+            
+            
             int initialQuantity = quantity;
 
             // add durability/quantity if already have this item
@@ -181,14 +198,28 @@ namespace Managers
                     if (equippedSlot == -1) EquipSlot(i); // auto equip if we have nothing equipped
                 }
             }
-            
-            Debug.Log("Remaining Extra " + quantity);
+
+            if (quantity == initialQuantity)
+            {
+                SwapEquipped(item, ref quantity);
+                return true;
+            }
             // returns false only if no items were picked up
             return quantity != initialQuantity;
         }
+
+        // drops currently equipped item and picks up item
+        public static void SwapEquipped(EquippableItem item, ref int quantity) => Instance._SwapEquipped(item, ref quantity);
+        void _SwapEquipped(EquippableItem item, ref int quantity)
+        {
+            int slot = equippedSlot;
+            DropSlot(equippedSlot);
+            PickupItem(item, ref quantity);
+            EquipSlot(slot);
+            quantity = 0;
+        }
         
         // remove item from slot and update UI
-        
         void ClearSlot(int slotIndex)
         {
             slots[slotIndex].Quantity = -1;

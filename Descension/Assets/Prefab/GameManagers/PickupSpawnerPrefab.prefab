@@ -51,3 +51,4 @@ MonoBehaviour:
   explosivesPickupPrefab: {fileID: 6561169276671324964, guid: e024ff88e6e996f4b840fc05af68cf46, type: 3}
   timerPickupPrefab: {fileID: 8046490906781319, guid: 0eb278df4ecc42543b97fff55d2b1002, type: 3}
   triggerPickupPrefab: {fileID: 6912803517155078273, guid: b638d27f47a8d6048a30fd7c56c9e583, type: 3}
+  torchPickupPrefab: {fileID: 1528889670831214440, guid: 82785cde61f472c40be42416fe58e1c2, type: 3}

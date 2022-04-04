@@ -101,7 +101,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage
-      value: Health Potion Acquired
+      value: 'Health Potion Acquired. The secret ingredient is strawberries. It''s
+        how it gets its red colour. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[0]
+      value: Health Potion Acquired.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[1]
+      value: The secret ingredient is strawberries.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
+      propertyPath: pickupMessage.Array.data[2]
+      value: It's how it gets its red colour.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead010dce7bc557409079a73ca363b5e, type: 3}

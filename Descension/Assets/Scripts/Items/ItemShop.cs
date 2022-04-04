@@ -47,7 +47,7 @@ namespace Items
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            DialogueManager.ShowNotification("Press T to talk");   
+            DialogueManager.ShowNotification("Press T to talk   Press F to buy");   
             if (other.gameObject.CompareTag("Player")) _inRange = true;
         }
 

@@ -709,7 +709,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.95
+  m_fontSize: 40.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6204,7 +6204,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.95
+  m_fontSize: 40.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6365,6 +6365,9 @@ MonoBehaviour:
   - item: {fileID: 8256232585060741582, guid: 9ff47cef087ec6743a9c22fa591095f0, type: 3}
     cost: 20
     quantity: 1
+  - item: {fileID: 851537908566591154, guid: e1ad0b54328ae6b45bf1eea31b7d376d, type: 3}
+    cost: 20
+    quantity: 15
   spawned:
   - {fileID: 0}
   - {fileID: 0}
@@ -9209,7 +9212,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.95
+  m_fontSize: 40.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
