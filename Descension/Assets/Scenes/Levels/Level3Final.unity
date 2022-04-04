@@ -911,9 +911,21 @@ PrefabInstance:
       propertyPath: linesOfDialogue.Array.data[1]
       value: Line 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771248, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 631043063c9891b4c88274396a1d0186, type: 3}
     - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2295,9 +2307,21 @@ PrefabInstance:
       propertyPath: linesOfDialogue.Array.data[4]
       value: I heard screaming down the road. Now, all I hear is quiet.
       objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771248, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 631043063c9891b4c88274396a1d0186, type: 3}
     - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: m_LocalPosition.x
