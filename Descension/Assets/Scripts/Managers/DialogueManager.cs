@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,11 @@ namespace Managers
     public class DialogueManager : MonoBehaviour
     {
         private string _name = "";
-        private Queue<string> _linesOfDialogue = new Queue<string>();
-        
+        private readonly Queue<string> _linesOfDialogue = new Queue<string>();
+        private Action _onDialogueComplete;
+
         private static DialogueManager _instance;
-        private static DialogueManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<DialogueManager>();
-                }
-                return _instance;
-            }
-        }
+        private static DialogueManager Instance => _instance ??= FindObjectOfType<DialogueManager>();
 
         void Awake()
         {
@@ -38,13 +30,14 @@ namespace Managers
             }
         }
 
-        public static void StartDialogue(string objectName, IEnumerable<string> lines) => Instance._StartDialogue(objectName, lines);
-        private void _StartDialogue(string objectName, IEnumerable<string> lines)
+        public static void StartDialogue(string objectName, IEnumerable<string> lines, Action onComplete = null) => Instance._StartDialogue(objectName, lines, onComplete);
+        private void _StartDialogue(string objectName, IEnumerable<string> lines, Action onComplete)
         {
             GameManager.Freeze();
 
             _name = objectName;
             _linesOfDialogue.Clear();
+            _onDialogueComplete = onComplete;
 
             foreach (var line in lines)
             {
@@ -61,6 +54,7 @@ namespace Managers
             {
                 GameManager.UnFreeze();
                 UIManager.GetHudController().HideDialogue();
+                _onDialogueComplete?.Invoke();
             }
             else
             {
