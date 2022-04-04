@@ -20,14 +20,13 @@ namespace Items.Pickups
         public float spriteRotationOffset = 45;
         public Vector2 spritePositionOffset;
         public float bowReticleDistance = 2f;
-        public int updateInterval = 3;
         
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity)
             => new Bow(arrowPrefab, damage, bowReticleDistance, spriteOffset, spriteRotationOffset,
-                spritePositionOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
+                spritePositionOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -44,8 +43,7 @@ namespace Items.Pickups
         private float _spriteOffset;
         private float _spriteRotationOffset;
         private Vector3 _positionOffset;
-        private int _updateInterval;
-        private int _updateCount;
+
         private bool _execute;
         private PlayerControls _playerControls;
 
@@ -57,7 +55,7 @@ namespace Items.Pickups
         }
 
         
-        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Bow(GameObject arrowPrefab, float damage, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
@@ -66,14 +64,13 @@ namespace Items.Pickups
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
             _positionOffset = positionOffset;
-            _updateInterval = updateInterval;
             _playerControls = new PlayerControls();
             _playerControls.Enable();
             
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
+            => new Bow(_arrowPrefab, _damage, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
 
@@ -101,8 +98,6 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            if (_updateCount++ % _updateInterval != 0) return;
-            
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             var direction = (Input.mousePosition - screenPoint).normalized;
             

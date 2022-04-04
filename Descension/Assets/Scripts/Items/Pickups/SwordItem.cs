@@ -19,13 +19,12 @@ namespace Items.Pickups
         public float spriteRotationOffset = 45;
         public float reticleDistance = 4;
         public float knockBack = 0;
-        public int updateInterval = 3;
 
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -44,14 +43,12 @@ namespace Items.Pickups
         private Vector3 _direction;
         private int _swing;
         private bool _swinging;
-        private int _updateCount;
-        private int _updateInterval;
         private int _swingHit;
         private Transform _playerTransform;
         private Camera _camera;
         private PlayerControls _playerControls;
 
-        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = SwordItem.Name;
 
@@ -60,7 +57,6 @@ namespace Items.Pickups
             _reticleDistance = reticleDistance;
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
-            _updateInterval = updateInterval;
             _playerTransform = PlayerController.Instance.transform;
             _camera = PlayerController.Camera;
             
@@ -69,7 +65,7 @@ namespace Items.Pickups
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
+            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
 
@@ -99,8 +95,6 @@ namespace Items.Pickups
         
         public override void FixedUpdate()
         {
-            if (_updateCount++ % _updateInterval != 0) return;
-
             Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
             _direction = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = _playerTransform.position;

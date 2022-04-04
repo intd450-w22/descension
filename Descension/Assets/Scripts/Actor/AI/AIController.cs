@@ -24,7 +24,7 @@ namespace Actor.AI
 
         [HideInInspector] public NavMeshAgent agent;
 
-        private int _updateCount;
+        private int _updateCount = 1;
         private bool _alive;                                // is the player alive
         private HUDController _hudController;
 
