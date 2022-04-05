@@ -30,6 +30,7 @@ namespace Actor.AI
         private bool _alive;                                // is the player alive
         private Rigidbody2D _rb;
         private HUDController _hudController;
+        private SpriteRenderer _spriteRenderer;
 
         
         void Awake()
@@ -39,6 +40,7 @@ namespace Actor.AI
             agent.updateRotation = false;
             agent.updateUpAxis = false;
             _rb = actor.GetComponent<Rigidbody2D>();
+            _spriteRenderer = actor.GetComponent<SpriteRenderer>();
         }
         
         void Start()
@@ -63,6 +65,8 @@ namespace Actor.AI
             if (GameManager.IsFrozen || !_alive || ++_updateCount % updateInterval != 0) return;
 
             if (activeRangeSq < (PlayerController.Position - agent.transform.position).sqrMagnitude) return;
+
+            _spriteRenderer.flipX = agent.velocity.x < 0;
             
             if (agent.enabled) state.UpdateState();
             else if (_rb.velocity.sqrMagnitude < 1) EnableNavigation();
