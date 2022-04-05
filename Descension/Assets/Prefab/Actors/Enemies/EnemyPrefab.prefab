@@ -168,7 +168,7 @@ MonoBehaviour:
     dropChance: 9
     quantity: 0
   - item: {fileID: 1378478408843958901, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
-    dropChance: 3
+    dropChance: 5
     quantity: 0
   - item: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
     dropChance: 2
