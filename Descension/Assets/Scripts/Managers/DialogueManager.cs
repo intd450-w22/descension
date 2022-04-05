@@ -55,6 +55,7 @@ namespace Managers
                 GameManager.UnFreeze();
                 UIManager.GetHudController().HideDialogue();
                 _onDialogueComplete?.Invoke();
+                _onDialogueComplete = null;
             }
             else
             {
