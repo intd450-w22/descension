@@ -77,9 +77,12 @@ namespace Actor.AI
             _alive = false;
             
             ItemSpawner.SpawnRandom(agent.transform.position, drops);
-
-            Destroy(gameObject); // for now 
-            // TODO change to dead sprite / make body searchable? 
+            
+            // lay down and disable collision
+            _rb.simulated = false;
+            agent.GetComponent<Animator>().enabled = false;
+            agent.transform.Rotate(new Vector3(0,0,1), 90);
+            agent.GetComponent<SpriteRenderer>().color = new Color(0.2f,0.2f,0.2f,1);
         }
 
         public void SetState(AIState newState)
@@ -96,17 +99,19 @@ namespace Actor.AI
         
         public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
         {
+            if (!_alive) return;
             
             Debug.Log($"Enemy hit for {damage} damage");
             
             _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
+            
             SoundManager.EnemyHit();
             
             hitPoints -= damage;
             
             if (hitPoints <= 0) OnKilled();
 
-            if (knockBack != 0)
+            else if (knockBack != 0)
             {
                 DisableNavigation();
                 _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
