@@ -17,6 +17,9 @@ namespace Managers
         [SerializeField] private int equippedSlot = -1;
         [SerializeField] private int gold = 0;
         
+        [SerializeField] private int updateInterval = 3;
+        private int _updateCount = 0;
+        
         private static InventoryManager _instance;
         private static InventoryManager Instance => _instance ??= FindObjectOfType<InventoryManager>();
 
@@ -76,7 +79,7 @@ namespace Managers
         
         void FixedUpdate()
         {
-            if (GameManager.IsFrozen) return;
+            if (GameManager.IsFrozen || ++_updateCount % updateInterval != 0) return;
             
             // run logic for equipped weapon
             if (equippedSlot != -1) slots[equippedSlot].FixedUpdate();

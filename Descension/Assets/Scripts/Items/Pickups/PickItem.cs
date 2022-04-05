@@ -19,13 +19,12 @@ namespace Items.Pickups
         public float reticleDistance = 2;
         public float spriteOffset = 2;
         public float spriteRotationOffset = 45;
-        public int updateInterval = 3;
         
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
         public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Pick(lootChance, reticleDistance, spriteOffset, spriteRotationOffset, updateInterval, slotIndex, quantity, maxQuantity, inventorySprite);
+            => new Pick(lootChance, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
     }
     
     
@@ -38,8 +37,6 @@ namespace Items.Pickups
         private float _reticleDistance;
         private float _spriteOffset;
         private float _spriteRotationOffset;
-        private int _updateInterval;
-        private int _updateCount;
         private bool _execute;
         private int _swing;
         private int _swingHit;
@@ -48,26 +45,30 @@ namespace Items.Pickups
         private Vector3 _direction;
         private PlayerControls _playerControls;
         
-        public Pick(float lootChance, float reticleDistance, float spriteOffset, float spriteRotationOffset, int updateInterval, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Pick(float lootChance, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
         {
             name = PickItem.Name;
             _lootChance = lootChance;
             _reticleDistance = reticleDistance;
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
-            _updateInterval = updateInterval;
             
             _playerControls = new PlayerControls();
             _playerControls.Enable();
         }
         
         public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Pick(_lootChance, _reticleDistance, _spriteOffset, _spriteRotationOffset, _updateInterval, slotIndex, quantity, maxQuantity, sprite);
+            => new Pick(_lootChance, _reticleDistance, _spriteOffset, _spriteRotationOffset, slotIndex, quantity, maxQuantity, sprite);
 
         public override String GetName() => name;
         
         public override void OnEquip()
         {
+            if (Reticle.localPosition.magnitude < 0.5)
+            {
+                Reticle.position = PlayerPosition + new Vector3(_reticleDistance,0,0);
+                SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(_spriteOffset,0,0), new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
+            }
             Reticle.gameObject.SetActive(true);
             PlayerController.ItemSprite = inventorySprite;
             SpriteTransform.gameObject.SetActive(true);
@@ -85,8 +86,6 @@ namespace Items.Pickups
 
         public override void FixedUpdate()
         {
-            if (_updateCount++ % _updateInterval != 0) return;
-            
             Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             _direction = (Input.mousePosition - screenPoint).normalized;
             _position = PlayerPosition;

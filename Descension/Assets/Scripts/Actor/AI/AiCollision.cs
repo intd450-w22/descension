@@ -1,3 +1,4 @@
+using Actor.Interface;
 using UnityEngine;
 using Actor.Player;
 using Managers;
@@ -12,7 +13,7 @@ public class AiCollision : MonoBehaviour {
         GameObject obj = other.gameObject;
         if (obj.CompareTag("Player"))
         {
-            PlayerController.InflictDamageStatic(gameObject, damage, knockBack);
+            obj.GetComponent<IDamageable>().InflictDamage(damage, gameObject, knockBack);
         }
     }
 }

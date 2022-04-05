@@ -7,6 +7,7 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Environment;
+using static Util.Helpers.CalculationHelper;
 
 
 namespace Actor.Player
@@ -63,6 +64,7 @@ namespace Actor.Player
         private postProcessingScript _postProcessing;
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
+        private bool _knocked;
 
         // current scene for death
         private string scene;
@@ -102,7 +104,6 @@ namespace Actor.Player
 
         void Start()
         {
-            // playerCamera = Camera.main;
             _hudController = UIManager.GetHudController();
             _postProcessing = FindObjectOfType<postProcessingScript>();
         }
@@ -146,7 +147,9 @@ namespace Actor.Player
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
 
-            _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+            if (!_knocked) _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+            else if (_rb.velocity.sqrMagnitude < 4) _knocked = false;
+
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
             // TODO: Refactor to use a constant or variable instead of magic numbers
@@ -165,23 +168,33 @@ namespace Actor.Player
         #region Entity Interaction
 
 
-        public static void InflictDamageStatic(GameObject instigator, float damage, float knockBack = 0) => Instance.InflictDamage(instigator, damage, knockBack);
-        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0) 
+        public void InflictDamage(float damage, float direction, float knockBack = 0) => 
+            InflictDamage(damage, direction.ToVector(), knockBack);
+        
+        public void InflictDamage(float damage, GameObject instigator, float knockBack = 0) => 
+            InflictDamage(damage, (transform.position - instigator.transform.position).normalized, knockBack);
+
+        public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
         {
+            Debug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
+            
+            _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
+            
+            SoundManager.EnemyHit();
+            
             hitPoints -= damage;
-            _hudController.ShowFloatingText(transform.position, "HP -" + damage, Color.red);
+            
+            if (hitPoints <= 0) OnKilled();
 
             if (knockBack != 0)
             {
-                Vector2 direction = (transform.position - instigator.transform.position).normalized;
-                _rb.AddForce(direction * knockBack);
-            }
-
-            if (hitPoints < 1)
-            {
-                OnKilled();
+                _knocked = true;
+                _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
             }
         }
+
+        
+
 
         public void HealDamage(float heal)
         {
