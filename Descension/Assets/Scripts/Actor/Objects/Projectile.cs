@@ -7,12 +7,12 @@ namespace Actor.Objects
 {
     public abstract class Projectile : MonoBehaviour
     {
-        protected abstract void Initialize(Vector2 direction, float damage, Tag target);
+        protected abstract void Initialize(Vector2 direction, float damage, float knockBack, Tag target);
         
-        public static void Instantiate(GameObject prefab, Vector3 position, Vector3 direction, float damage, Tag targetTag)
+        public static void Instantiate(GameObject prefab, Vector3 position, Vector3 direction, float damage, float knockBack, Tag targetTag)
         {
             GameObject projectileObject = Object.Instantiate(prefab, position, Quaternion.identity);
-            projectileObject.GetComponent<Projectile>().Initialize(direction, damage, targetTag);
+            projectileObject.GetComponent<Projectile>().Initialize(direction, damage, knockBack, targetTag);
         }
     }
 }

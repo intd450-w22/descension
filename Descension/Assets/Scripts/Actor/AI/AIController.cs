@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Actor.AI.States;
 using Actor.Interface;
 using Actor.Player;
@@ -8,31 +9,36 @@ using UnityEngine;
 using UnityEngine.AI;
 using Managers;
 using Util.EditorHelpers;
+using Util.Helpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Actor.AI
 {
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
     public class AIController : MonoBehaviour, IDamageable
     {
-        public int itemSpawnChance = 20;                    // percent chance of spawning a random item
         public float hitPoints = 100;
         public int updateInterval = 3;
         public int activeRangeSq = 1000;  // only run FixedUpdate if in range of player
         public AIState initialState;
-        public ItemSpawner.DropStruct[] drops;
+        public AIState onHit;                               // state to transition to if hit by player
+        public ItemSpawner.DropStruct[] drops;              // item drop chances
         [SerializeField, ReadOnly] private AIState state;   // current state
-
         [HideInInspector] public NavMeshAgent agent;
 
         private int _updateCount = 1;
         private bool _alive;                                // is the player alive
+        private Rigidbody2D _rb;
         private HUDController _hudController;
 
+        
         void Awake()
         {
-            agent = GetComponentInChildren<NavMeshAgent>();
+            GameObject actor = gameObject.GetChildObjectWithName("Sprite");
+            agent = actor.GetComponent<NavMeshAgent>();
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            _rb = actor.GetComponent<Rigidbody2D>();
         }
         
         void Start()
@@ -58,17 +64,8 @@ namespace Actor.AI
 
             if (activeRangeSq < (PlayerController.Position - agent.transform.position).sqrMagnitude) return;
             
-            if (hitPoints <= 0) OnKilled();
-            
-            if (state) state.UpdateState();
-        }
-
-        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
-        {
-            Debug.Log($"Enemy hit for {damage} damage");
-            hitPoints -= damage;
-            _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
-            SoundManager.EnemyHit();
+            if (agent.enabled) state.UpdateState();
+            else if (_rb.velocity.sqrMagnitude < 1) EnableNavigation();
         }
         
         void OnKilled()
@@ -86,6 +83,44 @@ namespace Actor.AI
             if (state) state.EndState();
             state = newState;
             if (state) state.StartState();
+        }
+
+        public void InflictDamage(float damage, float direction, float knockBack = 0) => InflictDamage(damage, direction.ToVector(), knockBack);
+        
+        public void InflictDamage(float damage, GameObject instigator, float knockBack = 0) => 
+            InflictDamage(damage, (transform.position - instigator.transform.position), knockBack);
+        
+        public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
+        {
+            
+            Debug.Log($"Enemy hit for {damage} damage");
+            
+            _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
+            SoundManager.EnemyHit();
+            
+            hitPoints -= damage;
+            
+            if (hitPoints <= 0) OnKilled();
+
+            if (knockBack != 0)
+            {
+                DisableNavigation();
+                _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
+            }
+        }
+
+        private void DisableNavigation()
+        {
+            agent.enabled = false;
+            _rb.isKinematic = false;
+        }
+        
+        private void EnableNavigation()
+        {
+            agent.enabled = true;
+            _rb.isKinematic = true;
+            agent.nextPosition = _rb.position;
+            SetState(onHit);
         }
     }
 }

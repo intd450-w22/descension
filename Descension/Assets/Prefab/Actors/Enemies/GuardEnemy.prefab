@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3477702635066654964, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_BaseOffset
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3477702635066654964, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_ObstacleAvoidanceType
@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: onHit
+      value: 
+      objectReference: {fileID: 1252343656}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: state
       value: 
@@ -231,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDistance: 30
+  sightDistance: 10
   speed: 30
   onPlayerSpotted: {fileID: 1252343656}
 --- !u!114 &1252343656
@@ -246,10 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBack: 6000
+  knockBack: 30
   damage: 30
-  attackDelay: 0.2
-  attackRange: 3
+  attackDelay: 0.8
+  attackRange: 8
   postDelay: 0.5
   onComplete: {fileID: 1252343655}
 --- !u!61 &281865423
@@ -297,17 +301,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &281865418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958336963484157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34bdbc3bab09a1e4f8cd5e001a414f44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 30
-  knockBack: 0
