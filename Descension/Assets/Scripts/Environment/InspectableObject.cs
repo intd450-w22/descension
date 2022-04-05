@@ -1,5 +1,4 @@
 using Managers;
-using Rules;
 using UnityEngine;
 using Util.Enums;
 
@@ -9,17 +8,24 @@ namespace Environment
     {
         public string name;
         public string[] linesOfDialogue;
-
+        public bool destroyAfterInteraction = true;
         public FactKey Fact;
 
-        private bool _playerInRange = false;
+        private bool _inspected;
+        private bool _playerInRange;
         
         void Update() {
-            if (_playerInRange && Input.GetKeyDown(KeyCode.F)) {
-                DialogueManager.StartDialogue(name, linesOfDialogue);
+            if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
+            {
+                _inspected = true;
+                
                 SoundManager.Inspection();
-
                 FactManager.SetFact(Fact, true);
+                
+                DialogueManager.StartDialogue(name, linesOfDialogue, () =>
+                {
+                    if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
+                });
             }
         }
 

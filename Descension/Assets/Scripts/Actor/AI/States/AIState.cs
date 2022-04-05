@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Actor.Player;
 using Managers;
@@ -8,19 +9,11 @@ namespace Actor.AI.States
     public abstract class AIState : MonoBehaviour
     {
         private AIController _controller;
-        private AIController Controller
-        {
-            get
-            {
-                if (!_controller) _controller = GetComponent<AIController>();
-                return _controller;
-            }
-        }
-        
-        // protected PlayerController Player => PlayerController.Instance;
+        private AIController Controller => _controller ??= GetComponent<AIController>();
+
         protected Vector3 PlayerPosition => PlayerController.Position;
         protected Vector3 Position => Controller.agent.transform.position;
-        protected Vector3 Velocity => Controller.agent.velocity;
+        protected Vector3 Velocity { get => Controller.agent.velocity; set => Controller.agent.velocity = value; }
         protected float Speed { set => Controller.agent.speed = value; }
 
         private List<Transform> _patrolTargets;

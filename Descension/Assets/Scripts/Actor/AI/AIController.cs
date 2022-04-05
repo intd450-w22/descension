@@ -1,33 +1,46 @@
+using System;
+using System.Collections.Generic;
 using Actor.AI.States;
 using Actor.Interface;
+using Actor.Player;
 using Items;
 using UI.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
 using Managers;
 using Util.EditorHelpers;
+using Util.Helpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Actor.AI
 {
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
     public class AIController : MonoBehaviour, IDamageable
     {
-        public int itemSpawnChance = 20;                    // percent chance of spawning a random item
         public float hitPoints = 100;
+        public int updateInterval = 3;
+        public int activeRangeSq = 1000;  // only run FixedUpdate if in range of player
         public AIState initialState;
-        public ItemSpawner.DropStruct[] drops;
+        public AIState onHit;                               // state to transition to if hit by player
+        public ItemSpawner.DropStruct[] drops;              // item drop chances
         [SerializeField, ReadOnly] private AIState state;   // current state
-
         [HideInInspector] public NavMeshAgent agent;
-        
-        private bool _alive;                                // is the player alive
-        private HUDController _hudController;
 
+        private int _updateCount = 1;
+        private bool _alive;                                // is the player alive
+        private Rigidbody2D _rb;
+        private HUDController _hudController;
+        private SpriteRenderer _spriteRenderer;
+
+        
         void Awake()
         {
-            agent = GetComponentInChildren<NavMeshAgent>();
+            GameObject actor = gameObject.GetChildObjectWithName("Sprite");
+            agent = actor.GetComponent<NavMeshAgent>();
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+            _rb = actor.GetComponent<Rigidbody2D>();
+            _spriteRenderer = actor.GetComponent<SpriteRenderer>();
         }
         
         void Start()
@@ -46,22 +59,17 @@ namespace Actor.AI
             
             _alive = true;
         }
-
-        void Update()
-        {
-            if (GameManager.IsFrozen || !_alive) return;
-
-            if (hitPoints <= 0) OnKilled();
-            
-            else if (state) state.UpdateState();
-        }
         
-        public void InflictDamage(GameObject instigator, float damage, float knockBack = 0)
+        private void FixedUpdate()
         {
-            Debug.Log($"Enemy hit for {damage} damage");
-            hitPoints -= damage;
-            _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
-            SoundManager.EnemyHit();
+            if (GameManager.IsFrozen || !_alive || ++_updateCount % updateInterval != 0) return;
+
+            if (activeRangeSq < (PlayerController.Position - agent.transform.position).sqrMagnitude) return;
+
+            _spriteRenderer.flipX = agent.velocity.x < 0;
+            
+            if (agent.enabled) state.UpdateState();
+            else if (_rb.velocity.sqrMagnitude < 1) EnableNavigation();
         }
         
         void OnKilled()
@@ -69,9 +77,12 @@ namespace Actor.AI
             _alive = false;
             
             ItemSpawner.SpawnRandom(agent.transform.position, drops);
-
-            Destroy(gameObject); // for now 
-            // TODO change to dead sprite / make body searchable? 
+            
+            // lay down and disable collision
+            _rb.simulated = false;
+            agent.GetComponent<Animator>().enabled = false;
+            agent.transform.Rotate(new Vector3(0,0,1), 90);
+            agent.GetComponent<SpriteRenderer>().color = new Color(0.2f,0.2f,0.2f,1);
         }
 
         public void SetState(AIState newState)
@@ -79,6 +90,46 @@ namespace Actor.AI
             if (state) state.EndState();
             state = newState;
             if (state) state.StartState();
+        }
+
+        public void InflictDamage(float damage, float direction, float knockBack = 0) => InflictDamage(damage, direction.ToVector(), knockBack);
+        
+        public void InflictDamage(float damage, GameObject instigator, float knockBack = 0) => 
+            InflictDamage(damage, (transform.position - instigator.transform.position), knockBack);
+        
+        public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
+        {
+            if (!_alive) return;
+            
+            Debug.Log($"Enemy hit for {damage} damage");
+            
+            _hudController.ShowFloatingText(agent.transform.position, "Hp-" + damage, Color.red);
+            
+            SoundManager.EnemyHit();
+            
+            hitPoints -= damage;
+            
+            if (hitPoints <= 0) OnKilled();
+
+            else if (knockBack != 0)
+            {
+                DisableNavigation();
+                _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
+            }
+        }
+
+        private void DisableNavigation()
+        {
+            agent.enabled = false;
+            _rb.isKinematic = false;
+        }
+        
+        private void EnableNavigation()
+        {
+            agent.enabled = true;
+            _rb.isKinematic = true;
+            agent.nextPosition = _rb.position;
+            SetState(onHit);
         }
     }
 }
