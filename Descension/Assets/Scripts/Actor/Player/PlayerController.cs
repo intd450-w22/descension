@@ -61,6 +61,7 @@ namespace Actor.Player
         private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
         private postProcessingScript _postProcessing;
+        private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
 
@@ -150,16 +151,20 @@ namespace Actor.Player
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
             // TODO: Refactor to use a constant or variable instead of magic numbers
-            if (_torchToggle) {
-                if (torchQuantity > 0) {
-                    torchQuantity -= 1 * Time.deltaTime;
-                    _postProcessing?.SettVignetteIntensity(0.5f);
+            if (PostProcessing)
+            {
+                if (_torchToggle) {
+                    if (torchQuantity > 0) {
+                        torchQuantity -= 1 * Time.deltaTime;
+                        _postProcessing.SettVignetteIntensity(0.5f);
+                    } else {
+                        _postProcessing.SettVignetteIntensity(0.9f);
+                    }
                 } else {
-                    _postProcessing?.SettVignetteIntensity(0.9f);
+                    _postProcessing.SettVignetteIntensity(0.9f);
                 }
-            } else {
-                _postProcessing?.SettVignetteIntensity(0.9f);
             }
+            
         }
 
         #region Entity Interaction
