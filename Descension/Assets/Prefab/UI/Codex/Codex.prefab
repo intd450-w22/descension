@@ -295,7 +295,7 @@ MonoBehaviour:
     - ItemName: Health Potion
       ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
         its red colour. '
-      ItemSprite: {fileID: 21300000, guid: d41ef456d50fb9648983019f7b6d5af4, type: 3}
+      ItemSprite: {fileID: 21300000, guid: 69dbd34e3973d264ca42b44cc30f1794, type: 3}
       Rule:
         Criteria:
         - FactKey: 7
@@ -359,7 +359,7 @@ MonoBehaviour:
         came down here in a squad of nine. Watched my friends get eaten alive one
         by one until I was alone in the dark. If anyone finds this, tell my mom that
         I miss her.'
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 17
@@ -372,7 +372,7 @@ MonoBehaviour:
         Captain
         said this job would be easy. "Just plug in 3 batteries and push the button,"
         he said. "You''ll be home before you know it," he said. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 18
@@ -384,7 +384,7 @@ MonoBehaviour:
 
         There
         is scratching in the walls. I can feel it in my skull. The scratching. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 19
@@ -398,7 +398,7 @@ MonoBehaviour:
         lost the timer. We got ambushed by something in the dark, and by the time
         we had torches lit, it was gone. I think one of the creatures ran off with
         it.'
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 20
@@ -410,7 +410,7 @@ MonoBehaviour:
 
         Martin.
         If you see this, I''m sorry. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 21
@@ -423,7 +423,7 @@ MonoBehaviour:
         It''s
         been a month. I can''t find my way out. If the gods can hear me, please,
         get me out of here. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
       Rule:
         Criteria:
         - FactKey: 22
@@ -440,7 +440,7 @@ MonoBehaviour:
         they reached it, they started taking measurements and kept muttering to each
         other. I think I overheard one of them say, "it''s so much more worse than
         we thought."'
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: 963f0d12a52bbac47bd0f390747e6175, type: 3}
       Rule:
         Criteria:
         - FactKey: 23
@@ -455,7 +455,7 @@ MonoBehaviour:
         The beasts have destroyed all of our homes and eaten all of our neighbours.
         The last squadron of soldiers were supposed to come back two hours ago. I
         heard screaming down the road. Now, all I hear is quiet.'
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: 963f0d12a52bbac47bd0f390747e6175, type: 3}
       Rule:
         Criteria:
         - FactKey: 24
@@ -469,7 +469,7 @@ MonoBehaviour:
         Day 22. I never thought it would be like this,
         but I''m leaving. The village goes quiet once the sun comes up so I''m gonna
         make a break for the road and never look back. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      ItemSprite: {fileID: 21300000, guid: 963f0d12a52bbac47bd0f390747e6175, type: 3}
       Rule:
         Criteria:
         - FactKey: 25
@@ -1038,6 +1038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 0
+  clearInventoryCache: 0
 --- !u!1 &9175516794162708335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_Color: {r: 0.9843138, g: 0.94117653, b: 0.8235295, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -17,10 +17,11 @@ namespace Managers
         private static UIManager _instance;
         private static UIManager Instance => _instance ??= FindObjectOfType<UIManager>();
 
-        private List<UIController> _uiControllers;
-        private HUDController _hudController;
+        private List<UIController> _uiControllers;        
         private UIController _lastActiveUi;
         private UIController _previousActiveUI;
+
+        private HUDController _hudController;
         private ShopUIController _shopUIController;
         private CodexController _codexController;
 

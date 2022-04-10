@@ -1,8 +1,9 @@
 using Managers;
+using TMPro;
 using UI.MenuUI;
-using Util.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
+using Util.Helpers;
 
 namespace UI.Controllers
 {
@@ -12,18 +13,16 @@ namespace UI.Controllers
         public GameObject FloatingTextDamagePrefab;
         public GameObject FloatingTextDialoguePrefab;
 
-        private Text _notificationText;
+        private TextMeshProUGUI _promptText;
         private Image _dialogueBox;
-        private Text _dialogueName;
-        private Text _dialogueText;
+        private TextMeshProUGUI _dialogueName;
+        private TextMeshProUGUI _dialogueText;
         private Button _continueButton;
-        private Text _continueButtonText;
-        private Text _scoreUI;
-        private Text _bowUI;
-        private Text _pickUI;
-        private Text _torchUI;
-        private Text _ropeUI;
-        private Text _healthUI;
+        private TextMeshProUGUI _continueButtonText;
+        private TextMeshProUGUI _goldUI;
+        private TextMeshProUGUI _torchUI;
+        private TextMeshProUGUI _ropeUI;
+        private TextMeshProUGUI _healthUI;
         private ProgressBar _healthBar;
         private Hotbar _hotbar;
 
@@ -44,22 +43,20 @@ namespace UI.Controllers
         {
             try
             {
-                _notificationText = gameObject.GetChildObjectWithName("NotificationText").GetComponent<Text>();
+                _promptText = gameObject.GetChildObjectWithName("NotificationText").GetComponent<TextMeshProUGUI>();
                 _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
-                _dialogueName = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxName").GetComponent<Text>();
-                _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<Text>();
+                _dialogueName = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxName").GetComponent<TextMeshProUGUI>();
+                _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<TextMeshProUGUI>();
                 _continueButton = _dialogueBox.gameObject.GetChildObjectWithName("ContinueButton").GetComponent<Button>();
-                _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("Text").GetComponent<Text>();
+                _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("ContinueButtonText").GetComponent<TextMeshProUGUI>();
                 
                 var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
-                _scoreUI = rightHudGroup.GetChildObjectWithName("Score").GetComponent<Text>();
-                _bowUI = null; // guiGroup.GetChildObjectWithName("BowDurability").GetComponent<Text>();
-                _pickUI = null; // guiGroup.GetChildObjectWithName("PickDurability").GetComponent<Text>();
-                _torchUI = rightHudGroup.GetChildObjectWithName("TorchDurability").GetComponent<Text>();
-                _ropeUI = rightHudGroup.GetChildObjectWithName("RopeDurability").GetComponent<Text>();
+                _goldUI = rightHudGroup.GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
+                _torchUI = rightHudGroup.GetChildObjectWithName("TorchDurability").GetComponent<TextMeshProUGUI>();
+                _ropeUI = rightHudGroup.GetChildObjectWithName("RopeDurability").GetComponent<TextMeshProUGUI>();
 
                 var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
-                _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<Text>();
+                _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<TextMeshProUGUI>();
                 _healthBar = leftHudGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
@@ -74,15 +71,13 @@ namespace UI.Controllers
         {
             try
             {
-                _notificationText.enabled = false;
+                _promptText.enabled = false;
                 _dialogueBox.enabled = false;
                 _dialogueName.enabled = false;
                 _dialogueText.enabled = false;
                 _continueButton.enabled = false;
                 _continueButtonText.enabled = false;
-                _scoreUI.enabled = true;
-                _bowUI.enabled = false;
-                _pickUI.enabled = false;
+                _goldUI.enabled = true;
                 _torchUI.enabled = false;
                 _ropeUI.enabled = false;
                 _healthUI.enabled = true;
@@ -99,7 +94,7 @@ namespace UI.Controllers
 
         public void HideDialogue()
         {
-            _notificationText.enabled = false;
+            _promptText.enabled = false;
             _dialogueBox.enabled = false;
             _dialogueName.enabled = false;
             _dialogueText.enabled = false;
@@ -116,7 +111,7 @@ namespace UI.Controllers
         }
 
         public void ShowText(string text, string name = "") {
-            _notificationText.enabled = false;
+            _promptText.enabled = false;
             _dialogueBox.enabled = true;
             _dialogueName.enabled = true;
             _dialogueText.enabled = true;
@@ -127,23 +122,23 @@ namespace UI.Controllers
             _dialogueText.text = text;
         }
 
-        public void ShowNotification(string text) {
-            _notificationText.enabled = true;
-            _notificationText.text = text;
+        public void ShowPrompt(string text) {
+            _promptText.enabled = true;
+            _promptText.text = text;
         }
 
-        public void UpdateUi(float score, float ropeQuantity, float torchQuantity, float health)
+        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health)
         {
             try
             {
-                _scoreUI.text = "Gold/Score: " + score.ToString();
-                _healthUI.text = "Health: " + health.ToString();
+                _goldUI.text = $"Gold: {gold}";
+                _healthUI.text = $"Health: {health}";
                 _healthBar.Value = health;
 
                 if (ropeQuantity > 0)
                 {
                     _ropeUI.enabled = true;
-                    _ropeUI.text = "Rope " + ropeQuantity.ToString();
+                    _ropeUI.text = "Rope " + ropeQuantity;
                 }
                 else
                 {
@@ -153,7 +148,7 @@ namespace UI.Controllers
                 if (torchQuantity > 0)
                 {
                     _torchUI.enabled = true;
-                    _torchUI.text = "Torch " + Mathf.Floor(torchQuantity).ToString();
+                    _torchUI.text = "Torch " + Mathf.Floor(torchQuantity);
                 }
                 else
                 {
