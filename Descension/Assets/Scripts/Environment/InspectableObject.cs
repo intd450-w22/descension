@@ -15,16 +15,14 @@ namespace Environment
         private bool _playerInRange;
         
         void Update() {
-            if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
-            {
-                _inspected = true;
-                
+            if (_playerInRange && Input.GetKeyDown(KeyCode.F))
+            {   
                 SoundManager.Inspection();
                 FactManager.SetFact(Fact, true);
                 
                 DialogueManager.StartDialogue(name, linesOfDialogue, () =>
                 {
-                    if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
+                    // if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
                 });
             }
         }
