@@ -6,8 +6,6 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Environment;
-using static Util.Helpers.CalculationHelper;
 
 
 namespace Actor.Player
@@ -61,8 +59,6 @@ namespace Actor.Player
         private Transform _itemObject;
         private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
-        private postProcessingScript _postProcessing;
-        private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
         private bool _knocked;
@@ -106,7 +102,6 @@ namespace Actor.Player
         void Start()
         {
             _hudController = UIManager.GetHudController();
-            _postProcessing = FindObjectOfType<postProcessingScript>();
         }
 
         private void OnEnable()
@@ -153,19 +148,19 @@ namespace Actor.Player
 
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
-            // TODO: Refactor to use a constant or variable instead of magic numbers
-            if (PostProcessing)
+            if (GameManager.GlobalPostProcessing)
             {
-                if (_torchToggle) {
-                    if (torchQuantity > 0) {
-                        torchQuantity -= 1 * Time.deltaTime;
-                        _postProcessing.SettVignetteIntensity(0.5f);
-                    } else {
-                        _postProcessing.SettVignetteIntensity(0.9f);
-                    }
+                Debug.Log("GlobalPostProcessing Exists");
+                if (_torchToggle && torchQuantity > 0) {
+                    torchQuantity -= 1 * Time.deltaTime;
+                    GameManager.GlobalPostProcessing.SetTorchIntensity();
                 } else {
-                    _postProcessing.SettVignetteIntensity(0.9f);
+                    GameManager.GlobalPostProcessing.SetDefaultIntensity();
                 }
+            }
+            else
+            {
+                Debug.LogWarning("No Global Post Processing");
             }
             
         }

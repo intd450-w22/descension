@@ -8,14 +8,22 @@ namespace Environment
         public PostProcessVolume volume;
         private Vignette vignette;
 
+        [SerializeField] private readonly float _defaultIntensity = 0.9f;
+        [SerializeField] private readonly float _torchIntensity = 0.5f;
+
         void Start() {
             volume.profile.TryGetSettings(out vignette);
-            vignette.intensity.value = 0.9f; // TODO: Get this from a constant or variable
-            vignette.enabled.value = true;
+            SetDefaultIntensity();
+            Enable();
+
+            Debug.Log("Post Processing Start");
         }
 
-        public void SettVignetteIntensity(float value) {
-            vignette.intensity.value = value;
-        }
+        public void Enable() => vignette.enabled.value = true;
+        public void Disable() => vignette.enabled.value = false;
+
+        public void SetDefaultIntensity() => SetVignetteIntensity(_defaultIntensity);
+        public void SetTorchIntensity() => SetVignetteIntensity(_torchIntensity);
+        private void SetVignetteIntensity(float value) => vignette.intensity.value = value;
     }
 }
