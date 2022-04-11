@@ -39,10 +39,10 @@ namespace UI.Controllers.Codex
             var rightPage = gameObject.GetChildObjectWithName("RightPage");
             _pageDetailImage = rightPage.GetChildObjectWithName("PageDetailImage").GetComponent<Image>();
             _pageDetailText = rightPage
-                .GetChildObjectWithName("Scroll View")
-                .GetChildObjectWithName("Viewport")
-                .GetChildObjectWithName("PageDetailText")
-                .GetComponent<TextMeshProUGUI>();
+                ?.GetChildObjectWithName("Scroll View")
+                ?.GetChildObjectWithName("Viewport")
+                ?.GetChildObjectWithName("PageDetailText")
+                ?.GetComponent<TextMeshProUGUI>();
 
             _defaultSprite = _pageDetailImage.sprite;
         }
