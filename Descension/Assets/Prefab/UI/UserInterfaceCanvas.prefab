@@ -4769,6 +4769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level1MenuItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6063209492861917959, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4889,6 +4893,10 @@ PrefabInstance:
     - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Name
       value: ReturnMenuItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6063209492861917959, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Pivot.x
@@ -5363,6 +5371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Items
       objectReference: {fileID: 0}
+    - target: {fileID: 3230944011593829002, guid: ed31d6fabe6c11b45a443290ca75a7d0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3230944011593829003, guid: ed31d6fabe6c11b45a443290ca75a7d0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5470,6 +5482,10 @@ PrefabInstance:
     - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Name
       value: Level2MenuItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6063209492861917959, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Pivot.x
@@ -5931,6 +5947,10 @@ PrefabInstance:
     - target: {fileID: 1093864731735008739, guid: 5f15669b86d68a5498de8f83c3aee1bd, type: 3}
       propertyPath: m_Name
       value: LevelSelectTitle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093864731735008739, guid: 5f15669b86d68a5498de8f83c3aee1bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4201659921251046116, guid: 5f15669b86d68a5498de8f83c3aee1bd, type: 3}
       propertyPath: m_text
@@ -6944,6 +6964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level4MenuItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6063209492861917959, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -7906,6 +7930,10 @@ PrefabInstance:
     - target: {fileID: 7863564921217658613, guid: 5f0e81f85c6c4574cbd332e51e649da6, type: 3}
       propertyPath: m_Name
       value: MenuBackgroundPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863564921217658613, guid: 5f0e81f85c6c4574cbd332e51e649da6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f0e81f85c6c4574cbd332e51e649da6, type: 3}
@@ -9290,6 +9318,10 @@ PrefabInstance:
     - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Name
       value: Level3MenuItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063209492861917958, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6063209492861917959, guid: db2634fbc96dba4438d993921ab18a30, type: 3}
       propertyPath: m_Pivot.x
