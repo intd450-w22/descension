@@ -20,8 +20,10 @@ namespace UI.Controllers
         private Button _continueButton;
         private TextMeshProUGUI _continueButtonText;
         private TextMeshProUGUI _goldUI;
-        private TextMeshProUGUI _torchUI;
+        private GameObject _ropeGroup;
         private TextMeshProUGUI _ropeUI;
+        private GameObject _torchGroup;
+        private TextMeshProUGUI _torchUI;
         private TextMeshProUGUI _healthUI;
         private ProgressBar _healthBar;
         private Hotbar _hotbar;
@@ -51,9 +53,11 @@ namespace UI.Controllers
                 _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("ContinueButtonText").GetComponent<TextMeshProUGUI>();
                 
                 var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
-                _goldUI = rightHudGroup.GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
-                _torchUI = rightHudGroup.GetChildObjectWithName("TorchDurability").GetComponent<TextMeshProUGUI>();
-                _ropeUI = rightHudGroup.GetChildObjectWithName("RopeDurability").GetComponent<TextMeshProUGUI>();
+                _goldUI = rightHudGroup.GetChildObjectWithName("GoldGroup").GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
+                _ropeGroup = rightHudGroup.GetChildObjectWithName("RopeGroup");
+                _ropeUI = _ropeGroup.GetChildObjectWithName("Ropes").GetComponent<TextMeshProUGUI>();
+                _torchGroup = rightHudGroup.GetChildObjectWithName("TorchGroup");
+                _torchUI = _torchGroup.GetChildObjectWithName("Torches").GetComponent<TextMeshProUGUI>();
 
                 var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
                 _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<TextMeshProUGUI>();
@@ -72,14 +76,10 @@ namespace UI.Controllers
             try
             {
                 _promptText.enabled = false;
-                _dialogueBox.enabled = false;
-                _dialogueName.enabled = false;
-                _dialogueText.enabled = false;
-                _continueButton.enabled = false;
-                _continueButtonText.enabled = false;
-                _goldUI.enabled = true;
-                _torchUI.enabled = false;
-                _ropeUI.enabled = false;
+                _dialogueBox.gameObject.Disable();
+                _goldUI.gameObject.Enable();
+                _ropeGroup.Disable();
+                _torchGroup.Disable();
                 _healthUI.enabled = true;
                 _healthBar.enabled = true;
                 _hotbar.enabled = true;
@@ -95,11 +95,7 @@ namespace UI.Controllers
         public void HideDialogue()
         {
             _promptText.enabled = false;
-            _dialogueBox.enabled = false;
-            _dialogueName.enabled = false;
-            _dialogueText.enabled = false;
-            _continueButton.enabled = false;
-            _continueButtonText.enabled = false;
+            _dialogueBox.gameObject.Disable();
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
@@ -110,15 +106,11 @@ namespace UI.Controllers
         }
 
         public void ShowText(string text, string name = "") {
-            _promptText.enabled = false;
-            _dialogueBox.enabled = true;
-            _dialogueName.enabled = true;
-            _dialogueText.enabled = true;
-            _continueButton.enabled = true;
-            _continueButtonText.enabled = true;
-
             _dialogueName.text = name;
             _dialogueText.text = text;
+
+            _promptText.enabled = false;
+            _dialogueBox.gameObject.Enable();
         }
 
         public void ShowPrompt(string text) {
@@ -130,28 +122,28 @@ namespace UI.Controllers
         {
             try
             {
-                _goldUI.text = $"Gold: {gold}";
+                _goldUI.text = gold.ToString();
                 _healthUI.text = $"Health: {health}";
                 _healthBar.Value = health;
 
                 if (ropeQuantity > 0)
                 {
-                    _ropeUI.enabled = true;
-                    _ropeUI.text = "Rope " + ropeQuantity;
+                    _ropeGroup.Enable();
+                    _ropeUI.text = ropeQuantity.ToString();
                 }
                 else
                 {
-                    _ropeUI.enabled = false;
+                    _ropeGroup.Disable();
                 }
 
                 if (torchQuantity > 0)
                 {
-                    _torchUI.enabled = true;
-                    _torchUI.text = "Torch " + Mathf.Floor(torchQuantity);
+                    _torchGroup.Enable();
+                    _torchUI.text = Mathf.Floor(torchQuantity).ToString();
                 }
                 else
                 {
-                    _torchUI.enabled = false;
+                    _torchGroup.Disable();
                 }
             }
             catch (MissingReferenceException e)
