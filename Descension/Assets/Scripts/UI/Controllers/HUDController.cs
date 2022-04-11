@@ -43,7 +43,7 @@ namespace UI.Controllers
         {
             try
             {
-                _promptText = gameObject.GetChildObjectWithName("NotificationText").GetComponent<TextMeshProUGUI>();
+                _promptText = gameObject.GetChildObjectWithName("PromptText").GetComponent<TextMeshProUGUI>();
                 _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
                 _dialogueName = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxName").GetComponent<TextMeshProUGUI>();
                 _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<TextMeshProUGUI>();
@@ -103,9 +103,8 @@ namespace UI.Controllers
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
-
         public void ShowFloatingText(Vector3 location, string text, Color? color = null) {
-            var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMesh>();
+            var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMeshPro>();
             t.text = text;
             t.color = color ?? Color.black;
         }
