@@ -15,8 +15,6 @@ namespace Environment
             volume.profile.TryGetSettings(out vignette);
             SetDefaultIntensity();
             Enable();
-
-            Debug.Log("Post Processing Start");
         }
 
         public void Enable() => vignette.enabled.value = true;

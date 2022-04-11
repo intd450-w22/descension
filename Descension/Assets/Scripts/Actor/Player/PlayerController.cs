@@ -115,7 +115,8 @@ namespace Actor.Player
             playerControls?.Disable();
         }
 
-        void Update() {
+        void Update() 
+        {
             if (GameManager.IsFrozen) return;
 
             // TODO: Move this to an input listener
@@ -134,7 +135,8 @@ namespace Actor.Player
         }
 
 
-        void FixedUpdate() {
+        void FixedUpdate()
+        {
             if (GameManager.IsFrozen)
             {
                 _animator.SetBool("IsMoving", false);
@@ -148,21 +150,15 @@ namespace Actor.Player
 
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
 
-            if (GameManager.GlobalPostProcessing)
+            if (_torchToggle && torchQuantity > 0)
             {
-                Debug.Log("GlobalPostProcessing Exists");
-                if (_torchToggle && torchQuantity > 0) {
-                    torchQuantity -= 1 * Time.deltaTime;
-                    GameManager.GlobalPostProcessing.SetTorchIntensity();
-                } else {
-                    GameManager.GlobalPostProcessing.SetDefaultIntensity();
-                }
+                torchQuantity -= 1 * Time.deltaTime;
+                GameManager.GlobalPostProcessing.SetTorchIntensity();
             }
             else
             {
-                Debug.LogWarning("No Global Post Processing");
+                GameManager.GlobalPostProcessing.SetDefaultIntensity();
             }
-            
         }
 
         #region Entity Interaction
