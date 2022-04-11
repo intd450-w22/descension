@@ -133,6 +133,10 @@ namespace Actor.Player
             // TODO: Move this to an input listener        
             if (Input.GetKeyDown(KeyCode.Q)) 
             {
+                // Fixes a bug of not updating the postprocessing (on Awake()) after advancing levels
+                // TODO: find a better solution
+                _postProcessing = FindObjectOfType<postProcessingScript>();
+
                 OnTorchToggle();
             }
         }

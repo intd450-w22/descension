@@ -15,6 +15,10 @@ namespace Environment
         }
 
         public void SettVignetteIntensity(float value) {
+            // Debug.Log("Set Vignette: ");
+            // Debug.Log(value);
+            // Debug.Log(vignette.intensity.value);
+            // Debug.Log(vignette.enabled.value);
             vignette.intensity.value = value;
         }
     }
