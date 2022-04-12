@@ -114,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[0]
-      value: Pick Axe Acquired.
+      value: Pick Acquired.
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[1]
