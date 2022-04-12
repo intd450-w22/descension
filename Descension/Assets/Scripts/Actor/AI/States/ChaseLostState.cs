@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Actor.AI.States
 {
@@ -14,13 +16,15 @@ namespace Actor.AI.States
         public AIState onPlayerSpotted;
         public AIState onPlayerLost;
         
+        // state
         private Vector3 _target;
 
-        
         public override void StartState()
         {
             Speed = speed;
             _target = PlayerPosition;
+            
+            UpdateWeaponTransform(_target);
             SetDestination(_target);
         }
 

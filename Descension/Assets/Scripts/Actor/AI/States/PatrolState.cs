@@ -24,13 +24,17 @@ namespace Actor.AI.States
         
         private int _patrolIndex;               // index of current patrol target
         private int _patrolDirection = 1;       // tracks forward/backward for patrolling
+        private Vector3 _lookDirection;
         
         public override void StartState()
         {
             Speed = movementSpeed;
             _patrolIndex = FindClosest(Position, PatrolTargets);
             currentTarget = PatrolTargets[_patrolIndex];
-            SetDestination(currentTarget.position);
+            
+            var position = currentTarget.position;
+            UpdateWeaponTransform(position);
+            SetDestination(position);
         }
 
         public override void EndState(){}
@@ -38,9 +42,9 @@ namespace Actor.AI.States
         public override void UpdateState()
         {
             // add side to side sway to sight
-            Vector2 direction = Velocity.normalized.GetRotated((float) Math.Cos(Time.time * sightSwaySpeed) * sightSwayDegrees);
+            _lookDirection = Velocity.normalized.GetRotated((float) Math.Cos(Time.time * sightSwaySpeed) * sightSwayDegrees);
             
-            var rayCast = Physics2D.Raycast(Position, direction, sightDistance, (int)~UnityLayer.Enemy);
+            var rayCast = Physics2D.Raycast(Position, _lookDirection, sightDistance, (int)~UnityLayer.Enemy);
             if (rayCast)
             {
                 if (rayCast.transform.gameObject.CompareTag("Player"))
@@ -55,7 +59,7 @@ namespace Actor.AI.States
             }
             else
             {
-                Debug.DrawRay(Position, direction * sightDistance, Color.green);
+                Debug.DrawRay(Position, _lookDirection * sightDistance, Color.green);
             }
         
             if ((currentTarget.position - Position).magnitude < reachThreshold) GetNextTarget();
@@ -81,7 +85,10 @@ namespace Actor.AI.States
 
             _patrolIndex = SafeIndex(_patrolIndex, PatrolTargets.Count);
             currentTarget = PatrolTargets[_patrolIndex];
-            SetDestination(currentTarget.position);
+
+            var position = currentTarget.position;
+            UpdateWeaponTransform(position);
+            SetDestination(position);
         }
     }
 }

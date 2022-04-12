@@ -125,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856947, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856948, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Constraints
@@ -235,9 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDistance: 10
+  sightDistance: 40
   speed: 30
-  onPlayerSpotted: {fileID: 1252343656}
+  onPlayerSpotted: {fileID: 3536680100744711254}
 --- !u!114 &1252343656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,36 +252,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockBack: 30
   damage: 30
-  attackDelay: 0.8
-  attackRange: 8
-  postDelay: 0.5
-  onComplete: {fileID: 1252343655}
---- !u!61 &281865423
-BoxCollider2D:
+  attackDelay: 0.2
+  attackRange: 12
+  postDelay: 0.7
+  onComplete: {fileID: 3536680100744711254}
+--- !u!114 &3536680100744711254
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958336963484157}
+  m_GameObject: {fileID: 197958337391247056}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.9}
-    newSize: {x: 0.8, y: 0.9}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reachThreshold: 10
+  sightDistance: 15
+  speed: 30
+  onPlayerReached: {fileID: 1252343656}
+  onPlayerLost: {fileID: 1252343655}
 --- !u!95 &46958103590121935
 Animator:
   serializedVersion: 3
