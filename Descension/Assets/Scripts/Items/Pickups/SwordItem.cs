@@ -96,7 +96,7 @@ namespace Items.Pickups
             _aimDirection = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = _playerTransform.position;
             
-            _aimAngle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
+            _aimAngle = _aimDirection.ToDegrees();
             
             Reticle.position = position + (_aimDirection * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(position + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });

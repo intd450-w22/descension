@@ -87,8 +87,16 @@ namespace Managers
         
         // inventory logic for when player is killed
         public static void OnKilled() => Instance._OnKilled();
-        private void _OnKilled() => ClearSlots();
-        
+        private void _OnKilled()
+        {
+            PlayerController.Reticle.gameObject.SetActive(false);
+            PlayerController.SpriteTransform.DetachChildren();  // visually drop weapon
+            
+            Invoke(nameof(AttachWeaponSprite), 2);
+        }
+
+        public void AttachWeaponSprite() => PlayerController.ItemObject.SetParent(PlayerController.SpriteTransform);
+
         // called when reset is selected in menu
         public static void OnReloadScene() => Instance._OnReset();
         private void _OnReset()

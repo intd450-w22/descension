@@ -65,6 +65,11 @@ namespace Util.Helpers
         {
             return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
         }
+        
+        public static float ToDegrees(this Vector2 vector)
+        {
+            return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+        }
 
         public static Vector2 ToVector(this float angle)
         {

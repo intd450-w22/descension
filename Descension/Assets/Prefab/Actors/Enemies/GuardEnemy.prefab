@@ -49,11 +49,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 412.8051
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -342.39688
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911742645913, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -125,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856947, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856948, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Constraints
@@ -223,65 +223,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3333621911985856951, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 3241515827172292682}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1252343655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958337391247056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 10
-  speed: 30
-  onPlayerSpotted: {fileID: 1252343656}
---- !u!114 &1252343656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958337391247056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBack: 30
-  damage: 30
-  attackDelay: 0.8
-  attackRange: 8
-  postDelay: 0.5
-  onComplete: {fileID: 1252343655}
---- !u!61 &281865423
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958336963484157}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.9}
-    newSize: {x: 0.8, y: 0.9}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!95 &46958103590121935
 Animator:
   serializedVersion: 3
@@ -301,3 +242,63 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1252343655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958337391247056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b110a84a8aaaf44aba5f311756a66b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
+  sightDistance: 80
+  speed: 30
+  onPlayerSpotted: {fileID: 3536680100744711254}
+--- !u!114 &1252343656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958337391247056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
+  knockBack: 30
+  damage: 30
+  attackDelay: 0.2
+  attackRange: 12
+  attackBoxWidth: 8
+  postDelay: 0.7
+  onComplete: {fileID: 3536680100744711254}
+--- !u!114 &3536680100744711254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958337391247056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
+  reachThreshold: 10
+  sightDistance: 15
+  speed: 20
+  onPlayerReached: {fileID: 1252343656}
+  onPlayerLost: {fileID: 1252343655}

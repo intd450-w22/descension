@@ -12,7 +12,7 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) => new Arrows(this, maxQuantity, quantity);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Arrows(this, slotIndex, quantity);
     }
     
     // logic for arrows (only used as ammo for bow)

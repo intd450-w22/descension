@@ -3,7 +3,9 @@ using Actor.Player;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -79,15 +81,17 @@ namespace Items.Pickups
             _quantity = -1;
             _slotIndex = -1;
         }
+        
+        public Equippable(EquippableItem item, int slotIndex, int quantity) :
+            this(slotIndex, item.maxQuantity, quantity, item.cooldownTime, item.inventorySprite) {}
 
         public Equippable(Equippable equippable) :
             this(equippable._slotIndex, equippable._maxQuantity, equippable._quantity, equippable._cooldownTime, equippable.inventorySprite) {}
 
-        public Equippable(EquippableItem item, int slotIndex, int quantity) :
-            this(slotIndex, item.maxQuantity, quantity, item.cooldownTime, item.inventorySprite) {}
-
         private Equippable(int slotIndex, int maxQuantity, int quantity, float cooldownTime, Sprite sprite)
         {
+            Assert.IsTrue(slotIndex < InventoryManager.Slots.Count, "slotIndex " + slotIndex + " given in Equippable constructor, must be less than " + InventoryManager.Slots.Count);
+            
             _slotIndex = slotIndex;
             _maxQuantity = maxQuantity;
             

@@ -221,6 +221,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.69
+      objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: onHit
       value: 
@@ -253,6 +265,34 @@ PrefabInstance:
       propertyPath: patrollingAttributes.sightDistance
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4009484236193042015, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13803844
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.13803844
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
 --- !u!1 &456986996134527677 stripped
@@ -282,10 +322,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4dbef7cb1f75d45aff8b9577e18f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: -0.15}
   knockBack: 40
-  damage: 4
+  damage: 20
   attackDelay: 0.2
-  attackRange: 12
+  attackRange: 8
+  attackBoxWidth: 8
   postDelay: 0.5
   onComplete: {fileID: 1729076811}
 --- !u!114 &1729076810
@@ -300,6 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: -0.15}
   reachThreshold: 10
   sightDistance: 45
   speed: 20
@@ -317,6 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: -0.15}
   reachThreshold: 6
   sightDistance: 45
   speed: 20
@@ -334,6 +384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: -0.15}
   sightSwayDegrees: 60
   sightSwaySpeed: 6
   sightDistance: 30
