@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: 21300000, guid: 69dbd34e3973d264ca42b44cc30f1794, type: 3}
   maxQuantity: 5
+  cooldownTime: 0.5
   Fact: 7
   healAmount: 50

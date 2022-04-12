@@ -12,40 +12,25 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Arrows(slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Arrows(this, maxQuantity, quantity);
     }
     
     // logic for arrows (only used as ammo for bow)
     [Serializable]
-    public class Arrows : Equippable
+    internal class Arrows : Equippable
     {
-        private PlayerControls _playerControls;
+        public Arrows(ArrowsItem arrowsItem, int slotIndex, int quantity) : base(arrowsItem, slotIndex, quantity) => Init();
         
-        public Arrows(int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
-        {
-            name = GetName();
-            
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
-        }
+        public Arrows(Arrows arrows) : base(arrows) => Init();
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Arrows(slotIndex, quantity, maxQuantity, sprite);
+        private void Init() => name = ArrowsItem.Name;
 
-        public override String GetName() => ArrowsItem.Name;
+        public override Equippable DeepCopy() => new Arrows(this);
+
+        public override String GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, PlayerPosition, Quantity);
-
-        public override void Update()
-        {
-            // if player tries to execute, equip bow if we have one
-            if (_playerControls.Default.Shoot.WasPressedThisFrame())
-            {
-                InventoryManager.EquipFirstSlottedItem(BowItem.Name, false);
-            }
-        }
-
-
+        
+        protected override void Execute() => InventoryManager.EquipFirstSlottedItem(BowItem.Name, false);
     }
 }
