@@ -23,35 +23,39 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Sword(damage, knockBack, reticleDistance, spriteOffset, spriteRotationOffset, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Sword(this, slotIndex, quantity);
     }
-    
     
     
     // logic for sword
     [Serializable]
-    class Sword : Equippable
+    internal class Sword : Equippable
     {
+        // attributes
         private float _damage;
         private float _knockBack;
         private float _reticleDistance;
         private float _spriteOffset;
         private float _spriteRotationOffset;
-        private bool _execute;
-        private float _angle;
-        private Vector3 _direction;
-        private int _swing;
+        
+        // state
         private bool _swinging;
-        private int _swingHit;
+        private int _swingAngle;
+        private int _swingHitAngle;
+        private float _aimAngle;
+        private Vector3 _aimDirection;
         private Transform _playerTransform;
         private Camera _camera;
-        private PlayerControls _playerControls;
 
-        public Sword(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Sword(SwordItem swordItem, int slotIndex, int quantity) : base(swordItem, slotIndex, quantity) 
+            => Init(swordItem.damage, swordItem.knockBack, swordItem.reticleDistance, swordItem.spriteOffset, swordItem.spriteRotationOffset);
+
+        public Sword(Sword sword) : base(sword) 
+            => Init(sword._damage, sword._knockBack, sword._reticleDistance, sword._spriteOffset, sword._spriteRotationOffset);
+
+        private void Init(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset)
         {
             name = SwordItem.Name;
-
             _damage = damage;
             _knockBack = knockBack;
             _reticleDistance = reticleDistance;
@@ -59,13 +63,9 @@ namespace Items.Pickups
             _spriteRotationOffset = spriteRotationOffset;
             _playerTransform = PlayerController.Instance.transform;
             _camera = PlayerController.Camera;
-            
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Sword(_damage, _knockBack, _reticleDistance, _spriteOffset, _spriteRotationOffset, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new Sword(this);
 
         public override String GetName() => name;
 
@@ -89,41 +89,38 @@ namespace Items.Pickups
             Reticle.gameObject.SetActive(false);
             SpriteTransform.gameObject.SetActive(false);
         }
-
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-
         
-        public override void FixedUpdate()
+        protected override void FixedUpdate()
         {
             Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
-            _direction = (Input.mousePosition - screenPoint).normalized;
+            _aimDirection = (Input.mousePosition - screenPoint).normalized;
             Vector3 position = _playerTransform.position;
             
-            _angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+            _aimAngle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
             
-            Reticle.position = position + (_direction * _reticleDistance);
-            SpriteTransform.SetPositionAndRotation(position + _direction * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _angle - _spriteRotationOffset + _swing) });
+            Reticle.position = position + (_aimDirection * _reticleDistance);
+            SpriteTransform.SetPositionAndRotation(position + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
 
-            if (_swinging && _swing == _swingHit) CheckHit();
+            if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
             
-            float absAngle = Math.Abs(_angle);
-            if (absAngle >= 90 && _swing > -45) _swing -= 30;
-            else if (absAngle < 90 && _swing < 45) _swing += 30;
-            
-            //******** Try to Execute if key pressed *******//
-            if (!_execute) return;
-            _execute = false;
+            float absAngle = Math.Abs(_aimAngle);
+            if (absAngle >= 90 && _swingAngle > -45) _swingAngle -= 30;
+            else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
+        }
+
+        protected override void Execute()
+        {
             _swinging = true;
             
-            if (absAngle >= 90)
+            if (Math.Abs(_aimAngle) >= 90)
             {
-                _swing = 45;
-                _swingHit = 15;
+                _swingAngle = 45;
+                _swingHitAngle = 15;
             }
             else
             {
-                _swing = -45;
-                _swingHit = -15;
+                _swingAngle = -45;
+                _swingHitAngle = -15;
             }
 
             SoundManager.Swing();
@@ -133,15 +130,15 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _angle, _direction, _reticleDistance, 0.5f, Color.blue);
+            DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, 0.5f, Color.blue);
             
             RaycastHit2D[] hitEnemies;
-            foreach (RaycastHit2D hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _angle, _direction, _reticleDistance, (int) UnityLayer.Enemy))
+            foreach (RaycastHit2D hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, (int) UnityLayer.Enemy))
             {
                 IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
                 if (damageable == null) damageable = hit.collider.gameObject.GetComponentInParent<IDamageable>();
                 
-                damageable.InflictDamage(_damage, _direction, _knockBack);
+                damageable.InflictDamage(_damage, _aimDirection, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;

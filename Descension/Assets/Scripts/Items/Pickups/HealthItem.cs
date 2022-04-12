@@ -15,43 +15,36 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new HealthPotion(healAmount, slotIndex, quantity, maxQuantity, inventorySprite);
-        
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new HealthPotion(this, slotIndex, quantity);
     }
 
     // logic for health potion
     [Serializable]
-    class HealthPotion : Equippable
+    internal class HealthPotion : Equippable
     {
-        private bool _execute;
-        private PlayerControls _playerControls;
+        // attributes
         private float _healAmount;
-
-        public HealthPotion(float healAmount, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        
+        public HealthPotion(HealthItem healthItem, int slotIndex, int quantity) : base(healthItem, slotIndex, quantity) 
+            => Init(healthItem.healAmount);
+        
+        public HealthPotion(HealthPotion healthPotion) : base(healthPotion) 
+            => Init(healthPotion._healAmount);
+        
+        public void Init(float healAmount)
         {
-            name = GetName();
+            name = HealthItem.Name;
             _healAmount = healAmount;
-
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new HealthPotion(_healAmount, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new HealthPotion(this);
 
-        public override String GetName() => HealthItem.Name;
+        public override String GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, PlayerPosition, Quantity);
 
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-
-        public override void FixedUpdate()
+        protected override void Execute()
         {
-            //******** Try to Execute if key pressed *******//
-            if (!_execute) return;
-            _execute = false;
-
             if (Quantity <= 0)
             {
                 UIManager.GetHudController().ShowText("No Health Potions remaining!");

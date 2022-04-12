@@ -19,46 +19,41 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Trigger(range, outOfRangeMessage, addToBombMessage, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Trigger(this, slotIndex, quantity);
     }
     
     
     // logic for explosives
     [Serializable]
-    class Trigger : Equippable
+    internal class Trigger : Equippable
     {
+        // attributes
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
-        private bool _execute;
-        private PlayerControls _playerControls;
 
-        public Trigger(float range, string outOfRangeMessage, string addToBombMessage, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Trigger(TriggerItem triggerItem, int slotIndex, int quantity) : base(triggerItem, slotIndex, quantity) 
+            => Init(triggerItem.range, triggerItem.outOfRangeMessage, triggerItem.addToBombMessage);
+        
+        public Trigger(Trigger trigger) : base(trigger) 
+            => Init(trigger._range, trigger._outOfRangeMessage, trigger._addToBombMessage);
+        
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
         {
-            name = GetName();
+            name = TriggerItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Trigger(_range, _outOfRangeMessage, _addToBombMessage, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new Trigger(this);
 
-        public override String GetName() => TriggerItem.Name;
+        public override String GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TriggerPrefab, PlayerPosition, Quantity);
-
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-
-        public override void FixedUpdate()
+        
+        protected override void Execute()
         {
-            //******** Try to Execute if key pressed *******//
-            if (!_execute) return;
-            _execute = false;
-
             if (BombScript.Instance)
             {
                 float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;

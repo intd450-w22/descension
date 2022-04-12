@@ -18,46 +18,42 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Explosives(range, outOfRangeMessage, addToBombMessage, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Explosives(this, slotIndex, quantity);
     }
     
     
     // logic for explosives
     [Serializable]
-    class Explosives : Equippable
+    internal class Explosives : Equippable
     {
+        // attributes
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
-        private bool _execute;
-        private PlayerControls _playerControls;
-
-        public Explosives(float range, string outOfRangeMessage, string addToBombMessage, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        
+        public Explosives(ExplosivesItem explosivesItem, int slotIndex, int quantity) : base(explosivesItem, slotIndex, quantity) 
+            => Init(explosivesItem.range, explosivesItem.outOfRangeMessage, explosivesItem.addToBombMessage);
+        
+        public Explosives(Explosives explosives) : base(explosives) 
+            => Init(explosives._range, explosives._outOfRangeMessage, explosives._addToBombMessage);
+        
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
         {
-            name = GetName();
+            name = ExplosivesItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Explosives(_range, _outOfRangeMessage, _addToBombMessage, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new Explosives(this);
 
-        public override String GetName() => ExplosivesItem.Name;
+        public override String GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, PlayerPosition, Quantity);
 
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
-        public override void FixedUpdate()
+        protected override void Execute()
         {
-            //******** Try to Execute if key pressed *******//
-            if (!_execute) return;
-            _execute = false;
-            
             if (BombScript.Instance)
             {
                 float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
@@ -76,7 +72,6 @@ namespace Items.Pickups
                     DialogueManager.ShowNotification(_outOfRangeMessage);
                 }
             }
-            
         }
     }
 }
