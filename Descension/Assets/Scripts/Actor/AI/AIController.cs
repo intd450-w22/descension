@@ -31,7 +31,8 @@ namespace Actor.AI
         private Rigidbody2D _rb;
         private HUDController _hudController;
         private SpriteRenderer _spriteRenderer;
-
+        private Transform _weaponTransform;
+        public Transform WeaponTransform => _weaponTransform ??=  gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Weapon").GetComponent<Transform>();
         
         void Awake()
         {
@@ -83,6 +84,7 @@ namespace Actor.AI
             agent.GetComponent<Animator>().enabled = false;
             agent.transform.Rotate(new Vector3(0,0,1), 90);
             agent.GetComponent<SpriteRenderer>().color = new Color(0.2f,0.2f,0.2f,1);
+            
         }
 
         public void SetState(AIState newState)
