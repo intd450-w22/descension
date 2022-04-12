@@ -43,8 +43,8 @@ namespace Actor.Player
         [Header("Torch")]
         public float flickerSpeed = 10;
         public float flickerMagnitude = 0.02f;
-        public float torchVignetteIntensityOn = 0.5f;
-        public float torchVignetteIntensityOff = 0.9f;
+        public float TorchVignetteIntensityOn = 0.5f;
+        public float TorchVignetteIntensityOff = 0.9f;
 
         [Header("Inventory")]
         public float ropeQuantity = 0;
@@ -144,12 +144,15 @@ namespace Actor.Player
             if (Input.GetKeyDown(KeyCode.Q)) 
             {
                 OnTorchToggle();
+                return;
             }
         }
 
 
         void FixedUpdate()
         {
+            UpdateTorchVisuals();
+
             if (GameManager.IsFrozen)
             {
                 _animator.SetBool("IsMoving", false);
@@ -162,23 +165,25 @@ namespace Actor.Player
             else if (_rb.velocity.sqrMagnitude < 4) _knocked = false;
 
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
-            
+        }
+
+        private void UpdateTorchVisuals()
+        {
             if (_torchToggle) 
             {
                 if (torchQuantity > 0) 
                 {
                     torchQuantity -= 1 * Time.deltaTime;
-                    if (!_torchIlluminated && _torchState > torchVignetteIntensityOn) _torchState -= postProcessingScript.TorchIntensity;
+                    if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
                 else _torchToggle = false;
             }
             else
             {
-                if (_torchIlluminated && _torchState < torchVignetteIntensityOff) _torchState += postProcessingScript.TorchIntensity;
+                if (_torchIlluminated && _torchState < TorchVignetteIntensityOff) _torchState += TorchVignetteIntensityOn;
                 else _torchIlluminated = false;
             }
-
             PostProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
         }
 
