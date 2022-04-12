@@ -82,7 +82,7 @@ namespace Managers
             if (GameManager.IsFrozen || ++_updateCount % updateInterval != 0) return;
             
             // run logic for equipped weapon
-            if (equippedSlot != -1) slots[equippedSlot].FixedUpdate();
+            if (equippedSlot != -1) slots[equippedSlot].EquippedFixedUpdate();
         }
         
         // inventory logic for when player is killed

@@ -25,55 +25,56 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity)
-            => new Bow(arrowPrefab, damage, knockBack, bowReticleDistance, spriteOffset, spriteRotationOffset,
-                spritePositionOffset, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Bow(this, slotIndex, quantity);
     }
     
     
     
     // logic for bow
     [Serializable]
-    class Bow : Equippable
+    internal class Bow : Equippable
     {
-        private Arrows _arrows;
+        // attributes
         private GameObject _arrowPrefab;
         private float _damage;
         private float _knockBack;
-        private String _currentControlScheme = ControlScheme.Desktop.ToString();
-        private float _bowReticleDistance;
-        private float _spriteOffset;
+        private float _reticleDistance;
+        private float _spriteDistanceOffset;
         private float _spriteRotationOffset;
-        private Vector3 _positionOffset;
+        private Vector3 _spritePositionOffset;
+        private String _currentControlScheme = ControlScheme.Desktop.ToString();
 
-        private bool _execute;
-        private PlayerControls _playerControls;
-
+        // state
+        private Vector3 _bowPosition;
+        private Vector3 _direction;
+        
         // gets the arrow quiver if we have one
+        private Arrows _arrows;
         private Arrows Arrows
         {
             get => _arrows ??= (Arrows) InventoryManager.Slots.Find(slot => slot.name == "Arrows");
             set => _arrows = value;
         }
-
         
-        public Bow(GameObject arrowPrefab, float damage, float knockBack, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        public Bow(BowItem bowItem, int slotIndex, int quantity) : base(bowItem, slotIndex, quantity) 
+            => Init(bowItem.arrowPrefab, bowItem.damage, bowItem.knockBack, bowItem.bowReticleDistance, bowItem.spriteOffset, bowItem.spriteRotationOffset, bowItem.spritePositionOffset);
+
+        public Bow(Bow bow) : base(bow) 
+            => Init(bow._arrowPrefab, bow._damage, bow._knockBack, bow._reticleDistance, bow._spriteDistanceOffset, bow._spriteRotationOffset, bow._spritePositionOffset);
+
+        public void Init(GameObject arrowPrefab, float damage, float knockBack, float bowReticleDistance, float spriteOffset, float spriteRotationOffset, Vector2 positionOffset)
         {
             name = BowItem.Name;
             _arrowPrefab = arrowPrefab;
             _damage = damage;
             _knockBack = knockBack;
-            _bowReticleDistance = bowReticleDistance;
-            _spriteOffset = spriteOffset;
+            _reticleDistance = bowReticleDistance;
+            _spriteDistanceOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
-            _positionOffset = positionOffset;
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
-            
+            _spritePositionOffset = positionOffset;
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-            => new Bow(_arrowPrefab, _damage, _knockBack, _bowReticleDistance, _spriteOffset, _spriteRotationOffset, _positionOffset, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new Bow(this);
 
         public override String GetName() => name;
 
@@ -83,11 +84,11 @@ namespace Items.Pickups
         {
             Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
-            var direction = (Input.mousePosition - screenPoint).normalized;
+            _direction = (Input.mousePosition - screenPoint).normalized;
             
-            float bowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _spriteRotationOffset;
-            Vector3 bowPosition = PlayerPosition + _positionOffset + direction * _spriteOffset;
-            SpriteTransform.SetPositionAndRotation(bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
+            float bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
+            _bowPosition = PlayerPosition + _spritePositionOffset + _direction * _spriteDistanceOffset;
+            SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
             
             Reticle.gameObject.SetActive(true);
             Sprite = inventorySprite;
@@ -100,12 +101,11 @@ namespace Items.Pickups
             SpriteTransform.gameObject.SetActive(false);
         }
 
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
 
-        public override void FixedUpdate()
+        protected override void FixedUpdate()
         {
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
-            var direction = (Input.mousePosition - screenPoint).normalized;
+            _direction = (Input.mousePosition - screenPoint).normalized;
             
             // Set the position of the reticle on the screen according to input type
             if (_currentControlScheme == ControlScheme.Desktop.ToString())
@@ -118,19 +118,16 @@ namespace Items.Pickups
             {
                 // Place the reticle in a ring around the player 
                 // TODO: Add aiming with the right stick ala Enter the Gungeon 
-                Reticle.position = PlayerPosition + (direction * _bowReticleDistance);
+                Reticle.position = PlayerPosition + (_direction * _reticleDistance);
             }
             
-            float bowAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + _spriteRotationOffset;
-            Vector3 bowPosition = PlayerPosition + _positionOffset + direction * _spriteOffset;
-            SpriteTransform.SetPositionAndRotation(bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
+            float bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
+            _bowPosition = PlayerPosition + _spritePositionOffset + _direction * _spriteDistanceOffset;
+            SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
+        }
 
-            
-            
-            //******** Try to Execute if key pressed and have arrows *******//
-            if (!_execute) return;
-            _execute = false;
-            
+        protected override void Execute()
+        {
             if (Arrows == null)
             {
                 UIManager.GetHudController().ShowText("No arrows to shoot!");
@@ -139,14 +136,13 @@ namespace Items.Pickups
 
             Vector3 playerPosition = PlayerPosition;
             
-            Debug.DrawLine(playerPosition, playerPosition + direction * 3);
+            Debug.DrawLine(playerPosition, playerPosition + _direction * 3);
             
             // spawn arrow
-            Projectile.Instantiate(_arrowPrefab, bowPosition - _positionOffset, direction, _damage, _knockBack, Tag.Enemy);
+            Projectile.Instantiate(_arrowPrefab, _bowPosition - _spritePositionOffset, _direction, _damage, _knockBack, Tag.Enemy);
             
             // reduce arrows quantity
             if (--Arrows.Quantity <= 0) Arrows = null;
         }
-        
     }
 }

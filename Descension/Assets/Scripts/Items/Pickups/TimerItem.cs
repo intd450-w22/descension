@@ -19,46 +19,41 @@ namespace Items.Pickups
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
-        public override Equippable CreateInstance(int slotIndex, int quantity) 
-            => new Timer(range, outOfRangeMessage, addToBombMessage, slotIndex, quantity, maxQuantity, inventorySprite);
+        public override Equippable CreateInstance(int slotIndex, int quantity) => new Timer(this, slotIndex, quantity);
     }
     
     
-    // logic for explosives
+    // logic for timer
     [Serializable]
-    class Timer : Equippable
+    internal class Timer : Equippable
     {
+        // attributes
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
-        private bool _execute;
-        private PlayerControls _playerControls;
-
-        public Timer(float range, string outOfRangeMessage, string addToBombMessage, int slotIndex, int quantity, int maxQuantity, Sprite sprite) : base(slotIndex, quantity, maxQuantity, sprite)
+        
+        public Timer(TimerItem timerItem, int slotIndex, int quantity) : base(timerItem, slotIndex, quantity) 
+            => Init(timerItem.range, timerItem.outOfRangeMessage, timerItem.addToBombMessage);
+        
+        public Timer(Timer timer) : base(timer) 
+            => Init(timer._range, timer._outOfRangeMessage, timer._addToBombMessage);
+        
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
         {
-            name = GetName();
+            name = TimerItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
-            _playerControls = new PlayerControls();
-            _playerControls.Enable();
         }
         
-        public override Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Timer(_range, _outOfRangeMessage, _addToBombMessage, slotIndex, quantity, maxQuantity, sprite);
+        public override Equippable DeepCopy() => new Timer(this);
 
         public override String GetName() => TimerItem.Name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TimerPrefab, PlayerPosition, Quantity);
-
-        public override void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame();
-
-        public override void FixedUpdate()
+        
+        protected override void Execute()
         {
-            //******** Try to Execute if key pressed *******//
-            if (!_execute) return;
-            _execute = false;
-
             if (BombScript.Instance)
             {
                 float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
