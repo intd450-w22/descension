@@ -128,22 +128,22 @@ MonoBehaviour:
   goldDropChance: 40
   itemDrops:
   - item: {fileID: 1528889670831214440, guid: 82785cde61f472c40be42416fe58e1c2, type: 3}
-    dropChance: 9
+    dropChance: 4.5
     quantity: 0
   - item: {fileID: 1378478408843958901, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
-    dropChance: 5
+    dropChance: 2.5
     quantity: 0
   - item: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
-    dropChance: 2
+    dropChance: 1
     quantity: 0
   - item: {fileID: 256131215267094610, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
-    dropChance: 2
+    dropChance: 1
     quantity: 0
   - item: {fileID: 3079942900109169968, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
-    dropChance: 1
+    dropChance: 0.5
     quantity: 0
   - item: {fileID: 265401263657021110, guid: bb82f1bd952075448aafefb8e81a32de, type: 3}
-    dropChance: 1
+    dropChance: 0.5
     quantity: 0
 --- !u!208 &7624450830392919398
 NavMeshObstacle:
