@@ -32,6 +32,9 @@ namespace Actor.AI
         private HUDController _hudController;
         private SpriteRenderer _spriteRenderer;
         private Transform _weaponTransform;
+        private Animator _animator;
+        private int _animatorIsMovingId;
+        
         public Transform WeaponTransform => _weaponTransform ??=  gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Weapon").GetComponent<Transform>();
         
         void Awake()
@@ -42,6 +45,8 @@ namespace Actor.AI
             agent.updateUpAxis = false;
             _rb = actor.GetComponent<Rigidbody2D>();
             _spriteRenderer = actor.GetComponent<SpriteRenderer>();
+            _animator = actor.GetComponent<Animator>();
+            _animatorIsMovingId = Animator.StringToHash("IsMoving");
         }
         
         void Start()
@@ -67,8 +72,11 @@ namespace Actor.AI
 
             if (activeRangeSq < (PlayerController.Position - agent.transform.position).sqrMagnitude) return;
 
-            _spriteRenderer.flipX = agent.velocity.x < 0;
+            var velocity = agent.velocity;
+            _spriteRenderer.flipX = velocity.x < 0;
             
+            _animator.SetBool(_animatorIsMovingId, velocity != Vector3.zero);
+
             if (agent.enabled) state.UpdateState();
             else if (_rb.velocity.sqrMagnitude < 1) EnableNavigation();
         }
