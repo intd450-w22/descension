@@ -1,3 +1,4 @@
+using System;
 using Actor.Interface;
 using Managers;
 using UI.Controllers;
@@ -7,6 +8,7 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Environment;
+using Util.EditorHelpers;
 using static Util.Helpers.CalculationHelper;
 
 
@@ -17,6 +19,8 @@ namespace Actor.Player
     {
         // static accessors
         public static PlayerController Instance;
+        private static Transform _transform;
+        public static Transform SpriteTransform => _transform ??= Instance.gameObject.GetChildTransformWithName("Sprite");
         public static Transform Reticle => Instance._reticle;
         public static Vector3 Position => Instance.transform.position;
         public static Transform ItemObject => Instance._itemObject;
@@ -38,7 +42,11 @@ namespace Actor.Player
         public float maxHitPoints = 100f;
         public float hitPoints = 100f;
         
-        private bool _torchToggle = true;
+        [Header("Torch")]
+        public float flickerSpeed = 10;
+        public float flickerMagnitude = 0.02f;
+        public float TorchVignetteIntensityOn = 0.5f;
+        public float TorchVignetteIntensityOff = 0.9f;
 
         [Header("Inventory")]
         public float ropeQuantity = 0;
@@ -61,14 +69,27 @@ namespace Actor.Player
         private Transform _itemObject;
         private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
+        private bool _torchToggle;
+        private bool _torchIlluminated;  // prevents float comparison every frame
+        private float _torchState = 0.9f;
         private postProcessingScript _postProcessing;
         private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
         private bool _knocked;
+        private bool _alive;
 
-        // current scene for death
-        private string scene;
+        private bool knocked
+        {
+            get => _knocked;
+            set { _knocked = value; _animator.enabled = !value; }
+        }
+        
+        private bool alive
+        {
+            get => _alive;
+            set { _alive = value; _animator.enabled = value; }
+        }
 
         void Awake()
         {
@@ -79,8 +100,7 @@ namespace Actor.Player
                 
                 _reticle = gameObject.GetChildTransformWithName("Reticle");
                 _reticle.gameObject.SetActive(false);
-
-                _itemObject = gameObject.GetChildTransformWithName("Item");
+                _itemObject = gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Item").GetComponent<Transform>();
                 _itemObject.gameObject.SetActive(false);
                 _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
 
@@ -96,31 +116,21 @@ namespace Actor.Player
             else if (Instance != this)
             {
                 Instance.transform.position = transform.position;
-                
                 Destroy(gameObject);
             }
             
+            Instance.SetAlive();
             GameManager.Resume();
         }
 
-        void Start()
-        {
-            _hudController = UIManager.GetHudController();
-            _postProcessing = FindObjectOfType<postProcessingScript>();
-        }
+        void Start() => _hudController = UIManager.GetHudController();
 
-        private void OnEnable()
-        {
-            playerControls?.Enable();
-        }
+        private void OnEnable() => playerControls?.Enable();
+        
+        private void OnDisable() => playerControls?.Disable();
 
-        //
-        private void OnDisable()
+        void Update() 
         {
-            playerControls?.Disable();
-        }
-
-        void Update() {
             if (GameManager.IsFrozen) return;
 
             // TODO: Move this to an input listener
@@ -128,18 +138,20 @@ namespace Actor.Player
             {
                 GameManager.Pause();
                 UIManager.SwitchUi(UIType.Codex);
-                return;
             }
 
             // TODO: Move this to an input listener        
-            if (Input.GetKeyDown(KeyCode.Q)) 
+            else if (Input.GetKeyDown(KeyCode.Q)) 
             {
                 OnTorchToggle();
             }
         }
 
 
-        void FixedUpdate() {
+        void FixedUpdate()
+        {
+            UpdateTorchVisuals();
+
             if (GameManager.IsFrozen)
             {
                 _animator.SetBool("IsMoving", false);
@@ -148,26 +160,32 @@ namespace Actor.Player
 
             if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
 
-            if (!_knocked) _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
-            else if (_rb.velocity.sqrMagnitude < 4) _knocked = false;
-
-            _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
-
-            // TODO: Refactor to use a constant or variable instead of magic numbers
-            if (PostProcessing)
+            if (!knocked)
             {
-                if (_torchToggle) {
-                    if (torchQuantity > 0) {
-                        torchQuantity -= 1 * Time.deltaTime;
-                        _postProcessing.SettVignetteIntensity(0.5f);
-                    } else {
-                        _postProcessing.SettVignetteIntensity(0.9f);
-                    }
-                } else {
-                    _postProcessing.SettVignetteIntensity(0.9f);
-                }
+                _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+                _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
             }
-            
+            else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
+        }
+
+        private void UpdateTorchVisuals()
+        {
+            if (_torchToggle) 
+            {
+                if (torchQuantity > 0) 
+                {
+                    torchQuantity -= 1 * Time.deltaTime;
+                    if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
+                    else _torchIlluminated = true;
+                } 
+                else _torchToggle = false;
+            }
+            else
+            {
+                if (_torchIlluminated && _torchState < TorchVignetteIntensityOff) _torchState += TorchVignetteIntensityOn;
+                else _torchIlluminated = false;
+            }
+            PostProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
         }
 
         #region Entity Interaction
@@ -193,14 +211,26 @@ namespace Actor.Player
 
             if (knockBack != 0)
             {
-                _knocked = true;
+                knocked = true;
                 _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
             }
         }
-
         
-
-
+        private void SetAlive()
+        {
+            alive = true;
+            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = Vector3.zero };
+            _spriteRenderer.color = Color.white;
+        }
+        
+        private void SetDead()
+        {
+            alive = false;
+            _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
+            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = new Vector3(0,0,-90) };
+            InventoryManager.OnKilled();
+        }
+        
         public void HealDamage(float heal)
         {
             float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
@@ -210,15 +240,22 @@ namespace Actor.Player
 
         void OnKilled()
         {
-            InventoryManager.OnKilled();
-
-            if (GameManager.IsFrozen) return;
-
-            GameManager.Pause();
+            if (!alive || GameManager.IsFrozen) return;
             
-            UIManager.SwitchUi(UIType.Death);
+            GameManager.Freeze();
+            SetDead();
+            
+            Invoke(nameof(OpenDeathMenu), 3);
         }
 
+        void OpenDeathMenu()
+        {
+            GameManager.UnFreeze();
+            InventoryManager.OnKilled();
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.Death);
+        }
+        
         #endregion
 
         #region Player Input Callbacks

@@ -3,7 +3,9 @@ using Actor.Player;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -18,6 +20,9 @@ namespace Items.Pickups
         // the maximum quantity/durability for this item
         public int maxQuantity = 30;
 
+        // minimum time between executions
+        public float cooldownTime;
+        
         public abstract String GetName();
 
         public FactKey Fact;
@@ -30,33 +35,19 @@ namespace Items.Pickups
     [Serializable, CanBeNull]
     public class Equippable
     {
-        // do not use
-        public Equippable() { 
-            name = "";
-            _quantity = -1;
-            _slotIndex = -1;
-        }
-        public Equippable(int slotIndex, int quantity, int maxQuantity, Sprite sprite)
-        {
-            _slotIndex = slotIndex;
-            _maxQuantity = maxQuantity;
-            
-            Quantity = quantity;
-            inventorySprite = sprite;
-        }
-
-        public Equippable DeepCopy() => DeepCopy(_slotIndex, Quantity, _maxQuantity, inventorySprite);
-        
-        // must override
-        public virtual Equippable DeepCopy(int slotIndex, int quantity, int maxQuantity, Sprite sprite) 
-            => new Equippable(slotIndex, quantity, maxQuantity, sprite);
-
+        // attributes
         public String name = "";
-        [HideInInspector] public Sprite inventorySprite;
         [SerializeField] private int _quantity;
         private int _maxQuantity;
         private int _slotIndex;
-
+        private float _cooldownTime;
+        [HideInInspector] public Sprite inventorySprite;
+        
+        // state
+        private float _cooldown;
+        private bool _execute;
+        private static PlayerControls _playerControls;
+        
         // quantity/durability for item
         public int Quantity
         {
@@ -83,6 +74,40 @@ namespace Items.Pickups
         
         public delegate void OnQuantityUpdatedDelegate(int newDurability);
         public OnQuantityUpdatedDelegate OnQuantityUpdated;
+        
+        // do not use
+        public Equippable() { 
+            name = "";
+            _quantity = -1;
+            _slotIndex = -1;
+        }
+        
+        public Equippable(EquippableItem item, int slotIndex, int quantity) :
+            this(slotIndex, item.maxQuantity, quantity, item.cooldownTime, item.inventorySprite) {}
+
+        public Equippable(Equippable equippable) :
+            this(equippable._slotIndex, equippable._maxQuantity, equippable._quantity, equippable._cooldownTime, equippable.inventorySprite) {}
+
+        private Equippable(int slotIndex, int maxQuantity, int quantity, float cooldownTime, Sprite sprite)
+        {
+            Assert.IsTrue(slotIndex < InventoryManager.Slots.Count, "slotIndex " + slotIndex + " given in Equippable constructor, must be less than " + InventoryManager.Slots.Count);
+            
+            _slotIndex = slotIndex;
+            _maxQuantity = maxQuantity;
+            
+            Quantity = quantity;
+            inventorySprite = sprite;
+
+            _cooldownTime = cooldownTime;
+
+            if (_playerControls == null)
+            {
+                _playerControls = new PlayerControls();
+                _playerControls.Enable();
+            }
+        }
+
+        public virtual Equippable DeepCopy() => new Equippable(this);
 
         // return name of equippable item
         public virtual String GetName() { return name; }
@@ -122,9 +147,24 @@ namespace Items.Pickups
         }
 
         // called like regular MonoBehavior Update() if this item is equipped
-        public virtual void Update() {}
+        public void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame() && Time.time >= _cooldown;
 
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
-        public virtual void FixedUpdate() { }
+        public void EquippedFixedUpdate()
+        {
+            FixedUpdate();
+            
+            if (!_execute) return;
+            
+            _execute = false;
+            _cooldown = Time.time + _cooldownTime;
+            Execute();
+        }
+        
+        // called like regular MonoBehavior FixedUpdate() if this item is equipped
+        protected virtual void FixedUpdate() {}
+        
+        // called when execute button is pressed and cooldown has finished if this item is equipped
+        protected virtual void Execute() {}
     }
 }

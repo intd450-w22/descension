@@ -27,6 +27,10 @@ namespace Util.Helpers
 
         #region GameObject
 
+        public static void Enable(this GameObject gameObject) => gameObject.SetActive(true);
+        public static void Disable(this GameObject gameObject) => gameObject.SetActive(false);
+        public static bool IsEnabled(this GameObject gameObject) => gameObject.activeInHierarchy;
+
         public static GameObject GetChildObjectWithName(this Transform transform, string name)
         {
             foreach(Transform t in transform)
@@ -58,6 +62,11 @@ namespace Util.Helpers
         }
 
         public static float ToDegrees(this Vector3 vector)
+        {
+            return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+        }
+        
+        public static float ToDegrees(this Vector2 vector)
         {
             return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
         }

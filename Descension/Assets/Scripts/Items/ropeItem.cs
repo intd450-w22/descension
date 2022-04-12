@@ -1,7 +1,9 @@
+using System;
 using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
+using Random = UnityEngine.Random;
 
 namespace Items
 {
@@ -15,18 +17,14 @@ namespace Items
         private string[] _description = 
             new string[] {"Rope Collected.", "Be sure to hold on with both hands while descending. When ascending...well...God help you."};
 
-        void Awake()
-        {
-            // set a random starting location
-            gameObject.transform.position = potentialPositions[UnityEngine.Random.Range(0, potentialPositions.Length)];
-        }
+        void Awake() => gameObject.transform.position = potentialPositions[Random.Range(0, potentialPositions.Length)];
 
-        void OnCollisionEnter2D(Collision2D collision) 
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (_isPickedUp) return;
 
             SoundManager.ItemFound();
-            if (collision.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
                 PlayerController.AddRope(quantity);
@@ -35,6 +33,5 @@ namespace Items
                 Destroy(gameObject);
             }
         }
-
     }
 }

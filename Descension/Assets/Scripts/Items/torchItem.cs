@@ -1,3 +1,4 @@
+using System;
 using Actor.Player;
 using Managers;
 using UnityEngine;
@@ -16,14 +17,12 @@ namespace Items
             "Press Q to toggle it on and off."};
 
         private static bool _hasSeenTorch;
-
-        void Awake() { }
-
-        void OnCollisionEnter2D(Collision2D collision)
+        
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (_isPickedUp) return;
 
-            if (collision.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
                 SoundManager.ItemFound();

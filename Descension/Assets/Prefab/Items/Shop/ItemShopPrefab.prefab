@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3589048606934417000}
   - component: {fileID: 3996467869219934567}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Shopekeeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4688a890e6c8b6643b54478a692ea26b, type: 3}
+  m_Sprite: {fileID: -7430453572052086026, guid: 0cb3d0c407b2f9f48875d9b157c339ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 3477205536476990789}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f8adb8e56a55fb4c81f337b4e9b6f1c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8af7a59ed5e528247b4bcad6134ab0ab, type: 2}
   m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

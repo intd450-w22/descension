@@ -1,4 +1,5 @@
 using Actor.Player;
+using Environment;
 using UnityEngine;
 
 namespace Managers
@@ -19,6 +20,14 @@ namespace Managers
                 _instance = this;
             }
         }
+
+        void Start()
+        {
+            _globalPostProcessing = FindObjectOfType<postProcessingScript>();
+        }
+
+        private postProcessingScript _globalPostProcessing;
+        public static postProcessingScript GlobalPostProcessing => Instance._globalPostProcessing;
 
         [SerializeField] private bool _isPaused;
         public static bool IsPaused => Instance._isPaused;
