@@ -30,7 +30,6 @@ namespace Items.Pickups
                 if (!FactManager.IsFactTrue(item.Fact))
                 {
                     DialogueManager.StartDialogue(item.GetName(), pickupMessage);
-
                     FactManager.SetFact(item.Fact, true);
                 }
             }
@@ -43,7 +42,7 @@ namespace Items.Pickups
 
             if (other.gameObject.CompareTag("Player"))
             {
-                UIManager.GetHudController().ShowText("Press E to collect " + item.GetName());
+                UIManager.GetHudController().ShowPrompt("Press E to collect " + item.GetName());
                 _inRange = true;
             }
         }
