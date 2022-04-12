@@ -168,17 +168,18 @@ namespace Actor.Player
                 if (torchQuantity > 0) 
                 {
                     torchQuantity -= 1 * Time.deltaTime;
-                    if (!_torchIlluminated && _torchState > torchVignetteIntensityOn) _torchState -= 0.05f;
+                    if (!_torchIlluminated && _torchState > torchVignetteIntensityOn) _torchState -= postProcessingScript.TorchIntensity;
                     else _torchIlluminated = true;
                 } 
                 else _torchToggle = false;
             }
             else
             {
-                if (_torchIlluminated && _torchState < torchVignetteIntensityOff) _torchState += 0.05f;
+                if (_torchIlluminated && _torchState < torchVignetteIntensityOff) _torchState += postProcessingScript.TorchIntensity;
                 else _torchIlluminated = false;
             }
-            PostProcessing.SettVignetteIntensity(_torchState + (float) Math.Cos(Time.time*flickerSpeed)*flickerMagnitude);
+
+            PostProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
         }
 
         #region Entity Interaction
