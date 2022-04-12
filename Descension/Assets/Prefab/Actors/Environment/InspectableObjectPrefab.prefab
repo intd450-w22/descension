@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   linesOfDialogue: []
+  destroyAfterInteraction: 1
   Fact: 0
 --- !u!61 &4491301138149391788
 BoxCollider2D:
@@ -197,7 +198,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: be1c039eeb7549b408740f517129128a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecc5a4be880197c42892f6206d34d09b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

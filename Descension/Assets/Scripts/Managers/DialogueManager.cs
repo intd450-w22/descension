@@ -79,7 +79,7 @@ namespace Managers
         public static void ShowNotification(string text) => Instance._ShowNotification(text);
         private void _ShowNotification(string text)
         {
-            UIManager.GetHudController().ShowNotification(text);
+            UIManager.GetHudController().ShowPrompt(text);
         }
     }
 }

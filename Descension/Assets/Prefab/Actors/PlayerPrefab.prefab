@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f1ec733f79f0cf4d81ba96f2b1b2baa, type: 3}
+  m_Sprite: {fileID: 7042227425959520519, guid: fc7a9895c5a23264a8ddd48d694e14c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 820467071402508679}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 434c1997f7895e246ac91c7df71c6232, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4b95d70a3805ab5489fcd4ad7dec8dd0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -194,11 +194,14 @@ MonoBehaviour:
   movementSpeed: 0.75
   maxHitPoints: 100
   hitPoints: 100
+  flickerSpeed: 10
+  flickerMagnitude: 0.02
+  TorchVignetteIntensityOn: 0.5
+  TorchVignetteIntensityOff: 0.9
   ropeQuantity: 0
   torchQuantity: 0
   useUI: 1
   playerInput: {fileID: 0}
-  _postProcessing: {fileID: 0}
 --- !u!114 &6851937908845542240
 MonoBehaviour:
   m_ObjectHideFlags: 0

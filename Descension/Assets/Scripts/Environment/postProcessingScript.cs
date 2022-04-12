@@ -10,12 +10,12 @@ namespace Environment
 
         void Start() {
             volume.profile.TryGetSettings(out vignette);
-            vignette.intensity.value = 0.9f; // TODO: Get this from a constant or variable
-            vignette.enabled.value = true;
+            Enable();
         }
 
-        public void SettVignetteIntensity(float value) {
-            vignette.intensity.value = value;
-        }
+        public void Enable() => vignette.enabled.value = true;
+        public void Disable() => vignette.enabled.value = false;
+
+        public void SetVignetteIntensity(float value) => vignette.intensity.value = value;
     }
 }

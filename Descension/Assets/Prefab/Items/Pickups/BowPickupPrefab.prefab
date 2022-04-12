@@ -122,16 +122,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[0]
-      value: Pick Acquired.
+      value: Bow Acquired.
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[1]
-      value: Made for mining since the ancient eras.as. Who knew we'd still be using
-        them?
+      value: It may just be wire on a stick, but it sure helps keep you safe down
+        here.
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[2]
