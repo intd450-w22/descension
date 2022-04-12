@@ -194,11 +194,14 @@ MonoBehaviour:
   movementSpeed: 0.75
   maxHitPoints: 100
   hitPoints: 100
+  flickerSpeed: 10
+  flickerMagnitude: 0.02
+  TorchVignetteIntensityOn: 0.5
+  TorchVignetteIntensityOff: 0.9
   ropeQuantity: 0
   torchQuantity: 0
   useUI: 1
   playerInput: {fileID: 0}
-  _postProcessing: {fileID: 0}
 --- !u!114 &6851937908845542240
 MonoBehaviour:
   m_ObjectHideFlags: 0
