@@ -1,3 +1,4 @@
+using System;
 using Actor.Interface;
 using Managers;
 using UI.Controllers;
@@ -6,6 +7,9 @@ using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Environment;
+using Util.EditorHelpers;
+using static Util.Helpers.CalculationHelper;
 
 
 namespace Actor.Player
@@ -36,7 +40,11 @@ namespace Actor.Player
         public float maxHitPoints = 100f;
         public float hitPoints = 100f;
         
-        private bool _torchToggle = true;
+        [Header("Torch")]
+        public float flickerSpeed = 10;
+        public float flickerMagnitude = 0.02f;
+        public float torchVignetteIntensityOn = 0.5f;
+        public float torchVignetteIntensityOff = 0.9f;
 
         [Header("Inventory")]
         public float ropeQuantity = 0;
@@ -59,6 +67,11 @@ namespace Actor.Player
         private Transform _itemObject;
         private SpriteRenderer _itemSpriteRenderer;
         private Rigidbody2D _rb;
+        private bool _torchToggle;
+        private bool _torchIlluminated;  // prevents float comparison every frame
+        private float _torchState = 0.9f;
+        private postProcessingScript _postProcessing;
+        private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
         private bool _knocked;
@@ -149,16 +162,23 @@ namespace Actor.Player
             else if (_rb.velocity.sqrMagnitude < 4) _knocked = false;
 
             _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
-
-            if (_torchToggle && torchQuantity > 0)
+            
+            if (_torchToggle) 
             {
-                torchQuantity -= 1 * Time.deltaTime;
-                GameManager.GlobalPostProcessing.SetTorchIntensity();
+                if (torchQuantity > 0) 
+                {
+                    torchQuantity -= 1 * Time.deltaTime;
+                    if (!_torchIlluminated && _torchState > torchVignetteIntensityOn) _torchState -= 0.05f;
+                    else _torchIlluminated = true;
+                } 
+                else _torchToggle = false;
             }
             else
             {
-                GameManager.GlobalPostProcessing.SetDefaultIntensity();
+                if (_torchIlluminated && _torchState < torchVignetteIntensityOff) _torchState += 0.05f;
+                else _torchIlluminated = false;
             }
+            PostProcessing.SettVignetteIntensity(_torchState + (float) Math.Cos(Time.time*flickerSpeed)*flickerMagnitude);
         }
 
         #region Entity Interaction
