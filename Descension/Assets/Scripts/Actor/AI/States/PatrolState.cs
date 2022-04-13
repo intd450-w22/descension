@@ -4,6 +4,7 @@ using Util.EditorHelpers;
 using Util.Enums;
 using Util.Helpers;
 using static Util.Helpers.CalculationHelper;
+
 namespace Actor.AI.States
 {
     public class PatrolState : AIState
@@ -50,16 +51,16 @@ namespace Actor.AI.States
                 if (rayCast.transform.gameObject.CompareTag("Player"))
                 {
                     ChangeState(onPlayerSpotted);
-                    Debug.DrawLine(Position, rayCast.point, Color.red);
+                    GameDebug.DrawLine(Position, rayCast.point, Color.red);
                 }
                 else
                 {
-                    Debug.DrawLine(Position, rayCast.point, Color.yellow);
+                    GameDebug.DrawLine(Position, rayCast.point, Color.yellow);
                 }
             }
             else
             {
-                Debug.DrawRay(Position, _lookDirection * sightDistance, Color.green);
+                GameDebug.DrawRay(Position, _lookDirection * sightDistance, Color.green);
             }
         
             if ((currentTarget.position - Position).magnitude < reachThreshold) GetNextTarget();

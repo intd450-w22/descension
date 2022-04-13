@@ -130,7 +130,7 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, 0.5f, Color.blue);
+            GameDebug.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, 0.5f, Color.blue);
             
             RaycastHit2D[] hitEnemies;
             foreach (var hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, (int) UnityLayer.Enemy))
