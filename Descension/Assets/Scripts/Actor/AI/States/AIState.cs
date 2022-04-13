@@ -15,7 +15,10 @@ namespace Actor.AI.States
         public Vector2 weaponCenterOffset;
         
         private AIController _controller;
-        private AIController Controller => _controller ??= GetComponent<AIController>();
+        protected AIController Controller => _controller ??= GetComponent<AIController>();
+
+        private AnimationListener _animationListener;
+        protected AnimationListener AnimationListener => _animationListener ??= GetComponentInChildren<AnimationListener>();
         
         protected Transform WeaponTransform;
         protected Vector3 PlayerPosition => PlayerController.Position;
