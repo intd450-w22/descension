@@ -24,7 +24,7 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player")) {
                 if (PlayerController.Instance.ropeQuantity > 0) {
                     PlayerController.AddRope(-1);
-                    UIManager.GetHudController().ShowText(showText);
+                    DialogueManager.ShowPrompt(showText);
 
                     if(nextLevel == Scene.Other)
                         SceneLoader.Load(otherLevelName);
@@ -34,7 +34,7 @@ namespace Environment
                         SceneLoader.Load(nextLevel.ToString());   
                     
                 } else {
-                    UIManager.GetHudController().ShowText("You need a rope in order to descend");
+                    DialogueManager.ShowPrompt("You need a rope in order to descend");
                 }
             }
         }

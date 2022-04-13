@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -28,24 +29,24 @@ namespace Items
         // Update is called once per frame
         void Update()
         {
-            if (_inRange)
-            {
-                if (Input.GetKeyDown(shopActivationKey)) 
-                {
-                    UIManager.SwitchUi(UIType.Shop);
-                    UIManager.GetShopUIController().UpdateGold();
-                }
-                else if (Input.GetKeyDown(talkActivationKey)) 
-                {
-                    List<string> dialogue = new List<string>();
-                    dialogue.AddRange(_standardDialogue);
-                    dialogue.Add(_loreDialogue[UnityEngine.Random.Range(0, _loreDialogue.Count)]);
-                    dialogue.Add(_openShopDialogue[UnityEngine.Random.Range(0, _openShopDialogue.Count)]);
-                    dialogue.Add("Press F to open the shop.");
-                    dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
+            if (GameManager.IsFrozen || !_inRange) return;
 
-                    DialogueManager.StartDialogue(_name, dialogue);
-                }
+            if (Input.GetKeyDown(shopActivationKey)) 
+            {
+                GameManager.Pause();
+                UIManager.SwitchUi(UIType.Shop);
+                UIManager.GetShopUIController().UpdateGold();
+            }
+            else if (Input.GetKeyDown(talkActivationKey)) 
+            {
+                var dialogue = new List<string>();
+                dialogue.AddRange(_standardDialogue);
+                dialogue.Add(_loreDialogue[UnityEngine.Random.Range(0, _loreDialogue.Count)]);
+                dialogue.Add(_openShopDialogue[UnityEngine.Random.Range(0, _openShopDialogue.Count)]);
+                dialogue.Add("Press F to open the shop.");
+                dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
+
+                DialogueManager.StartDialogue(_name, dialogue);
             }
         }
         
@@ -53,8 +54,9 @@ namespace Items
         {
             if (other.gameObject.CompareTag("Player"))
             {
+                Debug.Log("OnTriggerEnter2d");
                 _inRange = true;
-                DialogueManager.ShowNotification("Press T to talk   Press F to buy");   
+                DialogueManager.ShowPrompt("Press T to talk   Press F to buy");   
             }
         }
 
@@ -63,8 +65,7 @@ namespace Items
             if (other.gameObject.CompareTag("Player"))
             {
                 _inRange = false;
-                DialogueManager.ClearLines();
-                DialogueManager.HideDialogue();
+                DialogueManager.HidePrompt();
             }
         }
 

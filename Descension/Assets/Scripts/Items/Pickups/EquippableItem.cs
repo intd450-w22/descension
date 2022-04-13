@@ -23,7 +23,7 @@ namespace Items.Pickups
         // minimum time between executions
         public float cooldownTime;
         
-        public abstract String GetName();
+        public abstract string GetName();
 
         public FactKey Fact;
         
@@ -36,7 +36,7 @@ namespace Items.Pickups
     public class Equippable
     {
         // attributes
-        public String name = "";
+        public string name = "";
         [SerializeField] private int _quantity;
         private int _maxQuantity;
         private int _slotIndex;
@@ -110,7 +110,7 @@ namespace Items.Pickups
         public virtual Equippable DeepCopy() => new Equippable(this);
 
         // return name of equippable item
-        public virtual String GetName() { return name; }
+        public virtual string GetName() { return name; }
         
         // should override to spawn pickup item
         public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }

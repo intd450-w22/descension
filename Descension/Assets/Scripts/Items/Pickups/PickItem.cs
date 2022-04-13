@@ -13,7 +13,7 @@ namespace Items.Pickups
 {
     public class PickItem : EquippableItem
     {
-        public static String Name = "Pick";
+        public static string Name = "Pick";
 
         [Header("Pick")]
         public float lootChance = 40;
@@ -64,7 +64,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new Pick(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
         
         public override void OnEquip()
         {
@@ -88,7 +88,7 @@ namespace Items.Pickups
 
         protected override void FixedUpdate()
         {
-            Vector3 screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
+            var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             _aimDirection = (Input.mousePosition - screenPoint).normalized;
             _playerPosition = PlayerPosition;
             
@@ -100,7 +100,7 @@ namespace Items.Pickups
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
             
-            float absAngle = Math.Abs(_aimAngle);
+            var absAngle = Math.Abs(_aimAngle);
             if (absAngle >= 90 && _swingAngle > -45) _swingAngle -= 30; 
             else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
         }
@@ -127,7 +127,7 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            RaycastHit2D rayCast = Physics2D.Raycast(_playerPosition, _aimDirection, _reticleDistance, (int) UnityLayer.Boulder);
+            var rayCast = Physics2D.Raycast(_playerPosition, _aimDirection, _reticleDistance, (int) UnityLayer.Boulder);
             if (rayCast)
             {
                 SoundManager.RemoveRock();

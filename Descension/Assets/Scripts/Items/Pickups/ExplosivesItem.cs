@@ -47,7 +47,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new Explosives(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ExplosivesPrefab, PlayerPosition, Quantity);
 
@@ -56,20 +56,20 @@ namespace Items.Pickups
         {
             if (BombScript.Instance)
             {
-                float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
+                var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
                 Debug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
                     Debug.Log("In Range");
                     BombScript.Instance.AddExplosives();
-                    DialogueManager.ShowNotification(_addToBombMessage);
+                    DialogueManager.ShowPrompt(_addToBombMessage);
                     Quantity = -1;
                 }
                 else
                 {
                     Debug.Log("Out of Range");
 
-                    DialogueManager.ShowNotification(_outOfRangeMessage);
+                    DialogueManager.ShowPrompt(_outOfRangeMessage);
                 }
             }
         }

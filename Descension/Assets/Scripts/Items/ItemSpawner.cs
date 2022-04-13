@@ -69,7 +69,7 @@ namespace Items
             // spawn pickup
             Pickup pickup = SpawnItem(prefab, position);
             pickup.quantity = quantity;
-            UIManager.GetHudController().ShowText(pickup.item.GetName() + " Dropped");
+            DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
             return pickup;
         }
 

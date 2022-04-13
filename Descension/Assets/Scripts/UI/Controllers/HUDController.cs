@@ -85,6 +85,7 @@ namespace UI.Controllers
                 _hotbar.enabled = true;
 
                 _healthBar.Value = _healthBar.Max;
+                _promptText.text = string.Empty;
             }
             catch
             {
@@ -92,20 +93,16 @@ namespace UI.Controllers
             }
         }
 
-        public void HideDialogue()
-        {
-            _promptText.enabled = false;
-            _dialogueBox.gameObject.Disable();
-        }
-
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
-        public void ShowFloatingText(Vector3 location, string text, Color? color = null) {
+        public void ShowFloatingText(Vector3 location, string text, Color? color = null) 
+        {
             var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMeshPro>();
             t.text = text;
             t.color = color ?? Color.black;
         }
 
-        public void ShowText(string text, string name = "") {
+        public void ShowDialogue(string text, string name = "") 
+        {
             _dialogueName.text = name;
             _dialogueText.text = text;
 
@@ -113,17 +110,31 @@ namespace UI.Controllers
             _dialogueBox.gameObject.Enable();
         }
 
-        public void ShowPrompt(string text) {
+        public void HideDialogue()
+        {
+            _dialogueBox.gameObject.Disable();
+            if (_promptText.enabled == false && !_promptText.text.IsNullOrEmpty())
+                _promptText.enabled = true;
+        }
+
+        public void ShowPrompt(string text) 
+        {
             _promptText.enabled = true;
             _promptText.text = text;
         }
 
-        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health)
+        public void HidePrompt()
+        {
+            _promptText.enabled = false;
+            _promptText.text = string.Empty;
+        }
+
+        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth)
         {
             try
             {
                 _goldUI.text = gold.ToString();
-                _healthUI.text = $"Health: {health}";
+                _healthUI.text = $"{(int) health} / {(int) maxHealth}";
                 _healthBar.Value = health;
 
                 if (ropeQuantity > 0)

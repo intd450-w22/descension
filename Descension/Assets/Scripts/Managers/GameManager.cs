@@ -49,6 +49,7 @@ namespace Managers
         {
             Debug.Log("OnUnFreeze");
             _isFrozen = false;
+            InventoryManager.SetCooldown();
         }
 
         public static void Pause() => Instance.OnPause();
@@ -67,6 +68,7 @@ namespace Managers
 
             Debug.Log("OnResume");
             SoundManager.ResumeBackgroundAudio();
+            InventoryManager.SetCooldown();
         }
     }
 }
