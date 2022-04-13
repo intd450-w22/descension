@@ -128,8 +128,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856948, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333621911985856948, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_Constraints
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3333621911985856950, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: m_LocalScale.x
@@ -179,6 +183,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132639638186626690, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.219
+      objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: onHit
       value: 
@@ -211,6 +231,34 @@ PrefabInstance:
       propertyPath: patrollingAttributes.sightDistance
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e9f8724a42c0cf84190e2c0ab4cfde4a, type: 3}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.41037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4904496
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522746878605989486, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
 --- !u!1 &197958337391247056 stripped
@@ -223,25 +271,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3333621911985856951, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
   m_PrefabInstance: {fileID: 3241515827172292682}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &46958103590121935
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197958336963484157}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fbb231d4ffb4897478532a94018d89db, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1252343655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,3 +331,22 @@ MonoBehaviour:
   speed: 20
   onPlayerReached: {fileID: 1252343656}
   onPlayerLost: {fileID: 1252343655}
+--- !u!95 &46958103590121935
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197958336963484157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbb231d4ffb4897478532a94018d89db, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
