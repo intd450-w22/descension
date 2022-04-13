@@ -356,7 +356,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnTorchToggle
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -372,7 +372,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnCodex
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -388,7 +388,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnPickup
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -404,7 +404,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnInteract
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -420,7 +420,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnDropItem
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

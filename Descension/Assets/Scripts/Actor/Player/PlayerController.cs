@@ -293,7 +293,7 @@ namespace Actor.Player
 
         }
 
-        public void OnTorchToggle()
+        public void OnTorchToggle(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
 
@@ -302,12 +302,12 @@ namespace Actor.Player
             }
         }
 
-        public void OnPickupItem()
+        public void OnPickupItem(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
         }
 
-        public void OnCodex()
+        public void OnCodex(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
 
@@ -315,19 +315,19 @@ namespace Actor.Player
             UIManager.SwitchUi(UIType.Codex);
         }
 
-        public void OnPickup()
+        public void OnPickup(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
         }
 
-        public void OnInteract()
+        public void OnInteract(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
         }
 
-        public void OnDropItem()
+        public void OnDropItem(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
 
             InventoryManager.DropCurrentSlot();
         }
