@@ -43,24 +43,33 @@ namespace Actor.Objects
 
         private void _Destroy() => Destroy(gameObject);
 
+
+        private bool _isFrozen;
         // Update is called once per frame
         void Update()
         {
             if (GameManager.IsFrozen)
             {
-                body.velocity = Vector2.zero;
-                CancelInvoke(nameof(_Destroy));
-                
-                // reactivate destroy timer when unfrozen
-                this.InvokeWhen(
-                    () => Invoke(nameof(_Destroy), timeToLive), 
-                    () => !GameManager.IsFrozen, 
-                    1);
-                
+                OnFrozen();
                 return;
             }
 
             body.velocity = _velocity;
+        }
+
+        void OnFrozen()
+        {
+            if (_isFrozen) return;
+                
+            _isFrozen = true;
+            body.velocity = Vector2.zero;
+            CancelInvoke(nameof(_Destroy));
+                
+            // reactivate destroy timer when unfrozen
+            this.InvokeWhen(
+                () => { _isFrozen = false; Invoke(nameof(_Destroy), timeToLive); }, 
+                () => !GameManager.IsFrozen, 
+                1);
         }
 
         void OnTriggerEnter2D(Collider2D collision) {
