@@ -10,5 +10,9 @@ public class OnLevelStart : MonoBehaviour
     {
         // Init any level things
         SoundManager.StartBackgroundAudio();
+        UIManager.GetHudController().Reset(); // Move to an earlier call probably 
+
+        GameManager.UnFreeze();
+        GameManager.Resume();
     }
 }

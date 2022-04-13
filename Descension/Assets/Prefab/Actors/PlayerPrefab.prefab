@@ -340,7 +340,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnPause
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -355,7 +355,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnSpace
+        m_MethodName: OnTorchToggle
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -365,8 +365,104 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: a7e73f98-acbc-4919-bb16-f0dfe744c9e2
-    m_ActionName: Default/Space[/Keyboard/space]
+    m_ActionId: f273adf1-1509-4ea8-a36d-5c068dcace5e
+    m_ActionName: Default/ToggleTorch[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnCodex
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 758ec6fe-a6b3-4bc6-b4f4-3767faa12bbc
+    m_ActionName: Default/Codex[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnPickup
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b59d634-6881-4aa2-9c59-bf75a38c0337
+    m_ActionName: Default/Pickup[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ff1d37a7-76c8-4272-a59c-21e31cef698d
+    m_ActionName: Default/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cfd0b6d3-270e-45fe-9cd6-8e42dcca5af0
+    m_ActionName: Default/DropItem[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSwapItemNum
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5cc3c2a-bdac-435f-992a-d358e37e0d81
+    m_ActionName: Default/SwapInventoryNum[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnDisplayNextLine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 921dd270-83d0-4fdf-815a-4ca468548462
+    m_ActionName: Default/DisplayNextDialogue[/Mouse/leftButton,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Default

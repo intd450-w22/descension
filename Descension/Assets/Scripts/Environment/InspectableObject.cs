@@ -15,6 +15,8 @@ namespace Environment
         private bool _playerInRange;
         
         void Update() {
+            if (GameManager.IsFrozen) return;
+
             if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
             {
                 _inspected = true;

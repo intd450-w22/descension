@@ -124,25 +124,6 @@ namespace Actor.Player
         
         private void OnDisable() => playerControls?.Disable();
 
-        void Update() 
-        {
-            if (GameManager.IsFrozen) return;
-
-            // TODO: Move this to an input listener
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                GameManager.Pause();
-                UIManager.SwitchUi(UIType.Codex);
-            }
-
-            // TODO: Move this to an input listener        
-            else if (Input.GetKeyDown(KeyCode.Q)) 
-            {
-                OnTorchToggle();
-            }
-        }
-
-
         void FixedUpdate()
         {
             UpdateTorchVisuals();
@@ -158,6 +139,7 @@ namespace Actor.Player
             if (!knocked)
             {
                 _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+                _animator.SetBool(_animatorIsMovingId, _rawInputMovement != Vector2.zero);
                 _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
             }
             else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
@@ -257,43 +239,83 @@ namespace Actor.Player
 
         #region Player Input Callbacks
 
-        public void OnPause()
+        public void OnPause(InputAction.CallbackContext value)
         {
-            if (GameManager.IsPaused) return;
+            if(!value.started) return;
 
-            GameManager.Pause();
-
-            // Display menu 
-            UIManager.SwitchUi(UIType.PauseMenu);
-        }
-
-        public void OnResume()
-        {
-            GameManager.Resume();
+            if (GameManager.IsPaused)
+            {
+                GameManager.Resume();
+                UIManager.SwitchUi(UIType.GameHUD);  
+            }
+            else
+            {
+                GameManager.Pause();
+                UIManager.SwitchUi(UIType.PauseMenu);
+            }
         }
 
         public void OnMovement(InputAction.CallbackContext value)
         {
             _rawInputMovement = value.ReadValue<Vector2>();
-            _animator.SetBool(_animatorIsMovingId, _rawInputMovement != Vector2.zero);
         }
 
         public void OnAttack(InputAction.CallbackContext value)
         {
-            // TODO: Get the callback working 
+            if (GameManager.IsFrozen) return;
         }
 
-        public void OnSpace(InputAction.CallbackContext value)
+        public void OnDisplayNextLine(InputAction.CallbackContext value)
         {
-            // if(value.started)
-            //     _hudController.HideDialogue();
+            if (!DialogueManager.IsInDialogue || !value.started || GameManager.IsFrozen) return;
+            DialogueManager.DisplayNextLine();
         }
 
-        void OnTorchToggle()
+        public void OnTorchToggle(InputAction.CallbackContext value)
         {
+            if (!value.started || GameManager.IsFrozen) return;
+
             if (torchQuantity > 0) {
                 _torchToggle = !_torchToggle;
             }
+        }
+
+        public void OnCodex(InputAction.CallbackContext value)
+        {
+            if (GameManager.IsFrozen) return;
+
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.Codex);
+        }
+
+        public void OnPickup(InputAction.CallbackContext value)
+        {
+            if (!value.started || GameManager.IsFrozen) return;
+
+            // TODO: If we want we can add this, but not high priority
+        }
+
+        public void OnInteract(InputAction.CallbackContext value)
+        {
+            if (!value.started || GameManager.IsFrozen) return;
+
+            // TODO: If we want we can add this, but not high priority
+        }
+
+        public void OnDropItem(InputAction.CallbackContext value)
+        {
+            if (!value.started || GameManager.IsFrozen) return;
+
+            InventoryManager.DropCurrentSlot();
+        }
+
+        public void OnSwapItemNum(InputAction.CallbackContext value)
+        {
+            if (!value.started || GameManager.IsFrozen) return;
+
+            var index = (int)  value.ReadValue<float>();
+            if (index > 0)
+                InventoryManager.TryEquipSlot(index - 1);
         }
 
         public void OnControlsChanged()
