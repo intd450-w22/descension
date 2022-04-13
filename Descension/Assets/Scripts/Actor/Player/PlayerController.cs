@@ -160,7 +160,7 @@ namespace Actor.Player
                 return;
             }
 
-            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
+            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints);
 
             if (!knocked)
             {

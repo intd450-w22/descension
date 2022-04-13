@@ -67,7 +67,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new Sword(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, PlayerPosition, Quantity);
 
@@ -92,9 +92,9 @@ namespace Items.Pickups
         
         protected override void FixedUpdate()
         {
-            Vector3 screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
+            var screenPoint = _camera.WorldToScreenPoint(_playerTransform.localPosition);
             _aimDirection = (Input.mousePosition - screenPoint).normalized;
-            Vector3 position = _playerTransform.position;
+            var position = _playerTransform.position;
             
             _aimAngle = _aimDirection.ToDegrees();
             
@@ -103,7 +103,7 @@ namespace Items.Pickups
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
             
-            float absAngle = Math.Abs(_aimAngle);
+            var absAngle = Math.Abs(_aimAngle);
             if (absAngle >= 90 && _swingAngle > -45) _swingAngle -= 30;
             else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
         }
@@ -133,9 +133,9 @@ namespace Items.Pickups
             DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, 0.5f, Color.blue);
             
             RaycastHit2D[] hitEnemies;
-            foreach (RaycastHit2D hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, (int) UnityLayer.Enemy))
+            foreach (var hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, (int) UnityLayer.Enemy))
             {
-                IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
+                var damageable = hit.collider.gameObject.GetComponent<IDamageable>();
                 if (damageable == null) damageable = hit.collider.gameObject.GetComponentInParent<IDamageable>();
                 
                 damageable.InflictDamage(_damage, _aimDirection, _knockBack);

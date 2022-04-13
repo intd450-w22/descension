@@ -7,7 +7,7 @@ namespace Items.Pickups
 {
     public class HealthItem : EquippableItem
     {
-        public static String Name = "Health Potion";
+        public static string Name = "Health Potion";
 
         [Header("Health Potion")]
         public float healAmount = 50f;
@@ -39,7 +39,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new HealthPotion(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, PlayerPosition, Quantity);
 
@@ -47,7 +47,7 @@ namespace Items.Pickups
         {
             if (Quantity <= 0)
             {
-                UIManager.GetHudController().ShowText("No Health Potions remaining!");
+                DialogueManager.ShowPrompt("No Health Potions remaining!");
                 return;
             }
             PlayerController.Instance.HealDamage(_healAmount);

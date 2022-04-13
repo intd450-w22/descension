@@ -33,7 +33,7 @@ namespace Environment
             if (other.gameObject.CompareTag("Player"))
             {
                 _playerInRange = true;
-                DialogueManager.ShowNotification("Press F to interact");
+                DialogueManager.ShowPrompt("Press F to interact");
             }
         }
 
@@ -41,8 +41,7 @@ namespace Environment
             if (other.gameObject.CompareTag("Player"))
             {
                 _playerInRange = false;
-                DialogueManager.ClearLines();
-                DialogueManager.HideDialogue();
+                DialogueManager.HidePrompt();
             }
         }
     }

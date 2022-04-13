@@ -11,7 +11,7 @@ namespace Items.Pickups
 {
     public class BowItem : EquippableItem
     {
-        public static String Name = "Bow";
+        public static string Name = "Bow";
         
         [Header("Bow")]
         public GameObject arrowPrefab;
@@ -42,7 +42,7 @@ namespace Items.Pickups
         private float _spriteDistanceOffset;
         private float _spriteRotationOffset;
         private Vector3 _spritePositionOffset;
-        private String _currentControlScheme = ControlScheme.Desktop.ToString();
+        private string _currentControlScheme = ControlScheme.Desktop.ToString();
 
         // state
         private Vector3 _bowPosition;
@@ -76,7 +76,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new Bow(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, PlayerPosition, Quantity);
 
@@ -86,7 +86,7 @@ namespace Items.Pickups
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             _direction = (Input.mousePosition - screenPoint).normalized;
             
-            float bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
+            var bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
             _bowPosition = PlayerPosition + _spritePositionOffset + _direction * _spriteDistanceOffset;
             SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
             
@@ -121,7 +121,7 @@ namespace Items.Pickups
                 Reticle.position = PlayerPosition + (_direction * _reticleDistance);
             }
             
-            float bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
+            var bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
             _bowPosition = PlayerPosition + _spritePositionOffset + _direction * _spriteDistanceOffset;
             SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
         }
@@ -130,13 +130,11 @@ namespace Items.Pickups
         {
             if (Arrows == null)
             {
-                UIManager.GetHudController().ShowText("No arrows to shoot!");
+                UIManager.GetHudController().ShowPrompt("No arrows to shoot!");
                 return;
             }
 
-            Vector3 playerPosition = PlayerPosition;
-            
-            Debug.DrawLine(playerPosition, playerPosition + _direction * 3);
+            Debug.DrawLine(PlayerPosition, PlayerPosition + _direction * 3);
             
             // spawn arrow
             Projectile.Instantiate(_arrowPrefab, _bowPosition - _spritePositionOffset, _direction, _damage, _knockBack, Tag.Enemy);

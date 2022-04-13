@@ -11,7 +11,6 @@ namespace UI.Controllers
     {
         [Header("UI Prefabs")]
         public GameObject FloatingTextDamagePrefab;
-        public GameObject FloatingTextDialoguePrefab;
 
         private TextMeshProUGUI _promptText;
         private Image _dialogueBox;
@@ -19,15 +18,17 @@ namespace UI.Controllers
         private TextMeshProUGUI _dialogueText;
         private Button _continueButton;
         private TextMeshProUGUI _continueButtonText;
-        private TextMeshProUGUI _goldUI;
-        private GameObject _ropeGroup;
-        private TextMeshProUGUI _ropeUI;
-        private GameObject _torchGroup;
-        private TextMeshProUGUI _torchUI;
-        private TextMeshProUGUI _healthUI;
-        private ProgressBar _healthBar;
-        private Hotbar _hotbar;
 
+        private GameObject _healthGroup;
+        private TextMeshProUGUI _healthText;
+        private ProgressBar _healthBar;
+        private TextMeshProUGUI _goldText;
+        private GameObject _ropeGroup;
+        private TextMeshProUGUI _ropeText;
+        private GameObject _torchGroup;
+        private TextMeshProUGUI _torchText;
+        
+        private Hotbar _hotbar;
         public Hotbar Hotbar { get => _hotbar; }
 
         void Awake()
@@ -53,15 +54,16 @@ namespace UI.Controllers
                 _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("ContinueButtonText").GetComponent<TextMeshProUGUI>();
                 
                 var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
-                _goldUI = rightHudGroup.GetChildObjectWithName("GoldGroup").GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
+                _goldText = rightHudGroup.GetChildObjectWithName("GoldGroup").GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
                 _ropeGroup = rightHudGroup.GetChildObjectWithName("RopeGroup");
-                _ropeUI = _ropeGroup.GetChildObjectWithName("Ropes").GetComponent<TextMeshProUGUI>();
+                _ropeText = _ropeGroup.GetChildObjectWithName("Ropes").GetComponent<TextMeshProUGUI>();
                 _torchGroup = rightHudGroup.GetChildObjectWithName("TorchGroup");
-                _torchUI = _torchGroup.GetChildObjectWithName("Torches").GetComponent<TextMeshProUGUI>();
+                _torchText = _torchGroup.GetChildObjectWithName("Torches").GetComponent<TextMeshProUGUI>();
 
                 var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
-                _healthUI = leftHudGroup.GetChildObjectWithName("Health").GetComponent<TextMeshProUGUI>();
-                _healthBar = leftHudGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
+                _healthGroup = leftHudGroup.GetChildObjectWithName("HealthGroup");
+                _healthText = _healthGroup.GetChildObjectWithName("Health").GetComponent<TextMeshProUGUI>();
+                _healthBar = _healthGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
             }
@@ -77,14 +79,15 @@ namespace UI.Controllers
             {
                 _promptText.enabled = false;
                 _dialogueBox.gameObject.Disable();
-                _goldUI.gameObject.Enable();
+                _goldText.gameObject.Enable();
                 _ropeGroup.Disable();
                 _torchGroup.Disable();
-                _healthUI.enabled = true;
+                _healthText.enabled = true;
                 _healthBar.enabled = true;
                 _hotbar.enabled = true;
 
                 _healthBar.Value = _healthBar.Max;
+                _promptText.text = string.Empty;
             }
             catch
             {
@@ -92,20 +95,16 @@ namespace UI.Controllers
             }
         }
 
-        public void HideDialogue()
-        {
-            _promptText.enabled = false;
-            _dialogueBox.gameObject.Disable();
-        }
-
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
-        public void ShowFloatingText(Vector3 location, string text, Color? color = null) {
+        public void ShowFloatingText(Vector3 location, string text, Color? color = null) 
+        {
             var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMeshPro>();
             t.text = text;
             t.color = color ?? Color.black;
         }
 
-        public void ShowText(string text, string name = "") {
+        public void ShowDialogue(string text, string name = "") 
+        {
             _dialogueName.text = name;
             _dialogueText.text = text;
 
@@ -113,23 +112,37 @@ namespace UI.Controllers
             _dialogueBox.gameObject.Enable();
         }
 
-        public void ShowPrompt(string text) {
+        public void HideDialogue()
+        {
+            _dialogueBox.gameObject.Disable();
+            if (_promptText.enabled == false && !_promptText.text.IsNullOrEmpty())
+                _promptText.enabled = true;
+        }
+
+        public void ShowPrompt(string text) 
+        {
             _promptText.enabled = true;
             _promptText.text = text;
         }
 
-        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health)
+        public void HidePrompt()
+        {
+            _promptText.enabled = false;
+            _promptText.text = string.Empty;
+        }
+
+        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth)
         {
             try
             {
-                _goldUI.text = gold.ToString();
-                _healthUI.text = $"Health: {health}";
+                _goldText.text = gold.ToString();
+                _healthText.text = $"{(int) health}/{(int) maxHealth}";
                 _healthBar.Value = health;
 
                 if (ropeQuantity > 0)
                 {
                     _ropeGroup.Enable();
-                    _ropeUI.text = ropeQuantity.ToString();
+                    _ropeText.text = ropeQuantity.ToString();
                 }
                 else
                 {
@@ -139,7 +152,7 @@ namespace UI.Controllers
                 if (torchQuantity > 0)
                 {
                     _torchGroup.Enable();
-                    _torchUI.text = Mathf.Floor(torchQuantity).ToString();
+                    _torchText.text = Mathf.Floor(torchQuantity).ToString();
                 }
                 else
                 {
