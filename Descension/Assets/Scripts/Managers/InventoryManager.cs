@@ -4,6 +4,7 @@ using Actor.Player;
 using Items.Pickups;
 using UnityEngine;
 using Util.EditorHelpers;
+using Util.Helpers;
 using static Util.Helpers.CalculationHelper;
 
 namespace Managers
@@ -91,12 +92,14 @@ namespace Managers
         {
             PlayerController.Reticle.gameObject.SetActive(false);
             PlayerController.SpriteTransform.DetachChildren();  // visually drop weapon
-            
-            Invoke(nameof(AttachWeaponSprite), 2);
+        
+            // reattach when movement stops
+            this.InvokeWhen(
+                ()=>PlayerController.ItemObject.SetParent(PlayerController.SpriteTransform),
+                ()=>PlayerController.Velocity.sqrMagnitude < 1, 
+                0.5f);
         }
-
-        public void AttachWeaponSprite() => PlayerController.ItemObject.SetParent(PlayerController.SpriteTransform);
-
+        
         // called when reset is selected in menu
         public static void OnReloadScene() => Instance._OnReset();
         private void _OnReset()

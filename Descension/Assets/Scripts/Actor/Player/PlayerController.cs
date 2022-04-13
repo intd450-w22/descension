@@ -24,6 +24,7 @@ namespace Actor.Player
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
         public static Camera Camera => Instance._camera ??= Camera.main;
         public static void OnReloadScene() => Instance.hitPoints = Instance.maxHitPoints;
+        public static Vector2 Velocity => Instance._rb.velocity;
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;

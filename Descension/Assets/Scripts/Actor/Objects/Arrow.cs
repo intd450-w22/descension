@@ -2,6 +2,7 @@ using Actor.Interface;
 using Managers;
 using UnityEngine;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Actor.Objects
 {
@@ -48,7 +49,14 @@ namespace Actor.Objects
             if (GameManager.IsFrozen)
             {
                 body.velocity = Vector2.zero;
-                CancelInvoke("_Destroy");
+                CancelInvoke(nameof(_Destroy));
+                
+                // reactivate destroy timer when unfrozen
+                this.InvokeWhen(
+                    () => Invoke(nameof(_Destroy), timeToLive), 
+                    () => !GameManager.IsFrozen, 
+                    1);
+                
                 return;
             }
 
@@ -59,8 +67,10 @@ namespace Actor.Objects
             // set "Enemy" Tag to enemy object for this to work
             if (collision.CompareTag(_targetTag.ToString()))
             {
-                try { collision.gameObject.GetComponent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
-                catch { collision.gameObject.GetComponentInParent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
+                collision.gameObject
+                    .GetComponent<IDamageable>(true)
+                    .InflictDamage(_damage, _velocity.normalized, _knockBack);
+                
                 Destroy(gameObject);
             }
             else if (collision.CompareTag(Tag.Environment.ToString()))

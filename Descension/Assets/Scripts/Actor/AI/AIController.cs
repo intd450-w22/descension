@@ -33,7 +33,8 @@ namespace Actor.AI
         public NavMeshAgent Agent => _agent ??= Actor.GetComponent<NavMeshAgent>();
         public Animator Animator => _animator ??= Actor.GetComponent<Animator>();
         public Transform WeaponTransform => _weaponTransform ??= Actor.GetChildObject("Weapon").GetComponent<Transform>();
-
+        public HUDController HUDController => _hudController ??= UIManager.GetHudController();
+        
         private GameObject _actor;
         private Transform _transform;
         private Rigidbody2D _rigidBody;
@@ -64,12 +65,6 @@ namespace Actor.AI
                     RigidBody.isKinematic = false;
                     Collider.isTrigger = false;
                 }
-
-                else if (!_alive)
-                {
-                    RigidBody.simulated = false;
-                }
-
                 else
                 {
                     Agent.enabled = true;
@@ -81,13 +76,31 @@ namespace Actor.AI
             }
         }
         
+        private bool _inRange;
+        private bool InRange
+        {
+            get
+            {
+                var inRange = activeRangeSq > (PlayerController.Position - Agent.transform.position).sqrMagnitude;
+                if (inRange == _inRange) return _inRange;
+                
+                // disable/enable components depending on if in range
+                _inRange = inRange;
+                Animator.enabled = _inRange;
+                Agent.enabled = _inRange;
+                Collider.enabled = _inRange;
+                if (_inRange) SetState(state);
+                
+                return _inRange;
+            }
+        }
+        
         void Awake()
         {
             Agent.updateRotation = false; 
             Agent.updateUpAxis = false;
 
             _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
-            _hudController = UIManager.GetHudController();
             _animatorIsMovingId = Animator.StringToHash("IsMoving");
             _colliderIsTrigger = Collider.isTrigger;
             
@@ -98,10 +111,8 @@ namespace Actor.AI
         
         private void FixedUpdate()
         {
-            if (GameManager.IsFrozen || !_alive || ++_updateCount % updateInterval != 0) return;
-
-            if (activeRangeSq < (PlayerController.Position - Agent.transform.position).sqrMagnitude) return;
-
+            if (GameManager.IsFrozen || !_alive || ++_updateCount % updateInterval != 0 || !InRange) return;
+            
             var velocity = Agent.velocity;
             _spriteRenderer.flipX = velocity.x < 0;
             Animator.SetBool(_animatorIsMovingId, velocity != Vector3.zero);
@@ -109,6 +120,7 @@ namespace Actor.AI
             if (!knocked) state.UpdateState();
             else if (RigidBody.velocity.sqrMagnitude < 1) knocked = false;
         }
+
         
         void OnKilled()
         {
@@ -121,8 +133,14 @@ namespace Actor.AI
             Agent.enabled = false;
             Transform.Rotate(new Vector3(0,0,1), 90);
             _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
+            
+            // delay collision disable so sprite doesn't move through walls/rocks
+            this.InvokeWhen(
+                () => RigidBody.simulated = false, 
+                () => RigidBody.velocity.sqrMagnitude < 1, 
+                1);
         }
-
+        
         public void SetState(AIState newState)
         {
             if (state) state.EndState();
@@ -142,7 +160,7 @@ namespace Actor.AI
             
             Debug.Log($"Enemy hit for {damage} damage");
             
-            _hudController.ShowFloatingText(Agent.transform.position, "Hp-" + damage, Color.red);
+            HUDController.ShowFloatingText(Position, "Hp-" + damage, Color.red);
             
             SoundManager.EnemyHit();
             

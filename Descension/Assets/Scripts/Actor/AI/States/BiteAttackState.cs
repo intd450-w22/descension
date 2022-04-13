@@ -46,7 +46,6 @@ namespace Actor.AI.States
                     }
                     case FinishAttack:
                     {
-                        // Controller.gameObject.GetChildObjectWithName("Sprite").GetComponent<Rigidbody2D>().simulated = true;
                         Animator.SetBool(AnimatorIsBiting, false);
                         _complete = true;
                         break;
