@@ -75,6 +75,7 @@ namespace Actor.Player
         private postProcessingScript _postProcessing;
         private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
+        private int _animatorIsMovingId;
         private SpriteRenderer _spriteRenderer;
         private bool _knocked;
         private bool _alive;
@@ -107,6 +108,7 @@ namespace Actor.Player
                 playerInput = GetComponent<PlayerInput>();
                 playerControls = new PlayerControls();
                 _animator = GetComponentInChildren<Animator>();
+                _animatorIsMovingId = Animator.StringToHash("IsMoving");
                 _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
                 _rb = GetComponent<Rigidbody2D>();
@@ -154,11 +156,11 @@ namespace Actor.Player
 
             if (GameManager.IsFrozen)
             {
-                _animator.SetBool("IsMoving", false);
+                _animator.SetBool(_animatorIsMovingId, false);
                 return;
             }
 
-            if (useUI) _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints);
+            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints);
 
             if (!knocked)
             {

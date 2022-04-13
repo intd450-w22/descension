@@ -10,6 +10,8 @@ namespace Managers
         private readonly Queue<string> _linesOfDialogue = new Queue<string>();
         private Action _onDialogueComplete;
 
+        private bool _inDialogue;
+
         private static DialogueManager _instance;
         private static DialogueManager Instance => _instance ??= FindObjectOfType<DialogueManager>();
 
@@ -21,11 +23,10 @@ namespace Managers
 
         void Update()
         {
-            if (GameManager.IsPaused) return;
+            if (!_inDialogue || GameManager.IsPaused) return;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Debug.Log("Space");
                 DisplayNextLine();
             }
         }
@@ -38,6 +39,7 @@ namespace Managers
             _name = objectName;
             _linesOfDialogue.Clear();
             _onDialogueComplete = onComplete;
+            _inDialogue = true;
 
             foreach (var line in lines)
             {
@@ -53,31 +55,26 @@ namespace Managers
             if (_linesOfDialogue.Count == 0)
             {
                 GameManager.UnFreeze();
-                UIManager.GetHudController().HideDialogue();
+                HideDialogue();
                 _onDialogueComplete?.Invoke();
                 _onDialogueComplete = null;
+                _inDialogue = false;
             }
             else
             {
-                UIManager.GetHudController().ShowText(_linesOfDialogue.Dequeue(), _name);
+                UIManager.GetHudController().ShowDialogue(_linesOfDialogue.Dequeue(), _name);
             }
         }
 
         public static void ClearLines() => Instance._ClearLines();
-        private void _ClearLines()
-        {
-            _linesOfDialogue.Clear();
-        }
+        private void _ClearLines() => _linesOfDialogue.Clear();
 
-        public static void HideDialogue() => Instance._HideDialogue();
-        private void _HideDialogue()
-        {
-            UIManager.GetHudController().HideDialogue();
-        }
+        public static void HideDialogue() => UIManager.GetHudController().HideDialogue();
+        public static void HidePrompt() => UIManager.GetHudController().HidePrompt();
 
         // TODO: Change the name of this, these aren't really notifications, but prompts
-        public static void ShowNotification(string text) => Instance._ShowNotification(text);
-        private void _ShowNotification(string text)
+        public static void ShowPrompt(string text) => Instance._ShowPrompt(text);
+        private void _ShowPrompt(string text)
         {
             UIManager.GetHudController().ShowPrompt(text);
         }

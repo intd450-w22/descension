@@ -48,7 +48,7 @@ namespace Items.Pickups
         
         public override Equippable DeepCopy() => new Timer(this);
 
-        public override String GetName() => TimerItem.Name;
+        public override string GetName() => TimerItem.Name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TimerPrefab, PlayerPosition, Quantity);
         
@@ -56,17 +56,17 @@ namespace Items.Pickups
         {
             if (BombScript.Instance)
             {
-                float distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
+                var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
                 Debug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
                     BombScript.Instance.AddTimer();
-                    DialogueManager.ShowNotification(_addToBombMessage);
+                    DialogueManager.ShowPrompt(_addToBombMessage);
                     Quantity = -1;
                 }
                 else
                 {
-                    DialogueManager.ShowNotification(_outOfRangeMessage);
+                    DialogueManager.ShowPrompt(_outOfRangeMessage);
                 }
             }
         }

@@ -5,7 +5,7 @@ namespace Items.Pickups
 {
     public class TorchItem : EquippableItem
     {
-        public static String Name = "Torch";
+        public static string Name = "Torch";
         
         public override string GetName() => Name;
 

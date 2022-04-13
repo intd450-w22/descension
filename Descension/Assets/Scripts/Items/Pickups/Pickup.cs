@@ -19,7 +19,7 @@ namespace Items.Pickups
                 if (!InventoryManager.PickupItem(item, ref quantity))
                 {
                     SoundManager.Error(); //TODO fail to pick up sound
-                    UIManager.GetHudController().ShowText("Inventory full");
+                    UIManager.GetHudController().ShowDialogue("Inventory full");
                     return;
                 }
                 SoundManager.ItemFound();
@@ -42,7 +42,7 @@ namespace Items.Pickups
 
             if (other.gameObject.CompareTag("Player"))
             {
-                UIManager.GetHudController().ShowPrompt("Press E to collect " + item.GetName());
+                DialogueManager.ShowPrompt("Press E to collect " + item.GetName());
                 _inRange = true;
             }
         }
@@ -51,7 +51,7 @@ namespace Items.Pickups
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                UIManager.GetHudController().HideDialogue();
+                DialogueManager.HidePrompt();
                 _inRange = false;
             }
         }

@@ -25,6 +25,7 @@ namespace Actor.AI
         public ItemSpawner.DropStruct[] drops;              // item drop chances
         [SerializeField, ReadOnly] private AIState state;   // current state
         [HideInInspector] public NavMeshAgent agent;
+        [HideInInspector] public Animator animator;
 
         private int _updateCount = 1;
         private bool _alive;                                // is the player alive
@@ -32,9 +33,7 @@ namespace Actor.AI
         private HUDController _hudController;
         private SpriteRenderer _spriteRenderer;
         private Transform _weaponTransform;
-        private Animator _animator;
         private int _animatorIsMovingId;
-        
         public Transform WeaponTransform => _weaponTransform ??=  gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Weapon").GetComponent<Transform>();
         
         void Awake()
@@ -45,8 +44,9 @@ namespace Actor.AI
             agent.updateUpAxis = false;
             _rb = actor.GetComponent<Rigidbody2D>();
             _spriteRenderer = actor.GetComponent<SpriteRenderer>();
-            _animator = actor.GetComponent<Animator>();
+            animator = actor.GetComponent<Animator>();
             _animatorIsMovingId = Animator.StringToHash("IsMoving");
+
         }
         
         void Start()
@@ -75,8 +75,7 @@ namespace Actor.AI
             var velocity = agent.velocity;
             _spriteRenderer.flipX = velocity.x < 0;
             
-            _animator.SetBool(_animatorIsMovingId, velocity != Vector3.zero);
-
+            animator.SetBool(_animatorIsMovingId, velocity != Vector3.zero);
             if (agent.enabled) state.UpdateState();
             else if (_rb.velocity.sqrMagnitude < 1) EnableNavigation();
         }
@@ -128,13 +127,13 @@ namespace Actor.AI
             }
         }
 
-        private void DisableNavigation()
+        public void DisableNavigation()
         {
             agent.enabled = false;
             _rb.isKinematic = false;
         }
         
-        private void EnableNavigation()
+        public void EnableNavigation()
         {
             agent.enabled = true;
             _rb.isKinematic = true;

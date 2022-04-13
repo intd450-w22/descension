@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Actor.Player;
 using Items.Pickups;
 using UnityEngine;
@@ -16,9 +14,11 @@ namespace Managers
         [SerializeField, ReadOnly] private List<Equippable> cachedSlots = new List<Equippable>() { new Equippable(), new Equippable(), new Equippable(), new Equippable() };
         [SerializeField] private int equippedSlot = -1;
         [SerializeField] private int gold = 0;
-        
+
+        [SerializeField] private float globalCooldown = .01f;
         [SerializeField] private int updateInterval = 3;
         private int _updateCount = 0;
+        private float _cooldown = 0f;
         
         private static InventoryManager _instance;
         private static InventoryManager Instance => _instance ??= FindObjectOfType<InventoryManager>();
@@ -62,7 +62,7 @@ namespace Managers
             if (equippedSlot != -1 && (scroll = (int) Input.mouseScrollDelta.y) != 0)
             {
                 int i = equippedSlot;
-                while (slots[i = SafeIndex(i+scroll, slots.Count)].Quantity <= 0) {}
+                while (slots[i = SafeIndex(i-scroll, slots.Count)].Quantity <= 0) {}
                 if (i != equippedSlot) EquipSlot(i);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
@@ -71,7 +71,7 @@ namespace Managers
             else if (Input.GetKeyDown(KeyCode.Alpha4) && slots[3].Quantity >= 0) EquipSlot(3);
 
             // run logic for equipped item
-            if (equippedSlot != -1) slots[equippedSlot].Update();
+            if (Time.time >= _cooldown && equippedSlot != -1) slots[equippedSlot].Update();
             
             // drop equipped item on R
             if (Input.GetKeyDown(KeyCode.R)) DropSlot(equippedSlot);
@@ -249,7 +249,10 @@ namespace Managers
         {
             for (int i = 0; i < cachedSlots.Count; ++i) cachedSlots[i].Clear();
         }
-        
+
+        public static void SetCooldown() => Instance._SetCooldown();
+        public void _SetCooldown() => _cooldown = Time.time + globalCooldown;
+
 
     }
 }

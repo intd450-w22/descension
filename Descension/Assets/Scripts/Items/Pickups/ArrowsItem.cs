@@ -7,7 +7,7 @@ namespace Items.Pickups
 {
     public class ArrowsItem : EquippableItem
     {
-        public static String Name = "Arrows";
+        public static string Name = "Arrows";
         
         public override string GetName() => Name;
 
@@ -27,7 +27,7 @@ namespace Items.Pickups
 
         public override Equippable DeepCopy() => new Arrows(this);
 
-        public override String GetName() => name;
+        public override string GetName() => name;
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, PlayerPosition, Quantity);
         

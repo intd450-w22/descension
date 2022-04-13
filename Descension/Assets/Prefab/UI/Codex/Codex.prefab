@@ -61,14 +61,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7cafcdae71f7e444a83ed9bf49bdf9d7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -180,7 +180,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087741007074785269}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -191,8 +191,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25, y: 0.15}
-  m_AnchorMax: {x: 0.75, y: 0.85}
+  m_AnchorMin: {x: 0.2, y: 0.15}
+  m_AnchorMax: {x: 0.8, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -210,145 +210,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiType: 11
   CodexPages:
-  - PageTitle: Enemies
-    PageType: 0
-    PageItems:
-    - ItemName: Enemy #1
-      ItemDescription: This is the description for enemy #1. He is a bug.
-      ItemSprite: {fileID: 21300000, guid: ca293b57d5f34a64ca0cdf10e0631181, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 12
-          ComparisonType: 3
-          Value: 0
-    - ItemName: Enemy #2
-      ItemDescription: No info for enemy #2
-      ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 13
-          ComparisonType: 3
-          Value: 0
-    - ItemName: Enemy #3
-      ItemDescription: No info for enemy #3
-      ItemSprite: {fileID: 7482667652216324306, guid: 8b183da26c07ab04cbb3a4f96b9357bb, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 14
-          ComparisonType: 3
-          Value: 0
-  - PageTitle: 'Items '
-    PageType: 1
-    PageItems:
-    - ItemName: Pickaxe
-      ItemDescription: Made for mining since the ancient eras. Who knew we'd still
-        be using them?
-      ItemSprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 1
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Torch
-      ItemDescription: Use with caution. There are things down here that have more
-        eyes than you.
-      ItemSprite: {fileID: 21300000, guid: 6d06fae830df5dd448290d0f78c069de, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 2
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Sword
-      ItemDescription: 'For, "personal defence". Tetanus risk. Use with caution. '
-      ItemSprite: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 3
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Bow
-      ItemDescription: It may just be wire on a stick, but it sure helps keep you
-        safe down here.
-      ItemSprite: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 4
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Arrows
-      ItemDescription: 'The pointy end points away from you. '
-      ItemSprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 5
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Rope
-      ItemDescription: 'Be sure to hold on with both hands while descending. When
-        ascending...well...God help you. '
-      ItemSprite: {fileID: 21300000, guid: 57b66bf43ed712444aa2677264d0c60b, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 6
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Health Potion
-      ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
-        its red colour. '
-      ItemSprite: {fileID: 21300000, guid: 69dbd34e3973d264ca42b44cc30f1794, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 7
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Gold
-      ItemDescription: 'Who knew there''d be so much of this down here. Use for purchasing
-        goods, or keep for later. '
-      ItemSprite: {fileID: 21300000, guid: 85f0378bd54863a4c9c81e4344724ebe, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 8
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Explosives
-      ItemDescription: Doesn't look like any explosive you've ever seen. It's like
-        a canteen, with stuff sloshing inside. But instead of a screw cap, there
-        are prongs sticking out the top.
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 9
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Trigger
-      ItemDescription: It's a button. As big as the palm of your hand, and there's
-        a satisfying click when you press it.
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 10
-          ComparisonType: 0
-          Value: 1
-    - ItemName: Timer
-      ItemDescription: 'It looks like a clock, but with no numbers. If you wind it,
-        it ticks for about five minutes. It doesn''t make a sound when it''s done. '
-      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
-      Rule:
-        Criteria:
-        - FactKey: 11
-          ComparisonType: 0
-          Value: 1
   - PageTitle: The Descent
     PageType: 2
     PageItems:
-    - ItemName: Player
+    - ItemName: Me
       ItemDescription: Damn, I look great.
-      ItemSprite: {fileID: 21300000, guid: 42b94dde9507456428452be71a0261e3, type: 3}
+      ItemSprite: {fileID: 21300000, guid: a23951a3bd097a4429ca9416cc663ef3, type: 3}
       Rule:
         Criteria: []
-    - ItemName: Mysterious Shopkeeper
-      ItemDescription: 
-      ItemSprite: {fileID: 21300000, guid: 4688a890e6c8b6643b54478a692ea26b, type: 3}
+    - ItemName: Shopkeeper
+      ItemDescription: Does he have anything better to do than stand around in this
+        hole...?
+      ItemSprite: {fileID: 21300000, guid: 4d792f04b0c2a774dad52e1c019a160a, type: 3}
       Rule:
         Criteria: []
     - ItemName: Ripped Note 1
@@ -475,6 +348,134 @@ MonoBehaviour:
         - FactKey: 25
           ComparisonType: 0
           Value: 1
+  - PageTitle: 'Items '
+    PageType: 1
+    PageItems:
+    - ItemName: Pickaxe
+      ItemDescription: Made for mining since the ancient eras. Who knew we'd still
+        be using them?
+      ItemSprite: {fileID: 21300000, guid: a1348ae01c274374f9934d25ba7bcac3, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 1
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Torch
+      ItemDescription: Use with caution. There are things down here that have more
+        eyes than you.
+      ItemSprite: {fileID: 21300000, guid: 6d06fae830df5dd448290d0f78c069de, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 2
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Sword
+      ItemDescription: 'For, "personal defence". Tetanus risk. Use with caution. '
+      ItemSprite: {fileID: 21300000, guid: 70224b364d3646742b61f3c8cfad4796, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 3
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Bow
+      ItemDescription: It may just be wire on a stick, but it sure helps keep you
+        safe down here.
+      ItemSprite: {fileID: 21300000, guid: 112553349fafbf447b64a1dd3e0ab81f, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 4
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Arrows
+      ItemDescription: 'The pointy end points away from you. '
+      ItemSprite: {fileID: 21300000, guid: 2c2d6930501c33c44856e4ede5f1224e, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 5
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Rope
+      ItemDescription: 'Be sure to hold on with both hands while descending. When
+        ascending...well...God help you. '
+      ItemSprite: {fileID: 21300000, guid: 57b66bf43ed712444aa2677264d0c60b, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 6
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Health Potion
+      ItemDescription: 'The secret ingredient is strawberries. It''s how it gets
+        its red colour. '
+      ItemSprite: {fileID: 21300000, guid: 69dbd34e3973d264ca42b44cc30f1794, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 7
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Gold
+      ItemDescription: 'Who knew there''d be so much of this down here. Use for purchasing
+        goods, or keep for later. '
+      ItemSprite: {fileID: 21300000, guid: 85f0378bd54863a4c9c81e4344724ebe, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 8
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Explosives
+      ItemDescription: Doesn't look like any explosive you've ever seen. It's like
+        a canteen, with stuff sloshing inside. But instead of a screw cap, there
+        are prongs sticking out the top.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 9
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Trigger
+      ItemDescription: It's a button. As big as the palm of your hand, and there's
+        a satisfying click when you press it.
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 10
+          ComparisonType: 0
+          Value: 1
+    - ItemName: Timer
+      ItemDescription: 'It looks like a clock, but with no numbers. If you wind it,
+        it ticks for about five minutes. It doesn''t make a sound when it''s done. '
+      ItemSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 11
+          ComparisonType: 0
+          Value: 1
+  - PageTitle: Enemies
+    PageType: 0
+    PageItems:
+    - ItemName: Enemy #1
+      ItemDescription: Ugly, really ugly....
+      ItemSprite: {fileID: 21300000, guid: cce71b762fea447498bfa8b414f80de5, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 12
+          ComparisonType: 3
+          Value: 0
+    - ItemName: Enemy #2
+      ItemDescription: Bad aim lmfao
+      ItemSprite: {fileID: 21300000, guid: 7b11241c3464d2c4780bccb64cff69ed, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 13
+          ComparisonType: 3
+          Value: 0
+    - ItemName: Enemy #3
+      ItemDescription: O_O
+      ItemSprite: {fileID: 21300000, guid: cec8f0f8a19891245a6e8930c3a53a77, type: 3}
+      Rule:
+        Criteria:
+        - FactKey: 14
+          ComparisonType: 3
+          Value: 0
   CodexPagePrefab: {fileID: 2132612497713076992, guid: d37cbe851c7f2a9449082ca41b41a776, type: 3}
   CodexMenuItemPrefab: {fileID: 7981041191608929116, guid: 69b293ac91cd3eb44be8462ca6184ec5, type: 3}
 --- !u!1 &3728979248397331883
@@ -545,7 +546,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7283910994346521982}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -573,14 +574,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2a3d5c30c3e5b514ca5681e81afc38eb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -697,15 +698,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7346522961749080365}
-  - {fileID: 4382233146288709763}
   - {fileID: 8544802497806823631}
+  - {fileID: 4382233146288709763}
+  - {fileID: 7346522961749080365}
   m_Father: {fileID: 6011113098307077373}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 6.899994, y: -20.5}
   m_SizeDelta: {x: 25, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &8794454613754216124
@@ -781,7 +782,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7283910994346521982}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -809,14 +810,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 99f38f2f6fc9f6543b68134199eaf540, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -916,7 +917,7 @@ GameObject:
   - component: {fileID: 2519568190186462499}
   - component: {fileID: 7105743466513825438}
   - component: {fileID: 329139307767585797}
-  - component: {fileID: 910767902260302337}
+  - component: {fileID: 6828736002596074890}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -940,7 +941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -12, y: -9.5}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &2519568190186462499
@@ -971,7 +972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a91cf014df38de44a463818b1efd6fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba888125bf5fb3e43933c1c88a3150be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1025,7 +1026,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &910767902260302337
+--- !u!114 &6828736002596074890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1034,11 +1035,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7687853895271461508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d96254b371b0e4fa918a0475807ced, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c21703df74d4844f9847cafce7d31e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetUI: 0
-  clearInventoryCache: 0
 --- !u!1 &9175516794162708335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1073,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8947193106271337264
 CanvasRenderer:
@@ -1097,15 +1096,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9843138, g: 0.94117653, b: 0.8235295, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e8135c994729404ebee67ee8ce28bd1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
