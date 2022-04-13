@@ -5,6 +5,9 @@ using Debug = UnityEngine.Debug;
 
 namespace Util.Helpers
 {
+    // To enable conditional functions, go to BuildSettings -> PlayerSettings -> Player and scroll down to
+    // Other Settings -> Scripting Define Symbols, add or remove ENABLE_DRAW_DEBUG
+
     public static class GameDebug
     {
         [Conditional("ENABLE_DRAW_DEBUG")]
