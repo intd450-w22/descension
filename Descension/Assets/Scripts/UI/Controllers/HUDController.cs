@@ -46,24 +46,24 @@ namespace UI.Controllers
         {
             try
             {
-                _promptText = gameObject.GetChildObjectWithName("PromptText").GetComponent<TextMeshProUGUI>();
-                _dialogueBox = gameObject.GetChildObjectWithName("DialogueBox").GetComponent<Image>();
-                _dialogueName = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxName").GetComponent<TextMeshProUGUI>();
-                _dialogueText = _dialogueBox.gameObject.GetChildObjectWithName("DialogueBoxText").GetComponent<TextMeshProUGUI>();
-                _continueButton = _dialogueBox.gameObject.GetChildObjectWithName("ContinueButton").GetComponent<Button>();
-                _continueButtonText = _continueButton.gameObject.GetChildObjectWithName("ContinueButtonText").GetComponent<TextMeshProUGUI>();
+                _promptText = gameObject.GetChildObject("PromptText").GetComponent<TextMeshProUGUI>();
+                _dialogueBox = gameObject.GetChildObject("DialogueBox").GetComponent<Image>();
+                _dialogueName = _dialogueBox.gameObject.GetChildObject("DialogueBoxName").GetComponent<TextMeshProUGUI>();
+                _dialogueText = _dialogueBox.gameObject.GetChildObject("DialogueBoxText").GetComponent<TextMeshProUGUI>();
+                _continueButton = _dialogueBox.gameObject.GetChildObject("ContinueButton").GetComponent<Button>();
+                _continueButtonText = _continueButton.gameObject.GetChildObject("ContinueButtonText").GetComponent<TextMeshProUGUI>();
                 
-                var rightHudGroup = gameObject.GetChildObjectWithName("RightHudGroup").gameObject;
-                _goldText = rightHudGroup.GetChildObjectWithName("GoldGroup").GetChildObjectWithName("Gold").GetComponent<TextMeshProUGUI>();
-                _ropeGroup = rightHudGroup.GetChildObjectWithName("RopeGroup");
-                _ropeText = _ropeGroup.GetChildObjectWithName("Ropes").GetComponent<TextMeshProUGUI>();
-                _torchGroup = rightHudGroup.GetChildObjectWithName("TorchGroup");
-                _torchText = _torchGroup.GetChildObjectWithName("Torches").GetComponent<TextMeshProUGUI>();
+                var rightHudGroup = gameObject.GetChildObject("RightHudGroup").gameObject;
+                _goldText = rightHudGroup.GetChildObject("GoldGroup").GetChildObject("Gold").GetComponent<TextMeshProUGUI>();
+                _ropeGroup = rightHudGroup.GetChildObject("RopeGroup");
+                _ropeText = _ropeGroup.GetChildObject("Ropes").GetComponent<TextMeshProUGUI>();
+                _torchGroup = rightHudGroup.GetChildObject("TorchGroup");
+                _torchText = _torchGroup.GetChildObject("Torches").GetComponent<TextMeshProUGUI>();
 
-                var leftHudGroup = gameObject.GetChildObjectWithName("LeftHudGroup");
-                _healthGroup = leftHudGroup.GetChildObjectWithName("HealthGroup");
-                _healthText = _healthGroup.GetChildObjectWithName("Health").GetComponent<TextMeshProUGUI>();
-                _healthBar = _healthGroup.GetChildObjectWithName("HealthBar").GetComponent<ProgressBar>();
+                var leftHudGroup = gameObject.GetChildObject("LeftHudGroup");
+                _healthGroup = leftHudGroup.GetChildObject("HealthGroup");
+                _healthText = _healthGroup.GetChildObject("Health").GetComponent<TextMeshProUGUI>();
+                _healthBar = _healthGroup.GetChildObject("HealthBar").GetComponent<ProgressBar>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
             }

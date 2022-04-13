@@ -10,11 +10,12 @@ namespace Util.Helpers
             return (b - a).sqrMagnitude;
         }
     
-        public static int FindClosest(Vector2 pos, List<Transform> objects)
+        
+        public static int FindClosest(Vector2 pos, Transform[] objects)
         {
             int closestIndex = 0;
             float closestDistance = DistanceSq(pos, objects[0].transform.position);
-            for (int i = 1; i < objects.Count; ++i)
+            for (int i = 1; i < objects.Length; ++i)
             {
                 float dist = DistanceSq(pos, objects[i].transform.position);
                 if (dist < closestDistance)

@@ -20,7 +20,7 @@ namespace Actor.Player
         // static accessors
         public static PlayerController Instance;
         private static Transform _transform;
-        public static Transform SpriteTransform => _transform ??= Instance.gameObject.GetChildTransformWithName("Sprite");
+        public static Transform SpriteTransform => _transform ??= Instance.gameObject.GetChildTransform("Sprite");
         public static Transform Reticle => Instance._reticle;
         public static Vector3 Position => Instance.transform.position;
         public static Transform ItemObject => Instance._itemObject;
@@ -77,9 +77,9 @@ namespace Actor.Player
         private Animator _animator;
         private int _animatorIsMovingId;
         private SpriteRenderer _spriteRenderer;
-        private bool _knocked;
         private bool _alive;
-
+        private bool _knocked;
+        
         private bool knocked
         {
             get => _knocked;
@@ -99,9 +99,9 @@ namespace Actor.Player
             {
                 Instance = this;
                 
-                _reticle = gameObject.GetChildTransformWithName("Reticle");
+                _reticle = gameObject.GetChildTransform("Reticle");
                 _reticle.gameObject.SetActive(false);
-                _itemObject = gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Item").GetComponent<Transform>();
+                _itemObject = gameObject.GetChildObject("Sprite").GetChildObject("Item").GetComponent<Transform>();
                 _itemObject.gameObject.SetActive(false);
                 _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
 
@@ -176,7 +176,7 @@ namespace Actor.Player
             {
                 if (torchQuantity > 0) 
                 {
-                    torchQuantity -= 1 * Time.deltaTime;
+                    torchQuantity -= Time.deltaTime;
                     if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
@@ -211,17 +211,19 @@ namespace Actor.Player
             
             if (hitPoints <= 0) OnKilled();
 
-            if (knockBack != 0)
-            {
-                knocked = true;
-                _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
-            }
+            if (knockBack != 0) KnockBack(direction.normalized * knockBack);
+        }
+
+        private void KnockBack(Vector2 forceVector)
+        {
+            knocked = true;
+            _rb.AddForce(forceVector, ForceMode2D.Impulse);
         }
         
         private void SetAlive()
         {
             alive = true;
-            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = Vector3.zero };
+            gameObject.GetChildObject("Sprite").transform.rotation = new Quaternion{ eulerAngles = Vector3.zero };
             _spriteRenderer.color = Color.white;
         }
         
@@ -229,7 +231,7 @@ namespace Actor.Player
         {
             alive = false;
             _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
-            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = new Vector3(0,0,-90) };
+            gameObject.GetChildObject("Sprite").transform.rotation = new Quaternion{ eulerAngles = new Vector3(0,0,-90) };
             InventoryManager.OnKilled();
         }
         

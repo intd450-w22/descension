@@ -10,7 +10,7 @@ namespace Util.Helpers
     {
         #region Transform
 
-        public static Transform GetChildTransformWithName(this Transform transform, string name)
+        public static Transform GetChildTransform(this Transform transform, string name)
         {
             foreach(Transform t in transform)
                 if (t.name == name)
@@ -18,9 +18,9 @@ namespace Util.Helpers
             return null;
         }
         
-        public static Transform GetChildTransformWithName(this GameObject gameObject, string name)
+        public static Transform GetChildTransform(this GameObject gameObject, string name)
         {
-            return GetChildTransformWithName(gameObject.transform, name);
+            return GetChildTransform(gameObject.transform, name);
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace Util.Helpers
         public static void Disable(this GameObject gameObject) => gameObject.SetActive(false);
         public static bool IsEnabled(this GameObject gameObject) => gameObject.activeInHierarchy;
 
-        public static GameObject GetChildObjectWithName(this Transform transform, string name)
+        public static GameObject GetChildObject(this Transform transform, string name)
         {
             foreach(Transform t in transform)
                 if (t.name == name)
@@ -39,9 +39,14 @@ namespace Util.Helpers
             return null;
         }
         
-        public static GameObject GetChildObjectWithName(this GameObject gameObject, string name)
+        public static GameObject GetChildObject(this GameObject gameObject, string name)
         {
-            return GetChildObjectWithName(gameObject.transform, name);
+            return GetChildObject(gameObject.transform, name);
+        }
+        
+        public static IEnumerable<Transform> GetChildTransforms(this Transform transform)
+        {
+            return transform.GetComponentsInChildren<Transform>().Where(t => t != transform);
         }
 
         #endregion
