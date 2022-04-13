@@ -39,7 +39,6 @@ namespace Items.Pickups
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-
             if (other.gameObject.CompareTag("Player"))
             {
                 DialogueManager.ShowPrompt("Press E to collect " + item.GetName());

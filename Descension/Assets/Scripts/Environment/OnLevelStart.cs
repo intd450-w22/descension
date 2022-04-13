@@ -10,5 +10,6 @@ public class OnLevelStart : MonoBehaviour
     {
         // Init any level things
         SoundManager.StartBackgroundAudio();
+        UIManager.GetHudController().Reset();
     }
 }

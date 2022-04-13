@@ -136,19 +136,18 @@ namespace Actor.Player
             if (GameManager.IsFrozen) return;
 
             // TODO: Move this to an input listener
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                GameManager.Pause();
-                UIManager.SwitchUi(UIType.Codex);
+                // GameManager.Pause();
+                // UIManager.SwitchUi(UIType.Codex);
             }
 
             // TODO: Move this to an input listener        
             else if (Input.GetKeyDown(KeyCode.Q)) 
             {
-                OnTorchToggle();
+                // OnTorchToggle();
             }
         }
-
 
         void FixedUpdate()
         {
@@ -165,6 +164,7 @@ namespace Actor.Player
             if (!knocked)
             {
                 _rb.MovePosition(_rb.position + _rawInputMovement * movementSpeed);
+                _animator.SetBool("IsMoving", _rawInputMovement != Vector2.zero);
                 _spriteRenderer.flipX = _rawInputMovement.x < 0 || (_spriteRenderer.flipX && _rawInputMovement.x == 0f);
             }
             else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
@@ -280,25 +280,65 @@ namespace Actor.Player
         public void OnMovement(InputAction.CallbackContext value)
         {
             _rawInputMovement = value.ReadValue<Vector2>();
-            _animator.SetBool("IsMoving", _rawInputMovement != Vector2.zero);
         }
 
         public void OnAttack(InputAction.CallbackContext value)
         {
-            // TODO: Get the callback working 
+            if (GameManager.IsFrozen) return;
         }
 
         public void OnSpace(InputAction.CallbackContext value)
         {
-            // if(value.started)
-            //     _hudController.HideDialogue();
+            if (GameManager.IsFrozen) return;
+
         }
 
-        void OnTorchToggle()
+        public void OnTorchToggle()
         {
+            if (GameManager.IsFrozen) return;
+
             if (torchQuantity > 0) {
                 _torchToggle = !_torchToggle;
             }
+        }
+
+        public void OnPickupItem()
+        {
+            if (GameManager.IsFrozen) return;
+        }
+
+        public void OnCodex()
+        {
+            if (GameManager.IsFrozen) return;
+
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.Codex);
+        }
+
+        public void OnPickup()
+        {
+            if (GameManager.IsFrozen) return;
+        }
+
+        public void OnInteract()
+        {
+            if (GameManager.IsFrozen) return;
+        }
+
+        public void OnDropItem()
+        {
+            if (GameManager.IsFrozen) return;
+
+            InventoryManager.DropCurrentSlot();
+        }
+
+        public void OnSwapItemNum(InputAction.CallbackContext value)
+        {
+            if (!value.started || GameManager.IsFrozen) return;
+
+            var index = (int)  value.ReadValue<float>();
+            if (index > 0)
+                InventoryManager.TryEquipSlot(index - 1);
         }
 
         public void OnControlsChanged()

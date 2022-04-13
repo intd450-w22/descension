@@ -55,9 +55,54 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Space"",
+                    ""name"": ""ToggleTorch"",
                     ""type"": ""Button"",
-                    ""id"": ""a7e73f98-acbc-4919-bb16-f0dfe744c9e2"",
+                    ""id"": ""f273adf1-1509-4ea8-a36d-5c068dcace5e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Codex"",
+                    ""type"": ""Button"",
+                    ""id"": ""758ec6fe-a6b3-4bc6-b4f4-3767faa12bbc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b59d634-6881-4aa2-9c59-bf75a38c0337"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff1d37a7-76c8-4272-a59c-21e31cef698d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfd0b6d3-270e-45fe-9cd6-8e42dcca5af0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwapInventoryNum"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5cc3c2a-bdac-435f-992a-d358e37e0d81"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -232,12 +277,100 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c4dd0f01-5dd5-4c3c-9640-e10d9f93600f"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""96649e8a-52b5-409e-8a38-a52e8d86cb50"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Desktop"",
-                    ""action"": ""Space"",
+                    ""action"": ""ToggleTorch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""247aa10b-4316-4c77-bc17-8bafb21c4b65"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Codex"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4ba0948-9ad3-4390-85b5-e1bc9ef1d4ee"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""505bb326-03ff-4fed-a055-b70a681ffc1c"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4324be03-e3e5-4cb5-9ba0-7a0cac7ff508"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f79571be-b1e9-46f6-8377-7937b6a27ee1"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""SwapInventoryNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a67e47d4-6534-4652-b4b6-66957a238cdb"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""SwapInventoryNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53ef918a-1969-4d52-acce-073904cb9bf6"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""SwapInventoryNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5eb5857-f489-477d-85d8-8825cf8d80c0"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""SwapInventoryNum"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -795,7 +928,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
         m_Default_Shoot = m_Default.FindAction("Shoot", throwIfNotFound: true);
         m_Default_Pause = m_Default.FindAction("Pause", throwIfNotFound: true);
-        m_Default_Space = m_Default.FindAction("Space", throwIfNotFound: true);
+        m_Default_ToggleTorch = m_Default.FindAction("ToggleTorch", throwIfNotFound: true);
+        m_Default_Codex = m_Default.FindAction("Codex", throwIfNotFound: true);
+        m_Default_Pickup = m_Default.FindAction("Pickup", throwIfNotFound: true);
+        m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
+        m_Default_DropItem = m_Default.FindAction("DropItem", throwIfNotFound: true);
+        m_Default_SwapInventoryNum = m_Default.FindAction("SwapInventoryNum", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -870,7 +1008,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Move;
     private readonly InputAction m_Default_Shoot;
     private readonly InputAction m_Default_Pause;
-    private readonly InputAction m_Default_Space;
+    private readonly InputAction m_Default_ToggleTorch;
+    private readonly InputAction m_Default_Codex;
+    private readonly InputAction m_Default_Pickup;
+    private readonly InputAction m_Default_Interact;
+    private readonly InputAction m_Default_DropItem;
+    private readonly InputAction m_Default_SwapInventoryNum;
     public struct DefaultActions
     {
         private @PlayerControls m_Wrapper;
@@ -878,7 +1021,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Default_Move;
         public InputAction @Shoot => m_Wrapper.m_Default_Shoot;
         public InputAction @Pause => m_Wrapper.m_Default_Pause;
-        public InputAction @Space => m_Wrapper.m_Default_Space;
+        public InputAction @ToggleTorch => m_Wrapper.m_Default_ToggleTorch;
+        public InputAction @Codex => m_Wrapper.m_Default_Codex;
+        public InputAction @Pickup => m_Wrapper.m_Default_Pickup;
+        public InputAction @Interact => m_Wrapper.m_Default_Interact;
+        public InputAction @DropItem => m_Wrapper.m_Default_DropItem;
+        public InputAction @SwapInventoryNum => m_Wrapper.m_Default_SwapInventoryNum;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -897,9 +1045,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPause;
-                @Space.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSpace;
+                @ToggleTorch.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnToggleTorch;
+                @ToggleTorch.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnToggleTorch;
+                @ToggleTorch.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnToggleTorch;
+                @Codex.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCodex;
+                @Codex.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCodex;
+                @Codex.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCodex;
+                @Pickup.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPickup;
+                @Interact.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                @DropItem.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDropItem;
+                @DropItem.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDropItem;
+                @DropItem.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDropItem;
+                @SwapInventoryNum.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
+                @SwapInventoryNum.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
+                @SwapInventoryNum.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -913,9 +1076,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Space.started += instance.OnSpace;
-                @Space.performed += instance.OnSpace;
-                @Space.canceled += instance.OnSpace;
+                @ToggleTorch.started += instance.OnToggleTorch;
+                @ToggleTorch.performed += instance.OnToggleTorch;
+                @ToggleTorch.canceled += instance.OnToggleTorch;
+                @Codex.started += instance.OnCodex;
+                @Codex.performed += instance.OnCodex;
+                @Codex.canceled += instance.OnCodex;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @DropItem.started += instance.OnDropItem;
+                @DropItem.performed += instance.OnDropItem;
+                @DropItem.canceled += instance.OnDropItem;
+                @SwapInventoryNum.started += instance.OnSwapInventoryNum;
+                @SwapInventoryNum.performed += instance.OnSwapInventoryNum;
+                @SwapInventoryNum.canceled += instance.OnSwapInventoryNum;
             }
         }
     }
@@ -1048,7 +1226,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
+        void OnToggleTorch(InputAction.CallbackContext context);
+        void OnCodex(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnDropItem(InputAction.CallbackContext context);
+        void OnSwapInventoryNum(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

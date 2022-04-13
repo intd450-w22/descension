@@ -65,16 +65,9 @@ namespace Managers
                 while (slots[i = SafeIndex(i-scroll, slots.Count)].Quantity <= 0) {}
                 if (i != equippedSlot) EquipSlot(i);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].Quantity >= 0) EquipSlot(2);
-            else if (Input.GetKeyDown(KeyCode.Alpha4) && slots[3].Quantity >= 0) EquipSlot(3);
 
             // run logic for equipped item
             if (Time.time >= _cooldown && equippedSlot != -1) slots[equippedSlot].Update();
-            
-            // drop equipped item on R
-            if (Input.GetKeyDown(KeyCode.R)) DropSlot(equippedSlot);
         }
         
         void FixedUpdate()
@@ -102,10 +95,15 @@ namespace Managers
         private void _OnReset()
         {
             // restart with items we had at the beginning of the level
-            
             LoadCachedSlots();
-            for (int i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
+            for (var i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
             EquipFirstSlottedItem();
+        }
+
+        public static void TryEquipSlot(int index) => Instance._TryEquipSlot(index);
+        private void _TryEquipSlot(int index)
+        {
+            if(slots[index].Quantity >= 0) EquipSlot(index);
         }
 
         // sets item at index to equipped state
@@ -154,6 +152,10 @@ namespace Managers
             if (defaultAny) EquipFirstSlottedItem();
         }
         
+        // drop the item that is currently equipped
+        public static void DropCurrentSlot() => Instance._DropCurrentSlot();
+        private void _DropCurrentSlot() => _DropSlot(equippedSlot);
+
         // drop item at slot index and update UI
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
