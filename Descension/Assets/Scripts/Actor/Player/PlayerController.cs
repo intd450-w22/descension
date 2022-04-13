@@ -302,11 +302,6 @@ namespace Actor.Player
             }
         }
 
-        public void OnPickupItem(InputAction.CallbackContext value)
-        {
-            if (GameManager.IsFrozen) return;
-        }
-
         public void OnCodex(InputAction.CallbackContext value)
         {
             if (GameManager.IsFrozen) return;
@@ -318,11 +313,15 @@ namespace Actor.Player
         public void OnPickup(InputAction.CallbackContext value)
         {
             if (!value.started || GameManager.IsFrozen) return;
+
+            // TODO: If we want we can add this, but not high priority
         }
 
         public void OnInteract(InputAction.CallbackContext value)
         {
             if (!value.started || GameManager.IsFrozen) return;
+
+            // TODO: If we want we can add this, but not high priority
         }
 
         public void OnDropItem(InputAction.CallbackContext value)
