@@ -23,15 +23,17 @@ namespace Actor.AI.States
         public AIState onComplete;
         
         // state
-        private Vector3 _target;
         private float _endTime;
         private bool _complete;
+        private bool _colliderIsTrigger;
         private int _animatorIsBiting;
         private int AnimatorIsBiting => _animatorIsBiting != 0 ? _animatorIsBiting : _animatorIsBiting = Animator.StringToHash("IsBiting");
-
+        
         new void Awake()
         {
             base.Awake();
+
+            _colliderIsTrigger = Collider.isTrigger;
             
             AnimationListener.SetOnBroadcast(e =>
             {
@@ -44,8 +46,7 @@ namespace Actor.AI.States
                     }
                     case FinishAttack:
                     {
-                        // Controller.gameObject.GetChildObjectWithName("Sprite").GetComponent<Rigidbody2D>().simulated = true;
-                        Controller.animator.SetBool(AnimatorIsBiting, false);
+                        Animator.SetBool(AnimatorIsBiting, false);
                         _complete = true;
                         break;
                     }
@@ -63,27 +64,27 @@ namespace Actor.AI.States
                 rayCast.transform.GetComponent<IDamageable>().InflictDamage(damage, PlayerPosition - Position, knockBack);
                 
                 Debug.Log("Attack Hit!");
-                DebugHelper.DrawBoxCast2D(Position, box, 0, Vector2.zero, 0, 0.5f, Color.red);
+                GameDebug.DrawBoxCast2D(Position, box, 0, Vector2.zero, 0, 0.5f, Color.red);
             }
             else
             {
-                DebugHelper.DrawBoxCast2D(Position, box, 0, Vector2.zero, 0, 0.5f, Color.yellow);
+                GameDebug.DrawBoxCast2D(Position, box, 0, Vector2.zero, 0, 0.5f, Color.yellow);
             }
         }
 
         public override void StartState()
         {
-            _target = PlayerPosition;
-            Velocity = (_target - Position) * 3;
-            Speed = Velocity.magnitude;
-            _endTime = Time.time + postDelay;
             _complete = false;
-            // Controller.gameObject.GetChildObjectWithName("Sprite").GetComponent<Rigidbody2D>().simulated = false;
-            Controller.animator.SetBool(AnimatorIsBiting, true);
+            _endTime = Time.time + postDelay;
+
+            Velocity = (PlayerPosition - Position) * 3;
+            Speed = Velocity.magnitude;
+            Collider.isTrigger = true;
+            Animator.SetBool(AnimatorIsBiting, true);
             SetDestination(PlayerPosition);
         }
 
-        public override void EndState() {}
+        public override void EndState() => Collider.isTrigger = _colliderIsTrigger;
 
         public override void UpdateState()
         {

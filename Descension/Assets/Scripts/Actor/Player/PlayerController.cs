@@ -8,9 +8,6 @@ using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Environment;
-using Util.EditorHelpers;
-using static Util.Helpers.CalculationHelper;
-
 
 namespace Actor.Player
 {
@@ -20,19 +17,14 @@ namespace Actor.Player
         // static accessors
         public static PlayerController Instance;
         private static Transform _transform;
-        public static Transform SpriteTransform => _transform ??= Instance.gameObject.GetChildTransformWithName("Sprite");
+        public static Transform SpriteTransform => _transform ??= Instance.gameObject.GetChildTransform("Sprite");
         public static Transform Reticle => Instance._reticle;
         public static Vector3 Position => Instance.transform.position;
         public static Transform ItemObject => Instance._itemObject;
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
-        private Camera _camera;
         public static Camera Camera => Instance._camera ??= Camera.main;
-        
-        public static void OnReloadScene() => Instance._OnReloadScene();
-        void _OnReloadScene()
-        {
-            hitPoints = maxHitPoints;
-        }
+        public static void OnReloadScene() => Instance.hitPoints = Instance.maxHitPoints;
+        public static Vector2 Velocity => Instance._rb.velocity;
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
@@ -73,13 +65,13 @@ namespace Actor.Player
         private bool _torchIlluminated;  // prevents float comparison every frame
         private float _torchState = 0.9f;
         private postProcessingScript _postProcessing;
-        private postProcessingScript PostProcessing => _postProcessing ??= FindObjectOfType<postProcessingScript>();
         private Animator _animator;
         private int _animatorIsMovingId;
         private SpriteRenderer _spriteRenderer;
-        private bool _knocked;
         private bool _alive;
-
+        private bool _knocked;
+        private Camera _camera;
+        
         private bool knocked
         {
             get => _knocked;
@@ -99,12 +91,13 @@ namespace Actor.Player
             {
                 Instance = this;
                 
-                _reticle = gameObject.GetChildTransformWithName("Reticle");
+                _reticle = gameObject.GetChildTransform("Reticle");
                 _reticle.gameObject.SetActive(false);
-                _itemObject = gameObject.GetChildObjectWithName("Sprite").GetChildObjectWithName("Item").GetComponent<Transform>();
+                _itemObject = gameObject.GetChildObject("Sprite").GetChildObject("Item").GetComponent<Transform>();
                 _itemObject.gameObject.SetActive(false);
                 _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
-
+                _postProcessing = FindObjectOfType<postProcessingScript>();
+                
                 playerInput = GetComponent<PlayerInput>();
                 playerControls = new PlayerControls();
                 _animator = GetComponentInChildren<Animator>();
@@ -176,7 +169,7 @@ namespace Actor.Player
             {
                 if (torchQuantity > 0) 
                 {
-                    torchQuantity -= 1 * Time.deltaTime;
+                    torchQuantity -= Time.deltaTime;
                     if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
@@ -187,7 +180,7 @@ namespace Actor.Player
                 if (_torchIlluminated && _torchState < TorchVignetteIntensityOff) _torchState += TorchVignetteIntensityOn;
                 else _torchIlluminated = false;
             }
-            PostProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
+            _postProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
         }
 
         #region Entity Interaction
@@ -211,17 +204,19 @@ namespace Actor.Player
             
             if (hitPoints <= 0) OnKilled();
 
-            if (knockBack != 0)
-            {
-                knocked = true;
-                _rb.AddForce(direction.normalized * knockBack, ForceMode2D.Impulse);
-            }
+            if (knockBack != 0) KnockBack(direction.normalized * knockBack);
+        }
+
+        private void KnockBack(Vector2 forceVector)
+        {
+            knocked = true;
+            _rb.AddForce(forceVector, ForceMode2D.Impulse);
         }
         
         private void SetAlive()
         {
             alive = true;
-            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = Vector3.zero };
+            gameObject.GetChildObject("Sprite").transform.rotation = new Quaternion{ eulerAngles = Vector3.zero };
             _spriteRenderer.color = Color.white;
         }
         
@@ -229,7 +224,7 @@ namespace Actor.Player
         {
             alive = false;
             _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
-            gameObject.GetChildObjectWithName("Sprite").transform.rotation = new Quaternion{ eulerAngles = new Vector3(0,0,-90) };
+            gameObject.GetChildObject("Sprite").transform.rotation = new Quaternion{ eulerAngles = new Vector3(0,0,-90) };
             InventoryManager.OnKilled();
         }
         
@@ -280,7 +275,7 @@ namespace Actor.Player
         public void OnMovement(InputAction.CallbackContext value)
         {
             _rawInputMovement = value.ReadValue<Vector2>();
-            _animator.SetBool("IsMoving", _rawInputMovement != Vector2.zero);
+            _animator.SetBool(_animatorIsMovingId, _rawInputMovement != Vector2.zero);
         }
 
         public void OnAttack(InputAction.CallbackContext value)
