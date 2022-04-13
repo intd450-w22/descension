@@ -340,7 +340,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2904225009558641434}
         m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnPause
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -447,6 +447,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c5cc3c2a-bdac-435f-992a-d358e37e0d81
     m_ActionName: Default/SwapInventoryNum[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2904225009558641434}
+        m_TargetAssemblyTypeName: Actor.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnDisplayNextLine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 921dd270-83d0-4fdf-815a-4ca468548462
+    m_ActionName: Default/DisplayNextDialogue[/Mouse/leftButton,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Default

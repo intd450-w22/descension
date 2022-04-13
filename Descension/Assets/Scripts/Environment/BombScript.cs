@@ -43,6 +43,7 @@ namespace Environment
         }
 
         void Update() {
+            if (GameManager.IsFrozen) return;
 
             if (_inRange)
             {
@@ -65,10 +66,6 @@ namespace Environment
                     }
                 }
             }
-            
-            
-            
-            
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -107,6 +107,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DisplayNextDialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""921dd270-83d0-4fdf-815a-4ca468548462"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -371,6 +380,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": ""Scale(factor=4)"",
                     ""groups"": ""Desktop"",
                     ""action"": ""SwapInventoryNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3efe38b4-3cd5-4e40-9251-8523e1b2072f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""DisplayNextDialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad14af9e-25df-42a0-ba8a-1b7ec7aae733"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""DisplayNextDialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -934,6 +965,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
         m_Default_DropItem = m_Default.FindAction("DropItem", throwIfNotFound: true);
         m_Default_SwapInventoryNum = m_Default.FindAction("SwapInventoryNum", throwIfNotFound: true);
+        m_Default_DisplayNextDialogue = m_Default.FindAction("DisplayNextDialogue", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1014,6 +1046,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Default_Interact;
     private readonly InputAction m_Default_DropItem;
     private readonly InputAction m_Default_SwapInventoryNum;
+    private readonly InputAction m_Default_DisplayNextDialogue;
     public struct DefaultActions
     {
         private @PlayerControls m_Wrapper;
@@ -1027,6 +1060,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Default_Interact;
         public InputAction @DropItem => m_Wrapper.m_Default_DropItem;
         public InputAction @SwapInventoryNum => m_Wrapper.m_Default_SwapInventoryNum;
+        public InputAction @DisplayNextDialogue => m_Wrapper.m_Default_DisplayNextDialogue;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1063,6 +1097,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SwapInventoryNum.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
                 @SwapInventoryNum.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
                 @SwapInventoryNum.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSwapInventoryNum;
+                @DisplayNextDialogue.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDisplayNextDialogue;
+                @DisplayNextDialogue.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDisplayNextDialogue;
+                @DisplayNextDialogue.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnDisplayNextDialogue;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -1094,6 +1131,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SwapInventoryNum.started += instance.OnSwapInventoryNum;
                 @SwapInventoryNum.performed += instance.OnSwapInventoryNum;
                 @SwapInventoryNum.canceled += instance.OnSwapInventoryNum;
+                @DisplayNextDialogue.started += instance.OnDisplayNextDialogue;
+                @DisplayNextDialogue.performed += instance.OnDisplayNextDialogue;
+                @DisplayNextDialogue.canceled += instance.OnDisplayNextDialogue;
             }
         }
     }
@@ -1232,6 +1272,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
         void OnSwapInventoryNum(InputAction.CallbackContext context);
+        void OnDisplayNextDialogue(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

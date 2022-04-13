@@ -10,7 +10,8 @@ namespace Managers
         private readonly Queue<string> _linesOfDialogue = new Queue<string>();
         private Action _onDialogueComplete;
 
-        private bool _inDialogue;
+        public static bool IsInDialogue => Instance._isInDialogue;
+        private bool _isInDialogue = false;
 
         private static DialogueManager _instance;
         private static DialogueManager Instance => _instance ??= FindObjectOfType<DialogueManager>();
@@ -23,7 +24,7 @@ namespace Managers
 
         void Update()
         {
-            if (!_inDialogue || GameManager.IsPaused) return;
+            if (!IsInDialogue || GameManager.IsPaused) return;
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -39,7 +40,7 @@ namespace Managers
             _name = objectName;
             _linesOfDialogue.Clear();
             _onDialogueComplete = onComplete;
-            _inDialogue = true;
+            _isInDialogue = true;
 
             foreach (var line in lines)
             {
@@ -58,7 +59,7 @@ namespace Managers
                 HideDialogue();
                 _onDialogueComplete?.Invoke();
                 _onDialogueComplete = null;
-                _inDialogue = false;
+                _isInDialogue = false;
             }
             else
             {

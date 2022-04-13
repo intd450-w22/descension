@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DisplayNextDialogue",
+                    "type": "Button",
+                    "id": "921dd270-83d0-4fdf-815a-4ca468548462",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -349,6 +358,28 @@
                     "processors": "Scale(factor=4)",
                     "groups": "Desktop",
                     "action": "SwapInventoryNum",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3efe38b4-3cd5-4e40-9251-8523e1b2072f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "DisplayNextDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad14af9e-25df-42a0-ba8a-1b7ec7aae733",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "DisplayNextDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

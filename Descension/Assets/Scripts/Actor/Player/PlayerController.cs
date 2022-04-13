@@ -131,24 +131,6 @@ namespace Actor.Player
         
         private void OnDisable() => playerControls?.Disable();
 
-        void Update() 
-        {
-            if (GameManager.IsFrozen) return;
-
-            // TODO: Move this to an input listener
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                // GameManager.Pause();
-                // UIManager.SwitchUi(UIType.Codex);
-            }
-
-            // TODO: Move this to an input listener        
-            else if (Input.GetKeyDown(KeyCode.Q)) 
-            {
-                // OnTorchToggle();
-            }
-        }
-
         void FixedUpdate()
         {
             UpdateTorchVisuals();
@@ -262,19 +244,20 @@ namespace Actor.Player
 
         #region Player Input Callbacks
 
-        public void OnPause()
+        public void OnPause(InputAction.CallbackContext value)
         {
-            if (GameManager.IsPaused) return;
+            if(!value.started) return;
 
-            GameManager.Pause();
-
-            // Display menu 
-            UIManager.SwitchUi(UIType.PauseMenu);
-        }
-
-        public void OnResume()
-        {
-            GameManager.Resume();
+            if (GameManager.IsPaused)
+            {
+                GameManager.Resume();
+                UIManager.SwitchUi(UIType.GameHUD);  
+            }
+            else
+            {
+                GameManager.Pause();
+                UIManager.SwitchUi(UIType.PauseMenu);
+            }
         }
 
         public void OnMovement(InputAction.CallbackContext value)
@@ -287,15 +270,15 @@ namespace Actor.Player
             if (GameManager.IsFrozen) return;
         }
 
-        public void OnSpace(InputAction.CallbackContext value)
+        public void OnDisplayNextLine(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
-
+            if (!DialogueManager.IsInDialogue || !value.started || GameManager.IsFrozen) return;
+            DialogueManager.DisplayNextLine();
         }
 
         public void OnTorchToggle(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
 
             if (torchQuantity > 0) {
                 _torchToggle = !_torchToggle;
