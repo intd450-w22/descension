@@ -317,12 +317,12 @@ namespace Actor.Player
 
         public void OnPickup(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
         }
 
         public void OnInteract(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
         }
 
         public void OnDropItem(InputAction.CallbackContext value)
