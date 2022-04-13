@@ -173,6 +173,7 @@ namespace Actor.AI
 
         private void KnockBack(Vector2 forceVector)
         {
+            Collider.isTrigger = false;
             knocked = true;
             RigidBody.AddForce(forceVector, ForceMode2D.Impulse);
         }
