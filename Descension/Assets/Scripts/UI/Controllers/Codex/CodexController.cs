@@ -28,7 +28,7 @@ namespace UI.Controllers.Codex
             if(CodexPages.IsNullOrEmpty())
                 Debug.LogWarning("Codex: No pages found.");
 
-            _codexPagesContainer = gameObject.GetChildObjectWithName("CodexPages");
+            _codexPagesContainer = gameObject.GetChildObject("CodexPages");
             if (_codexPagesContainer == null || _codexPagesContainer.transform == null)
                 Debug.LogWarning("Codex: Can't find 'CodexPages' game object.");
 

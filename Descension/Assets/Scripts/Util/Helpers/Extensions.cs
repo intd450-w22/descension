@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -10,7 +11,7 @@ namespace Util.Helpers
     {
         #region Transform
 
-        public static Transform GetChildTransformWithName(this Transform transform, string name)
+        public static Transform GetChildTransform(this Transform transform, string name)
         {
             foreach(Transform t in transform)
                 if (t.name == name)
@@ -18,20 +19,58 @@ namespace Util.Helpers
             return null;
         }
         
-        public static Transform GetChildTransformWithName(this GameObject gameObject, string name)
+        public static Transform GetChildTransform(this GameObject gameObject, string name)
         {
-            return GetChildTransformWithName(gameObject.transform, name);
+            return GetChildTransform(gameObject.transform, name);
         }
 
+        #endregion
+        
+        #region Monobehaviour
+
+        public static void Invoke(this MonoBehaviour monoBehaviour, Action action, float delay)
+        {
+            monoBehaviour.StartCoroutine(InvokeRoutine(action, delay));
+        }
+
+        private static IEnumerator InvokeRoutine(Action action, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            action();
+        }
+
+        public static void InvokeWhen(this MonoBehaviour monoBehaviour, Action action, Func<bool> when, float checkDelay = 0)
+        {
+            monoBehaviour.StartCoroutine(InvokeRoutineWhen(action, when, checkDelay));
+        }
+        
+        private static IEnumerator InvokeRoutineWhen(Action invoke, Func<bool> when, float checkDelay)
+        {
+            while (true)
+            {
+                if (when())
+                {
+                    invoke();
+                    yield break;
+                }
+                yield return new WaitForSeconds(checkDelay);
+            }
+        }
+        
         #endregion
 
         #region GameObject
 
+        public static T GetComponent<T>(this GameObject gameObject, bool getFromHierarchyIfNull)
+        { 
+            return gameObject.GetComponent<T>() ?? gameObject.GetComponentInParent<T>() ?? gameObject.GetComponentInChildren<T>();
+        }
+        
         public static void Enable(this GameObject gameObject) => gameObject.SetActive(true);
         public static void Disable(this GameObject gameObject) => gameObject.SetActive(false);
         public static bool IsEnabled(this GameObject gameObject) => gameObject.activeInHierarchy;
 
-        public static GameObject GetChildObjectWithName(this Transform transform, string name)
+        public static GameObject GetChildObject(this Transform transform, string name)
         {
             foreach(Transform t in transform)
                 if (t.name == name)
@@ -39,9 +78,14 @@ namespace Util.Helpers
             return null;
         }
         
-        public static GameObject GetChildObjectWithName(this GameObject gameObject, string name)
+        public static GameObject GetChildObject(this GameObject gameObject, string name)
         {
-            return GetChildObjectWithName(gameObject.transform, name);
+            return GetChildObject(gameObject.transform, name);
+        }
+        
+        public static IEnumerable<Transform> GetChildTransforms(this Transform transform)
+        {
+            return transform.GetComponentsInChildren<Transform>().Where(t => t != transform);
         }
 
         #endregion
