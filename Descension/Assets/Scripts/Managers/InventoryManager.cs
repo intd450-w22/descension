@@ -66,9 +66,6 @@ namespace Managers
                 while (slots[i = SafeIndex(i-scroll, slots.Count)].Quantity <= 0) {}
                 if (i != equippedSlot) EquipSlot(i);
             }
-
-            // run logic for equipped item
-            if (Time.time >= _cooldown && equippedSlot != -1) slots[equippedSlot].Update();
         }
         
         void FixedUpdate()
