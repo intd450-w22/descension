@@ -14,7 +14,7 @@ namespace Items.Pickups
         
         private void Update()
         {
-            if (_inRange && (autoPickup || Input.GetKeyDown(KeyCode.E)))
+            if (_inRange && (autoPickup || Input.GetKeyDown(KeyCode.F)))
             {
                 if (!InventoryManager.PickupItem(item, ref quantity))
                 {
@@ -41,7 +41,7 @@ namespace Items.Pickups
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                DialogueManager.ShowPrompt("Press E to collect " + item.GetName());
+                DialogueManager.ShowPrompt("Press F to collect " + item.GetName());
                 _inRange = true;
             }
         }
