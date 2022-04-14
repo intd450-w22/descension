@@ -37,5 +37,6 @@ namespace Util.Enums
         HasFoundJournal1 = 23,
         HasFoundJournal2 = 24,
         HasFoundJournal3 = 25,
+        TriggerEnding = 26,
     }
 }

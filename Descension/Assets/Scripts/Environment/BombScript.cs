@@ -20,6 +20,7 @@ namespace Environment
         private bool _hasAll;
         private bool _hasExplosivesAndTrigger;
         private bool _activatedBombWithoutTrigger;
+        public FactKey Fact;
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
 
@@ -65,6 +66,7 @@ namespace Environment
                     if (_hasAll)
                     {
                         DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
+                        FactManager.SetFact(Fact, true);
                     } 
                     else if (_hasExplosivesAndTrigger)
                     {
