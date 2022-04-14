@@ -1,5 +1,7 @@
 using Managers;
 using UnityEngine;
+using UI.Controllers;
+using Util.Enums;
 
 namespace Environment
 {
@@ -17,11 +19,11 @@ namespace Environment
         private bool _hasTimer;
         private bool _hasAll;
         private bool _hasExplosivesAndTrigger;
+        private bool _activatedBombWithoutTrigger;
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
-        
-        
-        
+
+
         public void AddExplosives()
         {
             _hasExplosives = true;
@@ -46,6 +48,10 @@ namespace Environment
 
             if (_inRange)
             {
+                if (_activatedBombWithoutTrigger)
+                {
+                    UIManager.SwitchUi(UIType.End);
+                }
                 if (Input.GetKeyDown(interactionKey)) 
                 {
                     if (_hasAll) DialogueManager.StartDialogue(name, startTimerDialogue);
@@ -61,7 +67,8 @@ namespace Environment
                     } 
                     else if (_hasExplosivesAndTrigger)
                     {
-                        DialogueManager.StartDialogue(name, new [] {"BOOM!"});
+                        DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." });
+                        _activatedBombWithoutTrigger = true;
                     }
                 }
             }
