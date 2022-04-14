@@ -274,7 +274,9 @@ namespace Actor.Player
 
         public void OnAttack(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
+
+            InventoryManager.TryExecute();
         }
 
         public void OnDisplayNextLine(InputAction.CallbackContext value)

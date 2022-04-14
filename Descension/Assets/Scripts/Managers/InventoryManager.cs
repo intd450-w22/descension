@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Actor.Player;
 using Items.Pickups;
+using UI.Controllers.ButtonController;
 using UnityEngine;
 using Util.EditorHelpers;
 using Util.Helpers;
@@ -255,6 +256,15 @@ namespace Managers
         public static void SetCooldown() => Instance._SetCooldown();
         public void _SetCooldown() => _cooldown = Time.time + globalCooldown;
 
+        public static bool IsOnCooldown() => Instance._IsOnCooldown();
+        public bool _IsOnCooldown() => Time.time < _cooldown;
+
+        public static void TryExecute() => Instance._TryExecute();
+        public void _TryExecute()
+        {
+            if (_IsOnCooldown() || !IsInRange(equippedSlot, slots.Count) || slots[equippedSlot].IsOnCooldown()) return;
+            slots[equippedSlot].Execute();
+        }
 
     }
 }
