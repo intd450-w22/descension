@@ -2,6 +2,7 @@ using Actor.Interface;
 using Items;
 using Managers;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Environment
 {
@@ -16,7 +17,7 @@ namespace Environment
         {
             if (GameManager.IsUniqueDestroyed(this, out _))
             {
-                Debug.Log("Destroying " + GetUniqueId());
+                GameDebug.Log("Destroying " + GetUniqueId());
                 Destroy(gameObject);
             }
         }

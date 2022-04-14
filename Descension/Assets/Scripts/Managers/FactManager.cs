@@ -46,7 +46,7 @@ namespace Managers
         
         public static void SetFact(string key, int val)
         {
-            Debug.Log($"[FactManager] Setting {key} to {val}");
+            GameDebug.Log($"[FactManager] Setting {key} to {val}");
             if (key == FactKey.None.ToString() || key.IsNullOrEmpty()) return;
             Instance.Facts[key] = val;
         }

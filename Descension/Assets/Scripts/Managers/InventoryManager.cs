@@ -118,7 +118,7 @@ namespace Managers
                 equippedSlot = index;
                 slots[equippedSlot].OnEquip();
                 UIManager.Hotbar.SetActive(index);
-                Debug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
+                GameDebug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
             }
         }
         
@@ -163,7 +163,7 @@ namespace Managers
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
         {
-            // Debug.Log("DropSlot(" + index + ")");
+            // GameDebug.Log("DropSlot(" + index + ")");
             if (index != -1)
             {
                 var itemName = slots[index].name;

@@ -47,7 +47,7 @@ namespace Managers
 
         private void OnFreeze()
         {
-            Debug.Log("OnFreeze");
+            GameDebug.Log("OnFreeze");
             _isFrozen = true;
         }
 
@@ -55,7 +55,7 @@ namespace Managers
 
         private void OnUnFreeze()
         {
-            Debug.Log("OnUnFreeze");
+            GameDebug.Log("OnUnFreeze");
             _isFrozen = false;
             InventoryManager.SetCooldown();
         }
@@ -65,7 +65,7 @@ namespace Managers
         {
             _isPaused = true;
 
-            Debug.Log("OnPause");
+            GameDebug.Log("OnPause");
             SoundManager.PauseBackgroundAudio();
         }
 
@@ -74,7 +74,7 @@ namespace Managers
         {
             _isPaused = false;
 
-            Debug.Log("OnResume");
+            GameDebug.Log("OnResume");
             SoundManager.ResumeBackgroundAudio();
             InventoryManager.SetCooldown();
         }
@@ -87,7 +87,7 @@ namespace Managers
         public static void SwitchScene(SceneAsset scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene.name, uiType, startPosition);
         private void _SwitchScene(string scene, UIType uiType = UIType.None, int startPosition = -1)
         {
-            Debug.Log("SwitchScene(" + scene + ")");
+            GameDebug.Log("SwitchScene(" + scene + ")");
             
             if (startPosition != -1) PlayerController.SetStartPosition(startPosition);
             

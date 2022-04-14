@@ -89,7 +89,7 @@ namespace Actor.Player
 
         void Awake()
         {
-            Debug.Log("Awake()");
+            GameDebug.Log("Awake()");
             if (Instance == null)
             {
                 Instance = this;
@@ -188,7 +188,7 @@ namespace Actor.Player
 
         public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
         {
-            Debug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
+            GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
             _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
             
@@ -339,7 +339,7 @@ namespace Actor.Player
                 _currentControlScheme = playerInput.currentControlScheme;
                 
                 var deviceName = DeviceDisplaySettings.GetDeviceName(playerInput);
-                Debug.Log($"Current control scheme {deviceName}");
+                GameDebug.Log($"Current control scheme {deviceName}");
 
                 RemoveAllBindingOverrides();
             }
@@ -348,7 +348,7 @@ namespace Actor.Player
         public void OnDeviceLost()
         {
             string disconnectedName = DeviceDisplaySettings.GetDisconnectedName();
-            Debug.Log($"Device lost: {disconnectedName}");
+            GameDebug.Log($"Device lost: {disconnectedName}");
         }
 
         public void RemoveAllBindingOverrides() { }

@@ -6,6 +6,7 @@ using UI.Controllers.ShopUI;
 using UI.Controllers.UIController;
 using Util.Enums;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Managers
 {
@@ -68,7 +69,7 @@ namespace Managers
         public static void SwitchUi(UIType uiType) => Instance._SwitchUi(uiType);
         private void _SwitchUi(UIType uiType)
         {
-            Debug.Log("Switch UI to " + uiType);
+            GameDebug.Log("Switch UI to " + uiType);
             if (_lastActiveUi != null) 
                 _lastActiveUi.gameObject.SetActive(false);
 
@@ -84,7 +85,7 @@ namespace Managers
             }
             else
             {
-                Debug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
+                GameDebug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
             }
         }
 

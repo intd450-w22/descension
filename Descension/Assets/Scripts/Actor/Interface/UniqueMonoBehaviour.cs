@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Util.EditorHelpers;
@@ -13,6 +10,6 @@ namespace Actor.Interface
     {
         [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
-        private void OnEnable() => Assert.AreNotEqual(0,uniqueId, "UniqueId not Generated for UniqueMonoBehaviour, must go to Window->Unique Id Generator and Generate Id's.");
+        private void OnEnable() => Assert.AreNotEqual(0,uniqueId, "Unique Id not generated for UniqueMonoBehaviour, go to Window->'Unique Id Generator' and generate Id's.");
     }
 }

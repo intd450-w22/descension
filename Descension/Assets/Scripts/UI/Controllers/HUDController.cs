@@ -161,7 +161,7 @@ namespace UI.Controllers
             }
             catch (MissingReferenceException e)
             {
-                Debug.LogWarning(e.Message);
+                GameDebug.LogWarning(e.Message);
                 UIManager.ReinitHudController();
             }
             
