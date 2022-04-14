@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.32
       objectReference: {fileID: 0}
+    - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
+      propertyPath: uniqueId
+      value: -932818
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
 --- !u!1001 &192563947
@@ -9137,6 +9141,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -18.69
       objectReference: {fileID: 0}
+    - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
+      propertyPath: uniqueId
+      value: -934304
+      objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
       value: RangedPatrollingEnemy
@@ -9242,6 +9250,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
+      propertyPath: uniqueId
+      value: -934358
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
 --- !u!1001 &929699145
@@ -9258,7 +9270,7 @@ PrefabInstance:
     - target: {fileID: 449042378380893625, guid: a812ec25b11451047a604df788ce7b43, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: f13f562af44172d4f90f2ff095ff7824, type: 2}
+      objectReference: {fileID: 23800000, guid: 1cd0b1f51f1f7ea4abab2bceda86fd93, type: 2}
     - target: {fileID: 449042378380893630, guid: a812ec25b11451047a604df788ce7b43, type: 3}
       propertyPath: m_RootOrder
       value: 0

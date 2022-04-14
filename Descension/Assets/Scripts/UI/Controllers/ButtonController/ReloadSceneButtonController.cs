@@ -12,14 +12,12 @@ namespace UI.Controllers.ButtonController
         {
             InventoryManager.OnReloadScene();
             PlayerController.OnReloadScene();
+            GameManager.OnReloadScene();
+
+            var currScene = GameManager.GetCurrentScene();
+            if(uiAfterReload == UIType.GameHUD) UIManager.GetHudController().Reset();
             
-            var currScene = UIManager.GetCurrentScene();
-            UIManager.SwitchScene(currScene);
-
-            if(uiAfterReload == UIType.GameHUD)
-                UIManager.GetHudController().Reset();
-
-            UIManager.SwitchUi(uiAfterReload);
+            GameManager.SwitchScene(currScene, uiAfterReload);
         }
     }
 }

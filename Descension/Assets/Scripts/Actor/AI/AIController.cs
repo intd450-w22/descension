@@ -9,19 +9,20 @@ using UnityEngine;
 using UnityEngine.AI;
 using Managers;
 using Util.EditorHelpers;
+using Util.Enums;
 using Util.Helpers;
-using static Util.Helpers.CalculationHelper;
 
 namespace Actor.AI
 {
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
-    public class AIController : MonoBehaviour, IDamageable
+    public class AIController : UniqueMonoBehaviour, IDamageable
     {
         public float hitPoints = 100;
         public int updateInterval = 3;
         public int activeRangeSq = 1000;  // only run FixedUpdate if in range of player
         public AIState initialState;
         public AIState onHit;                               // state to transition to if hit by player
+        public FactKey fact;
         public ItemSpawner.DropStruct[] drops;              // item drop chances
         [SerializeField, ReadOnly] private AIState state;   // current state
         
@@ -97,10 +98,18 @@ namespace Actor.AI
         
         void Awake()
         {
+            _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
+            
+            if (GameManager.IsUniqueDestroyed(this, out var location))
+            {
+                Transform.position = location;
+                SetDead();
+                return;
+            }
+
             Agent.updateRotation = false; 
             Agent.updateUpAxis = false;
 
-            _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
             _animatorIsMovingId = Animator.StringToHash("IsMoving");
             _colliderIsTrigger = Collider.isTrigger;
             
@@ -124,21 +133,29 @@ namespace Actor.AI
         
         void OnKilled()
         {
-            _alive = false;
+            GameManager.CacheDestroyedUnique(this, Transform.position);
             
-            ItemSpawner.SpawnRandom(Agent.transform.position, drops);
+            ItemSpawner.SpawnRandom(Transform.position, drops);
             
-            // lay down and disable collision
-            Animator.enabled = false;
-            Agent.enabled = false;
-            Transform.Rotate(new Vector3(0,0,1), 90);
-            _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
+            SetDead();
             
+            FactManager.IncrementFact(fact, 1);
+
             // delay collision disable so sprite doesn't move through walls/rocks
             this.InvokeWhen(
                 () => RigidBody.simulated = false, 
                 () => RigidBody.velocity.sqrMagnitude < 1, 
                 1);
+        }
+
+        void SetDead()
+        {
+            // lay down and disable collision
+            _alive = false;
+            Animator.enabled = false;
+            Agent.enabled = false;
+            Transform.Rotate(new Vector3(0,0,1), 90);
+            _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
         }
         
         public void SetState(AIState newState)
