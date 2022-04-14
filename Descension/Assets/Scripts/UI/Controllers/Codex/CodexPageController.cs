@@ -32,22 +32,22 @@ namespace UI.Controllers.Codex
 
         void Awake()
         {
-            var leftPage = gameObject.GetChildObjectWithName("LeftPage");
-            _pageTitleText = leftPage.GetChildObjectWithName("PageTitle").GetComponent<TextMeshProUGUI>();
+            var leftPage = gameObject.GetChildObject("LeftPage");
+            _pageTitleText = leftPage.GetChildObject("PageTitle").GetComponent<TextMeshProUGUI>();
             _pageItemContainer = leftPage
-                .GetChildObjectWithName("Scroll View")
-                .GetChildObjectWithName("Viewport")
-                .GetChildObjectWithName("PageItems");
+                .GetChildObject("Scroll View")
+                .GetChildObject("Viewport")
+                .GetChildObject("PageItems");
 
-            var rightPage = gameObject.GetChildObjectWithName("RightPage");
+            var rightPage = gameObject.GetChildObject("RightPage");
             _pageDetailImage = rightPage
-                .GetChildObjectWithName("PageDetailImageContainer")
-                .GetChildObjectWithName("PageDetailImage")
+                .GetChildObject("PageDetailImageContainer")
+                .GetChildObject("PageDetailImage")
                 .GetComponent<Image>();
             _pageDetailText = rightPage
-                .GetChildObjectWithName("Scroll View")
-                .GetChildObjectWithName("Viewport")
-                .GetChildObjectWithName("PageDetailText")
+                .GetChildObject("Scroll View")
+                .GetChildObject("Viewport")
+                .GetChildObject("PageDetailText")
                 .GetComponent<TextMeshProUGUI>();
 
             _defaultSprite = _pageDetailImage.sprite;

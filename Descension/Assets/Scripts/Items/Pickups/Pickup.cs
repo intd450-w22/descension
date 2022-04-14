@@ -35,11 +35,10 @@ namespace Items.Pickups
             }
         }
 
-        private void OnValidate() => gameObject.GetChildObjectWithName("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+        private void OnValidate() => gameObject.GetChildObject("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-
             if (other.gameObject.CompareTag("Player"))
             {
                 DialogueManager.ShowPrompt("Press E to collect " + item.GetName());

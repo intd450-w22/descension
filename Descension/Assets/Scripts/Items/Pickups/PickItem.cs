@@ -5,9 +5,6 @@ using Managers;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
-
 
 namespace Items.Pickups
 {
@@ -96,7 +93,7 @@ namespace Items.Pickups
             Reticle.position = _playerPosition + (_aimDirection * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(_playerPosition + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
             
-            Debug.DrawLine(_playerPosition, Reticle.position);
+            GameDebug.DrawLine(_playerPosition, Reticle.position);
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
             

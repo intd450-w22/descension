@@ -41,7 +41,7 @@ namespace Actor.AI.States
                 return;
             }
             
-            Debug.DrawLine(Position, _target, Color.yellow);
+            GameDebug.DrawLine(Position, _target, Color.yellow);
 
             if (toTarget.magnitude < reachThreshold) Look();
         }

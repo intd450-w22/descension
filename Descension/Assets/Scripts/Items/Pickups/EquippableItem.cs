@@ -1,11 +1,9 @@
 using System;
 using Actor.Player;
-using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Util.Enums;
-using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -32,7 +30,7 @@ namespace Items.Pickups
     }
     
     // actual object with functionality, would be abstract but then it doesn't display in inspector
-    [Serializable, CanBeNull]
+    [Serializable]
     public class Equippable
     {
         // attributes

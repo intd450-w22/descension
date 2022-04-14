@@ -1,11 +1,16 @@
-using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Debug = UnityEngine.Debug;
+
 
 namespace Util.Helpers
 {
-    public static class DebugHelper
+    // To enable conditional functions, go to BuildSettings -> PlayerSettings -> Player and scroll down to
+    // Other Settings -> Scripting Define Symbols, add or remove ENABLE_DRAW_DEBUG
+
+    public static class GameDebug
     {
+        [Conditional("ENABLE_DRAW_DEBUG")]
         public static void DrawBoxCast2D(Vector2 origin, Vector2 size, float angle, Vector2 direction, float distance, float duration = 0, Color color = new Color())
         {
             Quaternion orientation = Quaternion.Euler(0f, 0f, angle);
@@ -18,6 +23,18 @@ namespace Util.Helpers
             Debug.DrawLine(topBox.TopRight, topBox.BottomRight, color, duration);
             Debug.DrawLine(bottomBox.BottomLeft, topBox.BottomRight, color, duration);
         }
+
+        [Conditional("ENABLE_DRAW_DEBUG")]
+        public static void DrawLine(Vector3 start, Vector3 end) => Debug.DrawLine(start, end);
+        
+        [Conditional("ENABLE_DRAW_DEBUG")]
+        public static void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0) => Debug.DrawLine(start, end, color, duration);
+
+        [Conditional("ENABLE_DRAW_DEBUG")]
+        public static void DrawRay(Vector3 start, Vector3 dir) => Debug.DrawRay(start, dir);
+        
+        [Conditional("ENABLE_DRAW_DEBUG")]
+        public static void DrawRay(Vector3 start, Vector3 dir, Color color, float duration = 0) => Debug.DrawRay(start, dir, color, duration);
     }
 
     public class Box

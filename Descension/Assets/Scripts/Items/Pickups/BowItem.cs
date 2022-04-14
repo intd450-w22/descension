@@ -6,7 +6,6 @@ using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
 
-
 namespace Items.Pickups
 {
     public class BowItem : EquippableItem
@@ -134,7 +133,7 @@ namespace Items.Pickups
                 return;
             }
 
-            Debug.DrawLine(PlayerPosition, PlayerPosition + _direction * 3);
+            GameDebug.DrawLine(PlayerPosition, PlayerPosition + _direction * 3);
             
             // spawn arrow
             Projectile.Instantiate(_arrowPrefab, _bowPosition - _spritePositionOffset, _direction, _damage, _knockBack, Tag.Enemy);
