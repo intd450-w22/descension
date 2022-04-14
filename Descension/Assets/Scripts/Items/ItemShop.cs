@@ -4,6 +4,7 @@ using UnityEngine;
 using Util.Enums;
 
 using System.Collections.Generic;
+using Util.Helpers;
 
 namespace Items
 {
@@ -54,7 +55,7 @@ namespace Items
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("OnTriggerEnter2d");
+                GameDebug.Log("OnTriggerEnter2d");
                 _inRange = true;
                 DialogueManager.ShowPrompt("Press T to talk   Press F to buy");   
             }

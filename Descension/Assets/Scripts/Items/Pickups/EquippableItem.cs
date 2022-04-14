@@ -4,6 +4,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -111,7 +112,7 @@ namespace Items.Pickups
         public virtual string GetName() { return name; }
         
         // should override to spawn pickup item
-        public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }
+        public virtual void SpawnDrop() { GameDebug.LogWarning("SpawnDrop() should be overriden in " + this); }
 
         // returns the max quantity/durability for this item
         public int GetMaxQuantity() => _maxQuantity;

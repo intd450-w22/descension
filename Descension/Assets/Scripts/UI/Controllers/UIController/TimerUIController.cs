@@ -1,4 +1,5 @@
 ﻿using Managers;
+using UnityEditor;
 using UnityEngine;
 using Util.Enums;
 
@@ -6,8 +7,7 @@ namespace UI.Controllers.UIController
 {
     public class TimerUIController : UIController
     {
-        public Scene NextScene = Scene.None;
-        public string OtherScene;
+        public SceneAsset nextScene;
         public UIType NextUi = UIType.None;
         public int TimeBeforeTransition = 0;
 
@@ -30,16 +30,9 @@ namespace UI.Controllers.UIController
             {
                 _timerStarted = false;
                 _timeRemaining = 0;
-
-                if(NextScene == Scene.Other)
-                    UIManager.SwitchScene(OtherScene);
-                else if(NextScene != Scene.None)
-                    UIManager.SwitchScene(NextScene);
                 
-                UIManager.SwitchUi(NextUi);
+                GameManager.SwitchScene(nextScene, NextUi);
             }
-
-
         }
     }
 }

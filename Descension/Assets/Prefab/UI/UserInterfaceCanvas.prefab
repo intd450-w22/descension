@@ -2581,24 +2581,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldText: 'Gold: '
-  shopMenuItemPrefab: {fileID: 8114141504499861455, guid: 19f2b9f499e0c434bba4cd894ff46252, type: 3}
+  shopMenuItemPrefab: {fileID: 4478278108828841174, guid: 850ed5cbdffa61b45a4f206c79b1fe3f, type: 3}
   shopItems:
   - item: {fileID: 1312424675061267261, guid: aac1fcca5b02b784da9093c7112c901b, type: 3}
+    shopName: 
     cost: 30
     quantity: 10
   - item: {fileID: 2165583528553325103, guid: a4953c3c2e3be914e8779e576b8f6344, type: 3}
+    shopName: 
     cost: 30
     quantity: 20
   - item: {fileID: 6980586687283975477, guid: 65b8283e56af8bd4aa72c3f007015a55, type: 3}
+    shopName: 
     cost: 20
     quantity: 1
   - item: {fileID: -3056033874401481543, guid: 2abfd37df650e804a816404c2cab43ee, type: 3}
+    shopName: 
     cost: 20
     quantity: 50
   - item: {fileID: 8256232585060741582, guid: 9ff47cef087ec6743a9c22fa591095f0, type: 3}
+    shopName: Potion
     cost: 20
     quantity: 1
   - item: {fileID: 851537908566591154, guid: e1ad0b54328ae6b45bf1eea31b7d376d, type: 3}
+    shopName: 
     cost: 20
     quantity: 15
   spawned:
@@ -3574,8 +3580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiType: 7
-  NextScene: 0
-  OtherScene: Level1-Perspective
+  nextScene: {fileID: 0}
   NextUi: 4
   TimeBeforeTransition: 15
 --- !u!1 &7871514595597408283
@@ -4600,6 +4605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 6
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105459789434791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4914,6 +4920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105460838431112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5038,9 +5045,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a777eab6e39d484eb95923ae4869a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScene: 0
-  OtherTargetScene: Level1-Perspective
+  scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   UiType: 4
+  clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105460845649356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5165,6 +5173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105460874406463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5387,6 +5396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 2
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105460955849959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5505,9 +5515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a777eab6e39d484eb95923ae4869a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScene: 0
-  OtherTargetScene: Level1-Perspective
+  scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   UiType: 4
+  clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!114 &7498503922289483631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5522,6 +5533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 7
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105461072883320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5752,9 +5764,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a777eab6e39d484eb95923ae4869a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScene: 0
-  OtherTargetScene: Level2-Perspective
+  scene: {fileID: 102900000, guid: 48ce86583fac5944cb7d39c1bcfa9628, type: 3}
   UiType: 4
+  clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105461214005064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5981,6 +5994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 1
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &493105461520752136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6339,6 +6353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 1
+  resetDestroyedCache: 0
 --- !u!1001 &2235827325757807672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6459,6 +6474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &3203938111259382895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7029,9 +7045,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a777eab6e39d484eb95923ae4869a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScene: 0
-  OtherTargetScene: Level4Final
+  scene: {fileID: 102900000, guid: 8c5a106f11dc4b54eb7108f8cb32a0b0, type: 3}
   UiType: 4
+  clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &4151572755598677689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7665,7 +7682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472198, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_fontSize
-      value: 62.1
+      value: 62.05
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472199, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_Pivot.x
@@ -7877,7 +7894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472198, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_fontSize
-      value: 62.1
+      value: 62.05
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472199, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_Pivot.x
@@ -8648,7 +8665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472198, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_fontSize
-      value: 62.1
+      value: 62.05
       objectReference: {fileID: 0}
     - target: {fileID: 7113878961473472199, guid: 9d0a317b30a161846aab4d6acd70ec6d, type: 3}
       propertyPath: m_Pivot.x
@@ -8983,6 +9000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 11
   clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &7784622142375498689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9340,6 +9358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 1
+  resetDestroyedCache: 0
 --- !u!1001 &8538147815501589589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9564,9 +9583,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a777eab6e39d484eb95923ae4869a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScene: 0
-  OtherTargetScene: Level3Final
+  scene: {fileID: 102900000, guid: 3b1f6feabd384594099541748c524bf1, type: 3}
   UiType: 4
+  clearInventoryCache: 0
+  resetDestroyedCache: 0
 --- !u!1001 &8887586948071866991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9805,6 +9825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetUI: 0
   clearInventoryCache: 1
+  resetDestroyedCache: 0
 --- !u!1001 &9196199070558689706
 PrefabInstance:
   m_ObjectHideFlags: 0

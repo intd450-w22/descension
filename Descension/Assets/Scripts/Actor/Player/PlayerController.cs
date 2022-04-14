@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Actor.Interface;
 using Managers;
 using UI.Controllers;
@@ -25,6 +26,7 @@ namespace Actor.Player
         public static Camera Camera => Instance._camera ??= Camera.main;
         public static void OnReloadScene() => Instance.hitPoints = Instance.maxHitPoints;
         public static Vector2 Velocity => Instance._rb.velocity;
+        public static void SetStartPosition(int startPosition) => Instance._startPosition = startPosition;
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
@@ -71,6 +73,7 @@ namespace Actor.Player
         private bool _alive;
         private bool _knocked;
         private Camera _camera;
+        [SerializeField] private int _startPosition;
         
         private bool knocked
         {
@@ -86,7 +89,7 @@ namespace Actor.Player
 
         void Awake()
         {
-            Debug.Log("Awake()");
+            GameDebug.Log("Awake()");
             if (Instance == null)
             {
                 Instance = this;
@@ -110,12 +113,21 @@ namespace Actor.Player
             }
             else if (Instance != this)
             {
-                Instance.transform.position = transform.position;
                 Destroy(gameObject);
             }
-            
+
+            Instance.GoToStartPosition();
             Instance.SetAlive();
             GameManager.Resume();
+        }
+
+        void GoToStartPosition()
+        {
+            var startPositions = GameObject.Find("StartPositions")?.GetChildTransforms().ToArray();
+            if (startPositions?.Length > _startPosition)
+            {
+                Instance.transform.position = startPositions[_startPosition].position;
+            }
         }
 
         void Start() => _hudController = UIManager.GetHudController();
@@ -123,7 +135,7 @@ namespace Actor.Player
         private void OnEnable() => playerControls?.Enable();
         
         private void OnDisable() => playerControls?.Disable();
-
+        
         void FixedUpdate()
         {
             UpdateTorchVisuals();
@@ -176,7 +188,7 @@ namespace Actor.Player
 
         public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
         {
-            Debug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
+            GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
             _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
             
@@ -327,7 +339,7 @@ namespace Actor.Player
                 _currentControlScheme = playerInput.currentControlScheme;
                 
                 var deviceName = DeviceDisplaySettings.GetDeviceName(playerInput);
-                Debug.Log($"Current control scheme {deviceName}");
+                GameDebug.Log($"Current control scheme {deviceName}");
 
                 RemoveAllBindingOverrides();
             }
@@ -336,7 +348,7 @@ namespace Actor.Player
         public void OnDeviceLost()
         {
             string disconnectedName = DeviceDisplaySettings.GetDisconnectedName();
-            Debug.Log($"Device lost: {disconnectedName}");
+            GameDebug.Log($"Device lost: {disconnectedName}");
         }
 
         public void RemoveAllBindingOverrides() { }

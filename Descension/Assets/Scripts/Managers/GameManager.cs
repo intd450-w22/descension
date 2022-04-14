@@ -1,6 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
+using Actor.Interface;
 using Actor.Player;
 using Environment;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Util;
+using Util.Enums;
+using Util.Helpers;
 
 namespace Managers
 {
@@ -39,7 +47,7 @@ namespace Managers
 
         private void OnFreeze()
         {
-            Debug.Log("OnFreeze");
+            GameDebug.Log("OnFreeze");
             _isFrozen = true;
         }
 
@@ -47,7 +55,7 @@ namespace Managers
 
         private void OnUnFreeze()
         {
-            Debug.Log("OnUnFreeze");
+            GameDebug.Log("OnUnFreeze");
             _isFrozen = false;
             InventoryManager.SetCooldown();
         }
@@ -57,7 +65,7 @@ namespace Managers
         {
             _isPaused = true;
 
-            Debug.Log("OnPause");
+            GameDebug.Log("OnPause");
             SoundManager.PauseBackgroundAudio();
         }
 
@@ -66,9 +74,75 @@ namespace Managers
         {
             _isPaused = false;
 
-            Debug.Log("OnResume");
+            GameDebug.Log("OnResume");
             SoundManager.ResumeBackgroundAudio();
             InventoryManager.SetCooldown();
         }
+        
+        
+        #region scene management
+        
+        public static Scene GetCurrentScene() => SceneManager.GetActiveScene();
+        public static void SwitchScene(Scene scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene.name, uiType, startPosition);
+        public static void SwitchScene(SceneAsset scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene.name, uiType, startPosition);
+        private void _SwitchScene(string scene, UIType uiType = UIType.None, int startPosition = -1)
+        {
+            GameDebug.Log("SwitchScene(" + scene + ")");
+            
+            if (startPosition != -1) PlayerController.SetStartPosition(startPosition);
+            
+            AsyncOperation load = SceneManager.LoadSceneAsync(scene);
+             
+            if (uiType != UIType.None)
+                this.InvokeWhen(
+                    () => UIManager.SwitchUi(uiType), 
+                    () => load.isDone,
+                    0.5f);
+        }
+
+        # endregion
+        
+        
+        #region state caching
+        
+        public static void ClearDestroyedCache()
+        {
+            DestroyedUnique.Clear();
+            CachedDestroyedUnique.Clear();
+        }
+
+        public static void OnSceneComplete()
+        {
+            foreach (var destroyed in DestroyedUnique)
+            {
+                CachedDestroyedUnique[destroyed.Key] = destroyed.Value;
+            }
+            DestroyedUnique.Clear();
+        }
+        public static void OnReloadScene()
+        {
+            DestroyedUnique.Clear();
+        }
+        
+        public static void CacheDestroyedUnique(UniqueMonoBehaviour obj, Vector3 location = new Vector3()) => DestroyedUnique.Add(obj.GetUniqueId(), location);
+        public static bool IsUniqueDestroyed(UniqueMonoBehaviour obj, out Vector3 location)
+        {
+            if (CachedDestroyedUnique.ContainsKey(obj.GetUniqueId()))
+            {
+                location = CachedDestroyedUnique[obj.GetUniqueId()];
+                return true;
+            }
+
+            location = Vector3.zero;
+            return false;
+        }
+
+        private static Dictionary<int, Vector2> DestroyedUnique => Instance._destroyedUnique ??= new Dictionary<int, Vector2>();
+        private Dictionary<int, Vector2> _destroyedUnique;
+        
+        private static Dictionary<int, Vector2> CachedDestroyedUnique => Instance._cachedDestroyedUnique ??= new Dictionary<int, Vector2>();
+        private Dictionary<int, Vector2> _cachedDestroyedUnique;
+        
+        # endregion
     }
 }

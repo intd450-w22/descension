@@ -126,6 +126,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
+      propertyPath: fact
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: onHit
       value: 
       objectReference: {fileID: 7904606063305443725}
@@ -170,6 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863aca6c13cf4e45b4eac4986ae7297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
   reachThreshold: 5
   sightDistance: 45
   speed: 20
@@ -187,6 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d1e6d51def4134e81dd5166d3d1004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
   projectilePrefab: {fileID: 1130725838682376733, guid: 7fa8938704920444ba75242b407ff99e, type: 3}
   damage: 8
   knockBack: 50
@@ -205,6 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f534addf794bea94982f3490b27d4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
   reachThreshold: 25
   sightDistance: 45
   speed: 20
@@ -222,6 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8965adbc1d264fc409e28f078056c21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpriteOffset: 0.3
+  weaponRotationOffset: -45
+  weaponCenterOffset: {x: 0, y: 0}
   sightSwayDegrees: 60
   sightSwaySpeed: 6
   sightDistance: 30
