@@ -1,29 +1,41 @@
+using System;
 using Managers;
 using TMPro;
 using UI.Controllers.ShopUI;
+using UI.MenuUI;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UI.Controllers.ButtonController
 {
-    public class ShopItemButtonController : ButtonController
+    public class ShopItemButtonController : MenuItem
     {
+        public MultiButton[] buttons;
+
         public ShopItem shopItem;
-        private TMP_Text _itemText;
-        private TMP_Text ItemText
+        public TMP_Text nameText;
+        public TMP_Text quantityText;
+        public TMP_Text costText;
+        public Image image;
+        
+        protected virtual void Start()
         {
-            get
+            for (var i = 0; i < buttons.Length; ++i)
             {
-                if (_itemText == null) _itemText = GetComponent<TMP_Text>();
-                return _itemText;
+                buttons[i].onClick.AddListener(OnButtonClicked);
             }
         }
 
         public void Set(ShopItem item)
         {
             shopItem = item;
-            ItemText.text = shopItem.item.GetName() + " (" + shopItem.cost + " gold)";
+            nameText.text = item.shopName.Length > 0 ? item.shopName : shopItem.item.GetName();
+            quantityText.text = $"x{shopItem.quantity.ToString(),2}";
+            costText.text = shopItem.cost.ToString();
         }
         
-        protected override void OnButtonClicked()
+        protected virtual void OnButtonClicked()
         {
             float gold = InventoryManager.Gold;
 

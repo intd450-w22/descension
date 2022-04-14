@@ -73,6 +73,7 @@ namespace UI.Controllers.ShopUI
     public struct ShopItem
     {
         public EquippableItem item;
+        public string shopName;
         public int cost;
         public int quantity;
     }
