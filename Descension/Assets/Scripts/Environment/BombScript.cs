@@ -5,65 +5,52 @@ namespace Environment
 {
     public class BombScript : MonoBehaviour
     {
-        public string name;
-        public string[] linesOfDialogue;
-        public string[] blowUpDialogue;
-        public string[] startTimerDialogue;
-        public KeyCode interactionKey = KeyCode.F;
-        public KeyCode startBombKey = KeyCode.E;
+        [Header("Configuration")]
+        public KeyCode InteractionKey = KeyCode.F;
+        public KeyCode StartBombKey = KeyCode.E;
+        
+        [Header("Dialogue")]
+        public string Name;
+        public string[] LinesOfDialogue;
+        public string[] BlowUpDialogue;
+        public string[] StartTimerDialogue;
+
         private bool _inRange;
         private bool _hasExplosives;
         private bool _hasTrigger;
         private bool _hasTimer;
-        private bool _hasAll;
-        private bool _hasExplosivesAndTrigger;
+        private bool _hasExplosivesAndTrigger => _hasExplosives && _hasTrigger;
+        private bool _hasAll => _hasExplosives && _hasTrigger && _hasTimer;
+        
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
         
-        
-        
-        public void AddExplosives()
-        {
-            _hasExplosives = true;
-            _hasExplosivesAndTrigger = _hasTrigger && _hasExplosives;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
-
-        public void AddTrigger()
-        {
-            _hasTrigger = true;
-            _hasExplosivesAndTrigger = _hasTrigger && _hasExplosives;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
-
-        public void AddTimer()
-        {
-            _hasTimer = true;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
+        public void AddExplosives()=> _hasExplosives = true;
+        public void AddTrigger() => _hasTrigger = true;
+        public void AddTimer() => _hasTimer = true;
 
         void Update() {
             if (GameManager.IsFrozen) return;
 
             if (_inRange)
             {
-                if (Input.GetKeyDown(interactionKey)) 
+                if (Input.GetKeyDown(InteractionKey)) 
                 {
-                    if (_hasAll) DialogueManager.StartDialogue(name, startTimerDialogue);
-                    else if (_hasExplosivesAndTrigger) DialogueManager.StartDialogue(name, blowUpDialogue);
-                    else DialogueManager.StartDialogue(name, linesOfDialogue);
                     SoundManager.Inspection();
+
+                    if (_hasAll) 
+                        DialogueManager.StartDialogue(Name, StartTimerDialogue);
+                    else if (_hasExplosivesAndTrigger) 
+                        DialogueManager.StartDialogue(Name, BlowUpDialogue);
+                    else 
+                        DialogueManager.StartDialogue(Name, LinesOfDialogue);
                 }
-                else if (Input.GetKeyDown(startBombKey)) 
+                else if (Input.GetKeyDown(StartBombKey)) 
                 {
                     if (_hasAll)
-                    {
-                        DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
-                    } 
+                        DialogueManager.StartDialogue(Name, new [] {"Timer Started, RUN!!"});
                     else if (_hasExplosivesAndTrigger)
-                    {
-                        DialogueManager.StartDialogue(name, new [] {"BOOM!"});
-                    }
+                        DialogueManager.StartDialogue(Name, new [] {"BOOM!"});
                 }
             }
         }
