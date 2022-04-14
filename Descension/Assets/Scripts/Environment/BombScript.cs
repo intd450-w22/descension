@@ -2,6 +2,7 @@ using Managers;
 using UnityEngine;
 using UI.Controllers;
 using Util.Enums;
+using System;
 
 namespace Environment
 {
@@ -23,6 +24,7 @@ namespace Environment
         public FactKey Fact;
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
+        private Action _endGame;
 
 
         public void AddExplosives()
@@ -50,10 +52,6 @@ namespace Environment
 
             if (_inRange)
             {
-                if (_activatedBombWithoutTrigger)
-                {
-                    UIManager.SwitchUi(UIType.End);
-                }
                 if (Input.GetKeyDown(interactionKey)) 
                 {
                     if (_hasAll) DialogueManager.StartDialogue(name, startTimerDialogue);
@@ -70,8 +68,8 @@ namespace Environment
                     } 
                     else if (_hasExplosivesAndTrigger)
                     {
-                        DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." });
-                        _activatedBombWithoutTrigger = true;
+                        _endGame += EndGame;
+                        DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
                     }
                 }
             }
@@ -93,6 +91,10 @@ namespace Environment
                 DialogueManager.HidePrompt();
                 _inRange = false;
             }
+        }
+        private void EndGame()
+        {
+            UIManager.SwitchUi(UIType.End);
         }
     }
 }
