@@ -210,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: onHit
       value: 
-      objectReference: {fileID: 6444157908627223380}
+      objectReference: {fileID: 3536680100744711254}
     - target: {fileID: 5406964834789103156, guid: a3d69576293315b49b8d4c5ddd70295e, type: 3}
       propertyPath: state
       value: 
