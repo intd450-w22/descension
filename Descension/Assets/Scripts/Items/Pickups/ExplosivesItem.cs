@@ -3,6 +3,7 @@ using Actor.Player;
 using Environment;
 using Managers;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -57,17 +58,17 @@ namespace Items.Pickups
             if (BombScript.Instance)
             {
                 var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
-                Debug.Log("Distance: " + distance);
+                GameDebug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
-                    Debug.Log("In Range");
+                    GameDebug.Log("In Range");
                     BombScript.Instance.AddExplosives();
                     DialogueManager.ShowPrompt(_addToBombMessage);
                     Quantity = -1;
                 }
                 else
                 {
-                    Debug.Log("Out of Range");
+                    GameDebug.Log("Out of Range");
 
                     DialogueManager.ShowPrompt(_outOfRangeMessage);
                 }

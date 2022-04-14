@@ -69,7 +69,7 @@ namespace Actor.AI.States
             {
                 rayCast.transform.GetComponent<IDamageable>().InflictDamage(damage, _direction, knockBack);
                 
-                Debug.Log("Attack Hit!");
+                GameDebug.Log("Attack Hit!");
                 GameDebug.DrawBoxCast2D(Position, box, angle, _direction, range, 0.5f, Color.red);
             }
             else

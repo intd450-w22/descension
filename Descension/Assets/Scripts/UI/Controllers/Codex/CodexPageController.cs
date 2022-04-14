@@ -56,7 +56,7 @@ namespace UI.Controllers.Codex
         public void Init(CodexPage page)
         {
             if(CodexMenuItemPrefab == null)
-                Debug.LogWarning("CodexPage: CodexMenuItemPrefab not set.");
+                GameDebug.LogWarning("CodexPage: CodexMenuItemPrefab not set.");
 
             PageTitle = page.PageTitle;
             PageType = page.PageType;
@@ -91,12 +91,12 @@ namespace UI.Controllers.Codex
             if (firstVisible != null)
             {
                 SetDetails(firstVisible.PageItem);
-                Debug.Log("Setting first detail");
+                GameDebug.Log("Setting first detail");
             }
             else
             {
                 ClearDetails();
-                Debug.Log("Clearing first detail");
+                GameDebug.Log("Clearing first detail");
             }
         }
 

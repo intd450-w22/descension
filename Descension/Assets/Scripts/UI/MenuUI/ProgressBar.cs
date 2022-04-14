@@ -80,7 +80,7 @@ namespace UI.MenuUI
         {
             if (progressRectTransform == null)
             {
-                Debug.LogWarning("Cannot find rect transform with name 'Progress'");
+                GameDebug.LogWarning("Cannot find rect transform with name 'Progress'");
                 return;
             };
 

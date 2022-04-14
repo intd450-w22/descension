@@ -175,7 +175,7 @@ namespace Actor.AI
         {
             if (!_alive) return;
             
-            Debug.Log($"Enemy hit for {damage} damage");
+            GameDebug.Log($"Enemy hit for {damage} damage");
             
             HUDController.ShowFloatingText(Position, "Hp-" + damage, Color.red);
             

@@ -6,10 +6,12 @@ using Debug = UnityEngine.Debug;
 namespace Util.Helpers
 {
     // To enable conditional functions, go to BuildSettings -> PlayerSettings -> Player and scroll down to
-    // Other Settings -> Scripting Define Symbols, add or remove ENABLE_DRAW_DEBUG
+    // Other Settings -> Scripting Define Symbols, add or remove ENABLE_DRAW_DEBUG and ENABLE_LOG_DEBUG
 
     public static class GameDebug
     {
+        #region Draw Debug
+        
         [Conditional("ENABLE_DRAW_DEBUG")]
         public static void DrawBoxCast2D(Vector2 origin, Vector2 size, float angle, Vector2 direction, float distance, float duration = 0, Color color = new Color())
         {
@@ -35,9 +37,21 @@ namespace Util.Helpers
         
         [Conditional("ENABLE_DRAW_DEBUG")]
         public static void DrawRay(Vector3 start, Vector3 dir, Color color, float duration = 0) => Debug.DrawRay(start, dir, color, duration);
+
+        #endregion
+        
+        #region Log Debug
+        
+        [Conditional("ENABLE_LOG_DEBUG")]
+        public static void Log(string text) => Debug.Log(text);
+        
+        [Conditional("ENABLE_LOG_DEBUG")]
+        public static void LogWarning(string text) => Debug.LogWarning(text);
+        
+        #endregion
     }
 
-    public class Box
+    internal class Box
     {
         public Vector3 TopLeft;
         public Vector3 TopRight;
