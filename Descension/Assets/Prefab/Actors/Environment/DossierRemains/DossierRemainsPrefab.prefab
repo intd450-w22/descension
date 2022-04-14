@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7256820231823836563
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: linesOfDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: linesOfDialogue.Array.data[0]
+      value: 'It''s a folder but many of its papers are mising. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: linesOfDialogue.Array.data[1]
+      value: Four months ago, seismic activity near the mountains drew the attention
+        of the national scientific division.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: linesOfDialogue.Array.data[2]
+      value: A research team was dispatched immediately to assess the damage to the
+        surrounding area.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771248, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 963f0d12a52bbac47bd0f390747e6175, type: 3}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771249, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138285771250, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: m_Name
+      value: DossierRemainsPrefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
