@@ -1,18 +1,30 @@
+using Actor.Interface;
 using Items;
 using Managers;
 using UnityEngine;
 
 namespace Environment
 {
-    public class RemovableRock : MonoBehaviour
+    public class RemovableRock : UniqueMonoBehaviour
     {
         public int goldDropMin = 1;
         public int goldDropMax = 20;
         public int goldDropChance = 40;  // percent chance of dropping gold in range (goldDropMin, goldDropMax)
         public ItemSpawner.DropStruct[] itemDrops;
 
+        void Awake()
+        {
+            if (GameManager.IsUniqueDestroyed(this, out _))
+            {
+                Debug.Log("Destroying " + GetUniqueId());
+                Destroy(gameObject);
+            }
+        }
+        
         public void OnDestroyed()
         {
+            GameManager.CacheDestroyedUnique(this, transform.position);
+
             if (Random.Range(0, 100) < goldDropChance)
             {
                 int gold = Random.Range(goldDropMin, goldDropMax + 1);
@@ -28,6 +40,7 @@ namespace Environment
             
             Destroy(gameObject);
         }
+
         
     }
 }

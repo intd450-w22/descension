@@ -83,6 +83,11 @@ namespace Util.Helpers
             return GetChildObject(gameObject.transform, name);
         }
         
+        public static IEnumerable<Transform> GetChildTransforms(this GameObject obj)
+        {
+            return obj.transform.GetChildTransforms();
+        }
+        
         public static IEnumerable<Transform> GetChildTransforms(this Transform transform)
         {
             return transform.GetComponentsInChildren<Transform>().Where(t => t != transform);

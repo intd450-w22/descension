@@ -1,18 +1,18 @@
 using Managers;
 using UnityEngine;
-using Util.Enums;
 
-public class OnLevelStart : MonoBehaviour
+namespace Environment
 {
-    private Scene LevelType;
-
-    void Start()
+    public class OnLevelStart : MonoBehaviour
     {
-        // Init any level things
-        SoundManager.StartBackgroundAudio();
-        UIManager.GetHudController().Reset(); // Move to an earlier call probably 
+        void Start()
+        {
+            // Init any level things
+            SoundManager.StartBackgroundAudio();
+            UIManager.GetHudController().Reset(); // Move to an earlier call probably 
 
-        GameManager.UnFreeze();
-        GameManager.Resume();
+            GameManager.UnFreeze();
+            GameManager.Resume();
+        }
     }
 }

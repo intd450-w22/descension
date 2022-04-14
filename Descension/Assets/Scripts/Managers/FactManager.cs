@@ -55,8 +55,8 @@ namespace Managers
         public static void SetFact(string key, bool val) => SetFact(key, val ? 1 : 0);
         public static void SetFact(FactKey key, bool val) => SetFact(key.ToString(), val);
 
-        public static void IncrementFact(string key, int val) => SetFact(key, Instance.Facts[key] + 1);
-        public static void IncrementFact(FactKey key, int val) => IncrementFact(key.ToString(), val);
+        public static void IncrementFact(string key, int val = 1) => SetFact(key, Instance.Facts[key] + val);
+        public static void IncrementFact(FactKey key, int val = 1) => IncrementFact(key.ToString(), val);
 
         public static bool Query(Rule rule)
         {

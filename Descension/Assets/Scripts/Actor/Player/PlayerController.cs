@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Actor.Interface;
 using Managers;
 using UI.Controllers;
@@ -25,6 +26,7 @@ namespace Actor.Player
         public static Camera Camera => Instance._camera ??= Camera.main;
         public static void OnReloadScene() => Instance.hitPoints = Instance.maxHitPoints;
         public static Vector2 Velocity => Instance._rb.velocity;
+        public static void SetStartPosition(int startPosition) => Instance._startPosition = startPosition;
 
         [Header("Configuration")]
         public DeviceDisplayConfigurator DeviceDisplaySettings;
@@ -71,6 +73,7 @@ namespace Actor.Player
         private bool _alive;
         private bool _knocked;
         private Camera _camera;
+        [SerializeField] private int _startPosition;
         
         private bool knocked
         {
@@ -110,12 +113,21 @@ namespace Actor.Player
             }
             else if (Instance != this)
             {
-                Instance.transform.position = transform.position;
                 Destroy(gameObject);
             }
-            
+
+            Instance.GoToStartPosition();
             Instance.SetAlive();
             GameManager.Resume();
+        }
+
+        void GoToStartPosition()
+        {
+            var startPositions = GameObject.Find("StartPositions")?.GetChildTransforms().ToArray();
+            if (startPositions?.Length > _startPosition)
+            {
+                Instance.transform.position = startPositions[_startPosition].position;
+            }
         }
 
         void Start() => _hudController = UIManager.GetHudController();
@@ -123,7 +135,7 @@ namespace Actor.Player
         private void OnEnable() => playerControls?.Enable();
         
         private void OnDisable() => playerControls?.Disable();
-
+        
         void FixedUpdate()
         {
             UpdateTorchVisuals();
