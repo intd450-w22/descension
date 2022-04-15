@@ -166,7 +166,7 @@ namespace UI.Controllers
                 if (timer > 0)
                 {
                     _timerText.enabled = true;
-                    _timerText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(timer) / 60, Mathf.Floor(timer) % 60);
+                    _timerText.text = string.Format("{0}:{1:00}", Mathf.Floor(Mathf.Floor(timer) / 60), Mathf.Floor(timer) % 60);
                 }
                 else
                 {
