@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Items
 {
-    public class RopeItemm : MonoBehaviour, IUnique
+    public class RopeItem : MonoBehaviour, IUnique
     {
         [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
