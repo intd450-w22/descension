@@ -4294,6 +4294,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
+      propertyPath: showText
+      value: Climb back up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
       value: -526810
       objectReference: {fileID: 0}
@@ -5820,7 +5824,6 @@ Transform:
   - {fileID: 1029016458}
   - {fileID: 284821425}
   - {fileID: 2008283784}
-  - {fileID: 1663896795}
   - {fileID: 2079306000}
   - {fileID: 2034052570}
   m_Father: {fileID: 0}
@@ -27856,26 +27859,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
---- !u!1 &1217276389 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2904225009558641433, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
-  m_PrefabInstance: {fileID: 1217276388}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1217276390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217276389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ade3f4138b5ed4ea1f8153de1c6835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Fact: 26
-  x: 337
-  y: -360
 --- !u!1001 &1233489824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40016,110 +39999,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2429140265465495826, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
   m_PrefabInstance: {fileID: 1639524388}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1663896794
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 541825570}
-    m_Modifications:
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 590
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -420
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: showText
-      value: Climb to level 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: nextLevel
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: dialogueBox
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: dialogueText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: otherLevelName
-      value: Level3Final
-      objectReference: {fileID: 0}
-    - target: {fileID: 6419459856399984486, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-      propertyPath: m_Name
-      value: ClimbHolePrefab
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
---- !u!4 &1663896795 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6419459856399984475, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-  m_PrefabInstance: {fileID: 1663896794}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1663896796 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6419459856399984486, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
-  m_PrefabInstance: {fileID: 1663896794}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1663896797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663896796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d811d12e36308e74dbc86bfbc9746dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextLevel: 0
-  otherLevelName: Level1-Perspective
-  showText: Climb to level 1
-  endGame: 0
 --- !u!1001 &1671144748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42883,7 +42762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: showText
-      value: You descended to level 3.
+      value: Descend deeper
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
@@ -43041,7 +42920,7 @@ Transform:
   - {fileID: 1453662219}
   - {fileID: 1101919909}
   m_Father: {fileID: 541825570}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2038393748
 PrefabInstance:
@@ -43441,7 +43320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 541825570}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2090056941
 GameObject:

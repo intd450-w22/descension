@@ -48,7 +48,11 @@ namespace Actor.Player
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-        
+
+        //Used for permanent death if die after bomb planted
+        public FactKey EndFact;
+        private Action _endGame;
+
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
         [HideInInspector] public PlayerControls playerControls;
@@ -235,8 +239,23 @@ namespace Actor.Player
             
             GameManager.Freeze();
             SetDead();
-            
-            Invoke(nameof(OpenDeathMenu), 3);
+            if (FactManager.IsFactTrue(EndFact))
+            {
+                _endGame += PermanentDeath;
+                GameManager.UnFreeze();
+                DialogueManager.StartDialogue("", new[] { "The last adventurer to enter the Descent shall be remembered as a hero. Their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
+
+            }
+            else
+            {
+                Invoke(nameof(OpenDeathMenu), 3);
+            }
+        }
+
+        void PermanentDeath()
+        {
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.End);
         }
 
         void OpenDeathMenu()
