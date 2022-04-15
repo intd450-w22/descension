@@ -11,19 +11,18 @@ namespace Items.Pickups
 {
     public class Pickup : AInteractable, IUnique
     {
-
         [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
-
-        [ReadOnly] public GameObject prefab;
-        [ReadOnly] public Vector3 position;
-        [SerializeField] [ReadOnly] private bool spawned;
         
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
 
+        [HideInInspector] public GameObject prefab;
+        [HideInInspector] public Vector3 location;
+        private bool _spawned;
+        
         protected void Awake()
         {
             if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
@@ -33,14 +32,14 @@ namespace Items.Pickups
         {
             if (GetUniqueId() == 0)
             {
-                spawned = true;
+                _spawned = true;
                 GameManager.AddPreSceneChangeCallback(SceneChangeCallback);
             }
         }
 
         private void OnDestroy() => GameManager.RemovePreSceneChangeCallback(SceneChangeCallback);
 
-        void SceneChangeCallback() => SpawnManager.CachePickup(this);
+        void SceneChangeCallback() => SpawnManager.CachePickup(new PickupCacheInfo(this));
 
         public void TryPickup()
         {
@@ -55,7 +54,7 @@ namespace Items.Pickups
 
             if (quantity == 0)
             {
-                if (!spawned) GameManager.DestroyUnique(this);
+                if (!_spawned) GameManager.DestroyUnique(this);
                 Destroy(gameObject);
             }
                 
@@ -73,4 +72,19 @@ namespace Items.Pickups
         public override Vector2 Location() => gameObject.transform.position;
         public override string GetPrompt() => "Press F to pick up " + item.GetName();
     }
+
+    public readonly struct PickupCacheInfo
+    {
+        public PickupCacheInfo(Pickup pickup)
+        {
+            Prefab = pickup.prefab;
+            Location = pickup.location;
+            Quantity = pickup.quantity;
+        }
+        
+        public readonly GameObject Prefab;
+        public readonly Vector3 Location;
+        public readonly int Quantity;
+    }
+    
 }

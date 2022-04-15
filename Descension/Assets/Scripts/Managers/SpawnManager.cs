@@ -37,7 +37,7 @@ namespace Managers
         private static SpawnManager _instance;
         private static SpawnManager Instance => _instance ??= FindObjectOfType<SpawnManager>();
         
-        private static readonly Dictionary<string, HashSet<Pickup>> DroppedPickups = new Dictionary<string, HashSet<Pickup>>();
+        private static readonly Dictionary<string, HashSet<PickupCacheInfo>> DroppedPickups = new Dictionary<string, HashSet<PickupCacheInfo>>();
 
         public static void SpawnDroppedPickups()
         {
@@ -46,16 +46,16 @@ namespace Managers
             if (!DroppedPickups.ContainsKey(scene)) return;
             
             foreach (var pickup in DroppedPickups[scene])
-                SpawnItem(pickup.prefab, pickup.position, pickup.quantity, true);
+                SpawnItem(pickup.Prefab, pickup.Location, pickup.Quantity, true);
 
             DroppedPickups[scene].Clear();
         }
         
-        public static void CachePickup(Pickup pickup)
+        public static void CachePickup(PickupCacheInfo pickupCacheInfo)
         {
             var scene = SceneManager.GetActiveScene();
-            if (!DroppedPickups.ContainsKey(scene.name)) DroppedPickups.Add(scene.name, new HashSet<Pickup>());
-            DroppedPickups[scene.name].Add(pickup);
+            if (!DroppedPickups.ContainsKey(scene.name)) DroppedPickups.Add(scene.name, new HashSet<PickupCacheInfo>());
+            DroppedPickups[scene.name].Add(pickupCacheInfo);
         }
         
         public static Pickup SpawnItem(GameObject prefab, Vector3 position, bool silent = false) => Instance._SpawnItem(prefab, position, silent);
@@ -72,7 +72,7 @@ namespace Managers
             GameObject pickupObject = Instantiate(prefab, position, Quaternion.identity);
             Pickup pickup = pickupObject.GetComponent<Pickup>();
             pickup.prefab = prefab;
-            pickup.position = position;
+            pickup.location = position;
             return pickup;
         }
 
