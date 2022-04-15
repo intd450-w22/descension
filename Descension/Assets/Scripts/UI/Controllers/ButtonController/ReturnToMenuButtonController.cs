@@ -18,14 +18,15 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
+            PlayerController.Disable();
+            
+            GameManager.ClearGameCache();
+            
             GameManager.SwitchScene(_scene, UIType.MainMenu);
             
-            InventoryManager.ClearSlots();
-            InventoryManager.ClearCachedSlots();
-            GameManager.ClearDestroyedCache();
-
-            PlayerController.Disable();
-            PlayerController.Reset();
+            
+            
+            
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Items.Pickups
             set
             {
                 _quantity = Math.Min(value, _maxQuantity);
-
+                
                 if (_quantity <= 0) InventoryManager.DropSlot(_slotIndex);  // auto drop from slot if quantity/durability hits 0
                 else OnQuantityUpdated?.Invoke(_quantity);  // update UI
             }
@@ -126,6 +126,7 @@ namespace Items.Pickups
             _quantity = -1;
             inventorySprite = null;
             UIManager.Hotbar.DropItem(_slotIndex);
+            _slotIndex = -1;
         }
 
         // called when equipped switches to different slot (equippable)
