@@ -27,7 +27,8 @@ namespace UI.Controllers
         private TextMeshProUGUI _ropeText;
         private GameObject _torchGroup;
         private TextMeshProUGUI _torchText;
-        
+        private TextMeshProUGUI _timerText;
+
         private Hotbar _hotbar;
         public Hotbar Hotbar { get => _hotbar; }
 
@@ -64,6 +65,8 @@ namespace UI.Controllers
                 _healthGroup = leftHudGroup.GetChildObject("HealthGroup");
                 _healthText = _healthGroup.GetChildObject("Health").GetComponent<TextMeshProUGUI>();
                 _healthBar = _healthGroup.GetChildObject("HealthBar").GetComponent<ProgressBar>();
+
+                _timerText = gameObject.GetChildObject("TimerText").GetComponent<TextMeshProUGUI>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
             }
@@ -132,7 +135,7 @@ namespace UI.Controllers
             _promptText.text = string.Empty;
         }
 
-        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth)
+        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth, float timer)
         {
             try
             {
@@ -158,6 +161,16 @@ namespace UI.Controllers
                 else
                 {
                     _torchGroup.Disable();
+                }
+
+                if (timer > 0)
+                {
+                    _timerText.enabled = true;
+                    _timerText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(timer) / 60, Mathf.Floor(timer) % 60);
+                }
+                else
+                {
+                    _timerText.enabled = false;
                 }
             }
             catch (MissingReferenceException e)

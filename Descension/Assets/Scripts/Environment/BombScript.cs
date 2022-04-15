@@ -4,6 +4,7 @@ using UnityEngine;
 using UI.Controllers;
 using Util.Enums;
 using System;
+using Actor.Player;
 
 namespace Environment
 {
@@ -23,10 +24,11 @@ namespace Environment
         private bool _hasTimer;
         private bool _hasExplosivesAndTrigger => _hasExplosives && _hasTrigger;
         private bool _hasAll => _hasExplosives && _hasTrigger && _hasTimer;
-                
-        private bool _activatedBombWithoutTrigger;
+
+        private bool _activatedBomb = false;
         public FactKey Fact;
         private Action _endGame;
+        public float timeToEscape;
 
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
@@ -40,14 +42,17 @@ namespace Environment
 
             if (Input.GetKeyDown(StartBombKey)) 
             {
-                if (_hasAll)
+                if (_hasAll && !_activatedBomb)
                 {
                     DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
                     FactManager.SetFact(Fact, true);
+                    _activatedBomb = true;
+                    PlayerController.StartTimer(timeToEscape);
                 } 
-                else if (_hasExplosivesAndTrigger)
+                else if (_hasExplosivesAndTrigger && !_activatedBomb)
                 {
                     _endGame += EndGame;
+                    _activatedBomb = true;
                     DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
                 }
             }

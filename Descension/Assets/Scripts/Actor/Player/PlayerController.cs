@@ -52,6 +52,8 @@ namespace Actor.Player
         //Used for permanent death if die after bomb planted
         public FactKey EndFact;
         private Action _endGame;
+        private float timeRemaining = -1;
+        private bool timerActivated = false;
 
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
@@ -163,8 +165,16 @@ namespace Actor.Player
                 _animator.SetBool(_animatorIsMovingId, false);
                 return;
             }
+            if (timerActivated)
+            {
+                timeRemaining -= Time.deltaTime;
+                if (timeRemaining < 0)
+                {
+                    OnKilled();
+                }
+            }
 
-            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints);
+            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints, timeRemaining);
 
             if (!knocked)
             {
@@ -280,9 +290,16 @@ namespace Actor.Player
             GameManager.Pause();
             UIManager.SwitchUi(UIType.Death);
         }
+
+        public static void StartTimer(float time) => Instance._StartTimer(time);
+        void _StartTimer(float time)
+        {
+            timerActivated = true;
+            timeRemaining = time;
+        }
         
         public static void ClearInteractablesInRange() => Instance._interactablesInRange.Clear();
-        
+
         public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
         private void _AddInteractableInRange(int instanceId, AInteractable interactable)
         {
