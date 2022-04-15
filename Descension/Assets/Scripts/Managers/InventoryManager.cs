@@ -28,23 +28,36 @@ namespace Managers
         public static List<Equippable> Slots => Instance.slots;
         private static List<Equippable> CachedSlots => Instance.cachedSlots;
         
-        private static void CacheSlots()
-        {
-            for (int i = 0; i < Slots.Count; ++i) CachedSlots[i] = Slots[i].DeepCopy();
-        }
-        
-        private static void LoadCachedSlots()
-        {
-            ClearSlots();
-            for (int i = 0; i < Slots.Count; ++i) Slots[i] = CachedSlots[i].DeepCopy();
-        }
-
         public static int Gold
         {
             get => Instance.gold;
             set => Instance.gold = value;
         }
+
+        public static void OnSceneComplete() => CacheSlots();
         
+        // called when a scene is loaded
+        public static void OnReloadScene() => Instance._OnReloadScene();
+        private void _OnReloadScene()
+        {
+            // start with cached items
+            LoadCachedSlots();
+            for (var i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
+            if (equippedSlot != -1) EquipSlot(equippedSlot);
+            else EquipFirstSlottedItem();
+        }
+
+        private static void CacheSlots()
+        {
+            for (var i = 0; i < Slots.Count; ++i) CachedSlots[i] = Slots[i].DeepCopy();
+        }
+        
+        private static void LoadCachedSlots()
+        {
+            ClearSlots();
+            for (var i = 0; i < Slots.Count; ++i) Slots[i] = CachedSlots[i].DeepCopy();
+        }
+
         void Awake()
         {
             if (_instance == null) _instance = this;
@@ -91,16 +104,6 @@ namespace Managers
                 0.5f);
         }
         
-        // called when reset is selected in menu
-        public static void OnReloadScene() => Instance._OnReset();
-        private void _OnReset()
-        {
-            // restart with items we had at the beginning of the level
-            LoadCachedSlots();
-            for (var i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
-            EquipFirstSlottedItem();
-        }
-
         public static void TryEquipSlot(int index) => Instance._TryEquipSlot(index);
         private void _TryEquipSlot(int index)
         {
@@ -162,7 +165,7 @@ namespace Managers
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
         {
-            // GameDebug.Log("DropSlot(" + index + ")");
+            GameDebug.Log("DropSlot(" + index + ")");
             if (index != -1)
             {
                 var itemName = slots[index].name;
@@ -240,8 +243,17 @@ namespace Managers
             slots[slotIndex].Quantity = -1;
         }
 
+        public static void ResetInventory()
+        {
+            ClearSlots();
+            ClearCachedSlots();
+            Gold = 0;
+            Instance.equippedSlot = -1;
+        }
+
         public static void ClearSlots() => Instance._ClearSlots();
         // remove all items from slots and update UI
+        
         void _ClearSlots()
         {
             for (int i = 0; i < slots.Count; ++i) ClearSlot(i);

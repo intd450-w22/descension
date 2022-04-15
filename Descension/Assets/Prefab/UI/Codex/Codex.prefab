@@ -453,7 +453,8 @@ MonoBehaviour:
     PageType: 0
     PageItems:
     - ItemName: Enemy #1
-      ItemDescription: Ugly, really ugly....
+      ItemDescription: Definitely on the smaller size, though they're still bigger
+        than you.
       ItemSprite: {fileID: 21300000, guid: cce71b762fea447498bfa8b414f80de5, type: 3}
       Rule:
         Criteria:
@@ -461,7 +462,8 @@ MonoBehaviour:
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #2
-      ItemDescription: Bad aim lmfao
+      ItemDescription: 'A bit off-putting and very trigger happy. Luckily you have
+        better aim than them. '
       ItemSprite: {fileID: 21300000, guid: 7b11241c3464d2c4780bccb64cff69ed, type: 3}
       Rule:
         Criteria:
@@ -469,7 +471,8 @@ MonoBehaviour:
           ComparisonType: 3
           Value: 0
     - ItemName: Enemy #3
-      ItemDescription: O_O
+      ItemDescription: 'It''s big enough to scrape the ceiling. Thank whatever gods
+        there are that it''s not very fast. '
       ItemSprite: {fileID: 21300000, guid: cec8f0f8a19891245a6e8930c3a53a77, type: 3}
       Rule:
         Criteria:

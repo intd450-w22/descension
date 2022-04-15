@@ -38,7 +38,7 @@ namespace Environment
                     
                 InventoryManager.Gold += gold;
                     
-                UIManager.GetHudController().ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
+                UIManager.GetHudController().ShowFloatingText(transform.position, $"{gold} gold", Color.yellow);
             }
             
             SpawnManager.SpawnRandom(transform.position, itemDrops);

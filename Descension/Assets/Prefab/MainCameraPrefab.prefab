@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4de364aadc51554c8e3e26a6feca8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   speed: 0.125
   offset: {x: 0, y: 0, z: -1}
 --- !u!114 &4862479983850683177
@@ -115,7 +114,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 4862479983850683179}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 1

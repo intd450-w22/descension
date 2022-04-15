@@ -99,8 +99,9 @@ namespace UI.Controllers
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
-        public void ShowFloatingText(Vector3 location, string text, Color? color = null) 
+        public void ShowFloatingText(Vector3 location, string text, Color? color = null)
         {
+            location.z = 3f;
             var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMeshPro>();
             t.text = text;
             t.color = color ?? Color.black;
