@@ -204,7 +204,7 @@ namespace Actor.Player
             
             _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
             
-            SoundManager.EnemyHit();
+            SoundManager.PlayerHit();
             
             hitPoints -= damage;
             
