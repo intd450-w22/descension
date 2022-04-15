@@ -19,7 +19,7 @@ namespace Environment
             GameManager.UnFreeze();
             GameManager.Resume();
 
-            SpawnManager.SpawnDroppedPickups();
+            SpawnManager.SpawnCachedPickups();
         }
     }
 }

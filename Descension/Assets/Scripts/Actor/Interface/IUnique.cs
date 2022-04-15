@@ -13,11 +13,5 @@ namespace Actor.Interface
         public int GetUniqueId();
 
         public void SetUniqueId(int id);
-        
-        
-        
-
-        
-        
     }
 }

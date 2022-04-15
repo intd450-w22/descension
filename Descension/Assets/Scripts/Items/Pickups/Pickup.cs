@@ -33,15 +33,15 @@ namespace Items.Pickups
             if (GetUniqueId() == 0)
             {
                 _spawned = true;
-                GameManager.AddPreSceneChangeCallback(SceneChangeCallback);
+                SpawnManager.AddCachingDelegate(OnSceneChange);
             }
         }
 
-        private void OnDestroy() => GameManager.RemovePreSceneChangeCallback(SceneChangeCallback);
+        private void OnDestroy() => SpawnManager.RemoveCachingDelegate(OnSceneChange);
 
-        void SceneChangeCallback() => SpawnManager.CachePickup(new PickupCacheInfo(this));
+        private void OnSceneChange() => SpawnManager.CachePickup(new PickupCacheInfo(this));
 
-        public void TryPickup()
+        private void TryPickup()
         {
             if (!InventoryManager.PickupItem(item, ref quantity))
             {
