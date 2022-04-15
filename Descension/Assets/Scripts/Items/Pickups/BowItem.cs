@@ -125,8 +125,10 @@ namespace Items.Pickups
             SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
         }
 
-        protected override void Execute()
+        public override void Execute() 
         {
+            base.Execute();
+
             if (Arrows == null)
             {
                 UIManager.GetHudController().ShowPrompt("No arrows to shoot!");

@@ -41,5 +41,6 @@ namespace Util.Enums
         HasFoundDossier2 = 27,
         HasFoundDossier3 = 28,
         HasFoundDossier4 = 29,
+        TriggerEnding = 30,
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Actor.Interface;
 using Managers;
@@ -48,7 +49,11 @@ namespace Actor.Player
 
         [Header("Scene Elements")] 
         public bool useUI = true;
-        
+
+        //Used for permanent death if die after bomb planted
+        public FactKey EndFact;
+        private Action _endGame;
+
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
         [HideInInspector] public PlayerControls playerControls;
@@ -75,6 +80,8 @@ namespace Actor.Player
         private Camera _camera;
         [SerializeField] private int _startPosition;
         
+        private Dictionary<int, AInteractable> _interactablesInRange = new Dictionary<int, AInteractable>();
+
         private bool knocked
         {
             get => _knocked;
@@ -229,24 +236,72 @@ namespace Actor.Player
             _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
         }
 
-        void OnKilled()
+        public void OnKilled()
         {
             if (!alive || GameManager.IsFrozen) return;
             
             GameManager.Freeze();
             SetDead();
-            
-            Invoke(nameof(OpenDeathMenu), 3);
+            if (FactManager.IsFactTrue(EndFact))
+            {
+                _endGame += PermanentDeath;
+                GameManager.UnFreeze();
+                DialogueManager.StartDialogue("", new[] { "The last adventurer to enter the Descent shall be remembered as a hero. Their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
+
+            }
+            else
+            {
+                Invoke(nameof(OpenDeathMenu), 3);
+            }
         }
 
-        void OpenDeathMenu()
+        void PermanentDeath()
+        {
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.End);
+        }
+
+        public void OpenDeathMenu()
         {
             GameManager.UnFreeze();
             InventoryManager.OnKilled();
             GameManager.Pause();
             UIManager.SwitchUi(UIType.Death);
         }
-        
+
+        public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
+        public void _AddInteractableInRange(int instanceId, AInteractable interactable)
+        {
+            _interactablesInRange.Add(instanceId, interactable);
+
+            var closest = GetClosestInteractable();
+            DialogueManager.ShowPrompt(closest.GetPrompt());
+        }
+
+        public static void RemoveInteractableInRange(int instanceId) => Instance._RemoveInteractableInRange(instanceId);
+        public void _RemoveInteractableInRange(int instanceId)
+        {
+            _interactablesInRange.Remove(instanceId);
+
+            if (_interactablesInRange.Any())
+            {
+                var closest = GetClosestInteractable();
+                DialogueManager.ShowPrompt(closest.GetPrompt());
+            }
+            else
+                DialogueManager.HidePrompt();
+        }
+
+        public static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();
+        public AInteractable _GetClosestInteractable()
+        {
+            var location = gameObject.transform.position;
+            return _interactablesInRange
+                .Select(x => x.Value)
+                .OrderBy(x => CalculationHelper.DistanceSq(location, x.Location()))
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region Player Input Callbacks
@@ -274,7 +329,9 @@ namespace Actor.Player
 
         public void OnAttack(InputAction.CallbackContext value)
         {
-            if (GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen) return;
+
+            InventoryManager.TryExecute();
         }
 
         public void OnDisplayNextLine(InputAction.CallbackContext value)
@@ -309,9 +366,9 @@ namespace Actor.Player
 
         public void OnInteract(InputAction.CallbackContext value)
         {
-            if (!value.started || GameManager.IsFrozen) return;
+            if (!value.started || GameManager.IsFrozen || !_interactablesInRange.Any()) return;
 
-            // TODO: If we want we can add this, but not high priority
+            _GetClosestInteractable()?.Interact();
         }
 
         public void OnDropItem(InputAction.CallbackContext value)

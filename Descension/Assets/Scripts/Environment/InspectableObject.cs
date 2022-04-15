@@ -1,4 +1,5 @@
 using Actor.Interface;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Enums;
@@ -6,6 +7,7 @@ using Util.Enums;
 namespace Environment
 {
     public class InspectableObject : UniqueMonoBehaviour
+    public class InspectableObject : AInteractable
     {
         public new string name;
         public string[] linesOfDialogue;
@@ -37,18 +39,22 @@ namespace Environment
 
         private void OnTriggerEnter2D(Collider2D other) {
             if (other.gameObject.CompareTag("Player"))
+
+        public void Inspect()
+        {
+            _inspected = true;
+                
+            SoundManager.Inspection();
+            FactManager.SetFact(Fact, true);
+                
+            DialogueManager.StartDialogue(name, linesOfDialogue, () =>
             {
-                _playerInRange = true;
-                DialogueManager.ShowPrompt("Press F to interact");
-            }
+                if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
+            });
         }
 
-        private void OnTriggerExit2D(Collider2D other) {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                _playerInRange = false;
-                DialogueManager.HidePrompt();
-            }
-        }
+        public override void Interact() => Inspect();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press F to interact";
     }
 }

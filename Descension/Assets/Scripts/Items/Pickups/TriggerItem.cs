@@ -53,8 +53,10 @@ namespace Items.Pickups
 
         public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TriggerPrefab, PlayerPosition, Quantity);
         
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             if (BombScript.Instance)
             {
                 var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;

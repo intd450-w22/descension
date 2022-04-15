@@ -113,8 +113,10 @@ namespace Items.Pickups
             else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
         }
 
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             _swinging = true;
             
             if (Math.Abs(_aimAngle) >= 90)
