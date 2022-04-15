@@ -15,6 +15,7 @@ namespace Items.Pickups
         public float range = 10; // how close to bomb to add to bomb
         public string outOfRangeMessage = "Need to add this to the bomb.";
         public string addToBombMessage = "Explosives added to bomb!";
+        public float addToBombPromptTime = 1.5f;
         
         public override string GetName() => Name;
 
@@ -31,19 +32,21 @@ namespace Items.Pickups
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
+        private float _addToBombPromptTime;
         
         public Explosives(ExplosivesItem explosivesItem, int slotIndex, int quantity) : base(explosivesItem, slotIndex, quantity) 
-            => Init(explosivesItem.range, explosivesItem.outOfRangeMessage, explosivesItem.addToBombMessage);
+            => Init(explosivesItem.range, explosivesItem.outOfRangeMessage, explosivesItem.addToBombMessage, explosivesItem.addToBombPromptTime);
         
         public Explosives(Explosives explosives) : base(explosives) 
-            => Init(explosives._range, explosives._outOfRangeMessage, explosives._addToBombMessage);
+            => Init(explosives._range, explosives._outOfRangeMessage, explosives._addToBombMessage, explosives._addToBombPromptTime);
         
-        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage, float addToBombPromptTime)
         {
             name = ExplosivesItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
+            _addToBombPromptTime = addToBombPromptTime;
         }
         
         public override Equippable DeepCopy() => new Explosives(this);
@@ -65,7 +68,7 @@ namespace Items.Pickups
                 {
                     GameDebug.Log("In Range");
                     BombScript.Instance.AddExplosives();
-                    DialogueManager.ShowPrompt(_addToBombMessage);
+                    DialogueManager.ShowPrompt(_addToBombMessage, _addToBombPromptTime);
                     Quantity = -1;
                 }
                 else
