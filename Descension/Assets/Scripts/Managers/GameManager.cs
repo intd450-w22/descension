@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Actor.Interface;
 using Actor.Player;
 using Environment;
@@ -7,7 +6,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
-using Util;
 using Util.Enums;
 using Util.Helpers;
 

@@ -19,7 +19,6 @@ namespace Items.Pickups
         public string[] pickupMessage;
         public bool autoPickup;
         public bool spawned = true;
-        private bool _inRange;
 
         protected void Awake()
         {
