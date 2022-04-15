@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7363752940331833657}
   - component: {fileID: 7363752940331833656}
   - component: {fileID: 7363752940331833655}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FloatingTextGoldPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,4 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae24dcfd9e5f89a46b22c5fbaec3ef07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  _timeToLive: 1.5
+  _speed: 0.02

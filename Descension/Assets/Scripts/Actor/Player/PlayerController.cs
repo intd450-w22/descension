@@ -156,7 +156,7 @@ namespace Actor.Player
         
         void FixedUpdate()
         {
-            UpdateTorchVisuals();
+            UpdateTorch();
 
             if (GameManager.IsFrozen)
             {
@@ -175,13 +175,14 @@ namespace Actor.Player
             else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
         }
 
-        private void UpdateTorchVisuals()
+        private void UpdateTorch()
         {
             if (_torchToggle) 
             {
                 if (torchQuantity > 0) 
                 {
-                    torchQuantity -= Time.deltaTime;
+                    if(!GameManager.IsFrozen)
+                        torchQuantity -= Time.deltaTime;
                     if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
@@ -208,7 +209,7 @@ namespace Actor.Player
         {
             GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
-            _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(damage).ToString(), Color.red);
             
             SoundManager.PlayerHit();
             

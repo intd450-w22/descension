@@ -80,7 +80,7 @@ namespace Items.Pickups
         {
             if (Reticle.localPosition.magnitude < 0.5f)
             {
-                Reticle.position = PlayerPosition + new Vector3(_range,0,0);
+                Reticle.position = PlayerPosition + new Vector3(_range,0,3f);
                 SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(_spriteOffset,0,0), new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
             }
 
@@ -103,7 +103,8 @@ namespace Items.Pickups
             
             _aimAngle = _aimDirection.ToDegrees();
             
-            Reticle.position = position + (_aimDirection * _range);
+            var reticlePos = position + (_aimDirection * _range);;
+            Reticle.position = new Vector3(reticlePos.x, reticlePos.y, 3f);
             SpriteTransform.SetPositionAndRotation(position + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();

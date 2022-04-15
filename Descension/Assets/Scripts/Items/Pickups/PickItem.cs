@@ -2,6 +2,7 @@ using System;
 using Actor.Player;
 using Environment;
 using Managers;
+using UnityEditor.UIElements;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
@@ -67,7 +68,7 @@ namespace Items.Pickups
         {
             if (Reticle.localPosition.magnitude < 0.5)
             {
-                Reticle.position = PlayerPosition + new Vector3(_reticleDistance,0,0);
+                Reticle.position = PlayerPosition + new Vector3(_reticleDistance,0,3f);
                 SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(_spriteOffset,0,0), new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
             }
             Reticle.gameObject.SetActive(true);
@@ -90,7 +91,8 @@ namespace Items.Pickups
             _playerPosition = PlayerPosition;
             
             _aimAngle = _aimDirection.ToDegrees();
-            Reticle.position = _playerPosition + (_aimDirection * _reticleDistance);
+            var reticlePos = _playerPosition + (_aimDirection * _reticleDistance);
+            Reticle.position = new Vector3(reticlePos.x, reticlePos.y, 3f);
             SpriteTransform.SetPositionAndRotation(_playerPosition + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
             
             GameDebug.DrawLine(_playerPosition, Reticle.position);
