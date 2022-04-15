@@ -25,6 +25,12 @@ namespace Managers
         [SerializeField] private AudioSource swingSound;
         [SerializeField] private AudioSource playerHitSound;
         [SerializeField] private AudioSource enemyHitSound;
+        [SerializeField] private AudioSource nextLineDialogueSound;
+        [SerializeField] private AudioSource openShopSound;
+        [SerializeField] private AudioSource purchaseSound;
+        [SerializeField] private AudioSource toggleTorchSound;
+        [SerializeField] private AudioSource descendSound;
+        [SerializeField] private AudioSource switchItemSound;
 
         private static SoundManager _instance;
         private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
@@ -54,6 +60,12 @@ namespace Managers
             itemFoundSound.volume = volume;
             arrowAttackSound.volume = volume;
             inspectionSound.volume = volume;
+            nextLineDialogueSound.volume = volume;
+            openShopSound.volume = volume;
+            purchaseSound.volume = volume;
+            toggleTorchSound.volume = volume;
+            descendSound.volume = volume;
+            switchItemSound.volume = volume;
             if(errorSound) errorSound.volume = volume;
             if(healSound) healSound.volume = volume;
             if(swingSound) swingSound.volume = volume;
@@ -107,6 +119,24 @@ namespace Managers
 
         public static void ArrowAttack() => Instance._ArrowAttack();
         private void _ArrowAttack() => arrowAttackSound.Play();
+
+        public static void NextLineDialogue() => Instance._NextLineDialogue();
+        private void _NextLineDialogue() => nextLineDialogueSound.Play();
+
+        public static void OpenShop() => Instance._OpenShop();
+        private void _OpenShop() => openShopSound.Play();
+
+        public static void Purchase() => Instance._Purchase();
+        private void _Purchase() => purchaseSound.Play();
+
+        public static void ToggleTorch() => Instance._ToggleTorch();
+        private void _ToggleTorch() => toggleTorchSound.Play();
+
+        public static void Descend() => Instance._Descend();
+        private void _Descend() => descendSound.Play();
+
+        public static void SwitchItem() => Instance._SwitchItem();
+        private void _SwitchItem() => switchItemSound.Play();
 
         public static void Error() => Instance._Error();
         public void _Error()
