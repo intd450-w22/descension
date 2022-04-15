@@ -188,19 +188,7 @@ namespace Managers
         private static Dictionary<int, Vector2> _permanentDestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
         private static HashSet<int> _destroyedUnique = new HashSet<int>();
         private static HashSet<int> _permanentDestroyedUnique = new HashSet<int>();
-        private static HashSet<int> _uniqueIds = new HashSet<int>();
 
-        public static void ClearUniqueIds() => _uniqueIds.Clear();
-
-        public static int GenerateNewUniqueId(IUnique unique)
-        {
-            var id = unique.GetInstanceID();
-            while (_uniqueIds.Contains(id)) ++id;
-            _uniqueIds.Add(id);
-            unique.SetUniqueId(id);
-            return id;
-        }
-        
         public static void ClearDestroyedCache()
         {
             _destroyedUniqueWithLocation.Clear();
