@@ -14,6 +14,7 @@ namespace Managers
 
         [Header("Audio Sources")]
         [SerializeField] private AudioSource backgroundAudio;
+        [SerializeField] private AudioSource mainMenuBackgroundAudio;
         [SerializeField] private AudioSource removeRockSound;
         [SerializeField] private AudioSource goldFoundSound;
         [SerializeField] private AudioSource itemFoundSound;
@@ -40,6 +41,7 @@ namespace Managers
             _backgroundVolume = volume;
 
             backgroundAudio.volume = volume;
+            mainMenuBackgroundAudio.volume = volume;
         }
 
         public static void SetEffectVolume(float volume) => Instance._SetEffectVolume(volume);
@@ -68,7 +70,11 @@ namespace Managers
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();
-        private void _StartBackgroundAudio() => backgroundAudio.Play();
+        private void _StartBackgroundAudio()
+        {
+            mainMenuBackgroundAudio.Stop();
+            backgroundAudio.Play();
+        }
         public static void StopBackgroundAudio() => Instance._StopBackgroundAudio();
         private void _StopBackgroundAudio() => backgroundAudio.Stop();
         public static void PauseBackgroundAudio() => Instance._PauseBackgroundAudio();
@@ -78,6 +84,13 @@ namespace Managers
         {
             if (backgroundAudio.isPlaying) return;
             StartCoroutine(AudioHelper.FadeIn(backgroundAudio, Instance._fadeInTime, _backgroundVolume, backgroundAudio.UnPause));
+        }
+
+        public static void StartMainMenuBackgroundAudio() => Instance._StartMainMenuBackgroundAudio();
+        private void _StartMainMenuBackgroundAudio()
+        {
+            backgroundAudio.Stop();
+            mainMenuBackgroundAudio.Play();
         }
 
         public static void RemoveRock() => Instance._RemoveRock();
