@@ -113,6 +113,7 @@ namespace Managers
             if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
             if (slots[index]?.Quantity != -1)
             {
+                SoundManager.SwitchItem();
                 equippedSlot = index;
                 slots[equippedSlot].OnEquip();
                 UIManager.Hotbar.SetActive(index);

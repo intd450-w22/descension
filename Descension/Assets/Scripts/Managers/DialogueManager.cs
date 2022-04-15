@@ -49,11 +49,11 @@ namespace Managers
                 _linesOfDialogue.Enqueue(line);
             }
 
-            _DisplayNextLine();
+            _DisplayNextLine(false);
         }
 
         public static void DisplayNextLine() => Instance._DisplayNextLine();
-        private void _DisplayNextLine()
+        private void _DisplayNextLine(bool playSound=true)
         {
             if (_linesOfDialogue.Count == 0)
             {
@@ -85,6 +85,10 @@ namespace Managers
                 }
                 else
                 {
+                    if (playSound)
+                    {
+                        SoundManager.NextLineDialogue();
+                    }
                     UIManager.GetHudController().ShowDialogue(dialogue, _name);
                 }
             }
