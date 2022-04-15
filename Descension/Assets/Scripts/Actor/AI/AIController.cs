@@ -100,7 +100,7 @@ namespace Actor.AI
         {
             _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
             
-            if (GameManager.IsUniqueDestroyed(this, out var location))
+            if (IsUniqueDestroyed(out var location))
             {
                 Transform.position = location;
                 SetDead();
@@ -133,8 +133,6 @@ namespace Actor.AI
         
         void OnKilled()
         {
-            GameManager.CacheDestroyedUnique(this, Transform.position);
-            
             ItemSpawner.SpawnRandom(Transform.position, drops);
             
             SetDead();
@@ -143,7 +141,12 @@ namespace Actor.AI
 
             // delay collision disable so sprite doesn't move through walls/rocks
             this.InvokeWhen(
-                () => RigidBody.simulated = false, 
+                () =>
+                {
+                    RigidBody.simulated = false;
+                    DestroyUnique();
+                    // DestroyUnique(Transform.position);
+                }, 
                 () => RigidBody.velocity.sqrMagnitude < 1, 
                 1);
         }

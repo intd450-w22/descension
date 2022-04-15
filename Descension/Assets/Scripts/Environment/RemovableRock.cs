@@ -15,7 +15,7 @@ namespace Environment
 
         void Awake()
         {
-            if (GameManager.IsUniqueDestroyed(this, out _))
+            if (IsUniqueDestroyed())
             {
                 GameDebug.Log("Destroying " + GetUniqueId());
                 Destroy(gameObject);
@@ -24,8 +24,6 @@ namespace Environment
         
         public void OnDestroyed()
         {
-            GameManager.CacheDestroyedUnique(this, transform.position);
-
             if (Random.Range(0, 100) < goldDropChance)
             {
                 int gold = Random.Range(goldDropMin, goldDropMax + 1);
@@ -38,6 +36,8 @@ namespace Environment
             }
             
             ItemSpawner.SpawnRandom(transform.position, itemDrops);
+            
+            DestroyUnique();
             
             Destroy(gameObject);
         }

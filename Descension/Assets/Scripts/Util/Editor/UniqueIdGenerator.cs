@@ -39,6 +39,9 @@ namespace Util.Editor
         private void GenerateIdsForScene()
         {
             _ids.Clear();
+
+            EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            
             GenerateIds();
 
             // workaround for false dirty mark
@@ -76,6 +79,8 @@ namespace Util.Editor
             _ids.Clear();
             
             Debug.Log("Generating unique Id's for all scenes.");
+            
+            EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
 
             var startScenePath = 
                 SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex);;

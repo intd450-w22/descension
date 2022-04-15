@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6548560531832830012, guid: 51beea44e7b75374199639ade133d98e, type: 3}
+      propertyPath: Fact
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548560531832830012, guid: 51beea44e7b75374199639ade133d98e, type: 3}
       propertyPath: name
       value: Dossier Remains 3
       objectReference: {fileID: 0}
@@ -31,7 +35,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548560531973667937, guid: 51beea44e7b75374199639ade133d98e, type: 3}
       propertyPath: m_Name
-      value: DossierRemainsThree
+      value: DossierRemains3
       objectReference: {fileID: 0}
     - target: {fileID: 6548560531973667938, guid: 51beea44e7b75374199639ade133d98e, type: 3}
       propertyPath: m_RootOrder

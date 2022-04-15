@@ -1,33 +1,37 @@
+using Actor.Interface;
 using Managers;
 using UnityEngine;
 using Util.Enums;
 
 namespace Environment
 {
-    public class InspectableObject : MonoBehaviour
+    public class InspectableObject : UniqueMonoBehaviour
     {
         public string name;
         public string[] linesOfDialogue;
-        public bool destroyAfterInteraction = true;
+        
         public FactKey Fact;
 
         private bool _inspected;
         private bool _playerInRange;
+
+        void Awake()
+        {
+            if (IsUniqueDestroyed()) Destroy(transform.parent.gameObject);
+        }
         
         void Update() {
             if (GameManager.IsFrozen) return;
 
+            // TODO maybe change input to input system
             if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
             {
                 _inspected = true;
                 
                 SoundManager.Inspection();
                 FactManager.SetFact(Fact, true);
-                
-                DialogueManager.StartDialogue(name, linesOfDialogue, () =>
-                {
-                    if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
-                });
+                DestroyUniquePermanent();
+                DialogueManager.StartDialogue(name, linesOfDialogue, () => Destroy(transform.parent.gameObject));
             }
         }
 
