@@ -27,7 +27,8 @@ namespace UI.Controllers
         private TextMeshProUGUI _ropeText;
         private GameObject _torchGroup;
         private TextMeshProUGUI _torchText;
-        
+        private TextMeshProUGUI _timerText;
+
         private Hotbar _hotbar;
         public Hotbar Hotbar { get => _hotbar; }
 
@@ -65,6 +66,8 @@ namespace UI.Controllers
                 _healthText = _healthGroup.GetChildObject("Health").GetComponent<TextMeshProUGUI>();
                 _healthBar = _healthGroup.GetChildObject("HealthBar").GetComponent<ProgressBar>();
 
+                _timerText = gameObject.GetChildObject("TimerText").GetComponent<TextMeshProUGUI>();
+
                 _hotbar = GetComponentInChildren<Hotbar>();
             }
             catch
@@ -96,8 +99,9 @@ namespace UI.Controllers
         }
 
         public void ShowFloatingText(Vector2 location, string text, Color? color = null) => ShowFloatingText((Vector3) location, text, color);
-        public void ShowFloatingText(Vector3 location, string text, Color? color = null) 
+        public void ShowFloatingText(Vector3 location, string text, Color? color = null)
         {
+            location.z = 3f;
             var t = Instantiate(FloatingTextDamagePrefab, location, Quaternion.identity).GetComponent<TextMeshPro>();
             t.text = text;
             t.color = color ?? Color.black;
@@ -131,7 +135,7 @@ namespace UI.Controllers
             _promptText.text = string.Empty;
         }
 
-        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth)
+        public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth, float timer)
         {
             try
             {
@@ -157,6 +161,16 @@ namespace UI.Controllers
                 else
                 {
                     _torchGroup.Disable();
+                }
+
+                if (timer > 0)
+                {
+                    _timerText.enabled = true;
+                    _timerText.text = string.Format("{0:00}:{1:00}", Mathf.Floor(timer) / 60, Mathf.Floor(timer) % 60);
+                }
+                else
+                {
+                    _timerText.enabled = false;
                 }
             }
             catch (MissingReferenceException e)

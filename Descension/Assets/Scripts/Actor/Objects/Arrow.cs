@@ -37,7 +37,9 @@ namespace Actor.Objects
 
         void Start()
         {
-            SoundManager.ArrowAttack();
+            if (_targetTag.ToString() == "Player") SoundManager.MonsterProjectile();
+            else SoundManager.ArrowAttack();
+            
             Invoke(nameof(_Destroy), timeToLive);
         }
 

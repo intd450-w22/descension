@@ -52,6 +52,8 @@ namespace Actor.Player
         //Used for permanent death if die after bomb planted
         public FactKey EndFact;
         private Action _endGame;
+        private float timeRemaining = -1;
+        private bool timerActivated = false;
 
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
@@ -156,15 +158,23 @@ namespace Actor.Player
         
         void FixedUpdate()
         {
-            UpdateTorchVisuals();
+            UpdateTorch();
 
             if (GameManager.IsFrozen)
             {
                 _animator.SetBool(_animatorIsMovingId, false);
                 return;
             }
+            if (timerActivated)
+            {
+                timeRemaining -= Time.deltaTime;
+                if (timeRemaining < 0)
+                {
+                    OnKilled();
+                }
+            }
 
-            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints);
+            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints, timeRemaining);
 
             if (!knocked)
             {
@@ -175,13 +185,14 @@ namespace Actor.Player
             else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
         }
 
-        private void UpdateTorchVisuals()
+        private void UpdateTorch()
         {
             if (_torchToggle) 
             {
                 if (torchQuantity > 0) 
                 {
-                    torchQuantity -= Time.deltaTime;
+                    if(!GameManager.IsFrozen)
+                        torchQuantity -= Time.deltaTime;
                     if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
@@ -208,9 +219,9 @@ namespace Actor.Player
         {
             GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
-            _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(damage).ToString(), Color.red);
             
-            SoundManager.EnemyHit();
+            SoundManager.PlayerHit();
             
             hitPoints -= damage;
             
@@ -244,7 +255,7 @@ namespace Actor.Player
         {
             float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
             hitPoints += healthRestored;
-            _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(healthRestored).ToString(), Color.green);
         }
 
         public void OnKilled()
@@ -279,9 +290,16 @@ namespace Actor.Player
             GameManager.Pause();
             UIManager.SwitchUi(UIType.Death);
         }
+
+        public static void StartTimer(float time) => Instance._StartTimer(time);
+        void _StartTimer(float time)
+        {
+            timerActivated = true;
+            timeRemaining = time;
+        }
         
         public static void ClearInteractablesInRange() => Instance._interactablesInRange.Clear();
-        
+
         public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
         private void _AddInteractableInRange(int instanceId, AInteractable interactable)
         {

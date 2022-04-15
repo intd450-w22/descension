@@ -31,6 +31,9 @@ namespace Managers
         [SerializeField] private AudioSource toggleTorchSound;
         [SerializeField] private AudioSource descendSound;
         [SerializeField] private AudioSource switchItemSound;
+        [SerializeField] private AudioSource monsterBiteSound;
+        [SerializeField] private AudioSource monsterAttackSound;
+        [SerializeField] private AudioSource monsterProjectileSound;
 
         private static SoundManager _instance;
         private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
@@ -47,7 +50,6 @@ namespace Managers
             _backgroundVolume = volume;
 
             backgroundAudio.volume = volume;
-            mainMenuBackgroundAudio.volume = volume;
         }
 
         public static void SetEffectVolume(float volume) => Instance._SetEffectVolume(volume);
@@ -66,6 +68,9 @@ namespace Managers
             toggleTorchSound.volume = volume;
             descendSound.volume = volume;
             switchItemSound.volume = volume;
+            monsterBiteSound.volume = volume;
+            monsterAttackSound.volume = volume;
+            monsterProjectileSound.volume = volume;
             if(errorSound) errorSound.volume = volume;
             if(healSound) healSound.volume = volume;
             if(swingSound) swingSound.volume = volume;
@@ -79,6 +84,7 @@ namespace Managers
             _musicVolume = volume;
 
             // TODO: If music is implemented, adjust the volume here
+            mainMenuBackgroundAudio.volume = volume;
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();
@@ -101,9 +107,11 @@ namespace Managers
         public static void StartMainMenuBackgroundAudio() => Instance._StartMainMenuBackgroundAudio();
         private void _StartMainMenuBackgroundAudio()
         {
-            backgroundAudio.Stop();
+            _StopBackgroundAudio();
             mainMenuBackgroundAudio.Play();
         }
+        public static void StopMainMenuBackgroundAudio() => Instance._StopMainMenuBackgroundAudio();
+        private void _StopMainMenuBackgroundAudio() => mainMenuBackgroundAudio.Stop();
 
         public static void RemoveRock() => Instance._RemoveRock();
         private void _RemoveRock() => removeRockSound.Play();
@@ -137,6 +145,15 @@ namespace Managers
 
         public static void SwitchItem() => Instance._SwitchItem();
         private void _SwitchItem() => switchItemSound.Play();
+
+        public static void MonsterBite() => Instance._MonsterBite();
+        private void _MonsterBite() => monsterBiteSound.Play();
+
+        public static void MonsterAttack() => Instance._MonsterAttack();
+        private void _MonsterAttack() => monsterAttackSound.Play();
+
+        public static void MonsterProjectile() => Instance._MonsterProjectile();
+        private void _MonsterProjectile() => monsterProjectileSound.Play();
 
         public static void Error() => Instance._Error();
         public void _Error()
