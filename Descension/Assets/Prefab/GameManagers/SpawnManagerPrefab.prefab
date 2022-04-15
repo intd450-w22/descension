@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4162178389731309409}
   - component: {fileID: 4162178389731309410}
   m_Layer: 0
-  m_Name: PickupSpawnerPrefab
+  m_Name: SpawnManagerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

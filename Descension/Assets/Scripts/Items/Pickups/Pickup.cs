@@ -1,25 +1,28 @@
-using System.Xml;
+using System;
+using System.Collections.Generic;
 using Actor.Interface;
-using Actor.Player;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Util.EditorHelpers;
 using Util.Helpers;
 
 namespace Items.Pickups
 {
     public class Pickup : AInteractable, IUnique
     {
-        [SerializeField] private int uniqueId;
+        [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
         
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
-        public bool autoPickup;
-        public bool spawned = true;
 
+        [HideInInspector] public GameObject prefab;
+        [HideInInspector] public Vector3 location;
+        private bool _spawned;
+        
         protected void Awake()
         {
             if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
@@ -27,29 +30,21 @@ namespace Items.Pickups
         
         protected void OnEnable() 
         {
-            if (GetUniqueId() == 0) GameManager.GenerateNewUniqueId(this);
+            if (GetUniqueId() == 0)
+            {
+                _spawned = true;
+                SpawnManager.AddCachingDelegate(OnSceneChange);
+            }
         }
-        
-        private void Update(){}
-        
 
-        public void TryPickup()
+        private void OnDestroy() => SpawnManager.RemoveCachingDelegate(OnSceneChange);
+
+        private void OnSceneChange() => SpawnManager.CachePickup(new PickupCacheInfo(this));
+
+        private void TryPickup()
         {
             if (!InventoryManager.PickupItem(item, ref quantity))
             {
-                if (!InventoryManager.PickupItem(item, ref quantity))
-                {
-                    SoundManager.Error(); //TODO fail to pick up sound
-                    UIManager.GetHudController().ShowDialogue("Inventory full");
-                    return;
-                }
-                SoundManager.ItemFound();
-
-                if (quantity == 0)
-                {
-                    GameManager.DestroyUnique(this);
-                    Destroy(gameObject);
-                }
                 SoundManager.Error(); //TODO fail to pick up sound
                 UIManager.GetHudController().ShowDialogue("Inventory full");
                 return;
@@ -59,7 +54,7 @@ namespace Items.Pickups
 
             if (quantity == 0)
             {
-                GameManager.DestroyUnique(this);
+                if (!_spawned) GameManager.DestroyUnique(this);
                 Destroy(gameObject);
             }
                 
@@ -77,4 +72,19 @@ namespace Items.Pickups
         public override Vector2 Location() => gameObject.transform.position;
         public override string GetPrompt() => "Press F to pick up " + item.GetName();
     }
+
+    public readonly struct PickupCacheInfo
+    {
+        public PickupCacheInfo(Pickup pickup)
+        {
+            Prefab = pickup.prefab;
+            Location = pickup.location;
+            Quantity = pickup.quantity;
+        }
+        
+        public readonly GameObject Prefab;
+        public readonly Vector3 Location;
+        public readonly int Quantity;
+    }
+    
 }

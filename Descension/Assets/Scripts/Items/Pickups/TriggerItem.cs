@@ -51,7 +51,7 @@ namespace Items.Pickups
 
         public override string GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TriggerPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.TriggerPrefab, PlayerPosition, Quantity);
         
         public override void Execute()
         {

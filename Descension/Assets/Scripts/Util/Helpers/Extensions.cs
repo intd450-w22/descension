@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
+using Actor.Interface;
 using JetBrains.Annotations;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Util.Helpers
 {
@@ -59,6 +62,16 @@ namespace Util.Helpers
         
         #endregion
 
+        #region Object
+        
+        public static T GetComponent<T>(this Object obj) where T : class
+        {
+            var gameObject = obj as GameObject;
+            return gameObject != null ? gameObject.GetComponent<T>() : null;
+        }
+        
+        #endregion
+        
         #region GameObject
 
         public static T GetComponent<T>(this GameObject gameObject, bool getFromHierarchyIfNull)

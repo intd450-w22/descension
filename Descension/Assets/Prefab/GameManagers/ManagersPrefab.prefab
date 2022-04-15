@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4162178389731309411, guid: 6ee378db4a315f94da784828e61790fd, type: 3}
       propertyPath: m_Name
-      value: PickupSpawner
+      value: SpawnManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ee378db4a315f94da784828e61790fd, type: 3}

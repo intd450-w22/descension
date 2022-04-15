@@ -201,7 +201,7 @@ MonoBehaviour:
   ropeQuantity: 0
   torchQuantity: 0
   useUI: 1
-  EndFact: 0
+  EndFact: 30
   playerInput: {fileID: 0}
   _startPosition: 0
 --- !u!114 &6851937908845542240

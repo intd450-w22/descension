@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
 using Items.Pickups;
-using JetBrains.Annotations;
-using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-namespace Items
+namespace Managers
 {
-    public class ItemSpawner : MonoBehaviour
+    public class SpawnManager : MonoBehaviour
     {
+        void Awake()
+        {
+            if (_instance == null) _instance = this;
+            else if (_instance != this) Destroy(gameObject);
+        }
         
         public static GameObject PickPrefab => Instance.pickPickupPrefab;
         public GameObject pickPickupPrefab;
@@ -30,15 +34,55 @@ namespace Items
         public static GameObject TorchPrefab => Instance.torchPickupPrefab;
         public GameObject torchPickupPrefab;
         
-        private static ItemSpawner _instance;
-        private static ItemSpawner Instance => _instance ??= FindObjectOfType<ItemSpawner>();
+        private static SpawnManager _instance;
+        private static SpawnManager Instance => _instance ??= FindObjectOfType<SpawnManager>();
+        
+        #region Caching
+        
+        private static readonly Dictionary<string, HashSet<PickupCacheInfo>> DroppedPickups = new Dictionary<string, HashSet<PickupCacheInfo>>();
 
-        void Awake()
+        public delegate void PreSceneChangeDelegate();
+        private static PreSceneChangeDelegate _onCachingDelegate;
+        public static void AddCachingDelegate(PreSceneChangeDelegate callback) => _onCachingDelegate += callback;
+        public static void RemoveCachingDelegate(PreSceneChangeDelegate callback) => _onCachingDelegate -= callback;
+
+        // clears cache and calls all CachingDelegates
+        public static void CacheSpawnedPickups()
         {
-            if (_instance == null) _instance = this;
-            else if (_instance != this) Destroy(gameObject);
+            ClearDroppedPickupsCache();
+            
+            _onCachingDelegate?.Invoke();
+            _onCachingDelegate = null;
         }
+        
+        // spawns all cached pickups
+        public static void SpawnCachedPickups()
+        {
+            var scene = SceneManager.GetActiveScene().name;
 
+            if (!DroppedPickups.ContainsKey(scene)) return;
+            
+            foreach (var pickup in DroppedPickups[scene])
+                SpawnItem(pickup.Prefab, pickup.Location, pickup.Quantity, true);
+        }
+        
+        public static void CachePickup(PickupCacheInfo pickupCacheInfo)
+        {
+            var scene = SceneManager.GetActiveScene();
+            if (!DroppedPickups.ContainsKey(scene.name)) DroppedPickups.Add(scene.name, new HashSet<PickupCacheInfo>());
+            DroppedPickups[scene.name].Add(pickupCacheInfo);
+        }
+        
+        private static void ClearDroppedPickupsCache()
+        {
+            var scene = SceneManager.GetActiveScene().name;
+            if (DroppedPickups.ContainsKey(scene)) DroppedPickups[scene].Clear();
+        }
+        
+        #endregion
+
+        #region Spawning
+        
         public static Pickup SpawnItem(GameObject prefab, Vector3 position, bool silent = false) => Instance._SpawnItem(prefab, position, silent);
         private Pickup _SpawnItem(GameObject prefab, Vector3 position, bool silent)
         {
@@ -47,11 +91,14 @@ namespace Items
                 Debug.LogError("ItemSpawner DropItem called with null prefab.");
                 return null;
             }
-            
+
             // spawn pickup
             if (!silent) SoundManager.ItemFound(); // TODO maybe replace with unique item drop sound
             GameObject pickupObject = Instantiate(prefab, position, Quaternion.identity);
-            return pickupObject.GetComponent<Pickup>();
+            Pickup pickup = pickupObject.GetComponent<Pickup>();
+            pickup.prefab = prefab;
+            pickup.location = position;
+            return pickup;
         }
 
         public static Pickup SpawnItem(GameObject prefab, Vector3 position, int quantity, bool silent = false) => Instance._SpawnItem(prefab, position, quantity, silent);
@@ -69,7 +116,7 @@ namespace Items
             // spawn pickup
             Pickup pickup = SpawnItem(prefab, position, silent);
             pickup.quantity = quantity;
-            DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
+            if (!silent) DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
             return pickup;
         }
 
@@ -109,6 +156,8 @@ namespace Items
             [Header("Leave quantity at 0 for prefab default quantity")]
             public int quantity;    // leave at 0 for default quantity
         }
+        
+        #endregion
     }
     
     

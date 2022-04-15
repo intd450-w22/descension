@@ -81,7 +81,7 @@ namespace Items.Pickups
             SpriteTransform.gameObject.SetActive(false);
         }
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.PickPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.PickPrefab, PlayerPosition, Quantity);
 
         protected override void FixedUpdate()
         {

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Actor.Interface;
 using Actor.Player;
 using Environment;
+using Items;
+using Items.Pickups;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -80,7 +82,12 @@ namespace Managers
         
         
         #region scene management
-        
+
+        public delegate void PreSceneChangeDelegate();
+        private static PreSceneChangeDelegate _onSceneChangeDelegate;
+        public static void AddPreSceneChangeDelegate(PreSceneChangeDelegate callback) => _onSceneChangeDelegate += callback;
+        public static void RemovePreSceneChangeDelegate(PreSceneChangeDelegate callback) => _onSceneChangeDelegate -= callback;
+
         public static Scene GetCurrentScene() => SceneManager.GetActiveScene();
         public static void SwitchScene(Scene scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene.name, uiType, startPosition);
         public static void SwitchScene(string scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene, uiType, startPosition);
@@ -89,146 +96,105 @@ namespace Managers
             GameDebug.Log("SwitchScene(" + scene + ")");
             
             if (startPosition != -1) PlayerController.SetStartPosition(startPosition);
+
+            SpawnManager.CacheSpawnedPickups();
             
+            _onSceneChangeDelegate?.Invoke();
+            _onSceneChangeDelegate = null;
+
             AsyncOperation load = SceneManager.LoadSceneAsync(scene);
-             
+
             if (uiType != UIType.None)
                 this.InvokeWhen(
-                    () => UIManager.SwitchUi(uiType), 
+                    () => UIManager.SwitchUi(uiType),
                     () => load.isDone,
                     0.5f);
         }
         
         
         
-        // public static void ClearDestroyedCache() => IUnique.ClearDestroyedCache();
-        // public static void OnSceneComplete() => IUnique.OnSceneComplete();
-        // public static void OnReloadScene() => IUnique.OnReloadScene();
 
         # endregion
         
-        // [SerializeField, ReadOnly] private int uniqueId;
-        //
-        // #if UNITY_EDITOR
-        // protected void OnEnable() => Assert.AreNotEqual(0,uniqueId, "Unique Id not generated for UniqueMonoBehaviour, go to Window->'Unique Id Generator' and generate Id's.");
-        // private bool _cacheLocationOnDestroyed;
-        // private string _assertMessage = 
-        //     ": Inconsistent use of DestroyUnique and IsUniqueDestroyed. Should always call both either with or without location.";
-        // #endif
+        #region static caching interface
         
         // cache object destroyed in level. Will only be permanent if the player completes the level.
+        // Use with IsUniqueDestroyed(IUnique).
         public static void DestroyUnique(IUnique unique)
         {
-            // #if UNITY_EDITOR
-            // Assert.IsFalse(_cacheLocationOnDestroyed, this + _assertMessage);
-            // #endif
-            
-            _destroyedUnique.Add(unique.GetUniqueId());
+            DestroyedUnique.Add(unique.GetUniqueId());
         }
         
         // cache object destroyed in level. Will only be permanent if the player completes the level.
+        // Use with IsUniqueDestroyed(IUnique, Vector3).
         public static void DestroyUnique(IUnique unique, Vector3 location)
         {
-            // #if UNITY_EDITOR
-            // Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
-            // #endif
-            
-            _destroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
+            DestroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
         }
         
-        // permanently destroy object
+        // permanently destroy object. Use with IsUniqueDestroyed(IUnique).
         public static void DestroyUniquePermanent(IUnique unique)
         {
-           
-            // #if UNITY_EDITOR
-            // Assert.IsFalse(_cacheLocationOnDestroyed, this + _assertMessage);
-            // #endif
-            _permanentDestroyedUnique.Add(unique.GetUniqueId());
+            PermanentDestroyedUnique.Add(unique.GetUniqueId());
         }
 
-        // permanently destroy object
+        // permanently destroy object. Use with IsUniqueDestroyed(IUnique, Vector3).
         public static void DestroyUniquePermanent(IUnique unique, Vector3 location)
         {
-            // #if UNITY_EDITOR
-            // Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
-            // #endif
-            
-            _permanentDestroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
+            PermanentDestroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
         }
         
-        // returns true if object is permanently destroyed
+        // returns true if object is permanently destroyed.
+        // Use with DestroyUnique(IUnique) or DestroyUniquePermanent(IUnique).
         public static bool IsUniqueDestroyed(IUnique unique)
         {
-            // #if UNITY_EDITOR
-            // _cacheLocationOnDestroyed = false;
-            // #endif
-            
-            return _permanentDestroyedUnique.Contains(unique.GetUniqueId());
+            return PermanentDestroyedUnique.Contains(unique.GetUniqueId());
         }
 
-        // returns true if object is permanently destroyed and outputs location set when DestroyUnique was called
+        // returns true if object is permanently destroyed and outputs location set when DestroyUnique was called.
+        // Use with DestroyUnique(IUnique,Vector2) or DestroyUniquePermanent(IUnique,Vector2).
         public static bool IsUniqueDestroyed(IUnique unique, out Vector3 location)
         {
-            // #if UNITY_EDITOR
-            // _cacheLocationOnDestroyed = true;
-            // #endif
-            
-            if (_permanentDestroyedUniqueWithLocation.ContainsKey(unique.GetUniqueId()))
+            if (PermanentDestroyedUniqueWithLocation.ContainsKey(unique.GetUniqueId()))
             {
-                location = _permanentDestroyedUniqueWithLocation[unique.GetUniqueId()];
+                location = PermanentDestroyedUniqueWithLocation[unique.GetUniqueId()];
                 return true;
             }
 
             location = Vector3.zero;
             return false;
         }
-        
-        
-        
-        #region static caching interface
-        
-        private static Dictionary<int, Vector2> _destroyedUniqueWithLocation = new Dictionary<int, Vector2>();
-        private static Dictionary<int, Vector2> _permanentDestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
-        private static HashSet<int> _destroyedUnique = new HashSet<int>();
-        private static HashSet<int> _permanentDestroyedUnique = new HashSet<int>();
-        private static HashSet<int> _uniqueIds = new HashSet<int>();
 
-        public static void ClearUniqueIds() => _uniqueIds.Clear();
+        private static readonly Dictionary<int, Vector2> DestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
+        private static readonly Dictionary<int, Vector2> PermanentDestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
+        private static readonly HashSet<int> DestroyedUnique = new HashSet<int>();
+        private static readonly HashSet<int> PermanentDestroyedUnique = new HashSet<int>();
 
-        public static int GenerateNewUniqueId(IUnique unique)
-        {
-            var id = unique.GetInstanceID();
-            while (_uniqueIds.Contains(id)) ++id;
-            _uniqueIds.Add(id);
-            unique.SetUniqueId(id);
-            return id;
-        }
-        
         public static void ClearDestroyedCache()
         {
-            _destroyedUniqueWithLocation.Clear();
-            _permanentDestroyedUniqueWithLocation.Clear();
+            DestroyedUniqueWithLocation.Clear();
+            PermanentDestroyedUniqueWithLocation.Clear();
 
-            _destroyedUnique.Clear();
-            _permanentDestroyedUnique.Clear();
+            DestroyedUnique.Clear();
+            PermanentDestroyedUnique.Clear();
         }
 
         public static void OnSceneComplete()
         {
-            foreach (var destroyed in _destroyedUniqueWithLocation)
-                _permanentDestroyedUniqueWithLocation[destroyed.Key] = destroyed.Value;
+            foreach (var destroyed in DestroyedUniqueWithLocation)
+                PermanentDestroyedUniqueWithLocation[destroyed.Key] = destroyed.Value;
             
-            _destroyedUniqueWithLocation.Clear();
+            DestroyedUniqueWithLocation.Clear();
             
-            foreach (var destroyed in _destroyedUnique)
-                _permanentDestroyedUnique.Add(destroyed);
+            foreach (var destroyed in DestroyedUnique)
+                PermanentDestroyedUnique.Add(destroyed);
             
-            _destroyedUnique.Clear();
+            DestroyedUnique.Clear();
         }
         public static void OnReloadScene()
         {
-            _destroyedUniqueWithLocation.Clear();
-            _destroyedUnique.Clear();
+            DestroyedUniqueWithLocation.Clear();
+            DestroyedUnique.Clear();
         }
         
         #endregion

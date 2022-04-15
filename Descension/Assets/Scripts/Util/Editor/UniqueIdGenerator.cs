@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Util.Helpers;
 
 namespace Util.Editor
 {
@@ -34,55 +35,57 @@ namespace Util.Editor
 
             GUILayout.Space(10);
             
-            if (GUILayout.Button("Current Scene Only")) GenerateIdsForScene();
+            if (GUILayout.Button("Current Scene Only")) GenerateIdsForThisScene();
+            
+            GUILayout.Space(10);
+
+            IUnique unique;
+            if ((unique = Selection.activeObject.GetComponent<IUnique>()) != null)
+                if (GUILayout.Button("Selected Object Only")) GenerateIdForSelected(unique);
 
         }
 
-        private void GenerateIdsForScene()
+        private void GenerateIdForSelected(IUnique unique)
+        {
+            var serializedObject = new SerializedObject(unique as MonoBehaviour);
+            var property = serializedObject.FindProperty("uniqueId");
+            
+            property.intValue = GenerateNewUniqueId(unique);
+            serializedObject.ApplyModifiedProperties();
+        }
+        
+        private void GenerateIdsForThisScene()
         {
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
-            
-            GenerateIds();
+
+            GenerateIdsForScene();
 
             // workaround for false dirty mark
             EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex));
         }
-
-        public static IEnumerable<T> FindInterfacesOfType<T>(bool includeInactive = false)
-        {
-            return SceneManager.GetActiveScene().GetRootGameObjects()
-                .SelectMany(go => go.GetComponentsInChildren<T>(includeInactive));
-        }
         
-        private int GenerateIds([CanBeNull] string scenePath = null)
+        private int GenerateIdsForScene([CanBeNull] string scenePath = null)
         {
             scenePath ??= SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex);
                 
             EditorSceneManager.OpenScene(scenePath);
             
-            var uniqueObjects = FindObjectsOfType<MonoBehaviour>().Where(x => x is IUnique).ToArray();
+            var uniqueMonoBehaviour = FindObjectsOfType<MonoBehaviour>().Where(x => x is IUnique).ToArray();
 
-            foreach (var uniqueObject in uniqueObjects)
-            {
-                var serializedObject = new SerializedObject(uniqueObject);
-                var property = serializedObject.FindProperty("uniqueId");
-                
-                property.intValue = GameManager.GenerateNewUniqueId(uniqueObject.GetComponent<IUnique>());
-                serializedObject.ApplyModifiedProperties();
-            }
+            foreach (var unique in uniqueMonoBehaviour)
+                GenerateIdForSelected(unique as IUnique);
 
             // only save if changes were made
-            if (uniqueObjects.Length != 0) EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            if (uniqueMonoBehaviour.Length != 0) EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
 
-            Debug.Log("Generated " + uniqueObjects.Length + " Unique Id's for " + scenePath);
+            Debug.Log("Generated " + uniqueMonoBehaviour.Length + " Unique Id's for " + scenePath);
 
-            return uniqueObjects.Length;
-            
+            return uniqueMonoBehaviour.Length;
         }
         
         private void GenerateAllIds()
         {
-            GameManager.ClearUniqueIds();
+            ClearUniqueIds();
             
             Debug.Log("Generating unique Id's for all scenes.");
             
@@ -95,13 +98,27 @@ namespace Util.Editor
             
             var count = 0;
             for (var i = 0; i < sceneCount; i++)
-                count += GenerateIds(SceneUtility.GetScenePathByBuildIndex(i));
+                count += GenerateIdsForScene(SceneUtility.GetScenePathByBuildIndex(i));
             
             // return to original scene
             EditorSceneManager.OpenScene(startScenePath);
             
             Debug.Log("Generated " + count + " unique Id's in " + sceneCount + " scenes.");
             
+            ClearUniqueIds();
+        }
+        
+        private static readonly HashSet<int> UniqueIds = new HashSet<int>();
+
+        private static void ClearUniqueIds() => UniqueIds.Clear();
+
+        private static int GenerateNewUniqueId(IUnique unique)
+        {
+            var id = unique.GetInstanceID();
+            while (UniqueIds.Contains(id)) ++id;
+            UniqueIds.Add(id);
+            unique.SetUniqueId(id);
+            return id;
         }
         
     }
