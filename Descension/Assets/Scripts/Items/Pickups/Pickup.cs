@@ -18,12 +18,11 @@ namespace Items.Pickups
 
         [ReadOnly] public GameObject prefab;
         [ReadOnly] public Vector3 position;
+        [SerializeField] [ReadOnly] private bool spawned;
         
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
-        public bool autoPickup;
-        public bool spawned;
 
         protected void Awake()
         {
