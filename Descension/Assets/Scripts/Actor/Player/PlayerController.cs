@@ -203,7 +203,7 @@ namespace Actor.Player
         {
             GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
-            _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(damage).ToString(), Color.red);
             
             SoundManager.PlayerHit();
             
