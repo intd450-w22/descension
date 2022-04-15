@@ -2,17 +2,17 @@ using Actor.Interface;
 using Items;
 using Managers;
 using UnityEngine;
+using Util.EditorHelpers;
 using Util.Helpers;
 
 namespace Environment
 {
     public class RemovableRock : MonoBehaviour, IUnique
     {
-        [SerializeField] private int uniqueId;
+        [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
-        
-        
+
         public int goldDropMin = 1;
         public int goldDropMax = 20;
         public int goldDropChance = 40;  // percent chance of dropping gold in range (goldDropMin, goldDropMax)

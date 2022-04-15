@@ -17,11 +17,10 @@ namespace Actor.AI
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
     public class AIController : MonoBehaviour, IUnique, IDamageable
     {
-        [SerializeField] private int uniqueId;
+        [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
-        
-        
+
         public float hitPoints = 100;
         public int updateInterval = 3;
         public int activeRangeSq = 1000;  // only run FixedUpdate if in range of player

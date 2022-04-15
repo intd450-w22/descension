@@ -11,6 +11,10 @@ namespace Environment
 {
     public class DescendHole : MonoBehaviour, IUnique
     {
+        [SerializeField, ReadOnly] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
         #if UNITY_EDITOR
         public SceneAsset nextLevel;
         private void OnValidate() { if (nextLevel != null) _nextLevel = nextLevel.name; }
@@ -55,17 +59,6 @@ namespace Environment
         void EndGame()
         {
             UIManager.SwitchUi(UIType.End);
-        }
-
-        [SerializeField] private int uniqueId;
-        public int GetUniqueId()
-        {
-            return uniqueId;
-        }
-
-        public void SetUniqueId(int id)
-        {
-            uniqueId = id;
         }
     }
 }

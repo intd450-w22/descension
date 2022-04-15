@@ -1,16 +1,14 @@
-using System.Xml;
 using Actor.Interface;
-using Actor.Player;
 using Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Util.EditorHelpers;
 using Util.Helpers;
 
 namespace Items.Pickups
 {
     public class Pickup : AInteractable, IUnique
     {
-        [SerializeField] private int uniqueId;
+        [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
         
@@ -19,7 +17,6 @@ namespace Items.Pickups
         public string[] pickupMessage;
         public bool autoPickup;
         public bool spawned = true;
-        private bool _inRange;
 
         protected void Awake()
         {
@@ -31,9 +28,6 @@ namespace Items.Pickups
             if (GetUniqueId() == 0) GameManager.GenerateNewUniqueId(this);
         }
         
-        private void Update(){}
-        
-
         public void TryPickup()
         {
             if (!InventoryManager.PickupItem(item, ref quantity))

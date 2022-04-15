@@ -103,26 +103,16 @@ namespace Managers
         
         
         
-        // public static void ClearDestroyedCache() => IUnique.ClearDestroyedCache();
-        // public static void OnSceneComplete() => IUnique.OnSceneComplete();
-        // public static void OnReloadScene() => IUnique.OnReloadScene();
 
         # endregion
         
-        // [SerializeField, ReadOnly] private int uniqueId;
-        //
-        // #if UNITY_EDITOR
-        // protected void OnEnable() => Assert.AreNotEqual(0,uniqueId, "Unique Id not generated for UniqueMonoBehaviour, go to Window->'Unique Id Generator' and generate Id's.");
-        // private bool _cacheLocationOnDestroyed;
-        // private string _assertMessage = 
-        //     ": Inconsistent use of DestroyUnique and IsUniqueDestroyed. Should always call both either with or without location.";
-        // #endif
+        #region static caching interface
         
         // cache object destroyed in level. Will only be permanent if the player completes the level.
         public static void DestroyUnique(IUnique unique)
         {
             // #if UNITY_EDITOR
-            // Assert.IsFalse(_cacheLocationOnDestroyed, this + _assertMessage);
+            // Assert.IsFalse(unique.CacheOnDestroyed(), this + _assertMessage);
             // #endif
             
             _destroyedUnique.Add(unique.GetUniqueId());
@@ -132,7 +122,7 @@ namespace Managers
         public static void DestroyUnique(IUnique unique, Vector3 location)
         {
             // #if UNITY_EDITOR
-            // Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
+            // Assert.IsTrue(unique.CacheOnDestroyed(), this + _assertMessage);
             // #endif
             
             _destroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
@@ -143,8 +133,9 @@ namespace Managers
         {
            
             // #if UNITY_EDITOR
-            // Assert.IsFalse(_cacheLocationOnDestroyed, this + _assertMessage);
+            // Assert.IsFalse(unique.CacheOnDestroyed(), unique + _assertMessage);
             // #endif
+            
             _permanentDestroyedUnique.Add(unique.GetUniqueId());
         }
 
@@ -152,7 +143,7 @@ namespace Managers
         public static void DestroyUniquePermanent(IUnique unique, Vector3 location)
         {
             // #if UNITY_EDITOR
-            // Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
+            // Assert.IsTrue(unique.CacheOnDestroyed(), unique + _assertMessage);
             // #endif
             
             _permanentDestroyedUniqueWithLocation.Add(unique.GetUniqueId(), location);
@@ -162,7 +153,7 @@ namespace Managers
         public static bool IsUniqueDestroyed(IUnique unique)
         {
             // #if UNITY_EDITOR
-            // _cacheLocationOnDestroyed = false;
+            // unique.SeCacheOnDestroyed(false);
             // #endif
             
             return _permanentDestroyedUnique.Contains(unique.GetUniqueId());
@@ -172,7 +163,7 @@ namespace Managers
         public static bool IsUniqueDestroyed(IUnique unique, out Vector3 location)
         {
             // #if UNITY_EDITOR
-            // _cacheLocationOnDestroyed = true;
+            // unique.SeCacheOnDestroyed(true);
             // #endif
             
             if (_permanentDestroyedUniqueWithLocation.ContainsKey(unique.GetUniqueId()))
@@ -184,11 +175,7 @@ namespace Managers
             location = Vector3.zero;
             return false;
         }
-        
-        
-        
-        #region static caching interface
-        
+
         private static Dictionary<int, Vector2> _destroyedUniqueWithLocation = new Dictionary<int, Vector2>();
         private static Dictionary<int, Vector2> _permanentDestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
         private static HashSet<int> _destroyedUnique = new HashSet<int>();

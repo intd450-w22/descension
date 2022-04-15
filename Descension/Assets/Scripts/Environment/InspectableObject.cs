@@ -2,6 +2,7 @@ using Actor.Interface;
 using Actor.Player;
 using Managers;
 using UnityEngine;
+using Util.EditorHelpers;
 using Util.Enums;
 
 namespace Environment
@@ -9,7 +10,7 @@ namespace Environment
     // public class InspectableObject : UniqueMonoBehaviour
     public class InspectableObject : AInteractable, IUnique
     {
-        [SerializeField] private int uniqueId;
+        [SerializeField, ReadOnly] private int uniqueId;
         public int GetUniqueId() => uniqueId;
         public void SetUniqueId(int id) => uniqueId = id;
         
