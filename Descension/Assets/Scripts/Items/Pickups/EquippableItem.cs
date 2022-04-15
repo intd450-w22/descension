@@ -44,7 +44,7 @@ namespace Items.Pickups
         
         // state
         private float _cooldown;
-        private bool _execute;
+        // private bool _execute;
         private static PlayerControls _playerControls;
         
         // quantity/durability for item
@@ -106,6 +106,8 @@ namespace Items.Pickups
             }
         }
 
+        public virtual bool IsOnCooldown() => Time.time < _cooldown;
+
         public virtual Equippable DeepCopy() => new Equippable(this);
 
         // return name of equippable item
@@ -145,25 +147,16 @@ namespace Items.Pickups
             Clear();
         }
 
-        // called like regular MonoBehavior Update() if this item is equipped
-        public void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame() && Time.time >= _cooldown;
-
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
-        public void EquippedFixedUpdate()
-        {
-            FixedUpdate();
-            
-            if (!_execute) return;
-            
-            _execute = false;
-            _cooldown = Time.time + _cooldownTime;
-            Execute();
-        }
-        
+        public void EquippedFixedUpdate() => FixedUpdate();
+
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
         protected virtual void FixedUpdate() {}
         
         // called when execute button is pressed and cooldown has finished if this item is equipped
-        protected virtual void Execute() {}
+        public virtual void Execute()
+        {
+            _cooldown = Time.time + _cooldownTime;
+        }
     }
 }

@@ -26,7 +26,9 @@ namespace Util.Helpers
             }
             return closestIndex;
         }
-        
+
+        public static bool IsInRange(int x, int length) => (x >= 0 && x < length);
+
         // wraps index if out of range
         public static int SafeIndex(int x, int length)
         {
