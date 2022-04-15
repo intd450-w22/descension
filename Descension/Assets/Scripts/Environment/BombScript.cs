@@ -7,7 +7,7 @@ namespace Environment
     public class BombScript : AInteractable
     {
         [Header("Configuration")]
-        public KeyCode StartBombKey = KeyCode.E;
+        public KeyCode StartBombKey = KeyCode.T;
         
         [Header("Dialogue")]
         public string Name;
@@ -54,6 +54,6 @@ namespace Environment
 
         public override void Interact() => Bomb();
         public override Vector2 Location() => gameObject.transform.position;
-        public override string GetPrompt() => "Press F to interact";
+        public override string GetPrompt() => "Press T to detonate   Press F to interact";
     }
 }
