@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using Util.Enums;
 
@@ -6,18 +7,26 @@ namespace UI.Controllers.ButtonController
     public class UINavButtonController : ButtonController
     {
         public UIType TargetUI;
-        public bool clearInventoryCache;
-        public bool resetDestroyedCache;  // reset destroyed objects cache
+        public ClearCacheOptions clearCache = ClearCacheOptions.All;
+
         protected override void OnButtonClicked()
         {
             UIManager.SwitchUi(TargetUI);
-            if (clearInventoryCache)
+            
+            switch (clearCache)
             {
-                InventoryManager.ClearSlots();
-                InventoryManager.ClearCachedSlots();
+                case ClearCacheOptions.No:
+                    break;
+                case ClearCacheOptions.CurrentLevel:
+                    GameManager.ClearLevelCache();
+                    break;
+                case ClearCacheOptions.All:
+                    GameManager.ClearGameCache();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
-            if (resetDestroyedCache) GameManager.ClearDestroyedCache();
+            
         }
     }
 }

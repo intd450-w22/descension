@@ -25,7 +25,6 @@ namespace Actor.Player
         public static Transform ItemObject => Instance._itemObject;
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
         public static Camera Camera => Instance._camera ??= Camera.main;
-        public static void OnReloadScene() => Reset();
         public static Vector2 Velocity => Instance._rb.velocity;
         public static void SetStartPosition(int startPosition) => Instance._startPosition = startPosition;
 
@@ -145,9 +144,16 @@ namespace Actor.Player
 
         public static void Enable() => Instance.gameObject.Enable();
         public static void Disable() => Instance.gameObject.Disable();
-
-        public static void Reset() => Instance.hitPoints = Instance.maxHitPoints;
-
+        public static void ResetState()
+        {
+            Instance.hitPoints = Instance.maxHitPoints;
+            ClearInteractablesInRange();
+        }
+        
+        public static void OnReloadScene() => ResetState();
+        
+        public static void OnSceneComplete() => ClearInteractablesInRange();
+        
         void FixedUpdate()
         {
             UpdateTorchVisuals();
@@ -273,9 +279,11 @@ namespace Actor.Player
             GameManager.Pause();
             UIManager.SwitchUi(UIType.Death);
         }
-
+        
+        public static void ClearInteractablesInRange() => Instance._interactablesInRange.Clear();
+        
         public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
-        public void _AddInteractableInRange(int instanceId, AInteractable interactable)
+        private void _AddInteractableInRange(int instanceId, AInteractable interactable)
         {
             _interactablesInRange.Add(instanceId, interactable);
 
@@ -284,7 +292,7 @@ namespace Actor.Player
         }
 
         public static void RemoveInteractableInRange(int instanceId) => Instance._RemoveInteractableInRange(instanceId);
-        public void _RemoveInteractableInRange(int instanceId)
+        private void _RemoveInteractableInRange(int instanceId)
         {
             _interactablesInRange.Remove(instanceId);
 
@@ -297,8 +305,8 @@ namespace Actor.Player
                 DialogueManager.HidePrompt();
         }
 
-        public static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();
-        public AInteractable _GetClosestInteractable()
+        private static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();
+        private AInteractable _GetClosestInteractable()
         {
             var location = gameObject.transform.position;
             return _interactablesInRange
@@ -427,6 +435,6 @@ namespace Actor.Player
         void _AddTorch(float value) => torchQuantity += value;
         
         #endregion
-
+        
     }
 }
