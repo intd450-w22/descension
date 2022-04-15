@@ -16,7 +16,8 @@ namespace Items.Pickups
         public float range = 10; // how close to bomb to add to bomb
         public string outOfRangeMessage = "Need to add this to the bomb.";
         public string addToBombMessage = "Trigger added to bomb!";
-        
+        public float addToBombPromptTime = 1.5f;
+
         public override string GetName() => Name;
 
         // override just creates class instance, passes in editor set values
@@ -32,19 +33,21 @@ namespace Items.Pickups
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
+        private float _addToBombPromptTime;
 
         public Trigger(TriggerItem triggerItem, int slotIndex, int quantity) : base(triggerItem, slotIndex, quantity) 
-            => Init(triggerItem.range, triggerItem.outOfRangeMessage, triggerItem.addToBombMessage);
+            => Init(triggerItem.range, triggerItem.outOfRangeMessage, triggerItem.addToBombMessage, triggerItem.addToBombPromptTime);
         
         public Trigger(Trigger trigger) : base(trigger) 
-            => Init(trigger._range, trigger._outOfRangeMessage, trigger._addToBombMessage);
+            => Init(trigger._range, trigger._outOfRangeMessage, trigger._addToBombMessage, trigger._addToBombPromptTime);
         
-        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage, float addToBombPromptTime)
         {
             name = TriggerItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
+            _addToBombPromptTime = addToBombPromptTime;
         }
         
         public override Equippable DeepCopy() => new Trigger(this);
@@ -64,7 +67,7 @@ namespace Items.Pickups
                 if (distance <= _range)
                 {
                     BombScript.Instance.AddTrigger();
-                    DialogueManager.ShowPrompt(_addToBombMessage);
+                    DialogueManager.ShowPrompt(_addToBombMessage, _addToBombPromptTime);
                     Quantity = -1;
                 }
                 else

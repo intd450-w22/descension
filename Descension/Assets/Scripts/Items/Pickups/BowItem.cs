@@ -135,7 +135,7 @@ namespace Items.Pickups
 
             if (Arrows == null)
             {
-                UIManager.GetHudController().ShowPrompt("No arrows to shoot!");
+                DialogueManager.ShowPrompt("No arrows to shoot!");
                 return;
             }
 
