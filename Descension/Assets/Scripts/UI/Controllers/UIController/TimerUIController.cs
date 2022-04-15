@@ -1,16 +1,23 @@
 ﻿using Managers;
+using UnityEditor;
 using UnityEngine;
+using Util.EditorHelpers;
 using Util.Enums;
 
 namespace UI.Controllers.UIController
 {
     public class TimerUIController : UIController
     {
-        public Scene NextScene = Scene.None;
-        public string OtherScene;
+        #if UNITY_EDITOR
+        public SceneAsset nextLevel;
+        private void OnValidate() { if (nextLevel != null) _nextLevel = nextLevel.name; }
+        #endif
+        [SerializeField, ReadOnly] private string _nextLevel;
+        
         public UIType NextUi = UIType.None;
         public int TimeBeforeTransition = 0;
 
+        
         private bool _timerStarted = false;
         private float _timeRemaining;
 
@@ -30,16 +37,9 @@ namespace UI.Controllers.UIController
             {
                 _timerStarted = false;
                 _timeRemaining = 0;
-
-                if(NextScene == Scene.Other)
-                    UIManager.SwitchScene(OtherScene);
-                else if(NextScene != Scene.None)
-                    UIManager.SwitchScene(NextScene);
                 
-                UIManager.SwitchUi(NextUi);
+                GameManager.SwitchScene(_nextLevel, NextUi);
             }
-
-
         }
     }
 }

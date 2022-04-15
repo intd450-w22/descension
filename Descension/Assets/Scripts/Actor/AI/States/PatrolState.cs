@@ -4,6 +4,7 @@ using Util.EditorHelpers;
 using Util.Enums;
 using Util.Helpers;
 using static Util.Helpers.CalculationHelper;
+
 namespace Actor.AI.States
 {
     public class PatrolState : AIState
@@ -50,16 +51,16 @@ namespace Actor.AI.States
                 if (rayCast.transform.gameObject.CompareTag("Player"))
                 {
                     ChangeState(onPlayerSpotted);
-                    Debug.DrawLine(Position, rayCast.point, Color.red);
+                    GameDebug.DrawLine(Position, rayCast.point, Color.red);
                 }
                 else
                 {
-                    Debug.DrawLine(Position, rayCast.point, Color.yellow);
+                    GameDebug.DrawLine(Position, rayCast.point, Color.yellow);
                 }
             }
             else
             {
-                Debug.DrawRay(Position, _lookDirection * sightDistance, Color.green);
+                GameDebug.DrawRay(Position, _lookDirection * sightDistance, Color.green);
             }
         
             if ((currentTarget.position - Position).magnitude < reachThreshold) GetNextTarget();
@@ -71,19 +72,19 @@ namespace Actor.AI.States
             _patrolIndex += _patrolDirection;
             if (loopTargets)
             {
-                if (_patrolIndex == PatrolTargets.Count) _patrolIndex = 0;
-                else if (_patrolIndex == -1) _patrolIndex = PatrolTargets.Count - 1;
+                if (_patrolIndex == PatrolTargets.Length) _patrolIndex = 0;
+                else if (_patrolIndex == -1) _patrolIndex = PatrolTargets.Length - 1;
             }
             else
             {
-                if (_patrolIndex == PatrolTargets.Count || _patrolIndex == -1)
+                if (_patrolIndex == PatrolTargets.Length || _patrolIndex == -1)
                 {
                     _patrolDirection = -_patrolDirection;
                     _patrolIndex += 2 * _patrolDirection;
                 }
             }
 
-            _patrolIndex = SafeIndex(_patrolIndex, PatrolTargets.Count);
+            _patrolIndex = SafeIndex(_patrolIndex, PatrolTargets.Length);
             currentTarget = PatrolTargets[_patrolIndex];
 
             var position = currentTarget.position;

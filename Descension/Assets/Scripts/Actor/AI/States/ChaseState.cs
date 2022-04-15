@@ -45,7 +45,7 @@ namespace Actor.AI.States
                 {
                     _target = rayCast.transform.position;
                     SetDestination(_target);
-                    Debug.DrawLine(Position, rayCast.point, Color.red);
+                    GameDebug.DrawLine(Position, rayCast.point, Color.red);
                 }
             }
             else

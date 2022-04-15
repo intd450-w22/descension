@@ -1,48 +1,48 @@
+using Actor.Interface;
+using Actor.Player;
 using Managers;
 using UnityEngine;
+using Util.EditorHelpers;
 using Util.Enums;
 
 namespace Environment
 {
-    public class InspectableObject : MonoBehaviour
+    // public class InspectableObject : UniqueMonoBehaviour
+    public class InspectableObject : AInteractable, IUnique
     {
-        public string name;
-        public string[] linesOfDialogue;
-        public bool destroyAfterInteraction = true;
-        public FactKey Fact;
-
-        private bool _inspected;
-        private bool _playerInRange;
+        [SerializeField, ReadOnly] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
         
-        void Update() {
-            if (_playerInRange && !_inspected && Input.GetKeyDown(KeyCode.F))
+        public new string name;
+        public string[] linesOfDialogue;
+        
+        public FactKey Fact;
+        private bool _inspected;
+
+        void Awake()
+        {
+            if (GameManager.IsUniqueDestroyed(this)) Destroy(transform.parent.gameObject);
+        }
+        
+        public void Inspect()
+        {
+            if (_inspected) return;
+            
+            _inspected = true;
+                
+            SoundManager.Inspection();
+            FactManager.SetFact(Fact, true);
+                
+            DialogueManager.StartDialogue(name, linesOfDialogue, () =>
             {
-                _inspected = true;
-                
-                SoundManager.Inspection();
-                FactManager.SetFact(Fact, true);
-                
-                DialogueManager.StartDialogue(name, linesOfDialogue, () =>
-                {
-                    if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
-                });
-            }
+                GameManager.DestroyUniquePermanent(this);
+                Destroy(transform.parent.gameObject);
+            });
         }
 
-        private void OnTriggerEnter2D(Collider2D other) {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                _playerInRange = true;
-                DialogueManager.ShowPrompt("Press F to interact");
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other) {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                _playerInRange = false;
-                DialogueManager.HidePrompt();
-            }
-        }
+        public override void Interact() => Inspect();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press F to interact";
     }
 }

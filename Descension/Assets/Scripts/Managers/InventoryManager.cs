@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Actor.Player;
 using Items.Pickups;
+using UI.Controllers.ButtonController;
 using UnityEngine;
 using Util.EditorHelpers;
+using Util.Helpers;
 using static Util.Helpers.CalculationHelper;
 
 namespace Managers
@@ -65,16 +67,6 @@ namespace Managers
                 while (slots[i = SafeIndex(i-scroll, slots.Count)].Quantity <= 0) {}
                 if (i != equippedSlot) EquipSlot(i);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha1) && slots[0].Quantity >= 0) EquipSlot(0);
-            else if (Input.GetKeyDown(KeyCode.Alpha2) && slots[1].Quantity >= 0) EquipSlot(1);
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && slots[2].Quantity >= 0) EquipSlot(2);
-            else if (Input.GetKeyDown(KeyCode.Alpha4) && slots[3].Quantity >= 0) EquipSlot(3);
-
-            // run logic for equipped item
-            if (Time.time >= _cooldown && equippedSlot != -1) slots[equippedSlot].Update();
-            
-            // drop equipped item on R
-            if (Input.GetKeyDown(KeyCode.R)) DropSlot(equippedSlot);
         }
         
         void FixedUpdate()
@@ -91,21 +83,28 @@ namespace Managers
         {
             PlayerController.Reticle.gameObject.SetActive(false);
             PlayerController.SpriteTransform.DetachChildren();  // visually drop weapon
-            
-            Invoke(nameof(AttachWeaponSprite), 2);
+        
+            // reattach when movement stops
+            this.InvokeWhen(
+                ()=>PlayerController.ItemObject.SetParent(PlayerController.SpriteTransform),
+                ()=>PlayerController.Velocity.sqrMagnitude < 1, 
+                0.5f);
         }
-
-        public void AttachWeaponSprite() => PlayerController.ItemObject.SetParent(PlayerController.SpriteTransform);
-
+        
         // called when reset is selected in menu
         public static void OnReloadScene() => Instance._OnReset();
         private void _OnReset()
         {
             // restart with items we had at the beginning of the level
-            
             LoadCachedSlots();
-            for (int i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
+            for (var i = 0; i < Slots.Count; ++i) UIManager.Hotbar.PickupItem(Slots[i], i);
             EquipFirstSlottedItem();
+        }
+
+        public static void TryEquipSlot(int index) => Instance._TryEquipSlot(index);
+        private void _TryEquipSlot(int index)
+        {
+            if(slots[index].Quantity >= 0) EquipSlot(index);
         }
 
         // sets item at index to equipped state
@@ -114,10 +113,11 @@ namespace Managers
             if (equippedSlot != -1 && slots[equippedSlot] != null) slots[equippedSlot].OnUnEquip();
             if (slots[index]?.Quantity != -1)
             {
+                SoundManager.SwitchItem();
                 equippedSlot = index;
                 slots[equippedSlot].OnEquip();
                 UIManager.Hotbar.SetActive(index);
-                Debug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
+                GameDebug.Log("Slot " + index + " equipped / " + slots[equippedSlot]);
             }
         }
         
@@ -154,11 +154,15 @@ namespace Managers
             if (defaultAny) EquipFirstSlottedItem();
         }
         
+        // drop the item that is currently equipped
+        public static void DropCurrentSlot() => Instance._DropCurrentSlot();
+        private void _DropCurrentSlot() => _DropSlot(equippedSlot);
+
         // drop item at slot index and update UI
         public static void DropSlot(int index) => Instance._DropSlot(index);
         private void _DropSlot(int index)
         {
-            // Debug.Log("DropSlot(" + index + ")");
+            // GameDebug.Log("DropSlot(" + index + ")");
             if (index != -1)
             {
                 var itemName = slots[index].name;
@@ -253,6 +257,15 @@ namespace Managers
         public static void SetCooldown() => Instance._SetCooldown();
         public void _SetCooldown() => _cooldown = Time.time + globalCooldown;
 
+        public static bool IsOnCooldown() => Instance._IsOnCooldown();
+        public bool _IsOnCooldown() => Time.time < _cooldown;
+
+        public static void TryExecute() => Instance._TryExecute();
+        public void _TryExecute()
+        {
+            if (_IsOnCooldown() || !IsInRange(equippedSlot, slots.Count) || slots[equippedSlot].IsOnCooldown()) return;
+            slots[equippedSlot].Execute();
+        }
 
     }
 }

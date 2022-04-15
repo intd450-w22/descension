@@ -1,17 +1,19 @@
+using UnityEditor;
 using UnityEngine.SceneManagement;
 
 namespace Util
 {
     public static class SceneLoader
     {
-        public static void Load(Util.Enums.Scene scene)
+        
+        public static void Load(string scene)
         {
-            SceneManager.LoadScene(scene.ToString());
+            SceneManager.LoadScene(scene);
         }
-
-        public static void Load(string sceneName)
+        
+        public static void Load(Scene scene)
         {
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(scene.name);
         }
     }
 }

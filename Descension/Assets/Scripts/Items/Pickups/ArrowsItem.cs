@@ -29,8 +29,8 @@ namespace Items.Pickups
 
         public override string GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.ArrowsPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.ArrowsPrefab, PlayerPosition, Quantity);
         
-        protected override void Execute() => InventoryManager.EquipFirstSlottedItem(BowItem.Name, false);
+        public override void Execute() => InventoryManager.EquipFirstSlottedItem(BowItem.Name, false);
     }
 }

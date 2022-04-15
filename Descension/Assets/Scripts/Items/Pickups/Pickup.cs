@@ -1,59 +1,90 @@
+using System;
+using System.Collections.Generic;
+using Actor.Interface;
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Util.EditorHelpers;
 using Util.Helpers;
 
 namespace Items.Pickups
 {
-    public class Pickup : MonoBehaviour
+    public class Pickup : AInteractable, IUnique
     {
+        [SerializeField, ReadOnly] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
-        public bool autoPickup;
-        private bool _inRange;
+
+        [HideInInspector] public GameObject prefab;
+        [HideInInspector] public Vector3 location;
+        private bool _spawned;
         
-        private void Update()
+        protected void Awake()
         {
-            if (_inRange && (autoPickup || Input.GetKeyDown(KeyCode.E)))
+            if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
+        }
+        
+        protected void OnEnable() 
+        {
+            if (GetUniqueId() == 0)
             {
-                if (!InventoryManager.PickupItem(item, ref quantity))
-                {
-                    SoundManager.Error(); //TODO fail to pick up sound
-                    UIManager.GetHudController().ShowDialogue("Inventory full");
-                    return;
-                }
-                SoundManager.ItemFound();
+                _spawned = true;
+                SpawnManager.AddCachingDelegate(OnSceneChange);
+            }
+        }
+
+        private void OnDestroy() => SpawnManager.RemoveCachingDelegate(OnSceneChange);
+
+        private void OnSceneChange() => SpawnManager.CachePickup(new PickupCacheInfo(this));
+
+        private void TryPickup()
+        {
+            if (!InventoryManager.PickupItem(item, ref quantity))
+            {
+                SoundManager.Error(); //TODO fail to pick up sound
+                UIManager.GetHudController().ShowDialogue("Inventory full");
+                return;
+            }
+            
+            SoundManager.ItemFound();
+
+            if (quantity == 0)
+            {
+                if (!_spawned) GameManager.DestroyUnique(this);
+                Destroy(gameObject);
+            }
                 
-                if (quantity == 0) Destroy(gameObject);
-                
-                // only show pickup dialogue once
-                if (!FactManager.IsFactTrue(item.Fact))
-                {
-                    DialogueManager.StartDialogue(item.GetName(), pickupMessage);
-                    FactManager.SetFact(item.Fact, true);
-                }
-            }
-        }
-
-        private void OnValidate() => gameObject.GetChildObjectWithName("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-
-            if (other.gameObject.CompareTag("Player"))
+            // only show pickup dialogue once
+            if (!FactManager.IsFactTrue(item.Fact))
             {
-                DialogueManager.ShowPrompt("Press E to collect " + item.GetName());
-                _inRange = true;
+                DialogueManager.StartDialogue(item.GetName(), pickupMessage);
+                FactManager.SetFact(item.Fact, true);
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                DialogueManager.HidePrompt();
-                _inRange = false;
-            }
-        }
+        private void OnValidate() => gameObject.GetChildObject("ItemSprite").GetComponent<SpriteRenderer>().sprite = item.inventorySprite;
+
+        public override void Interact() => TryPickup();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press F to pick up " + item.GetName();
     }
+
+    public readonly struct PickupCacheInfo
+    {
+        public PickupCacheInfo(Pickup pickup)
+        {
+            Prefab = pickup.prefab;
+            Location = pickup.location;
+            Quantity = pickup.quantity;
+        }
+        
+        public readonly GameObject Prefab;
+        public readonly Vector3 Location;
+        public readonly int Quantity;
+    }
+    
 }

@@ -23,9 +23,9 @@ namespace UI.MenuUI
 
         void Awake()
         {
-            ItemImage = gameObject.GetChildObjectWithName("SlotItem").GetComponent<Image>();
-            OutlineImage = gameObject.GetChildObjectWithName("SlotOutline").GetComponent<Image>();
-            QuantityText = gameObject.GetChildObjectWithName("SlotQuantity").GetComponent<TextMeshProUGUI>();
+            ItemImage = gameObject.GetChildObject("SlotItem").GetComponent<Image>();
+            OutlineImage = gameObject.GetChildObject("SlotOutline").GetComponent<Image>();
+            QuantityText = gameObject.GetChildObject("SlotQuantity").GetComponent<TextMeshProUGUI>();
 
             UpdateQuantity();
         }

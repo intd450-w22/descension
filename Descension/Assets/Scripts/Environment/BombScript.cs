@@ -1,92 +1,77 @@
+using Actor.Interface;
 using Managers;
 using UnityEngine;
+using UI.Controllers;
+using Util.Enums;
+using System;
 
 namespace Environment
 {
-    public class BombScript : MonoBehaviour
+    public class BombScript : AInteractable
     {
-        public string name;
-        public string[] linesOfDialogue;
-        public string[] blowUpDialogue;
-        public string[] startTimerDialogue;
-        public KeyCode interactionKey = KeyCode.F;
-        public KeyCode startBombKey = KeyCode.E;
-        private bool _inRange;
+        [Header("Configuration")]
+        public KeyCode StartBombKey = KeyCode.T;
+        
+        [Header("Dialogue")]
+        public string Name;
+        public string[] LinesOfDialogue;
+        public string[] BlowUpDialogue;
+        public string[] StartTimerDialogue;
+
         private bool _hasExplosives;
         private bool _hasTrigger;
         private bool _hasTimer;
-        private bool _hasAll;
-        private bool _hasExplosivesAndTrigger;
+        private bool _hasExplosivesAndTrigger => _hasExplosives && _hasTrigger;
+        private bool _hasAll => _hasExplosives && _hasTrigger && _hasTimer;
+                
+        private bool _activatedBombWithoutTrigger;
+        public FactKey Fact;
+        private Action _endGame;
+
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
         
-        
-        
-        public void AddExplosives()
-        {
-            _hasExplosives = true;
-            _hasExplosivesAndTrigger = _hasTrigger && _hasExplosives;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
-
-        public void AddTrigger()
-        {
-            _hasTrigger = true;
-            _hasExplosivesAndTrigger = _hasTrigger && _hasExplosives;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
-
-        public void AddTimer()
-        {
-            _hasTimer = true;
-            _hasAll = _hasTimer && _hasTrigger && _hasExplosives;
-        }
+        public void AddExplosives()=> _hasExplosives = true;
+        public void AddTrigger() => _hasTrigger = true;
+        public void AddTimer() => _hasTimer = true;
 
         void Update() {
+            if (GameManager.IsFrozen || !_inRange) return;
 
-            if (_inRange)
+            if (Input.GetKeyDown(StartBombKey)) 
             {
-                if (Input.GetKeyDown(interactionKey)) 
+                if (_hasAll)
                 {
-                    if (_hasAll) DialogueManager.StartDialogue(name, startTimerDialogue);
-                    else if (_hasExplosivesAndTrigger) DialogueManager.StartDialogue(name, blowUpDialogue);
-                    else DialogueManager.StartDialogue(name, linesOfDialogue);
-                    SoundManager.Inspection();
-                }
-                else if (Input.GetKeyDown(startBombKey)) 
+                    DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
+                    FactManager.SetFact(Fact, true);
+                } 
+                else if (_hasExplosivesAndTrigger)
                 {
-                    if (_hasAll)
-                    {
-                        DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
-                    } 
-                    else if (_hasExplosivesAndTrigger)
-                    {
-                        DialogueManager.StartDialogue(name, new [] {"BOOM!"});
-                    }
+                    _endGame += EndGame;
+                    DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
                 }
             }
-            
-            
-            
-            
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void EndGame()
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                DialogueManager.ShowPrompt("Press F to interact");
-                _inRange = true;
-            }
+            UIManager.SwitchUi(UIType.End);
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        public void Bomb()
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                DialogueManager.HidePrompt();
-                _inRange = false;
-            }
+            SoundManager.Inspection();
+
+            if (_hasAll) 
+                DialogueManager.StartDialogue(Name, StartTimerDialogue);
+            else if (_hasExplosivesAndTrigger) 
+                DialogueManager.StartDialogue(Name, BlowUpDialogue);
+            else 
+                DialogueManager.StartDialogue(Name, LinesOfDialogue);
         }
+
+        public override void Interact() => Bomb();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press T to detonate   Press F to interact";        
     }
 }

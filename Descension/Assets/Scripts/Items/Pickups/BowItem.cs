@@ -6,7 +6,6 @@ using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
 
-
 namespace Items.Pickups
 {
     public class BowItem : EquippableItem
@@ -78,7 +77,7 @@ namespace Items.Pickups
 
         public override string GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.BowPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.BowPrefab, PlayerPosition, Quantity);
 
         public override void OnEquip()
         {
@@ -126,15 +125,17 @@ namespace Items.Pickups
             SpriteTransform.SetPositionAndRotation(_bowPosition, new Quaternion { eulerAngles = new Vector3(0, 0, bowAngle) });
         }
 
-        protected override void Execute()
+        public override void Execute() 
         {
+            base.Execute();
+
             if (Arrows == null)
             {
                 UIManager.GetHudController().ShowPrompt("No arrows to shoot!");
                 return;
             }
 
-            Debug.DrawLine(PlayerPosition, PlayerPosition + _direction * 3);
+            GameDebug.DrawLine(PlayerPosition, PlayerPosition + _direction * 3);
             
             // spawn arrow
             Projectile.Instantiate(_arrowPrefab, _bowPosition - _spritePositionOffset, _direction, _damage, _knockBack, Tag.Enemy);

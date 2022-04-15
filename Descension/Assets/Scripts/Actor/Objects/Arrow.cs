@@ -2,6 +2,7 @@ using Actor.Interface;
 using Managers;
 using UnityEngine;
 using Util.Enums;
+using Util.Helpers;
 
 namespace Actor.Objects
 {
@@ -42,25 +43,43 @@ namespace Actor.Objects
 
         private void _Destroy() => Destroy(gameObject);
 
+
+        private bool _isFrozen;
         // Update is called once per frame
         void Update()
         {
             if (GameManager.IsFrozen)
             {
-                body.velocity = Vector2.zero;
-                CancelInvoke("_Destroy");
+                OnFrozen();
                 return;
             }
 
             body.velocity = _velocity;
         }
 
+        void OnFrozen()
+        {
+            if (_isFrozen) return;
+                
+            _isFrozen = true;
+            body.velocity = Vector2.zero;
+            CancelInvoke(nameof(_Destroy));
+                
+            // reactivate destroy timer when unfrozen
+            this.InvokeWhen(
+                () => { _isFrozen = false; Invoke(nameof(_Destroy), timeToLive); }, 
+                () => !GameManager.IsFrozen, 
+                1);
+        }
+
         void OnTriggerEnter2D(Collider2D collision) {
             // set "Enemy" Tag to enemy object for this to work
             if (collision.CompareTag(_targetTag.ToString()))
             {
-                try { collision.gameObject.GetComponent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
-                catch { collision.gameObject.GetComponentInParent<IDamageable>().InflictDamage(_damage, _velocity.normalized, _knockBack); }
+                collision.gameObject
+                    .GetComponent<IDamageable>(true)
+                    .InflictDamage(_damage, _velocity.normalized, _knockBack);
+                
                 Destroy(gameObject);
             }
             else if (collision.CompareTag(Tag.Environment.ToString()))

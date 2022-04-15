@@ -41,10 +41,12 @@ namespace Items.Pickups
 
         public override string GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.HealthPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.HealthPrefab, PlayerPosition, Quantity);
 
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             if (Quantity <= 0)
             {
                 DialogueManager.ShowPrompt("No Health Potions remaining!");

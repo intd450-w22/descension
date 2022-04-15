@@ -24,15 +24,15 @@ namespace UI.Controllers.ShopUI
         {
             get
             {
-                if (_menuRoot == null) _menuRoot = gameObject.GetChildObjectWithName("ShopItems").transform;
+                if (_menuRoot == null) _menuRoot = gameObject.GetChildObject("ShopItems").transform;
                 return _menuRoot;
             }
         }
         
         void Awake()
         {
-            _goldText = gameObject.GetChildObjectWithName("ShopItems").GetChildObjectWithName("GoldText").GetComponent<TMP_Text>();
-            _feedbackText = gameObject.GetChildObjectWithName("ShopItems").GetChildObjectWithName("FeedbackText").GetComponent<TMP_Text>();
+            _goldText = gameObject.GetChildObject("ShopItems").GetChildObject("GoldText").GetComponent<TMP_Text>();
+            _feedbackText = gameObject.GetChildObject("ShopItems").GetChildObject("FeedbackText").GetComponent<TMP_Text>();
         }
 
         void Start()
@@ -47,7 +47,7 @@ namespace UI.Controllers.ShopUI
                     menuItem.transform.SetAsLastSibling();
                 }
             }
-            gameObject.GetChildObjectWithName("ShopItems").GetChildObjectWithName("ReturnMenuItem").transform.SetAsLastSibling();
+            gameObject.GetChildObject("ShopItems").GetChildObject("ReturnMenuItem").transform.SetAsLastSibling();
         }
 
         public void UpdateGold()
@@ -73,6 +73,7 @@ namespace UI.Controllers.ShopUI
     public struct ShopItem
     {
         public EquippableItem item;
+        public string shopName;
         public int cost;
         public int quantity;
     }

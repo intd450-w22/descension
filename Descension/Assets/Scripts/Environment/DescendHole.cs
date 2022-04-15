@@ -1,42 +1,68 @@
+using Actor.Interface;
 using Actor.Player;
 using Managers;
-using UI.Controllers;
-using Util;
+using UnityEditor;
 using Util.Enums;
 using UnityEngine;
+using Util.EditorHelpers;
+using System;
+using Util.Helpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Environment
 {
-    public class DescendHole : MonoBehaviour
+    public class DescendHole : MonoBehaviour, IUnique
     {
-        public Scene nextLevel;
-        public string otherLevelName;
-        public string showText;
+        [SerializeField, ReadOnly] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
         
-        private HUDController _hudController;
-
-        void Awake()
-        {
-            _hudController = UIManager.GetHudController();
-        }
+        #if UNITY_EDITOR
+        public SceneAsset nextLevel;
+        private void OnValidate() { if (nextLevel != null) _nextLevel = nextLevel.name; }
+        #endif
+        [SerializeField, ReadOnly] private string _nextLevel;
+        
+        public int nextLevelStartPosition;
+        public string showText;
+        public bool needsRope = true;
+        public bool leaveHole;
+        private Action _endGame;
 
         void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.CompareTag("Player")) {
-                if (PlayerController.Instance.ropeQuantity > 0) {
-                    PlayerController.AddRope(-1);
-                    DialogueManager.ShowPrompt(showText);
-
-                    if(nextLevel == Scene.Other)
-                        SceneLoader.Load(otherLevelName);
-                    else if (nextLevel == Scene.Level3)
-                        UIManager.SwitchUi(UIType.End);
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                // check if descended already
+                needsRope = needsRope && !GameManager.IsUniqueDestroyed(this);
+                if (leaveHole)
+                {
+                    _endGame += EndGame;
+                    DialogueManager.StartDialogue("ShopKeeper", new[] { "Thought you�d never make it. Thank you. You�ve done more for me than you think. But there are other places like this. Are you willing to do it again?" }, _endGame);
+                }
+                else
+                {
+                    if (!needsRope || PlayerController.Instance.ropeQuantity > 0)
+                    {
+                        SoundManager.Descend();
+                        if (needsRope) PlayerController.AddRope(-1);
+                        if (showText.Length > 0) DialogueManager.ShowPrompt(showText);
+                        GameManager.DestroyUnique(this);
+                        GameManager.OnSceneComplete();
+                        GameManager.SwitchScene(_nextLevel, UIType.None, nextLevelStartPosition);
+                    }
                     else
-                        SceneLoader.Load(nextLevel.ToString());   
-                    
-                } else {
-                    DialogueManager.ShowPrompt("You need a rope in order to descend");
+                    {
+                        DialogueManager.ShowPrompt("You need a rope in order to descend");
+                        this.InvokeWhen(DialogueManager.HidePrompt, () => DistanceSq(PlayerController.Position, transform.position) > 4, 2);
+                    }
                 }
             }
+        }
+   
+
+        void EndGame()
+        {
+            UIManager.SwitchUi(UIType.End);
         }
     }
 }

@@ -17,7 +17,8 @@ namespace Items.Pickups
         public float damage = 10;
         public float spriteOffset = 2;
         public float spriteRotationOffset = 45;
-        public float reticleDistance = 4;
+        public float range = 8;
+        public float collisionWidth = 15;
         public float knockBack = 0;
 
         public override string GetName() => Name;
@@ -34,7 +35,8 @@ namespace Items.Pickups
         // attributes
         private float _damage;
         private float _knockBack;
-        private float _reticleDistance;
+        private float _range;
+        private float _collisionWidth;
         private float _spriteOffset;
         private float _spriteRotationOffset;
         
@@ -43,22 +45,25 @@ namespace Items.Pickups
         private int _swingAngle;
         private int _swingHitAngle;
         private float _aimAngle;
+        private Vector2 _collisionBox;
         private Vector3 _aimDirection;
         private Transform _playerTransform;
         private Camera _camera;
 
         public Sword(SwordItem swordItem, int slotIndex, int quantity) : base(swordItem, slotIndex, quantity) 
-            => Init(swordItem.damage, swordItem.knockBack, swordItem.reticleDistance, swordItem.spriteOffset, swordItem.spriteRotationOffset);
+            => Init(swordItem.damage, swordItem.knockBack, swordItem.range, swordItem.collisionWidth, swordItem.spriteOffset, swordItem.spriteRotationOffset);
 
         public Sword(Sword sword) : base(sword) 
-            => Init(sword._damage, sword._knockBack, sword._reticleDistance, sword._spriteOffset, sword._spriteRotationOffset);
+            => Init(sword._damage, sword._knockBack, sword._range + _collisionBox.x/2f, sword._collisionWidth, sword._spriteOffset, sword._spriteRotationOffset);
 
-        private void Init(float damage, float knockBack, float reticleDistance, float spriteOffset, float spriteRotationOffset)
+        private void Init(float damage, float knockBack, float range, float collisionWidth, float spriteOffset, float spriteRotationOffset)
         {
             name = SwordItem.Name;
             _damage = damage;
             _knockBack = knockBack;
-            _reticleDistance = reticleDistance;
+            _collisionWidth = collisionWidth;
+            _collisionBox = new Vector2(1, collisionWidth);
+            _range = range - _collisionBox.x/2f;
             _spriteOffset = spriteOffset;
             _spriteRotationOffset = spriteRotationOffset;
             _playerTransform = PlayerController.Instance.transform;
@@ -69,13 +74,13 @@ namespace Items.Pickups
 
         public override string GetName() => name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.SwordPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.SwordPrefab, PlayerPosition, Quantity);
 
         public override void OnEquip()
         {
             if (Reticle.localPosition.magnitude < 0.5f)
             {
-                Reticle.position = PlayerPosition + new Vector3(_reticleDistance,0,0);
+                Reticle.position = PlayerPosition + new Vector3(_range,0,0);
                 SpriteTransform.SetPositionAndRotation(PlayerPosition + new Vector3(_spriteOffset,0,0), new Quaternion { eulerAngles = new Vector3(0, 0, 0) });
             }
 
@@ -98,7 +103,7 @@ namespace Items.Pickups
             
             _aimAngle = _aimDirection.ToDegrees();
             
-            Reticle.position = position + (_aimDirection * _reticleDistance);
+            Reticle.position = position + (_aimDirection * _range);
             SpriteTransform.SetPositionAndRotation(position + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
@@ -108,8 +113,10 @@ namespace Items.Pickups
             else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
         }
 
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             _swinging = true;
             
             if (Math.Abs(_aimAngle) >= 90)
@@ -130,15 +137,14 @@ namespace Items.Pickups
         {
             _swinging = false;
             
-            DebugHelper.DrawBoxCast2D(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, 0.5f, Color.blue);
+            GameDebug.DrawBoxCast2D(PlayerPosition, _collisionBox, _aimAngle, _aimDirection, _range, 0.5f, Color.blue);
             
             RaycastHit2D[] hitEnemies;
-            foreach (var hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, new Vector2(1, 15), _aimAngle, _aimDirection, _reticleDistance, (int) UnityLayer.Enemy))
+            foreach (var hit in hitEnemies = Physics2D.BoxCastAll(PlayerPosition, _collisionBox, _aimAngle, _aimDirection, _range, (int) UnityLayer.Enemy))
             {
-                var damageable = hit.collider.gameObject.GetComponent<IDamageable>();
-                if (damageable == null) damageable = hit.collider.gameObject.GetComponentInParent<IDamageable>();
-                
-                damageable.InflictDamage(_damage, _aimDirection, _knockBack);
+                hit.collider.gameObject
+                    .GetComponent<IDamageable>(true)
+                    .InflictDamage(_damage, _aimDirection, _knockBack);
             }
 
             if (hitEnemies.Length >= 1) --Quantity;

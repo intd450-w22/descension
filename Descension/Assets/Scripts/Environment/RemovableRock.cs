@@ -1,16 +1,33 @@
+using Actor.Interface;
 using Items;
 using Managers;
 using UnityEngine;
+using Util.EditorHelpers;
+using Util.Helpers;
 
 namespace Environment
 {
-    public class RemovableRock : MonoBehaviour
+    public class RemovableRock : MonoBehaviour, IUnique
     {
+        [SerializeField, ReadOnly] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+
         public int goldDropMin = 1;
         public int goldDropMax = 20;
         public int goldDropChance = 40;  // percent chance of dropping gold in range (goldDropMin, goldDropMax)
-        public ItemSpawner.DropStruct[] itemDrops;
+        public SpawnManager.DropStruct[] itemDrops;
+        
 
+        void Awake()
+        {
+            if (GameManager.IsUniqueDestroyed(this))
+            {
+                GameDebug.Log("Destroying " + GetUniqueId());
+                Destroy(gameObject);
+            }
+        }
+        
         public void OnDestroyed()
         {
             if (Random.Range(0, 100) < goldDropChance)
@@ -24,10 +41,11 @@ namespace Environment
                 UIManager.GetHudController().ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
             }
             
-            ItemSpawner.SpawnRandom(transform.position, itemDrops);
+            SpawnManager.SpawnRandom(transform.position, itemDrops);
+            
+            GameManager.DestroyUnique(this);
             
             Destroy(gameObject);
         }
-        
     }
 }

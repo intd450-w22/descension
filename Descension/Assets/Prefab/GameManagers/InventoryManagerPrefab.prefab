@@ -45,29 +45,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots:
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   cachedSlots:
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   - name: 
-    inventorySprite: {fileID: 0}
     _quantity: -1
+    inventorySprite: {fileID: 0}
   equippedSlot: -1
   gold: 0
+  globalCooldown: 0.1
+  updateInterval: 3

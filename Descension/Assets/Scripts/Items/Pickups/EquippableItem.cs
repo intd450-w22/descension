@@ -1,6 +1,5 @@
 using System;
 using Actor.Player;
-using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,7 +31,7 @@ namespace Items.Pickups
     }
     
     // actual object with functionality, would be abstract but then it doesn't display in inspector
-    [Serializable, CanBeNull]
+    [Serializable]
     public class Equippable
     {
         // attributes
@@ -45,7 +44,7 @@ namespace Items.Pickups
         
         // state
         private float _cooldown;
-        private bool _execute;
+        // private bool _execute;
         private static PlayerControls _playerControls;
         
         // quantity/durability for item
@@ -107,13 +106,15 @@ namespace Items.Pickups
             }
         }
 
+        public virtual bool IsOnCooldown() => Time.time < _cooldown;
+
         public virtual Equippable DeepCopy() => new Equippable(this);
 
         // return name of equippable item
         public virtual string GetName() { return name; }
         
         // should override to spawn pickup item
-        public virtual void SpawnDrop() { Debug.LogWarning("SpawnDrop() should be overriden in " + this); }
+        public virtual void SpawnDrop() { GameDebug.LogWarning("SpawnDrop() should be overriden in " + this); }
 
         // returns the max quantity/durability for this item
         public int GetMaxQuantity() => _maxQuantity;
@@ -146,25 +147,16 @@ namespace Items.Pickups
             Clear();
         }
 
-        // called like regular MonoBehavior Update() if this item is equipped
-        public void Update() => _execute |= _playerControls.Default.Shoot.WasPressedThisFrame() && Time.time >= _cooldown;
-
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
-        public void EquippedFixedUpdate()
-        {
-            FixedUpdate();
-            
-            if (!_execute) return;
-            
-            _execute = false;
-            _cooldown = Time.time + _cooldownTime;
-            Execute();
-        }
-        
+        public void EquippedFixedUpdate() => FixedUpdate();
+
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
         protected virtual void FixedUpdate() {}
         
         // called when execute button is pressed and cooldown has finished if this item is equipped
-        protected virtual void Execute() {}
+        public virtual void Execute()
+        {
+            _cooldown = Time.time + _cooldownTime;
+        }
     }
 }

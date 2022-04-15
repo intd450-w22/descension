@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using Util.Enums;
 
 namespace Managers
 {
@@ -10,7 +12,8 @@ namespace Managers
         private readonly Queue<string> _linesOfDialogue = new Queue<string>();
         private Action _onDialogueComplete;
 
-        private bool _inDialogue;
+        public static bool IsInDialogue => Instance._isInDialogue;
+        private bool _isInDialogue = false;
 
         private static DialogueManager _instance;
         private static DialogueManager Instance => _instance ??= FindObjectOfType<DialogueManager>();
@@ -23,7 +26,7 @@ namespace Managers
 
         void Update()
         {
-            if (!_inDialogue || GameManager.IsPaused) return;
+            if (!IsInDialogue || GameManager.IsPaused) return;
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -39,18 +42,18 @@ namespace Managers
             _name = objectName;
             _linesOfDialogue.Clear();
             _onDialogueComplete = onComplete;
-            _inDialogue = true;
+            _isInDialogue = true;
 
             foreach (var line in lines)
             {
                 _linesOfDialogue.Enqueue(line);
             }
 
-            _DisplayNextLine();
+            _DisplayNextLine(false);
         }
 
         public static void DisplayNextLine() => Instance._DisplayNextLine();
-        private void _DisplayNextLine()
+        private void _DisplayNextLine(bool playSound=true)
         {
             if (_linesOfDialogue.Count == 0)
             {
@@ -58,11 +61,36 @@ namespace Managers
                 HideDialogue();
                 _onDialogueComplete?.Invoke();
                 _onDialogueComplete = null;
-                _inDialogue = false;
+                _isInDialogue = false;
             }
             else
             {
-                UIManager.GetHudController().ShowDialogue(_linesOfDialogue.Dequeue(), _name);
+                var dialogue = _linesOfDialogue.Dequeue();
+                if (dialogue.StartsWith(">"))
+                {
+                    try
+                    {
+                        var key = (DialogueKey) Enum.Parse(typeof(DialogueKey), dialogue.Substring(1), true);
+
+                        switch (key)
+                        {
+                            case DialogueKey.OpenShop:
+                                ItemShop.OpenShop();
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    catch { /* ignored */ }
+                }
+                else
+                {
+                    if (playSound)
+                    {
+                        SoundManager.NextLineDialogue();
+                    }
+                    UIManager.GetHudController().ShowDialogue(dialogue, _name);
+                }
             }
         }
 

@@ -5,9 +5,6 @@ using Managers;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
-
 
 namespace Items.Pickups
 {
@@ -84,7 +81,7 @@ namespace Items.Pickups
             SpriteTransform.gameObject.SetActive(false);
         }
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.PickPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.PickPrefab, PlayerPosition, Quantity);
 
         protected override void FixedUpdate()
         {
@@ -96,7 +93,7 @@ namespace Items.Pickups
             Reticle.position = _playerPosition + (_aimDirection * _reticleDistance);
             SpriteTransform.SetPositionAndRotation(_playerPosition + _aimDirection * _spriteOffset, new Quaternion { eulerAngles = new Vector3(0, 0, _aimAngle - _spriteRotationOffset + _swingAngle) });
             
-            Debug.DrawLine(_playerPosition, Reticle.position);
+            GameDebug.DrawLine(_playerPosition, Reticle.position);
 
             if (_swinging && _swingAngle == _swingHitAngle) CheckHit();
             
@@ -105,8 +102,10 @@ namespace Items.Pickups
             else if (absAngle < 90 && _swingAngle < 45) _swingAngle += 30;
         }
 
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             _swinging = true;
             
             if (Math.Abs(_aimAngle) >= 90)

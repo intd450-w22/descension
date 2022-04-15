@@ -22,15 +22,15 @@ namespace UI.Controllers.Codex
         void Awake()
         {
             if (CodexPagePrefab == null)
-                Debug.LogWarning("Codex: CodexPagePrefab not set.");
+                GameDebug.LogWarning("Codex: CodexPagePrefab not set.");
             if(CodexMenuItemPrefab == null)
-                Debug.LogWarning("Codex: CodexMenuItemPrefab not set.");
+                GameDebug.LogWarning("Codex: CodexMenuItemPrefab not set.");
             if(CodexPages.IsNullOrEmpty())
-                Debug.LogWarning("Codex: No pages found.");
+                GameDebug.LogWarning("Codex: No pages found.");
 
-            _codexPagesContainer = gameObject.GetChildObjectWithName("CodexPages");
+            _codexPagesContainer = gameObject.GetChildObject("CodexPages");
             if (_codexPagesContainer == null || _codexPagesContainer.transform == null)
-                Debug.LogWarning("Codex: Can't find 'CodexPages' game object.");
+                GameDebug.LogWarning("Codex: Can't find 'CodexPages' game object.");
 
             foreach (var page in CodexPages)
                 CreatePage(page);
@@ -72,7 +72,7 @@ namespace UI.Controllers.Codex
                 page.Activate();
                 _currPageType = pageType;
             }
-            else Debug.LogWarning($"No page in codex of type {pageType}");
+            else GameDebug.LogWarning($"No page in codex of type {pageType}");
         }
     }
 }

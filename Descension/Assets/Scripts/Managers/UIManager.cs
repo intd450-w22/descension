@@ -4,11 +4,9 @@ using UI.Controllers;
 using UI.Controllers.Codex;
 using UI.Controllers.ShopUI;
 using UI.Controllers.UIController;
-using Util;
 using Util.Enums;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Scene = Util.Enums.Scene;
+using Util.Helpers;
 
 namespace Managers
 {
@@ -59,8 +57,6 @@ namespace Managers
 
         public static CodexController GetCodexController() => Instance._codexController;
 
-        public static string GetCurrentScene() => SceneManager.GetActiveScene().name;
-
         public static UIType GetPreviousUI() => Instance._previousActiveUI.uiType;
 
         public static void ReinitHudController() => Instance._ReinitHudController();
@@ -73,7 +69,7 @@ namespace Managers
         public static void SwitchUi(UIType uiType) => Instance._SwitchUi(uiType);
         private void _SwitchUi(UIType uiType)
         {
-            Debug.Log("Switch UI to " + uiType);
+            GameDebug.Log("Switch UI to " + uiType);
             if (_lastActiveUi != null) 
                 _lastActiveUi.gameObject.SetActive(false);
 
@@ -89,16 +85,16 @@ namespace Managers
             }
             else
             {
-                Debug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
+                GameDebug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
             }
         }
 
-        public static void SwitchScene(Scene scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene.ToString(), uiType);
-        public static void SwitchScene(string scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene, uiType);
-        private void _SwitchScene(string scene, UIType uiType = UIType.None)
-        {
-            SceneLoader.Load(scene);
-            SwitchUi(uiType);
-        }
+        // public static void SwitchScene(Scene scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene.ToString(), uiType);
+        // public static void SwitchScene(string scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene, uiType);
+        // private void _SwitchScene(string scene, UIType uiType = UIType.None)
+        // {
+        //     SceneLoader.Load(scene);
+        //     SwitchUi(uiType);
+        // }
     }
 }

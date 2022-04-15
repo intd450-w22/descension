@@ -4,6 +4,7 @@ using Environment;
 using Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Util.Helpers;
 
 namespace Items.Pickups
 {
@@ -50,14 +51,16 @@ namespace Items.Pickups
 
         public override string GetName() => TimerItem.Name;
 
-        public override void SpawnDrop() => ItemSpawner.SpawnItem(ItemSpawner.TimerPrefab, PlayerPosition, Quantity);
+        public override void SpawnDrop() => SpawnManager.SpawnItem(SpawnManager.TimerPrefab, PlayerPosition, Quantity);
         
-        protected override void Execute()
+        public override void Execute()
         {
+            base.Execute();
+
             if (BombScript.Instance)
             {
                 var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
-                Debug.Log("Distance: " + distance);
+                GameDebug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
                     BombScript.Instance.AddTimer();
