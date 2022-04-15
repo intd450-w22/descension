@@ -239,7 +239,7 @@ namespace Actor.Player
         {
             float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
             hitPoints += healthRestored;
-            _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(healthRestored).ToString(), Color.green);
         }
 
         public void OnKilled()
