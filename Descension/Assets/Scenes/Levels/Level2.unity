@@ -4294,6 +4294,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
+      propertyPath: showText
+      value: Climb back up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
       value: -526810
       objectReference: {fileID: 0}
@@ -27837,6 +27841,14 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3433881298775484108, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: x
+      value: 511
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433881298775484108, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
+      propertyPath: y
+      value: -136
+      objectReference: {fileID: 0}
     - target: {fileID: 3942534684975220860, guid: 8cb4cd73a1777b940ad209809dda9146, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -42750,7 +42762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: showText
-      value: You descended to level 3.
+      value: Descend deeper
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
