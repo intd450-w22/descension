@@ -10,14 +10,11 @@ namespace UI.Controllers.ButtonController
 
         protected override void OnButtonClicked()
         {
-            InventoryManager.OnReloadScene();
-            PlayerController.OnReloadScene();
             GameManager.OnReloadScene();
 
-            var currScene = GameManager.GetCurrentScene();
             if(uiAfterReload == UIType.GameHUD) UIManager.GetHudController().Reset();
             
-            GameManager.SwitchScene(currScene, uiAfterReload);
+            GameManager.SwitchScene(GameManager.GetCurrentScene(), uiAfterReload);
         }
     }
 }

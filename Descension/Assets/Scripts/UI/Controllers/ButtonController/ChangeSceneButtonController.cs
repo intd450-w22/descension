@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,20 +17,25 @@ namespace UI.Controllers.ButtonController
         [SerializeField, ReadOnly] private string _scene;
         
         public UIType UiType = UIType.None;
-        public bool clearInventoryCache;
-        public bool resetDestroyedCache;  // reset destroyed objects cache
-        
-        
+        public ClearCacheOptions clearCache = ClearCacheOptions.All;
+
         protected override void OnButtonClicked()
         {
-            GameManager.SwitchScene(_scene, UiType);
-            if (clearInventoryCache)
+            switch (clearCache)
             {
-                InventoryManager.ClearSlots();
-                InventoryManager.ClearCachedSlots();
+                case ClearCacheOptions.No:
+                    break;
+                case ClearCacheOptions.CurrentLevel:
+                    GameManager.ClearLevelCache();
+                    break;
+                case ClearCacheOptions.All:
+                    GameManager.ClearGameCache();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             
-            if (resetDestroyedCache) GameManager.ClearDestroyedCache();
+            GameManager.SwitchScene(_scene, UiType);
         }
     }
 }

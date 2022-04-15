@@ -45,14 +45,18 @@ namespace Managers
         private static PreSceneChangeDelegate _onCachingDelegate;
         public static void AddCachingDelegate(PreSceneChangeDelegate callback) => _onCachingDelegate += callback;
         public static void RemoveCachingDelegate(PreSceneChangeDelegate callback) => _onCachingDelegate -= callback;
+        private static void ClearSceneCachingDelegates() => _onCachingDelegate = null;
+        private static void InvokeCachingDelegates()
+        {
+            _onCachingDelegate?.Invoke();
+            ClearSceneCachingDelegates();
+        }
 
         // clears cache and calls all CachingDelegates
-        public static void CacheSpawnedPickups()
+        private static void CacheSpawnedPickups()
         {
             ClearDroppedPickupsCache();
-            
-            _onCachingDelegate?.Invoke();
-            _onCachingDelegate = null;
+            InvokeCachingDelegates();
         }
         
         // spawns all cached pickups
@@ -158,6 +162,11 @@ namespace Managers
         }
         
         #endregion
+
+        public static void OnReloadScene() => ClearSceneCachingDelegates();
+        public static void OnSceneComplete() => CacheSpawnedPickups();
+        public static void ClearLevelCache() => ClearSceneCachingDelegates();
+        public static void ClearGameCache() => DroppedPickups.Clear();
     }
     
     
