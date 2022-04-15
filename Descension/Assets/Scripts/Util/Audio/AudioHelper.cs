@@ -21,14 +21,14 @@ namespace Util.Audio
                 onStop();
         }
 
-        public static IEnumerator FadeIn(AudioSource audioSource, float fadeTime, Action onStart = null)
+        public static IEnumerator FadeIn(AudioSource audioSource, float fadeTime, float volume = 1f, Action onStart = null)
         {
             if (onStart == null)
                 audioSource.Play();
             else
                 onStart();
             audioSource.volume = 0f;
-            while (audioSource.volume < 1)
+            while (audioSource.volume < volume)
             {
                 audioSource.volume += Time.deltaTime / fadeTime;
                 yield return null;

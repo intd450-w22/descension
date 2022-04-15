@@ -25,7 +25,7 @@ namespace Actor.Player
         public static Transform ItemObject => Instance._itemObject;
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
         public static Camera Camera => Instance._camera ??= Camera.main;
-        public static void OnReloadScene() => Instance.hitPoints = Instance.maxHitPoints;
+        public static void OnReloadScene() => Reset();
         public static Vector2 Velocity => Instance._rb.velocity;
         public static void SetStartPosition(int startPosition) => Instance._startPosition = startPosition;
 
@@ -142,7 +142,12 @@ namespace Actor.Player
         private void OnEnable() => playerControls?.Enable();
         
         private void OnDisable() => playerControls?.Disable();
-        
+
+        public static void Enable() => Instance.gameObject.Enable();
+        public static void Disable() => Instance.gameObject.Disable();
+
+        public static void Reset() => Instance.hitPoints = Instance.maxHitPoints;
+
         void FixedUpdate()
         {
             UpdateTorchVisuals();

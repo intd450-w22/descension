@@ -1,4 +1,5 @@
 using Items.Pickups;
+using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.Helpers;
@@ -10,6 +11,8 @@ namespace Environment
         void Start()
         {
             // Init any level things
+            PlayerController.Enable();
+
             SoundManager.StartBackgroundAudio();
             UIManager.GetHudController().Reset(); // Move to an earlier call probably 
 
