@@ -297,30 +297,32 @@ namespace Actor.Player
             timerActivated = true;
             timeRemaining = time;
         }
-        
+
+        public static void ShowPromptForClosestInteractable() => Instance._ShowPromptForClosestInteractable();
+        private void _ShowPromptForClosestInteractable()
+        {
+            if (_interactablesInRange.Any())
+            {
+                var closest = _GetClosestInteractable();
+                DialogueManager.ShowPrompt(closest.GetPrompt());
+            }
+            else
+                DialogueManager.HidePrompt();
+        }
         public static void ClearInteractablesInRange() => Instance._interactablesInRange.Clear();
 
         public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
         private void _AddInteractableInRange(int instanceId, AInteractable interactable)
         {
             _interactablesInRange.Add(instanceId, interactable);
-
-            var closest = GetClosestInteractable();
-            DialogueManager.ShowPrompt(closest.GetPrompt());
+            _ShowPromptForClosestInteractable();
         }
 
         public static void RemoveInteractableInRange(int instanceId) => Instance._RemoveInteractableInRange(instanceId);
         private void _RemoveInteractableInRange(int instanceId)
         {
             _interactablesInRange.Remove(instanceId);
-
-            if (_interactablesInRange.Any())
-            {
-                var closest = GetClosestInteractable();
-                DialogueManager.ShowPrompt(closest.GetPrompt());
-            }
-            else
-                DialogueManager.HidePrompt();
+            _ShowPromptForClosestInteractable();
         }
 
         private static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();

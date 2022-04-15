@@ -123,7 +123,7 @@ namespace UI.Controllers
                 _promptText.enabled = true;
         }
 
-        public void ShowPrompt(string text) 
+        public void ShowPrompt(string text, float time = 0) 
         {
             _promptText.enabled = true;
             _promptText.text = text;
