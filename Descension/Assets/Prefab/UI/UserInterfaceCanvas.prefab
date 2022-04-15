@@ -3502,7 +3502,7 @@ RectTransform:
   UiType: 4
   clearInventoryCache: 1
   resetDestroyedCache: 1
---- !u!1001 &493105460845649356
+--- !u!1001 &493105460924860616
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
