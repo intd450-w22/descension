@@ -47,7 +47,6 @@ namespace Managers
             _backgroundVolume = volume;
 
             backgroundAudio.volume = volume;
-            mainMenuBackgroundAudio.volume = volume;
         }
 
         public static void SetEffectVolume(float volume) => Instance._SetEffectVolume(volume);
@@ -79,6 +78,7 @@ namespace Managers
             _musicVolume = volume;
 
             // TODO: If music is implemented, adjust the volume here
+            mainMenuBackgroundAudio.volume = volume;
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();
@@ -101,9 +101,11 @@ namespace Managers
         public static void StartMainMenuBackgroundAudio() => Instance._StartMainMenuBackgroundAudio();
         private void _StartMainMenuBackgroundAudio()
         {
-            backgroundAudio.Stop();
+            _StopBackgroundAudio();
             mainMenuBackgroundAudio.Play();
         }
+        public static void StopMainMenuBackgroundAudio() => Instance._StopMainMenuBackgroundAudio();
+        private void _StopMainMenuBackgroundAudio() => mainMenuBackgroundAudio.Stop();
 
         public static void RemoveRock() => Instance._RemoveRock();
         private void _RemoveRock() => removeRockSound.Play();
