@@ -16,7 +16,7 @@ namespace Environment
         public int goldDropMin = 1;
         public int goldDropMax = 20;
         public int goldDropChance = 40;  // percent chance of dropping gold in range (goldDropMin, goldDropMax)
-        public ItemSpawner.DropStruct[] itemDrops;
+        public SpawnManager.DropStruct[] itemDrops;
         
 
         void Awake()
@@ -41,7 +41,7 @@ namespace Environment
                 UIManager.GetHudController().ShowFloatingText(transform.position, "Gold +" + gold, Color.yellow);
             }
             
-            ItemSpawner.SpawnRandom(transform.position, itemDrops);
+            SpawnManager.SpawnRandom(transform.position, itemDrops);
             
             GameManager.DestroyUnique(this);
             

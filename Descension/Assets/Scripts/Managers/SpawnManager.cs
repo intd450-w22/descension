@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
 using Items.Pickups;
-using JetBrains.Annotations;
-using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-namespace Items
+namespace Managers
 {
-    public class ItemSpawner : MonoBehaviour
+    public class SpawnManager : MonoBehaviour
     {
+        void Awake()
+        {
+            if (_instance == null) _instance = this;
+            else if (_instance != this) Destroy(gameObject);
+        }
         
         public static GameObject PickPrefab => Instance.pickPickupPrefab;
         public GameObject pickPickupPrefab;
@@ -30,15 +34,30 @@ namespace Items
         public static GameObject TorchPrefab => Instance.torchPickupPrefab;
         public GameObject torchPickupPrefab;
         
-        private static ItemSpawner _instance;
-        private static ItemSpawner Instance => _instance ??= FindObjectOfType<ItemSpawner>();
+        private static SpawnManager _instance;
+        private static SpawnManager Instance => _instance ??= FindObjectOfType<SpawnManager>();
+        
+        private static readonly Dictionary<string, HashSet<Pickup>> DroppedPickups = new Dictionary<string, HashSet<Pickup>>();
 
-        void Awake()
+        public static void SpawnDroppedPickups()
         {
-            if (_instance == null) _instance = this;
-            else if (_instance != this) Destroy(gameObject);
-        }
+            var scene = SceneManager.GetActiveScene().name;
 
+            if (!DroppedPickups.ContainsKey(scene)) return;
+            
+            foreach (var pickup in DroppedPickups[scene])
+                SpawnItem(pickup.prefab, pickup.position, pickup.quantity, true);
+
+            DroppedPickups[scene].Clear();
+        }
+        
+        public static void CachePickup(Pickup pickup)
+        {
+            var scene = SceneManager.GetActiveScene();
+            if (!DroppedPickups.ContainsKey(scene.name)) DroppedPickups.Add(scene.name, new HashSet<Pickup>());
+            DroppedPickups[scene.name].Add(pickup);
+        }
+        
         public static Pickup SpawnItem(GameObject prefab, Vector3 position, bool silent = false) => Instance._SpawnItem(prefab, position, silent);
         private Pickup _SpawnItem(GameObject prefab, Vector3 position, bool silent)
         {
@@ -47,11 +66,14 @@ namespace Items
                 Debug.LogError("ItemSpawner DropItem called with null prefab.");
                 return null;
             }
-            
+
             // spawn pickup
             if (!silent) SoundManager.ItemFound(); // TODO maybe replace with unique item drop sound
             GameObject pickupObject = Instantiate(prefab, position, Quaternion.identity);
-            return pickupObject.GetComponent<Pickup>();
+            Pickup pickup = pickupObject.GetComponent<Pickup>();
+            pickup.prefab = prefab;
+            pickup.position = position;
+            return pickup;
         }
 
         public static Pickup SpawnItem(GameObject prefab, Vector3 position, int quantity, bool silent = false) => Instance._SpawnItem(prefab, position, quantity, silent);
@@ -69,7 +91,7 @@ namespace Items
             // spawn pickup
             Pickup pickup = SpawnItem(prefab, position, silent);
             pickup.quantity = quantity;
-            DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
+            if (!silent) DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
             return pickup;
         }
 

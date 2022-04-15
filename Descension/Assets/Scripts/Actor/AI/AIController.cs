@@ -27,7 +27,7 @@ namespace Actor.AI
         public AIState initialState;
         public AIState onHit;                               // state to transition to if hit by player
         public FactKey fact;
-        public ItemSpawner.DropStruct[] drops;              // item drop chances
+        public SpawnManager.DropStruct[] drops;              // item drop chances
         [SerializeField, ReadOnly] private AIState state;   // current state
         
         public GameObject Actor => _actor ??= gameObject.GetChildObject("Sprite");
@@ -137,7 +137,7 @@ namespace Actor.AI
         
         void OnKilled()
         {
-            ItemSpawner.SpawnRandom(Transform.position, drops);
+            SpawnManager.SpawnRandom(Transform.position, drops);
             
             SetDead();
             

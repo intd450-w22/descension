@@ -1,5 +1,7 @@
+using Items.Pickups;
 using Managers;
 using UnityEngine;
+using Util.Helpers;
 
 namespace Environment
 {
@@ -13,6 +15,8 @@ namespace Environment
 
             GameManager.UnFreeze();
             GameManager.Resume();
+
+            SpawnManager.SpawnDroppedPickups();
         }
     }
 }

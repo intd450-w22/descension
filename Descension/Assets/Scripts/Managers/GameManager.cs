@@ -3,6 +3,8 @@ using System.Linq;
 using Actor.Interface;
 using Actor.Player;
 using Environment;
+using Items;
+using Items.Pickups;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -82,7 +84,12 @@ namespace Managers
         
         
         #region scene management
-        
+
+        public delegate void PreSceneChangeDelegate();
+        private static PreSceneChangeDelegate onSceneChangeDelegate;
+        public static void AddPreSceneChangeCallback(PreSceneChangeDelegate callback) => onSceneChangeDelegate += callback;
+        public static void RemovePreSceneChangeCallback(PreSceneChangeDelegate callback) => onSceneChangeDelegate -= callback;
+
         public static Scene GetCurrentScene() => SceneManager.GetActiveScene();
         public static void SwitchScene(Scene scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene.name, uiType, startPosition);
         public static void SwitchScene(string scene, UIType uiType = UIType.None, int startPosition = -1) => Instance._SwitchScene(scene, uiType, startPosition);
@@ -91,12 +98,15 @@ namespace Managers
             GameDebug.Log("SwitchScene(" + scene + ")");
             
             if (startPosition != -1) PlayerController.SetStartPosition(startPosition);
-            
+
+            onSceneChangeDelegate?.Invoke();
+            onSceneChangeDelegate = null;
+
             AsyncOperation load = SceneManager.LoadSceneAsync(scene);
-             
+
             if (uiType != UIType.None)
                 this.InvokeWhen(
-                    () => UIManager.SwitchUi(uiType), 
+                    () => UIManager.SwitchUi(uiType),
                     () => load.isDone,
                     0.5f);
         }
