@@ -80,6 +80,7 @@ namespace Actor.AI.States
             Velocity = (PlayerPosition - Position) * 3;
             Speed = Velocity.magnitude;
             Collider.isTrigger = true;
+            SoundManager.MonsterBite();
             Animator.SetBool(AnimatorIsBiting, true);
             SetDestination(PlayerPosition);
         }

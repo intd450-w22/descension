@@ -59,6 +59,8 @@ namespace Actor.AI.States
         private void Execute()
         {
             _executed = true;
+
+            SoundManager.MonsterAttack();
             
             var angle = _direction.ToDegrees();
             var box = new Vector2(1, attackBoxWidth);

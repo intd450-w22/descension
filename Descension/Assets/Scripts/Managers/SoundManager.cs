@@ -31,6 +31,9 @@ namespace Managers
         [SerializeField] private AudioSource toggleTorchSound;
         [SerializeField] private AudioSource descendSound;
         [SerializeField] private AudioSource switchItemSound;
+        [SerializeField] private AudioSource monsterBiteSound;
+        [SerializeField] private AudioSource monsterAttackSound;
+        [SerializeField] private AudioSource monsterProjectileSound;
 
         private static SoundManager _instance;
         private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
@@ -65,6 +68,9 @@ namespace Managers
             toggleTorchSound.volume = volume;
             descendSound.volume = volume;
             switchItemSound.volume = volume;
+            monsterBiteSound.volume = volume;
+            monsterAttackSound.volume = volume;
+            monsterProjectileSound.volume = volume;
             if(errorSound) errorSound.volume = volume;
             if(healSound) healSound.volume = volume;
             if(swingSound) swingSound.volume = volume;
@@ -139,6 +145,15 @@ namespace Managers
 
         public static void SwitchItem() => Instance._SwitchItem();
         private void _SwitchItem() => switchItemSound.Play();
+
+        public static void MonsterBite() => Instance._MonsterBite();
+        private void _MonsterBite() => monsterBiteSound.Play();
+
+        public static void MonsterAttack() => Instance._MonsterAttack();
+        private void _MonsterAttack() => monsterAttackSound.Play();
+
+        public static void MonsterProjectile() => Instance._MonsterProjectile();
+        private void _MonsterProjectile() => monsterProjectileSound.Play();
 
         public static void Error() => Instance._Error();
         public void _Error()
