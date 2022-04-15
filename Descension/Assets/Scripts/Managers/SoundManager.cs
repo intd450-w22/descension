@@ -112,7 +112,6 @@ namespace Managers
         public static void Swing() => Instance._Swing();
         private void _Swing()
         {
-            // TODO add weapon swing sound effect
             if (swingSound) swingSound.Play();
         }
         

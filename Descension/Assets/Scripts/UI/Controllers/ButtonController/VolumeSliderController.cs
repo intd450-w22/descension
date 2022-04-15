@@ -23,7 +23,7 @@ namespace UI.Controllers.ButtonController
                     SoundManager.SetBackgroundVolume(value);
                     return;
                 case VolumeType.EffectVolume:
-                    SoundManager.SetBackgroundVolume(value);
+                    SoundManager.SetEffectVolume(value);
                     return;
                 case VolumeType.MusicVolume:
                     SoundManager.SetMusicVolume(value);
