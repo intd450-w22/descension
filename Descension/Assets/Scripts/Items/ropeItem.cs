@@ -25,7 +25,7 @@ namespace Items
 
         void Awake()
         {
-            if (GameManager.IsUniqueDestroyed(this, out var location)) transform.position = location;
+            if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
             else transform.position = potentialPositions[Random.Range(0, potentialPositions.Length)];
         }
 
@@ -37,7 +37,7 @@ namespace Items
             if (other.gameObject.CompareTag("Player"))
             {
                 _isPickedUp = true;
-                GameManager.DestroyUnique(this, transform.position);
+                GameManager.DestroyUnique(this);
                 PlayerController.AddRope(quantity);
                 DialogueManager.StartDialogue("Rope", _description);
                 FactManager.SetFact(FactKey.HasSeenRope, true);
