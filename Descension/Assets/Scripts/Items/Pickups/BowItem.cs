@@ -81,7 +81,9 @@ namespace Items.Pickups
 
         public override void OnEquip()
         {
-            Reticle.position = (Vector2) PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
+            var worldPoint = PlayerController.Camera.ScreenToWorldPoint(Input.mousePosition);
+            Reticle.position = new Vector3(worldPoint.x, worldPoint.y, 3f);
+            
             var screenPoint = PlayerController.Camera.WorldToScreenPoint(PlayerController.Instance.transform.localPosition);
             _direction = (Input.mousePosition - screenPoint).normalized;
             
@@ -119,6 +121,8 @@ namespace Items.Pickups
                 // TODO: Add aiming with the right stick ala Enter the Gungeon 
                 Reticle.position = PlayerPosition + (_direction * _reticleDistance);
             }
+
+            Reticle.position = new Vector3(Reticle.position.x, Reticle.position.y, 3f);
             
             var bowAngle = _direction.ToDegrees() + _spriteRotationOffset;
             _bowPosition = PlayerPosition + _spritePositionOffset + _direction * _spriteDistanceOffset;
