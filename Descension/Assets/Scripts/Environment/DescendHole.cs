@@ -1,18 +1,22 @@
 using Actor.Interface;
 using Actor.Player;
 using Managers;
-using UI.Controllers;
 using UnityEditor;
-using Util;
 using Util.Enums;
 using UnityEngine;
+using Util.EditorHelpers;
 using System;
 
 namespace Environment
 {
-    public class DescendHole : UniqueMonoBehaviour
+    public class DescendHole : MonoBehaviour, IUnique
     {
+        #if UNITY_EDITOR
         public SceneAsset nextLevel;
+        private void OnValidate() { if (nextLevel != null) _nextLevel = nextLevel.name; }
+        #endif
+        [SerializeField, ReadOnly] private string _nextLevel;
+        
         public int nextLevelStartPosition;
         public string showText;
         public bool needsRope = true;
@@ -23,11 +27,11 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player"))
             {
                 // check if descended already
-                needsRope = needsRope && !GameManager.IsUniqueDestroyed(this, out _);
+                needsRope = needsRope && !GameManager.IsUniqueDestroyed(this);
                 if (leaveHole)
                 {
                     _endGame += EndGame;
-                    DialogueManager.StartDialogue("ShopKeeper", new[] { "Thought you’d never make it. Thank you. You’ve done more for me than you think. But there are other places like this. Are you willing to do it again?" }, _endGame);
+                    DialogueManager.StartDialogue("ShopKeeper", new[] { "Thought youï¿½d never make it. Thank you. Youï¿½ve done more for me than you think. But there are other places like this. Are you willing to do it again?" }, _endGame);
                 }
                 else
                 {
@@ -35,9 +39,9 @@ namespace Environment
                     {
                         if (needsRope) PlayerController.AddRope(-1);
                         if (showText.Length > 0) DialogueManager.ShowPrompt(showText);
-                        GameManager.CacheDestroyedUnique(this, transform.position);
+                        GameManager.DestroyUnique(this);
                         GameManager.OnSceneComplete();
-                        GameManager.SwitchScene(nextLevel, UIType.None, nextLevelStartPosition);
+                        GameManager.SwitchScene(_nextLevel, UIType.None, nextLevelStartPosition);
                     }
                     else
                     {
@@ -51,6 +55,17 @@ namespace Environment
         void EndGame()
         {
             UIManager.SwitchUi(UIType.End);
+        }
+
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId()
+        {
+            return uniqueId;
+        }
+
+        public void SetUniqueId(int id)
+        {
+            uniqueId = id;
         }
     }
 }

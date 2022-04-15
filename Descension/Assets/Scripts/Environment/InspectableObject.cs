@@ -6,17 +6,28 @@ using Util.Enums;
 
 namespace Environment
 {
-    public class InspectableObject : AInteractable
+    // public class InspectableObject : UniqueMonoBehaviour
+    public class InspectableObject : AInteractable, IUnique
     {
-        public string name;
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
+        public new string name;
         public string[] linesOfDialogue;
-        public bool destroyAfterInteraction = true;
+        
         public FactKey Fact;
-
         private bool _inspected;
 
+        void Awake()
+        {
+            if (GameManager.IsUniqueDestroyed(this)) Destroy(transform.parent.gameObject);
+        }
+        
         public void Inspect()
         {
+            if (_inspected) return;
+            
             _inspected = true;
                 
             SoundManager.Inspection();
@@ -24,7 +35,8 @@ namespace Environment
                 
             DialogueManager.StartDialogue(name, linesOfDialogue, () =>
             {
-                if (destroyAfterInteraction) Destroy(transform.parent.gameObject);
+                GameManager.DestroyUniquePermanent(this);
+                Destroy(transform.parent.gameObject);
             });
         }
 

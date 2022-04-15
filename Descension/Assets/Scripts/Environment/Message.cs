@@ -7,7 +7,7 @@ namespace Environment
 {
     public class Message : MonoBehaviour
     {
-        public string name;
+        public new string name;
         public string[] linesOfDialogue;
         public Image dialogueBox;
         public Text dialogueText;

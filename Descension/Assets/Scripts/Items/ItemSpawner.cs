@@ -39,8 +39,8 @@ namespace Items
             else if (_instance != this) Destroy(gameObject);
         }
 
-        public static Pickup SpawnItem(GameObject prefab, Vector3 position) => Instance._SpawnItem(prefab, position);
-        private Pickup _SpawnItem(GameObject prefab, Vector3 position)
+        public static Pickup SpawnItem(GameObject prefab, Vector3 position, bool silent = false) => Instance._SpawnItem(prefab, position, silent);
+        private Pickup _SpawnItem(GameObject prefab, Vector3 position, bool silent)
         {
             if (prefab == null)
             {
@@ -49,13 +49,13 @@ namespace Items
             }
             
             // spawn pickup
-            SoundManager.ItemFound(); // TODO maybe replace with unique item drop sound
+            if (!silent) SoundManager.ItemFound(); // TODO maybe replace with unique item drop sound
             GameObject pickupObject = Instantiate(prefab, position, Quaternion.identity);
             return pickupObject.GetComponent<Pickup>();
         }
 
-        public static Pickup SpawnItem(GameObject prefab, Vector3 position, int quantity) => Instance._SpawnItem(prefab, position, quantity);
-        private Pickup _SpawnItem(GameObject prefab, Vector3 position, int quantity)
+        public static Pickup SpawnItem(GameObject prefab, Vector3 position, int quantity, bool silent = false) => Instance._SpawnItem(prefab, position, quantity, silent);
+        private Pickup _SpawnItem(GameObject prefab, Vector3 position, int quantity, bool silent)
         {
             if (prefab == null)
             {
@@ -67,15 +67,15 @@ namespace Items
             if (quantity <= 0) return null;
             
             // spawn pickup
-            Pickup pickup = SpawnItem(prefab, position);
+            Pickup pickup = SpawnItem(prefab, position, silent);
             pickup.quantity = quantity;
             DialogueManager.ShowPrompt(pickup.item.GetName() + " Dropped");
             return pickup;
         }
 
         
-        public static void SpawnRandom(Vector3 position, DropStruct[] prefabs) => Instance._SpawnRandom(position, prefabs);
-        private void _SpawnRandom(Vector3 position, DropStruct[] prefabs)
+        public static void SpawnRandom(Vector3 position, DropStruct[] prefabs, bool silent = false) => Instance._SpawnRandom(position, prefabs, silent);
+        private void _SpawnRandom(Vector3 position, DropStruct[] prefabs, bool silent)
         {
             if (prefabs == null) return;
 
@@ -86,8 +86,8 @@ namespace Items
                 i += prefab.dropChance;
                 if (i >= roll)
                 {
-                    if (prefab.quantity != 0) _SpawnItem(prefab.item, position, prefab.quantity);
-                    else _SpawnItem(prefab.item, position);
+                    if (prefab.quantity != 0) _SpawnItem(prefab.item, position, prefab.quantity, silent);
+                    else _SpawnItem(prefab.item, position, silent);
                     return;
                 }
             }
