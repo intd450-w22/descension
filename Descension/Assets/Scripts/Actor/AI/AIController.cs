@@ -183,7 +183,7 @@ namespace Actor.AI
             
             GameDebug.Log($"Enemy hit for {damage} damage");
             
-            HUDController.ShowFloatingText(Position, "Hp-" + damage, Color.red);
+            HUDController.ShowFloatingText(Position, "Hp-" + damage, Color.yellow);
             
             SoundManager.EnemyHit();
             
