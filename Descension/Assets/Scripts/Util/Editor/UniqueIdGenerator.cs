@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Actor.Interface;
 using Environment;
 using JetBrains.Annotations;
+using Managers;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -46,34 +48,41 @@ namespace Util.Editor
             EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex));
         }
 
+        public static IEnumerable<T> FindInterfacesOfType<T>(bool includeInactive = false)
+        {
+            return SceneManager.GetActiveScene().GetRootGameObjects()
+                .SelectMany(go => go.GetComponentsInChildren<T>(includeInactive));
+        }
+        
         private int GenerateIds([CanBeNull] string scenePath = null)
         {
             scenePath ??= SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex);
                 
             EditorSceneManager.OpenScene(scenePath);
             
-            var uniqueObjects = FindObjectsOfType<UniqueMonoBehaviour>();
+            var uniqueObjects = FindObjectsOfType<MonoBehaviour>().Where(x => x is IUnique).ToArray();
+
             foreach (var uniqueObject in uniqueObjects)
             {
                 var serializedObject = new SerializedObject(uniqueObject);
                 var property = serializedObject.FindProperty("uniqueId");
-                // var id = uniqueObject
-                property.intValue = uniqueObject.GetNewUniqueId();
-                // _ids.Add(id);
+                
+                property.intValue = GameManager.GenerateNewUniqueId(uniqueObject.GetComponent<IUnique>());
                 serializedObject.ApplyModifiedProperties();
             }
-            
+
             // only save if changes were made
             if (uniqueObjects.Length != 0) EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
-            
+
             Debug.Log("Generated " + uniqueObjects.Length + " Unique Id's for " + scenePath);
-            
+
             return uniqueObjects.Length;
+            
         }
         
         private void GenerateAllIds()
         {
-            UniqueMonoBehaviour.ClearUniqueIds();
+            GameManager.ClearUniqueIds();
             
             Debug.Log("Generating unique Id's for all scenes.");
             

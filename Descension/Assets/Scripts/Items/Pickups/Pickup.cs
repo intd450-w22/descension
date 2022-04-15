@@ -1,3 +1,4 @@
+using System.Xml;
 using Actor.Interface;
 using Actor.Player;
 using Managers;
@@ -7,28 +8,31 @@ using Util.Helpers;
 
 namespace Items.Pickups
 {
-    public class Pickup : UniqueMonoBehaviour
-    public class Pickup : AInteractable
+    public class Pickup : AInteractable, IUnique
     {
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
         public bool autoPickup;
+        public bool spawned = true;
         private bool _inRange;
 
         protected void Awake()
         {
-            if (IsUniqueDestroyed()) Destroy(gameObject);
+            if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
         }
         
-        protected new void OnEnable() 
+        protected void OnEnable() 
         {
-            if (GetUniqueId() == 0) GetNewUniqueId();
-            
-            base.OnEnable();
+            if (GetUniqueId() == 0) GameManager.GenerateNewUniqueId(this);
         }
         
-        private void Update()
+        private void Update(){}
+        
 
         public void TryPickup()
         {
@@ -44,7 +48,7 @@ namespace Items.Pickups
 
                 if (quantity == 0)
                 {
-                    DestroyUnique();
+                    GameManager.DestroyUnique(this);
                     Destroy(gameObject);
                 }
                 SoundManager.Error(); //TODO fail to pick up sound
@@ -53,8 +57,12 @@ namespace Items.Pickups
             }
             
             SoundManager.ItemFound();
-                
-            if (quantity == 0) Destroy(gameObject);
+
+            if (quantity == 0)
+            {
+                GameManager.DestroyUnique(this);
+                Destroy(gameObject);
+            }
                 
             // only show pickup dialogue once
             if (!FactManager.IsFactTrue(item.Fact))

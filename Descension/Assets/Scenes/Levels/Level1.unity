@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -530212
+      value: -1541774
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -198,7 +198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -530264
+      value: -1541826
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -280,7 +280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -530274
+      value: -1541836
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -362,7 +362,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -530284
+      value: -1541846
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -444,7 +444,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -530294
+      value: -1541856
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -526,7 +526,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -530304
+      value: -1541866
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -1804,7 +1804,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531604
+      value: -1543450
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -1886,7 +1886,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531614
+      value: -1543460
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -1968,7 +1968,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531624
+      value: -1543470
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2050,7 +2050,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531634
+      value: -1543480
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2213,7 +2213,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531644
+      value: -1543490
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2350,6 +2350,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1543500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &152759394 stripped
@@ -2366,7 +2370,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531668
+      value: -1543514
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2448,7 +2452,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531678
+      value: -1543524
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2697,7 +2701,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531720
+      value: -1543566
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2779,7 +2783,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531730
+      value: -1543576
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -2930,7 +2934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -531736
+      value: -1543582
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -2953,7 +2957,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531790
+      value: -1543636
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3035,7 +3039,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531800
+      value: -1543646
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3117,7 +3121,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531810
+      value: -1543656
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3229,7 +3233,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531820
+      value: -1543666
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3311,7 +3315,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531830
+      value: -1543676
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3393,7 +3397,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531840
+      value: -1543686
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3475,7 +3479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531850
+      value: -1543696
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3557,7 +3561,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531860
+      value: -1543706
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3639,7 +3643,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531870
+      value: -1543716
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3721,7 +3725,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531880
+      value: -1543726
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3808,7 +3812,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531890
+      value: -1543736
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -3890,7 +3894,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531900
+      value: -1543746
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4009,6 +4013,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1543756
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: pickupMessage
       value: Health Potion acquired
       objectReference: {fileID: 0}
@@ -4108,7 +4116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531924
+      value: -1543770
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4190,7 +4198,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -531934
+      value: -1543780
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4333,7 +4341,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532002
+      value: -1543848
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4415,7 +4423,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532012
+      value: -1543858
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4545,7 +4553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -532018
+      value: -1543864
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -4611,7 +4619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -532066
+      value: -1543912
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -4654,7 +4662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532118
+      value: -1543964
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4736,7 +4744,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532128
+      value: -1543974
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4818,7 +4826,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532138
+      value: -1543984
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -4900,7 +4908,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532148
+      value: -1543994
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -5046,7 +5054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -532154
+      value: -1544000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -5082,7 +5090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: uniqueId
-      value: -532206
+      value: -1544052
       objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
@@ -5165,7 +5173,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532260
+      value: -1544106
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -5247,7 +5255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532270
+      value: -1544116
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -5329,7 +5337,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532280
+      value: -1544126
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -5411,7 +5419,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532290
+      value: -1544136
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -26608,7 +26616,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532332
+      value: -1544178
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -26690,7 +26698,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532342
+      value: -1544188
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -26807,7 +26815,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532352
+      value: -1544198
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -26889,7 +26897,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532362
+      value: -1544208
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27027,7 +27035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -532368
+      value: -1544214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -27040,7 +27048,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532420
+      value: -1544266
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27269,7 +27277,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532438
+      value: -1544284
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27379,6 +27387,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1544294
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (7)
@@ -27443,7 +27455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532462
+      value: -1544308
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27523,6 +27535,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1544318
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (10)
@@ -27651,7 +27667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -532482
+      value: -1544328
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -27674,7 +27690,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532536
+      value: -1544382
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27756,7 +27772,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532546
+      value: -1544392
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27838,7 +27854,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532556
+      value: -1544402
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -27918,6 +27934,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1544412
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (9)
@@ -27990,7 +28010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: uniqueId
-      value: -532576
+      value: -1544422
       objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
@@ -28063,7 +28083,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532630
+      value: -1544476
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -28191,6 +28211,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8838305058164531721, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
+      propertyPath: uniqueId
+      value: -1544486
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
 --- !u!4 &699699136 stripped
@@ -28207,7 +28231,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532654
+      value: -1544500
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -28324,7 +28348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532664
+      value: -1544510
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -28404,6 +28428,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1544520
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (8)
@@ -28516,7 +28544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -532684
+      value: -1544530
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -28598,7 +28626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -532732
+      value: -1544578
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -28631,6 +28659,10 @@ PrefabInstance:
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: name
       value: Ripped Note 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: uniqueId
+      value: -1544636
       objectReference: {fileID: 0}
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: linesOfDialogue.Array.size
@@ -28713,7 +28745,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532800
+      value: -1544646
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -28795,7 +28827,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532810
+      value: -1544656
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -28957,6 +28989,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1544666
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &813201290 stripped
@@ -28973,7 +29009,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532834
+      value: -1544680
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29055,7 +29091,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532844
+      value: -1544690
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29142,7 +29178,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532854
+      value: -1544700
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29224,7 +29260,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532864
+      value: -1544710
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29411,7 +29447,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532890
+      value: -1544736
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29493,7 +29529,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532900
+      value: -1544746
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29575,7 +29611,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532910
+      value: -1544756
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29657,7 +29693,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532920
+      value: -1544766
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29747,7 +29783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: uniqueId
-      value: -532926
+      value: -1544772
       objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
@@ -29830,7 +29866,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532980
+      value: -1544826
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -29912,7 +29948,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -532990
+      value: -1544836
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30058,7 +30094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -532996
+      value: -1544842
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -30079,7 +30115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: uniqueId
-      value: -533046
+      value: -1544892
       objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
@@ -30225,6 +30261,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1544952
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (6)
@@ -30289,7 +30329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533120
+      value: -1544966
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30401,7 +30441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533130
+      value: -1544976
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30483,7 +30523,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533140
+      value: -1544986
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30565,7 +30605,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533150
+      value: -1544996
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30647,7 +30687,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533160
+      value: -1545006
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30729,7 +30769,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533170
+      value: -1545016
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30841,7 +30881,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533180
+      value: -1545026
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -30923,7 +30963,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533190
+      value: -1545036
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31005,7 +31045,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533200
+      value: -1545046
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31133,6 +31173,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6022480228204631915, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
+      propertyPath: uniqueId
+      value: -1545056
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
 --- !u!1001 &1119542702
@@ -31194,6 +31238,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1545070
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &1119542703 stripped
@@ -31210,7 +31258,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533238
+      value: -1545084
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31340,12 +31388,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
-      value: -533782
+      value: -1545092
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: nextLevel
       value: 
       objectReference: {fileID: 102900000, guid: 48ce86583fac5944cb7d39c1bcfa9628, type: 3}
+    - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
+      propertyPath: _nextLevel
+      value: Level2
+      objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: otherLevelName
       value: Level2-Perspective
@@ -31365,7 +31417,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533248
+      value: -1545102
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31447,7 +31499,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533258
+      value: -1545112
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31529,7 +31581,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533268
+      value: -1545122
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31611,7 +31663,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533278
+      value: -1545132
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -31743,6 +31795,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1545142
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &1204486816 stripped
@@ -31808,6 +31864,10 @@ PrefabInstance:
     - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
       propertyPath: quantity
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1545156
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
@@ -46188,7 +46248,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533316
+      value: -1545170
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46315,7 +46375,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533326
+      value: -1545180
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46397,7 +46457,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533336
+      value: -1545190
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46479,7 +46539,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533346
+      value: -1545200
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46609,7 +46669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7490973436337663614, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
       propertyPath: uniqueId
-      value: -533352
+      value: -1545206
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577f3843a3740a642bb10f90a6d95f25, type: 3}
@@ -46683,7 +46743,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533420
+      value: -1545274
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46765,7 +46825,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533430
+      value: -1545284
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -46921,7 +46981,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533456
+      value: -1545310
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47003,7 +47063,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533466
+      value: -1545320
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47085,7 +47145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533476
+      value: -1545330
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47168,6 +47228,10 @@ PrefabInstance:
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: name
       value: Dossier Remains 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: uniqueId
+      value: -1545344
       objectReference: {fileID: 0}
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: linesOfDialogue.Array.size
@@ -47344,6 +47408,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1545354
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &1429388986 stripped
@@ -47360,7 +47428,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533514
+      value: -1545368
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47442,7 +47510,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533524
+      value: -1545378
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47529,7 +47597,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533534
+      value: -1545388
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -47611,7 +47679,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533544
+      value: -1545398
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -56706,7 +56774,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533554
+      value: -1545408
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -56888,7 +56956,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533572
+      value: -1545426
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -56970,7 +57038,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533582
+      value: -1545436
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57052,7 +57120,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533592
+      value: -1545446
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57198,7 +57266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142016220748927507, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
       propertyPath: uniqueId
-      value: -533598
+      value: -1545452
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09e0e0eacf0ce0045ba982c5deb8e9ea, type: 3}
@@ -57221,7 +57289,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533652
+      value: -1545506
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57303,7 +57371,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533662
+      value: -1545516
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57539,7 +57607,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533688
+      value: -1545542
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57621,7 +57689,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533698
+      value: -1545552
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57703,7 +57771,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533708
+      value: -1545562
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57785,7 +57853,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533718
+      value: -1545572
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57867,7 +57935,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533728
+      value: -1545582
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -57949,7 +58017,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533738
+      value: -1545592
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58036,7 +58104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533748
+      value: -1545602
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58164,6 +58232,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6022480228204631915, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
+      propertyPath: uniqueId
+      value: -1545612
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f22ea55e380364ab0df7817939ea75, type: 3}
 --- !u!4 &1660693927 stripped
@@ -58180,7 +58252,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533772
+      value: -1545626
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58310,7 +58382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: uniqueId
-      value: -533782
+      value: -1545632
       objectReference: {fileID: 0}
     - target: {fileID: 6419459856399984485, guid: 86f34f0d51b190040abbd0505662cf20, type: 3}
       propertyPath: leaveHole
@@ -58343,7 +58415,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533792
+      value: -1545642
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58423,6 +58495,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63531568}
     m_Modifications:
+    - target: {fileID: 1457169648846330868, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
+      propertyPath: uniqueId
+      value: -1545652
+      objectReference: {fileID: 0}
     - target: {fileID: 4909266860939570381, guid: 3e3a29d24ee7b3b4599cbfc1145906df, type: 3}
       propertyPath: m_Name
       value: QuiverPickupPrefab (4)
@@ -58487,7 +58563,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533816
+      value: -1545666
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58569,7 +58645,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533826
+      value: -1545676
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58651,7 +58727,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533836
+      value: -1545686
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58733,7 +58809,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533846
+      value: -1545696
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58815,7 +58891,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533856
+      value: -1545706
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -58947,6 +59023,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4843769762047700300, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
+      propertyPath: uniqueId
+      value: -1545716
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15704b8769bdcf9479d6e71acc38dce6, type: 3}
 --- !u!4 &1808335579 stripped
@@ -58963,7 +59043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533880
+      value: -1545730
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59045,7 +59125,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533890
+      value: -1545740
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59127,7 +59207,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533900
+      value: -1545750
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59247,7 +59327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3372164510608731283, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: uniqueId
-      value: -533906
+      value: -1545756
       objectReference: {fileID: 0}
     - target: {fileID: 5442133305409420349, guid: 1c283b7d1e1728947bebfc928ab0395b, type: 3}
       propertyPath: m_Name
@@ -59330,7 +59410,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533960
+      value: -1545810
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59486,7 +59566,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533986
+      value: -1545836
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59568,7 +59648,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -533996
+      value: -1545846
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59650,7 +59730,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534006
+      value: -1545856
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59732,7 +59812,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534016
+      value: -1545866
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59814,7 +59894,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534026
+      value: -1545876
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -59896,7 +59976,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534036
+      value: -1545886
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60032,6 +60112,10 @@ PrefabInstance:
       propertyPath: quantity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6032348686064179599, guid: bb82f1bd952075448aafefb8e81a32de, type: 3}
+      propertyPath: uniqueId
+      value: -1545896
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb82f1bd952075448aafefb8e81a32de, type: 3}
 --- !u!1001 &1950069338
@@ -60043,7 +60127,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534060
+      value: -1545910
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60125,7 +60209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534070
+      value: -1545920
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60207,7 +60291,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534080
+      value: -1545930
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60289,7 +60373,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534090
+      value: -1545940
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60371,7 +60455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534100
+      value: -1545950
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60453,7 +60537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534110
+      value: -1545960
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60705,7 +60789,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534120
+      value: -1545970
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60787,7 +60871,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534130
+      value: -1545980
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60869,7 +60953,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534140
+      value: -1545990
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -60951,7 +61035,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534150
+      value: -1546000
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61038,7 +61122,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534160
+      value: -1546010
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61186,6 +61270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8838305058164531721, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
+      propertyPath: uniqueId
+      value: -1546020
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48934e4880f78584085bb682c02a2f21, type: 3}
 --- !u!4 &2057380769 stripped
@@ -61202,7 +61290,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534184
+      value: -1546034
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61284,7 +61372,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534194
+      value: -1546044
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61366,7 +61454,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534204
+      value: -1546054
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61448,7 +61536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534214
+      value: -1546064
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61530,7 +61618,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534224
+      value: -1546074
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61612,7 +61700,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534234
+      value: -1546084
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61694,7 +61782,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534244
+      value: -1546094
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61776,7 +61864,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: uniqueId
-      value: -534254
+      value: -1546104
       objectReference: {fileID: 0}
     - target: {fileID: 4487688294349091856, guid: 8c5c43007b0254b4889b0487c5aae9d3, type: 3}
       propertyPath: dialogueBox
@@ -61980,6 +62068,10 @@ PrefabInstance:
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: name
       value: Ripped Note 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
+      propertyPath: uniqueId
+      value: -1546172
       objectReference: {fileID: 0}
     - target: {fileID: 4491301138149391791, guid: 373017e2e93c8674a8cd07a479d83487, type: 3}
       propertyPath: dialogueBox

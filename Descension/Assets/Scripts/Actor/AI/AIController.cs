@@ -15,8 +15,13 @@ using Util.Helpers;
 namespace Actor.AI
 {
     // General controller class for enemy AI. Scripts inheriting from AIState should be added to each enemy to create behavior.
-    public class AIController : UniqueMonoBehaviour, IDamageable
+    public class AIController : MonoBehaviour, IUnique, IDamageable
     {
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
+        
         public float hitPoints = 100;
         public int updateInterval = 3;
         public int activeRangeSq = 1000;  // only run FixedUpdate if in range of player
@@ -100,7 +105,7 @@ namespace Actor.AI
         {
             _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
             
-            if (IsUniqueDestroyed(out var location))
+            if (GameManager.IsUniqueDestroyed(this, out var location))
             {
                 Transform.position = location;
                 SetDead();
@@ -144,8 +149,7 @@ namespace Actor.AI
                 () =>
                 {
                     RigidBody.simulated = false;
-                    DestroyUnique();
-                    // DestroyUnique(Transform.position);
+                    GameManager.DestroyUnique(this, Transform.position);
                 }, 
                 () => RigidBody.velocity.sqrMagnitude < 1, 
                 1);

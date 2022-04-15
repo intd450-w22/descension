@@ -9,13 +9,12 @@ using System;
 
 namespace Environment
 {
-    public class DescendHole : UniqueMonoBehaviour
+    public class DescendHole : MonoBehaviour, IUnique
     {
         #if UNITY_EDITOR
         public SceneAsset nextLevel;
         private void OnValidate() { if (nextLevel != null) _nextLevel = nextLevel.name; }
         #endif
-        
         [SerializeField, ReadOnly] private string _nextLevel;
         
         public int nextLevelStartPosition;
@@ -28,7 +27,7 @@ namespace Environment
             if (collision.gameObject.CompareTag("Player"))
             {
                 // check if descended already
-                needsRope = needsRope && !GameManager.IsUniqueDestroyed(this, out _);
+                needsRope = needsRope && !GameManager.IsUniqueDestroyed(this);
                 if (leaveHole)
                 {
                     _endGame += EndGame;
@@ -40,9 +39,9 @@ namespace Environment
                     {
                         if (needsRope) PlayerController.AddRope(-1);
                         if (showText.Length > 0) DialogueManager.ShowPrompt(showText);
-                        GameManager.CacheDestroyedUnique(this, transform.position);
+                        GameManager.DestroyUnique(this);
                         GameManager.OnSceneComplete();
-                        GameManager.SwitchScene(nextLevel, UIType.None, nextLevelStartPosition);
+                        GameManager.SwitchScene(_nextLevel, UIType.None, nextLevelStartPosition);
                     }
                     else
                     {
@@ -56,6 +55,17 @@ namespace Environment
         void EndGame()
         {
             UIManager.SwitchUi(UIType.End);
+        }
+
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId()
+        {
+            return uniqueId;
+        }
+
+        public void SetUniqueId(int id)
+        {
+            uniqueId = id;
         }
     }
 }

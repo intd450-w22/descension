@@ -6,16 +6,22 @@ using Util.Helpers;
 
 namespace Environment
 {
-    public class RemovableRock : UniqueMonoBehaviour
+    public class RemovableRock : MonoBehaviour, IUnique
     {
+        [SerializeField] private int uniqueId;
+        public int GetUniqueId() => uniqueId;
+        public void SetUniqueId(int id) => uniqueId = id;
+        
+        
         public int goldDropMin = 1;
         public int goldDropMax = 20;
         public int goldDropChance = 40;  // percent chance of dropping gold in range (goldDropMin, goldDropMax)
         public ItemSpawner.DropStruct[] itemDrops;
+        
 
         void Awake()
         {
-            if (IsUniqueDestroyed())
+            if (GameManager.IsUniqueDestroyed(this))
             {
                 GameDebug.Log("Destroying " + GetUniqueId());
                 Destroy(gameObject);
@@ -37,11 +43,9 @@ namespace Environment
             
             ItemSpawner.SpawnRandom(transform.position, itemDrops);
             
-            DestroyUnique();
+            GameManager.DestroyUnique(this);
             
             Destroy(gameObject);
         }
-
-        
     }
 }
