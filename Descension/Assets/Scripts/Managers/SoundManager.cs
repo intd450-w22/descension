@@ -52,11 +52,11 @@ namespace Managers
             itemFoundSound.volume = volume;
             arrowAttackSound.volume = volume;
             inspectionSound.volume = volume;
-            errorSound.volume = volume;
-            healSound.volume = volume;
-            swingSound.volume = volume;
-            playerHitSound.volume = volume;
-            enemyHitSound.volume = volume;
+            if(errorSound) errorSound.volume = volume;
+            if(healSound) healSound.volume = volume;
+            if(swingSound) swingSound.volume = volume;
+            if(playerHitSound) playerHitSound.volume = volume;
+            if(enemyHitSound) enemyHitSound.volume = volume;
         }
 
         public static void SetMusicVolume(float volume) => Instance._SetMusicVolume(volume);
