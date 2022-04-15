@@ -47,6 +47,7 @@ namespace Items
 
         public static void OpenShop()
         {
+            SoundManager.OpenShop();
             GameManager.Pause();
             UIManager.SwitchUi(UIType.Shop);
             UIManager.GetShopUIController().UpdateGold();

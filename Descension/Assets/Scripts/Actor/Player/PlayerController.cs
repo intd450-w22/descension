@@ -350,6 +350,7 @@ namespace Actor.Player
             if (!value.started || GameManager.IsFrozen) return;
 
             if (torchQuantity > 0) {
+                SoundManager.ToggleTorch();
                 _torchToggle = !_torchToggle;
             }
         }

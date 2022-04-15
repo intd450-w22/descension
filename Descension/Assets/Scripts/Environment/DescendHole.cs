@@ -37,6 +37,7 @@ namespace Environment
                 {
                     if (!needsRope || PlayerController.Instance.ropeQuantity > 0)
                     {
+                        SoundManager.Descend();
                         if (needsRope) PlayerController.AddRope(-1);
                         if (showText.Length > 0) DialogueManager.ShowPrompt(showText);
                         GameManager.DestroyUnique(this);
