@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,11 @@ namespace Util.Helpers
         public static float DistanceSq(Vector2 a, Vector2 b)
         {
             return (b - a).sqrMagnitude;
+        }
+
+        public static float Distance(Vector2 a, Vector2 b)
+        {
+            return (float) Math.Sqrt(DistanceSq(a, b));
         }
     
         

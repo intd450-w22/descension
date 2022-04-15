@@ -6,6 +6,8 @@ using Util.Enums;
 using UnityEngine;
 using Util.EditorHelpers;
 using System;
+using Util.Helpers;
+using static Util.Helpers.CalculationHelper;
 
 namespace Environment
 {
@@ -50,6 +52,7 @@ namespace Environment
                     else
                     {
                         DialogueManager.ShowPrompt("You need a rope in order to descend");
+                        this.InvokeWhen(DialogueManager.HidePrompt, () => Distance(PlayerController.Position, transform.position) > 15, 2);
                     }
                 }
             }
