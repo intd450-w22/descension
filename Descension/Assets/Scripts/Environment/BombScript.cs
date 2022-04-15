@@ -1,6 +1,9 @@
 using Actor.Interface;
 using Managers;
 using UnityEngine;
+using UI.Controllers;
+using Util.Enums;
+using System;
 
 namespace Environment
 {
@@ -20,7 +23,11 @@ namespace Environment
         private bool _hasTimer;
         private bool _hasExplosivesAndTrigger => _hasExplosives && _hasTrigger;
         private bool _hasAll => _hasExplosives && _hasTrigger && _hasTimer;
-        
+                
+        private bool _activatedBombWithoutTrigger;
+        public FactKey Fact;
+        private Action _endGame;
+
         private static BombScript _instance;
         public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
         
@@ -34,10 +41,21 @@ namespace Environment
             if (Input.GetKeyDown(StartBombKey)) 
             {
                 if (_hasAll)
-                    DialogueManager.StartDialogue(Name, new [] {"Timer Started, RUN!!"});
+                {
+                    DialogueManager.StartDialogue(name, new [] {"Timer Started, RUN!!"});
+                    FactManager.SetFact(Fact, true);
+                } 
                 else if (_hasExplosivesAndTrigger)
-                    DialogueManager.StartDialogue(Name, new [] {"BOOM!"});
+                {
+                    _endGame += EndGame;
+                    DialogueManager.StartDialogue(name, new [] { "A hero was lost at the heart of the Descent. Though forgotten, their sacrifice will always be remembered by those who will never have to suffer." }, _endGame);
+                }
             }
+        }
+
+        private void EndGame()
+        {
+            UIManager.SwitchUi(UIType.End);
         }
 
         public void Bomb()
@@ -54,6 +72,6 @@ namespace Environment
 
         public override void Interact() => Bomb();
         public override Vector2 Location() => gameObject.transform.position;
-        public override string GetPrompt() => "Press T to detonate   Press F to interact";
+        public override string GetPrompt() => "Press T to detonate   Press F to interact";        
     }
 }
