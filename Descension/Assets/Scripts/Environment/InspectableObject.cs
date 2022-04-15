@@ -7,7 +7,7 @@ namespace Environment
 {
     public class InspectableObject : UniqueMonoBehaviour
     {
-        public string name;
+        public new string name;
         public string[] linesOfDialogue;
         
         public FactKey Fact;

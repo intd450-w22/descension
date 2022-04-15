@@ -13,14 +13,14 @@ namespace Actor.Interface
         public int GetUniqueId() => uniqueId;
 
         #if UNITY_EDITOR
-        private void OnEnable() => Assert.AreNotEqual(0,uniqueId, "Unique Id not generated for UniqueMonoBehaviour, go to Window->'Unique Id Generator' and generate Id's.");
+        protected void OnEnable() => Assert.AreNotEqual(0,uniqueId, "Unique Id not generated for UniqueMonoBehaviour, go to Window->'Unique Id Generator' and generate Id's.");
         private bool _cacheLocationOnDestroyed;
         private string _assertMessage = 
             ": Inconsistent use of DestroyUnique and IsUniqueDestroyed. Should always call both either with or without location.";
         #endif
         
         // cache object destroyed in level. Will only be permanent if the player completes the level.
-        protected void DestroyUnique()
+        protected virtual void DestroyUnique()
         {
             #if UNITY_EDITOR
             Assert.IsFalse(_cacheLocationOnDestroyed, this + _assertMessage);
@@ -30,7 +30,7 @@ namespace Actor.Interface
         }
         
         // cache object destroyed in level. Will only be permanent if the player completes the level.
-        protected void DestroyUnique(Vector3 location)
+        protected virtual void DestroyUnique(Vector3 location)
         {
             #if UNITY_EDITOR
             Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
@@ -40,7 +40,7 @@ namespace Actor.Interface
         }
         
         // permanently destroy object
-        protected void DestroyUniquePermanent()
+        protected virtual void DestroyUniquePermanent()
         {
            
             #if UNITY_EDITOR
@@ -50,7 +50,7 @@ namespace Actor.Interface
         }
 
         // permanently destroy object
-        protected void DestroyUniquePermanent(Vector3 location)
+        protected virtual void DestroyUniquePermanent(Vector3 location)
         {
             #if UNITY_EDITOR
             Assert.IsTrue(_cacheLocationOnDestroyed, this + _assertMessage);
@@ -60,7 +60,7 @@ namespace Actor.Interface
         }
         
         // returns true if object is permanently destroyed
-        protected bool IsUniqueDestroyed()
+        protected virtual bool IsUniqueDestroyed()
         {
             #if UNITY_EDITOR
             _cacheLocationOnDestroyed = false;
@@ -70,7 +70,7 @@ namespace Actor.Interface
         }
 
         // returns true if object is permanently destroyed and outputs location set when DestroyUnique was called
-        protected bool IsUniqueDestroyed(out Vector3 location)
+        protected virtual bool IsUniqueDestroyed(out Vector3 location)
         {
             #if UNITY_EDITOR
             _cacheLocationOnDestroyed = true;
@@ -94,6 +94,19 @@ namespace Actor.Interface
         private static Dictionary<int, Vector2> _permanentDestroyedUniqueWithLocation = new Dictionary<int, Vector2>();
         private static HashSet<int> _destroyedUnique = new HashSet<int>();
         private static HashSet<int> _permanentDestroyedUnique = new HashSet<int>();
+        private static HashSet<int> _uniqueIds = new HashSet<int>();
+
+        public static void ClearUniqueIds() => _uniqueIds.Clear();
+
+        public int GetNewUniqueId()
+        {
+            var id = GetInstanceID();
+            while (_uniqueIds.Contains(id)) ++id;
+            _uniqueIds.Add(id);
+            uniqueId = id;
+            return id;
+        }
+        
         public static void ClearDestroyedCache()
         {
             _destroyedUniqueWithLocation.Clear();

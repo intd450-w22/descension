@@ -1,16 +1,30 @@
+using Actor.Interface;
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Util.Helpers;
 
 namespace Items.Pickups
 {
-    public class Pickup : MonoBehaviour
+    public class Pickup : UniqueMonoBehaviour
     {
         public EquippableItem item;
         public int quantity = 1;
         public string[] pickupMessage;
         public bool autoPickup;
         private bool _inRange;
+
+        protected void Awake()
+        {
+            if (IsUniqueDestroyed()) Destroy(gameObject);
+        }
+        
+        protected new void OnEnable() 
+        {
+            if (GetUniqueId() == 0) GetNewUniqueId();
+            
+            base.OnEnable();
+        }
         
         private void Update()
         {
@@ -23,8 +37,12 @@ namespace Items.Pickups
                     return;
                 }
                 SoundManager.ItemFound();
-                
-                if (quantity == 0) Destroy(gameObject);
+
+                if (quantity == 0)
+                {
+                    DestroyUnique();
+                    Destroy(gameObject);
+                }
                 
                 // only show pickup dialogue once
                 if (!FactManager.IsFactTrue(item.Fact))

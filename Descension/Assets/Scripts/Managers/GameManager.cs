@@ -100,6 +100,8 @@ namespace Managers
                     0.5f);
         }
         
+        
+        
         public static void ClearDestroyedCache() => UniqueMonoBehaviour.ClearDestroyedCache();
         public static void OnSceneComplete() => UniqueMonoBehaviour.OnSceneComplete();
         public static void OnReloadScene() => UniqueMonoBehaviour.OnReloadScene();

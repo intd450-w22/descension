@@ -11,7 +11,7 @@ namespace Util.Editor
 {
     public class UniqueIdGenerator : EditorWindow
     {
-        private static HashSet<int> _ids = new HashSet<int>();
+        // private static HashSet<int> _ids = new HashSet<int>();
 
         [MenuItem("Window/Unique Id Generator")]
         public static void ShowWindow()
@@ -38,8 +38,6 @@ namespace Util.Editor
 
         private void GenerateIdsForScene()
         {
-            _ids.Clear();
-
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
             
             GenerateIds();
@@ -59,10 +57,9 @@ namespace Util.Editor
             {
                 var serializedObject = new SerializedObject(uniqueObject);
                 var property = serializedObject.FindProperty("uniqueId");
-                var id = uniqueObject.GetInstanceID();
-                while (_ids.Contains(id) || id == 0) ++id;
-                property.intValue = id;
-                _ids.Add(id);
+                // var id = uniqueObject
+                property.intValue = uniqueObject.GetNewUniqueId();
+                // _ids.Add(id);
                 serializedObject.ApplyModifiedProperties();
             }
             
@@ -76,7 +73,7 @@ namespace Util.Editor
         
         private void GenerateAllIds()
         {
-            _ids.Clear();
+            UniqueMonoBehaviour.ClearUniqueIds();
             
             Debug.Log("Generating unique Id's for all scenes.");
             
@@ -86,16 +83,16 @@ namespace Util.Editor
                 SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex);;
             
             var sceneCount = SceneManager.sceneCountInBuildSettings;
-
+            
+            var count = 0;
             for (var i = 0; i < sceneCount; i++)
-                GenerateIds(SceneUtility.GetScenePathByBuildIndex(i));
+                count += GenerateIds(SceneUtility.GetScenePathByBuildIndex(i));
             
             // return to original scene
             EditorSceneManager.OpenScene(startScenePath);
             
-            Debug.Log("Generated " + _ids.Count + " unique Id's in " + sceneCount + " scenes.");
+            Debug.Log("Generated " + count + " unique Id's in " + sceneCount + " scenes.");
             
-            _ids.Clear();
         }
         
     }

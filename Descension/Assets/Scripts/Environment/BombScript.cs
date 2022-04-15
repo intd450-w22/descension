@@ -5,7 +5,7 @@ namespace Environment
 {
     public class BombScript : MonoBehaviour
     {
-        public string name;
+        public new string name;
         public string[] linesOfDialogue;
         public string[] blowUpDialogue;
         public string[] startTimerDialogue;
