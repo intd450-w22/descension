@@ -6,9 +6,9 @@ namespace Util
     public static class SceneLoader
     {
         
-        public static void Load(SceneAsset scene)
+        public static void Load(string scene)
         {
-            SceneManager.LoadScene(scene.name);
+            SceneManager.LoadScene(scene);
         }
         
         public static void Load(Scene scene)

@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 1135137420584677928}
   - component: {fileID: 2904225009558641434}
   - component: {fileID: 6851937908845542240}
-  - component: {fileID: 3433881298775484108}
   m_Layer: 3
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -202,7 +201,9 @@ MonoBehaviour:
   ropeQuantity: 0
   torchQuantity: 0
   useUI: 1
+  EndFact: 0
   playerInput: {fileID: 0}
+  _startPosition: 0
 --- !u!114 &6851937908845542240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,21 +470,6 @@ MonoBehaviour:
   m_DefaultActionMap: Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3433881298775484108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2904225009558641433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a108580f664594b9603b86fae03918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Fact: 26
-  x: 337
-  y: -360
 --- !u!1 &3929301715268587185
 GameObject:
   m_ObjectHideFlags: 0
