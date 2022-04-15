@@ -4,15 +4,16 @@ using UnityEngine;
 using Util.Enums;
 
 using System.Collections.Generic;
+using Actor.Interface;
+using Actor.Player;
 using Util.Helpers;
 
 namespace Items
 {
-    public class ItemShop : MonoBehaviour
+    public class ItemShop : AInteractable
     {
         public KeyCode shopActivationKey = KeyCode.F; // TODO: Refactor to use the input system
         public KeyCode talkActivationKey = KeyCode.T; // TODO: Refactor to use the input system
-        private bool _inRange;
         private bool _talked = false;
         private DialogueManager _dialogueManager;
 
@@ -32,42 +33,27 @@ namespace Items
         {
             if (GameManager.IsFrozen || !_inRange) return;
 
-            if (Input.GetKeyDown(shopActivationKey)) 
-            {
-                GameManager.Pause();
-                UIManager.SwitchUi(UIType.Shop);
-                UIManager.GetShopUIController().UpdateGold();
-            }
-            else if (Input.GetKeyDown(talkActivationKey)) 
-            {
-                var dialogue = new List<string>();
-                dialogue.AddRange(_standardDialogue);
-                dialogue.Add(_loreDialogue[UnityEngine.Random.Range(0, _loreDialogue.Count)]);
-                dialogue.Add(_openShopDialogue[UnityEngine.Random.Range(0, _openShopDialogue.Count)]);
-                dialogue.Add("Press F to open the shop.");
-                dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
-
-                DialogueManager.StartDialogue(_name, dialogue);
-            }
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                GameDebug.Log("OnTriggerEnter2d");
-                _inRange = true;
-                DialogueManager.ShowPrompt("Press T to talk   Press F to buy");   
-            }
+            if (Input.GetKeyDown(talkActivationKey))
+                Speak();
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        public void OpenShop()
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                _inRange = false;
-                DialogueManager.HidePrompt();
-            }
+            GameManager.Pause();
+            UIManager.SwitchUi(UIType.Shop);
+            UIManager.GetShopUIController().UpdateGold();
+        }
+
+        public void Speak()
+        {
+            var dialogue = new List<string>();
+            dialogue.AddRange(_standardDialogue);
+            dialogue.Add(_loreDialogue[UnityEngine.Random.Range(0, _loreDialogue.Count)]);
+            dialogue.Add(_openShopDialogue[UnityEngine.Random.Range(0, _openShopDialogue.Count)]);
+            dialogue.Add("Press F to open the shop.");
+            dialogue.Add(_closeShopDialogue[UnityEngine.Random.Range(0, _closeShopDialogue.Count)]);
+
+            DialogueManager.StartDialogue(_name, dialogue);
         }
 
         private void InitDialogue() {
@@ -91,5 +77,9 @@ namespace Items
             _closeShopDialogue.Add("Do come back when you need something more.");
             _closeShopDialogue.Add("You're going back? Really? I'll say a prayer for you while you're gone. ");
         }
+
+        public override void Interact() => OpenShop();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press T to talk   Press F to buy";
     }
 }

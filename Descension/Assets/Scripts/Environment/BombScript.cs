@@ -1,12 +1,12 @@
+using Actor.Interface;
 using Managers;
 using UnityEngine;
 
 namespace Environment
 {
-    public class BombScript : MonoBehaviour
+    public class BombScript : AInteractable
     {
         [Header("Configuration")]
-        public KeyCode InteractionKey = KeyCode.F;
         public KeyCode StartBombKey = KeyCode.E;
         
         [Header("Dialogue")]
@@ -15,7 +15,6 @@ namespace Environment
         public string[] BlowUpDialogue;
         public string[] StartTimerDialogue;
 
-        private bool _inRange;
         private bool _hasExplosives;
         private bool _hasTrigger;
         private bool _hasTimer;
@@ -30,47 +29,31 @@ namespace Environment
         public void AddTimer() => _hasTimer = true;
 
         void Update() {
-            if (GameManager.IsFrozen) return;
+            if (GameManager.IsFrozen || !_inRange) return;
 
-            if (_inRange)
+            if (Input.GetKeyDown(StartBombKey)) 
             {
-                if (Input.GetKeyDown(InteractionKey)) 
-                {
-                    SoundManager.Inspection();
-
-                    if (_hasAll) 
-                        DialogueManager.StartDialogue(Name, StartTimerDialogue);
-                    else if (_hasExplosivesAndTrigger) 
-                        DialogueManager.StartDialogue(Name, BlowUpDialogue);
-                    else 
-                        DialogueManager.StartDialogue(Name, LinesOfDialogue);
-                }
-                else if (Input.GetKeyDown(StartBombKey)) 
-                {
-                    if (_hasAll)
-                        DialogueManager.StartDialogue(Name, new [] {"Timer Started, RUN!!"});
-                    else if (_hasExplosivesAndTrigger)
-                        DialogueManager.StartDialogue(Name, new [] {"BOOM!"});
-                }
+                if (_hasAll)
+                    DialogueManager.StartDialogue(Name, new [] {"Timer Started, RUN!!"});
+                else if (_hasExplosivesAndTrigger)
+                    DialogueManager.StartDialogue(Name, new [] {"BOOM!"});
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public void Bomb()
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                DialogueManager.ShowPrompt("Press F to interact");
-                _inRange = true;
-            }
+            SoundManager.Inspection();
+
+            if (_hasAll) 
+                DialogueManager.StartDialogue(Name, StartTimerDialogue);
+            else if (_hasExplosivesAndTrigger) 
+                DialogueManager.StartDialogue(Name, BlowUpDialogue);
+            else 
+                DialogueManager.StartDialogue(Name, LinesOfDialogue);
         }
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                DialogueManager.HidePrompt();
-                _inRange = false;
-            }
-        }
+        public override void Interact() => Bomb();
+        public override Vector2 Location() => gameObject.transform.position;
+        public override string GetPrompt() => "Press F to interact";
     }
 }
