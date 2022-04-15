@@ -14,6 +14,10 @@ namespace UI.MenuUI
         private Color _activeOutlineColour = new Color(255, 155, 0, 128);
         [SerializeField]
         private Color _inactiveOutlineColour = new Color(255, 255, 255, 16);
+        [SerializeField]
+        private Color _activeTextColour = new Color(255, 255, 255, 255);
+        [SerializeField]
+        private Color _inactiveTextColour = new Color(255, 255, 255, 16);
 
         public int Quantity { get; set; } = -1;
 
@@ -33,11 +37,13 @@ namespace UI.MenuUI
         public void Activate()
         {
             OutlineImage.color = _activeOutlineColour;
+            QuantityText.color = _activeTextColour;
         }
 
         public void Deactivate()
         {
             OutlineImage.color = _inactiveOutlineColour;
+            QuantityText.color = _inactiveTextColour;
         }
 
         public void SetSprite(Sprite sprite)

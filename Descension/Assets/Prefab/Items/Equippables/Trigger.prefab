@@ -45,7 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySprite: {fileID: -7088858551401505712, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
   maxQuantity: 1
+  cooldownTime: 0
   Fact: 10
   range: 15
   outOfRangeMessage: Need to add this to the bomb.
   addToBombMessage: Trigger added to bomb!
+  addToBombPromptTime: 1.5

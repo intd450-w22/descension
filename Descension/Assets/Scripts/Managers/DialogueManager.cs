@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actor.Player;
 using Items;
 using UnityEngine;
 using Util.Enums;
@@ -101,11 +102,16 @@ namespace Managers
         public static void HidePrompt() => UIManager.GetHudController().HidePrompt();
 
         // TODO: Change the name of this, these aren't really notifications, but prompts
-        public static void ShowPrompt(string text) => Instance._ShowPrompt(text);
-        private void _ShowPrompt(string text)
+        public static void ShowPrompt(string text, float time = 0) => Instance._ShowPrompt(text, time);
+        private void _ShowPrompt(string text, float time)
         {
+            if (time > 0)
+                Invoke(nameof(_ShowPromptForClosestInteractable), time);
+
             UIManager.GetHudController().ShowPrompt(text);
         }
+
+        private void _ShowPromptForClosestInteractable() => PlayerController.ShowPromptForClosestInteractable();
     }
 }
 

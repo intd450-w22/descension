@@ -16,6 +16,7 @@ namespace Items.Pickups
         public float range = 10; // how close to bomb to add to bomb
         public string outOfRangeMessage = "Need to add this to the bomb.";
         public string addToBombMessage = "Timer added to bomb!";
+        public float addToBombPromptTime = 1.5f;
         
         public override string GetName() => Name;
 
@@ -32,19 +33,21 @@ namespace Items.Pickups
         private float _range;
         private string _outOfRangeMessage;
         private string _addToBombMessage;
+        private float _addToBombPromptTime;
         
         public Timer(TimerItem timerItem, int slotIndex, int quantity) : base(timerItem, slotIndex, quantity) 
-            => Init(timerItem.range, timerItem.outOfRangeMessage, timerItem.addToBombMessage);
+            => Init(timerItem.range, timerItem.outOfRangeMessage, timerItem.addToBombMessage, timerItem.addToBombPromptTime);
         
         public Timer(Timer timer) : base(timer) 
-            => Init(timer._range, timer._outOfRangeMessage, timer._addToBombMessage);
+            => Init(timer._range, timer._outOfRangeMessage, timer._addToBombMessage, timer._addToBombPromptTime);
         
-        public void Init(float range, string outOfRangeMessage, string addToBombMessage)
+        public void Init(float range, string outOfRangeMessage, string addToBombMessage, float addToBombPromptTime)
         {
             name = TimerItem.Name;
             _range = range;
             _outOfRangeMessage = outOfRangeMessage;
             _addToBombMessage = addToBombMessage;
+            _addToBombPromptTime = addToBombPromptTime;
         }
         
         public override Equippable DeepCopy() => new Timer(this);
@@ -64,7 +67,7 @@ namespace Items.Pickups
                 if (distance <= _range)
                 {
                     BombScript.Instance.AddTimer();
-                    DialogueManager.ShowPrompt(_addToBombMessage);
+                    DialogueManager.ShowPrompt(_addToBombMessage, _addToBombPromptTime);
                     Quantity = -1;
                 }
                 else

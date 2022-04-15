@@ -25,7 +25,6 @@ namespace Actor.Player
         public static Transform ItemObject => Instance._itemObject;
         public static Sprite ItemSprite { set => Instance._itemSpriteRenderer.sprite = value; }
         public static Camera Camera => Instance._camera ??= Camera.main;
-        public static void OnReloadScene() => Reset();
         public static Vector2 Velocity => Instance._rb.velocity;
         public static void SetStartPosition(int startPosition) => Instance._startPosition = startPosition;
 
@@ -53,6 +52,8 @@ namespace Actor.Player
         //Used for permanent death if die after bomb planted
         public FactKey EndFact;
         private Action _endGame;
+        private float timeRemaining = -1;
+        private bool timerActivated = false;
 
         // Player input variables
         [HideInInspector] public PlayerInput playerInput;
@@ -145,20 +146,35 @@ namespace Actor.Player
 
         public static void Enable() => Instance.gameObject.Enable();
         public static void Disable() => Instance.gameObject.Disable();
-
-        public static void Reset() => Instance.hitPoints = Instance.maxHitPoints;
-
+        public static void ResetState()
+        {
+            Instance.hitPoints = Instance.maxHitPoints;
+            ClearInteractablesInRange();
+        }
+        
+        public static void OnReloadScene() => ResetState();
+        
+        public static void OnSceneComplete() => ClearInteractablesInRange();
+        
         void FixedUpdate()
         {
-            UpdateTorchVisuals();
+            UpdateTorch();
 
             if (GameManager.IsFrozen)
             {
                 _animator.SetBool(_animatorIsMovingId, false);
                 return;
             }
+            if (timerActivated)
+            {
+                timeRemaining -= Time.deltaTime;
+                if (timeRemaining < 0)
+                {
+                    OnKilled();
+                }
+            }
 
-            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints);
+            _hudController.UpdateUi(InventoryManager.Gold, ropeQuantity, torchQuantity, hitPoints, maxHitPoints, timeRemaining);
 
             if (!knocked)
             {
@@ -169,13 +185,14 @@ namespace Actor.Player
             else if (_rb.velocity.sqrMagnitude < 4) knocked = false;
         }
 
-        private void UpdateTorchVisuals()
+        private void UpdateTorch()
         {
             if (_torchToggle) 
             {
                 if (torchQuantity > 0) 
                 {
-                    torchQuantity -= Time.deltaTime;
+                    if(!GameManager.IsFrozen)
+                        torchQuantity -= Time.deltaTime;
                     if (!_torchIlluminated && _torchState > TorchVignetteIntensityOn) _torchState -= TorchVignetteIntensityOn;
                     else _torchIlluminated = true;
                 } 
@@ -202,9 +219,9 @@ namespace Actor.Player
         {
             GameDebug.Log("InflictDamage(" + damage + ", " + direction + ", " + knockBack + ")");
             
-            _hudController.ShowFloatingText(transform.position, "Hp-" + damage, Color.red);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(damage).ToString(), Color.red);
             
-            SoundManager.EnemyHit();
+            SoundManager.PlayerHit();
             
             hitPoints -= damage;
             
@@ -238,7 +255,7 @@ namespace Actor.Player
         {
             float healthRestored = Mathf.Min(maxHitPoints-hitPoints,heal);
             hitPoints += healthRestored;
-            _hudController.ShowFloatingText(transform.position, "HP +" + healthRestored, Color.green);
+            _hudController.ShowFloatingText(transform.position, Math.Floor(healthRestored).ToString(), Color.green);
         }
 
         public void OnKilled()
@@ -274,31 +291,42 @@ namespace Actor.Player
             UIManager.SwitchUi(UIType.Death);
         }
 
-        public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
-        public void _AddInteractableInRange(int instanceId, AInteractable interactable)
+        public static void StartTimer(float time) => Instance._StartTimer(time);
+        void _StartTimer(float time)
         {
-            _interactablesInRange.Add(instanceId, interactable);
-
-            var closest = GetClosestInteractable();
-            DialogueManager.ShowPrompt(closest.GetPrompt());
+            timerActivated = true;
+            timeRemaining = time;
         }
 
-        public static void RemoveInteractableInRange(int instanceId) => Instance._RemoveInteractableInRange(instanceId);
-        public void _RemoveInteractableInRange(int instanceId)
+        public static void ShowPromptForClosestInteractable() => Instance._ShowPromptForClosestInteractable();
+        private void _ShowPromptForClosestInteractable()
         {
-            _interactablesInRange.Remove(instanceId);
-
             if (_interactablesInRange.Any())
             {
-                var closest = GetClosestInteractable();
+                var closest = _GetClosestInteractable();
                 DialogueManager.ShowPrompt(closest.GetPrompt());
             }
             else
                 DialogueManager.HidePrompt();
         }
+        public static void ClearInteractablesInRange() => Instance._interactablesInRange.Clear();
 
-        public static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();
-        public AInteractable _GetClosestInteractable()
+        public static void AddInteractableInRange(int instanceId, AInteractable interactable) => Instance._AddInteractableInRange(instanceId, interactable);
+        private void _AddInteractableInRange(int instanceId, AInteractable interactable)
+        {
+            _interactablesInRange.Add(instanceId, interactable);
+            _ShowPromptForClosestInteractable();
+        }
+
+        public static void RemoveInteractableInRange(int instanceId) => Instance._RemoveInteractableInRange(instanceId);
+        private void _RemoveInteractableInRange(int instanceId)
+        {
+            _interactablesInRange.Remove(instanceId);
+            _ShowPromptForClosestInteractable();
+        }
+
+        private static AInteractable GetClosestInteractable() => Instance._GetClosestInteractable();
+        private AInteractable _GetClosestInteractable()
         {
             var location = gameObject.transform.position;
             return _interactablesInRange
@@ -427,6 +455,6 @@ namespace Actor.Player
         void _AddTorch(float value) => torchQuantity += value;
         
         #endregion
-
+        
     }
 }

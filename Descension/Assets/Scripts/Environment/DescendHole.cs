@@ -53,7 +53,7 @@ namespace Environment
                     else
                     {
                         DialogueManager.ShowPrompt("You need a rope in order to descend");
-                        this.InvokeWhen(DialogueManager.HidePrompt, () => DistanceSq(PlayerController.Position, transform.position) > 4, 2);
+                        this.InvokeWhen(DialogueManager.HidePrompt, () => DistanceSq(PlayerController.Position, transform.position) > 200, 2);
                     }
                 }
             }
