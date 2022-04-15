@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using Util.Enums;
 
 namespace Managers
 {
@@ -63,7 +65,28 @@ namespace Managers
             }
             else
             {
-                UIManager.GetHudController().ShowDialogue(_linesOfDialogue.Dequeue(), _name);
+                var dialogue = _linesOfDialogue.Dequeue();
+                if (dialogue.StartsWith(">"))
+                {
+                    try
+                    {
+                        var key = (DialogueKey) Enum.Parse(typeof(DialogueKey), dialogue.Substring(1), true);
+
+                        switch (key)
+                        {
+                            case DialogueKey.OpenShop:
+                                ItemShop.OpenShop();
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    catch { /* ignored */ }
+                }
+                else
+                {
+                    UIManager.GetHudController().ShowDialogue(dialogue, _name);
+                }
             }
         }
 

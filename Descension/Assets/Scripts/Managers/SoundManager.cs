@@ -8,6 +8,9 @@ namespace Managers
         [Header("Configuration")]
         [SerializeField] private float _fadeInTime;
         [SerializeField] private float _fadeOutTime;
+        [SerializeField] private float _backgroundVolume = 1f;
+        [SerializeField] private float _effectVolume = 1f;
+        [SerializeField] private float _musicVolume = 1f;
 
         [Header("Audio Sources")]
         [SerializeField] private AudioSource backgroundAudio;
@@ -21,7 +24,7 @@ namespace Managers
         [SerializeField] private AudioSource swingSound;
         [SerializeField] private AudioSource playerHitSound;
         [SerializeField] private AudioSource enemyHitSound;
-        
+
         private static SoundManager _instance;
         private static SoundManager Instance => _instance ??= FindObjectOfType<SoundManager>();
 
@@ -29,6 +32,39 @@ namespace Managers
         {
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
+        }
+
+        public static void SetBackgroundVolume(float volume) => Instance._SetBackgroundVolume(volume);
+        private void _SetBackgroundVolume(float volume)
+        {
+            _backgroundVolume = volume;
+
+            backgroundAudio.volume = volume;
+        }
+
+        public static void SetEffectVolume(float volume) => Instance._SetEffectVolume(volume);
+        private void _SetEffectVolume(float volume)
+        {
+            _effectVolume = volume;
+
+            removeRockSound.volume = volume;
+            goldFoundSound.volume = volume;
+            itemFoundSound.volume = volume;
+            arrowAttackSound.volume = volume;
+            inspectionSound.volume = volume;
+            if(errorSound) errorSound.volume = volume;
+            if(healSound) healSound.volume = volume;
+            if(swingSound) swingSound.volume = volume;
+            if(playerHitSound) playerHitSound.volume = volume;
+            if(enemyHitSound) enemyHitSound.volume = volume;
+        }
+
+        public static void SetMusicVolume(float volume) => Instance._SetMusicVolume(volume);
+        private void _SetMusicVolume(float volume)
+        {
+            _musicVolume = volume;
+
+            // TODO: If music is implemented, adjust the volume here
         }
 
         public static void StartBackgroundAudio() => Instance._StartBackgroundAudio();
@@ -41,7 +77,7 @@ namespace Managers
         private void _ResumeBackgroundAudio()
         {
             if (backgroundAudio.isPlaying) return;
-            StartCoroutine(AudioHelper.FadeIn(backgroundAudio, Instance._fadeInTime, backgroundAudio.UnPause));
+            StartCoroutine(AudioHelper.FadeIn(backgroundAudio, Instance._fadeInTime, _backgroundVolume, backgroundAudio.UnPause));
         }
 
         public static void RemoveRock() => Instance._RemoveRock();
@@ -76,7 +112,6 @@ namespace Managers
         public static void Swing() => Instance._Swing();
         private void _Swing()
         {
-            // TODO add weapon swing sound effect
             if (swingSound) swingSound.Play();
         }
         
