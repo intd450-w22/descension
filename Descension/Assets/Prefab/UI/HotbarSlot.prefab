@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -12, y: -10}
+  m_AnchoredPosition: {x: 0, y: -1.5}
+  m_SizeDelta: {x: -8, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7295619011736907834
 CanvasRenderer:
@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 30
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 25b9c5fa8a1413e448778648639585ba, type: 2}
-  m_sharedMaterial: {fileID: 6975634338724763250, guid: 25b9c5fa8a1413e448778648639585ba, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74ba6ae217bfe7a4fadf68de13c7be88, type: 2}
+  m_sharedMaterial: {fileID: 1900593436031490349, guid: 74ba6ae217bfe7a4fadf68de13c7be88, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -284,6 +284,8 @@ MonoBehaviour:
   _defaultSprite: {fileID: 21300000, guid: 8ab9d4469f44d584a83129f2bb3e53bf, type: 3}
   _activeOutlineColour: {r: 1, g: 0.60784316, b: 0, a: 0.5019608}
   _inactiveOutlineColour: {r: 1, g: 1, b: 1, a: 0.0627451}
+  _activeTextColour: {r: 1, g: 1, b: 1, a: 16}
+  _inactiveTextColour: {r: 1, g: 1, b: 1, a: 0.19607843}
 --- !u!1 &7664450636616341947
 GameObject:
   m_ObjectHideFlags: 0
