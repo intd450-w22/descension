@@ -118,17 +118,7 @@ namespace Items.Pickups
 
         // returns the max quantity/durability for this item
         public int GetMaxQuantity() => _maxQuantity;
-
-        // removes data from class instance and UI
-        public void Clear()
-        {
-            name = "";
-            _quantity = -1;
-            inventorySprite = null;
-            UIManager.Hotbar.DropItem(_slotIndex);
-            _slotIndex = -1;
-        }
-
+        
         // called when equipped switches to different slot (equippable)
         public virtual void OnEquip()
         {
@@ -145,7 +135,7 @@ namespace Items.Pickups
         {
             SpawnDrop();
             OnUnEquip();
-            Clear();
+            UIManager.Hotbar.DropItem(_slotIndex);
         }
 
         // called like regular MonoBehavior FixedUpdate() if this item is equipped
