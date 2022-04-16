@@ -65,11 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 989540790162265528, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -81,16 +81,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Size.x
-      value: 0.125
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Size.y
-      value: 0.125
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6282230022168425544, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
+      objectReference: {fileID: 2986007934131244979, guid: c2c19956039eb2445a20757c43bc1d0a, type: 3}
     - target: {fileID: 4773251956949673295, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -111,7 +111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[0]
@@ -123,7 +123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[2]
-      value: It's like a canteen, with stuff sloshing inside.
+      value: It's just a bag with stuff sloshing inside.
       objectReference: {fileID: 0}
     - target: {fileID: 5201080557814417093, guid: ead010dce7bc557409079a73ca363b5e, type: 3}
       propertyPath: pickupMessage.Array.data[3]
