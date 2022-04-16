@@ -28,6 +28,7 @@ namespace Environment
         public bool needsRope = true;
         public bool leaveHole;
         private Action _endGame;
+        public FactKey Fact;
 
         void OnCollisionEnter2D(Collision2D collision) {
             if (collision.gameObject.CompareTag("Player"))
@@ -36,8 +37,15 @@ namespace Environment
                 needsRope = needsRope && !GameManager.IsUniqueDestroyed(this);
                 if (leaveHole)
                 {
-                    _endGame += EndGame;
-                    DialogueManager.StartDialogue("ShopKeeper", new[] { "Thought you�d never make it. Thank you. You�ve done more for me than you think. But there are other places like this. Are you willing to do it again?" }, _endGame);
+                    if (FactManager.IsFactTrue(Fact))
+                    {
+                        _endGame += EndGame;
+                        DialogueManager.StartDialogue("ShopKeeper", new[] { "Thought you'd never make it. Thank you. You've done more for me than you think. But there are other places like this. Are you willing to do it again?" }, _endGame);
+                    }
+                    else
+                    {
+                        DialogueManager.StartDialogue("ShopKeeper", new[] { "You just got here, you can't leave yet." });
+                    }
                 }
                 else
                 {
