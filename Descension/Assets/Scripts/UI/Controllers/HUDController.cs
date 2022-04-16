@@ -12,6 +12,9 @@ namespace UI.Controllers
         [Header("UI Prefabs")]
         public GameObject FloatingTextDamagePrefab;
 
+        [Header("Configuration")] 
+        private float _codexNotificationTime = 4f;
+
         private TextMeshProUGUI _promptText;
         private Image _dialogueBox;
         private TextMeshProUGUI _dialogueName;
@@ -27,6 +30,7 @@ namespace UI.Controllers
         private TextMeshProUGUI _ropeText;
         private GameObject _torchGroup;
         private TextMeshProUGUI _torchText;
+        private GameObject _codexNotification;
         private TextMeshProUGUI _timerText;
 
         private Hotbar _hotbar;
@@ -66,6 +70,7 @@ namespace UI.Controllers
                 _healthText = _healthGroup.GetChildObject("Health").GetComponent<TextMeshProUGUI>();
                 _healthBar = _healthGroup.GetChildObject("HealthBar").GetComponent<ProgressBar>();
 
+                _codexNotification = gameObject.GetChildObject("CodexNotification");
                 _timerText = gameObject.GetChildObject("TimerText").GetComponent<TextMeshProUGUI>();
 
                 _hotbar = GetComponentInChildren<Hotbar>();
@@ -80,6 +85,7 @@ namespace UI.Controllers
         {
             try
             {
+                _codexNotification.Disable();
                 _promptText.enabled = false;
                 _dialogueBox.gameObject.Disable();
                 _goldText.gameObject.Enable();
@@ -134,6 +140,14 @@ namespace UI.Controllers
             _promptText.enabled = false;
             _promptText.text = string.Empty;
         }
+
+        public void ShowCodexNotification() 
+        {
+            Invoke(nameof(HideCodexNotification), _codexNotificationTime);
+            _codexNotification.Enable();
+        }
+
+        private void HideCodexNotification() => _codexNotification.Disable();
 
         public void UpdateUi(float gold, float ropeQuantity, float torchQuantity, float health, float maxHealth, float timer)
         {
