@@ -17,23 +17,23 @@ namespace UI.Controllers.ButtonController
         [SerializeField, ReadOnly] private string _scene;
         
         public UIType UiType = UIType.None;
-        public ClearCacheOptions clearCache = ClearCacheOptions.All;
+        // public ClearCacheOptions clearCache = ClearCacheOptions.No;
 
         protected override void OnButtonClicked()
         {
-            switch (clearCache)
-            {
-                case ClearCacheOptions.No:
-                    break;
-                case ClearCacheOptions.CurrentLevel:
-                    GameManager.ClearLevelCache();
-                    break;
-                case ClearCacheOptions.All:
-                    GameManager.ClearGameCache();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            // switch (clearCache)
+            // {
+            //     case ClearCacheOptions.No:
+            //         break;
+            //     case ClearCacheOptions.CurrentLevel:
+            //         GameManager.ClearLevelCache();
+            //         break;
+            //     case ClearCacheOptions.All:
+            //         GameManager.ClearGameCache();
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException();
+            // }
             
             GameManager.SwitchScene(_scene, UiType);
         }

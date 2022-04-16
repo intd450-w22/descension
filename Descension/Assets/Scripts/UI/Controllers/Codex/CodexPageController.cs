@@ -132,7 +132,7 @@ namespace UI.Controllers.Codex
                 item.Visible = query;
             }
             
-            Debug.Log(updated);
+            GameDebug.Log(updated.ToString());
             return updated;
         }
     }
