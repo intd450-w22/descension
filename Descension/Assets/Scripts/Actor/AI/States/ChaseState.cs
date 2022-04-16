@@ -17,6 +17,7 @@ namespace Actor.AI.States
         
         private Vector3 _target;
         private Vector3 _direction;
+        
   
         public override void StartState()
         {
@@ -34,7 +35,7 @@ namespace Actor.AI.States
             
             UpdateWeaponTransform(_target);
 
-            RaycastHit2D rayCast = Physics2D.Raycast(Position, toTarget.normalized, sightDistance, (int)~UnityLayer.Enemy);
+            RaycastHit2D rayCast = Physics2D.Raycast(Position, toTarget.normalized, sightDistance, (int) traceLayers);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
                 if (toTarget.magnitude < reachThreshold)

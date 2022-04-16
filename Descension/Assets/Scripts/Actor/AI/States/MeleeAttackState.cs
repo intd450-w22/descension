@@ -66,7 +66,7 @@ namespace Actor.AI.States
             var box = new Vector2(1, attackBoxWidth);
             var range = attackRange - box.x / 2f;
 
-            RaycastHit2D rayCast = Physics2D.BoxCast(Position, box, angle, _direction, range, (int) UnityLayer.Player);
+            RaycastHit2D rayCast = Physics2D.BoxCast(Position, box, angle, _direction, range, (int) traceLayers);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
                 rayCast.transform.GetComponent<IDamageable>().InflictDamage(damage, _direction, knockBack);
