@@ -64,7 +64,8 @@ namespace Actor.Player
         private Vector2 _rawInputMovement;
 
         // Components and GameObjects
-        private HUDController _hudController;
+        private HUDController __hudController;
+        private HUDController _hudController => __hudController ?? UIManager.GetHudController();
         private Transform _reticle;
         private Transform _itemObject;
         private SpriteRenderer _itemSpriteRenderer;
@@ -138,7 +139,7 @@ namespace Actor.Player
             }
         }
 
-        void Start() => _hudController = UIManager.GetHudController();
+        void Start() => __hudController = UIManager.GetHudController();
 
         private void OnEnable() => playerControls?.Enable();
         

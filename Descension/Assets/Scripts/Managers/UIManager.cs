@@ -68,7 +68,7 @@ namespace Managers
         private void _ReinitHudController()
         {
             _hudController = GetComponentInChildren<HUDController>();
-            _hudController.Init();
+            _hudController?.Init();
         }
 
         public static void SwitchUi(UIType uiType) => Instance._SwitchUi(uiType);
