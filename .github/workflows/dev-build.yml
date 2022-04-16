@@ -56,7 +56,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           buildsPath: ${{ matrix.buildsPath }}
           buildName: ${{ matrix.buildName }}
-          customParameters: -development
+          customParameters: -Development
 
       - uses: actions/upload-artifact@v2
         with:
