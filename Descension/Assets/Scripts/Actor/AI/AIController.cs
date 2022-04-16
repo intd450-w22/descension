@@ -108,6 +108,7 @@ namespace Actor.AI
             {
                 Transform.position = location;
                 SetDead();
+                RigidBody.simulated = false;
                 return;
             }
 

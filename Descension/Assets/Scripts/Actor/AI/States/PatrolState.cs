@@ -45,7 +45,7 @@ namespace Actor.AI.States
             // add side to side sway to sight
             _lookDirection = Velocity.normalized.GetRotated((float) Math.Cos(Time.time * sightSwaySpeed) * sightSwayDegrees);
             
-            var rayCast = Physics2D.Raycast(Position, _lookDirection, sightDistance, (int)~UnityLayer.Enemy);
+            var rayCast = Physics2D.Raycast(Position, _lookDirection, sightDistance, (int) traceLayers);
             if (rayCast)
             {
                 if (rayCast.transform.gameObject.CompareTag("Player"))

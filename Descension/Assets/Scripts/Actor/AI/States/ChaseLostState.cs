@@ -34,7 +34,7 @@ namespace Actor.AI.States
         {
             Vector3 toTarget = _target - Position;
             
-            RaycastHit2D rayCast = Physics2D.Raycast(Position, toTarget.normalized, sightDistance, (int)~UnityLayer.Enemy);
+            RaycastHit2D rayCast = Physics2D.Raycast(Position, toTarget.normalized, sightDistance, (int) traceLayers);
             if (rayCast && rayCast.transform.gameObject.CompareTag("Player"))
             {
                 ChangeState(onPlayerSpotted);

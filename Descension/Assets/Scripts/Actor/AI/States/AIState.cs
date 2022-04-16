@@ -5,6 +5,7 @@ using Actor.Player;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;
+using Util.Enums;
 using Util.Helpers;
 
 namespace Actor.AI.States
@@ -15,6 +16,9 @@ namespace Actor.AI.States
         public float weaponSpriteOffset = 0.3f;
         public float weaponRotationOffset = -45;
         public Vector2 weaponCenterOffset;
+        
+        [Header("Sight")]
+        public UnityLayer traceLayers = UnityLayer.Boulder | UnityLayer.Walls | UnityLayer.Player;
         
         protected Vector3 PlayerPosition => PlayerController.Position;
         private AIController Controller => _controller ??= GetComponent<AIController>();

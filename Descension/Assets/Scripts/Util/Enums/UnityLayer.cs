@@ -1,5 +1,8 @@
-﻿namespace Util.Enums
+﻿using System;
+
+namespace Util.Enums
 {
+    [Flags]
     public enum UnityLayer : int
     {
         Default       = 1 << 0,
@@ -12,5 +15,7 @@
         Enemy         = 1 << 7,
         PostProcessing= 1 << 8,
         Boulder       = 1 << 9,
+        Ground        = 1 << 10,
+        Walls         = 1 << 11,
     }
 }
