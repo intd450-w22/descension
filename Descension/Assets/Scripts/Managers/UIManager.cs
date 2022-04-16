@@ -88,13 +88,5 @@ namespace Managers
                 GameDebug.LogWarning($"Cannot find UI element with UI type '{uiType}'");
             }
         }
-
-        // public static void SwitchScene(Scene scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene.ToString(), uiType);
-        // public static void SwitchScene(string scene, UIType uiType = UIType.None) => Instance._SwitchScene(scene, uiType);
-        // private void _SwitchScene(string scene, UIType uiType = UIType.None)
-        // {
-        //     SceneLoader.Load(scene);
-        //     SwitchUi(uiType);
-        // }
     }
 }

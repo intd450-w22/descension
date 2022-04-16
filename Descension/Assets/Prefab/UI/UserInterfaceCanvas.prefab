@@ -3016,8 +3016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 6
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &493105460695377193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3263,8 +3262,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _scene: Level1
   UiType: 4
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 2
 --- !u!1001 &493105460845649356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3388,8 +3386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 0
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &493105460874406463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3611,8 +3608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 2
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &493105460955849959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3734,8 +3730,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _scene: Level1
   UiType: 4
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!114 &7498503922289483631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3749,8 +3744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 7
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!1001 &493105461072883320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3984,8 +3978,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 48ce86583fac5944cb7d39c1bcfa9628, type: 3}
   _scene: Level2
   UiType: 4
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!1001 &493105461214005064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4211,8 +4204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 1
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &493105461520752136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4570,8 +4562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 0
-  clearInventoryCache: 1
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &1805375768770560372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5412,8 +5403,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 8c5a106f11dc4b54eb7108f8cb32a0b0, type: 3}
   _scene: Level4
   UiType: 4
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!1001 &4126255376012397386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5909,8 +5899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 1
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &4515490294294261432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7679,8 +7668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 6
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 0
 --- !u!1001 &6380857269471451591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9397,8 +9385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 11
-  clearInventoryCache: 0
-  resetDestroyedCache: 0
+  clearCache: 2
 --- !u!1001 &7784622142375498689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10346,8 +10333,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 3b1f6feabd384594099541748c524bf1, type: 3}
   _scene: Level3
   UiType: 4
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!1001 &8887586948071866991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10585,8 +10571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 0
-  clearInventoryCache: 1
-  resetDestroyedCache: 1
+  clearCache: 2
 --- !u!1001 &9046665206523857499
 PrefabInstance:
   m_ObjectHideFlags: 0

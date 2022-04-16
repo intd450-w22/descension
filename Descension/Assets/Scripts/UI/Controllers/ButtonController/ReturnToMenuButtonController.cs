@@ -23,10 +23,6 @@ namespace UI.Controllers.ButtonController
             GameManager.ClearGameCache();
             
             GameManager.SwitchScene(_scene, UIType.MainMenu);
-            
-            
-            
-            
         }
     }
 }
