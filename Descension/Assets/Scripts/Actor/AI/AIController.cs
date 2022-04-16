@@ -119,7 +119,10 @@ namespace Actor.AI
             _colliderIsTrigger = Collider.isTrigger;
             
             _alive = true;
-            
+        }
+
+        void Start()
+        {
             SetState(initialState);
         }
         
