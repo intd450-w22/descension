@@ -148,6 +148,8 @@ namespace Actor.Player
         public static void Disable() => Instance.gameObject.Disable();
         public static void ResetState()
         {
+            if (!Instance) return;
+
             Instance.hitPoints = Instance.maxHitPoints;
             ClearInteractablesInRange();
         }

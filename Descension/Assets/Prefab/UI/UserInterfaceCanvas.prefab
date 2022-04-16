@@ -2546,7 +2546,7 @@ MonoBehaviour:
   nextLevel: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _nextLevel: Level1
   NextUi: 4
-  TimeBeforeTransition: 15
+  TimeBeforeTransition: 10
 --- !u!1 &8120123445097108832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3262,7 +3262,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _scene: Level1
   UiType: 4
-  clearCache: 2
+  clearCache: 0
 --- !u!1001 &493105460845649356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3730,7 +3730,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _scene: Level1
   UiType: 4
-  clearCache: 2
+  clearCache: 0
 --- !u!114 &7498503922289483631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3744,7 +3744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUI: 7
-  clearCache: 2
+  clearCache: 0
 --- !u!1001 &493105461072883320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 48ce86583fac5944cb7d39c1bcfa9628, type: 3}
   _scene: Level2
   UiType: 4
-  clearCache: 2
+  clearCache: 0
 --- !u!1001 &493105461214005064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5403,7 +5403,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 8c5a106f11dc4b54eb7108f8cb32a0b0, type: 3}
   _scene: Level4
   UiType: 4
-  clearCache: 2
+  clearCache: 0
 --- !u!1001 &4126255376012397386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5970,6 +5970,10 @@ PrefabInstance:
     - target: {fileID: 2235020512124794068, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739186785827289104, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633238754976494631, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10333,7 +10337,7 @@ MonoBehaviour:
   scene: {fileID: 102900000, guid: 3b1f6feabd384594099541748c524bf1, type: 3}
   _scene: Level3
   UiType: 4
-  clearCache: 2
+  clearCache: 0
 --- !u!1001 &8887586948071866991
 PrefabInstance:
   m_ObjectHideFlags: 0

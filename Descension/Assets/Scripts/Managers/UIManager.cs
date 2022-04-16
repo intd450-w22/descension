@@ -28,7 +28,7 @@ namespace Managers
         // Helper properties
         public static Hotbar Hotbar => Instance._hudController.Hotbar;
 
-        protected void Awake()
+        void Awake()
         {
             if (_instance != null && _instance != this)
             {
@@ -49,6 +49,11 @@ namespace Managers
             _uiControllers.ForEach(x => x.gameObject.SetActive(false));
             
             SwitchUi(DefaultUi);
+        }
+
+        void Start()
+        {
+            _codexController.OnStart();
         }
         
         public static HUDController GetHudController() => Instance._hudController;

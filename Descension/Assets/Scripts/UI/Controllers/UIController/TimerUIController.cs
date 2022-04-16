@@ -23,6 +23,8 @@ namespace UI.Controllers.UIController
 
         public override void OnStart()
         {
+            SoundManager.StopMainMenuBackgroundAudio();
+
             _timeRemaining = TimeBeforeTransition;
             _timerStarted = true;
         }
