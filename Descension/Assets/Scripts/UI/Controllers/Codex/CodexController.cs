@@ -39,11 +39,8 @@ namespace UI.Controllers.Codex
             SetPage(CodexPages.First().PageType);
         }
 
-        public override void OnStart()
-        {
-            foreach(var page in _codexPageControllers)
-                page.OnStart();
-        }
+        public override void OnStart() => _codexPageControllers.ForEach(x => x.OnStart());
+        public bool CheckFacts() => _codexPageControllers.Aggregate(false, (current, page) => current | page.CheckFacts());
 
         public void CreatePage(CodexPage page)
         {

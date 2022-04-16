@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5830c3cf22dade34191f7aaaf3e096b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySprite: {fileID: -7963549056090711241, guid: 4bee26674ce0ceb4f9209e1cc91cd22e, type: 3}
+  inventorySprite: {fileID: 8581363780399802525, guid: dff6dab4769bb6647a8f81073e7618d4, type: 3}
   maxQuantity: 1
   cooldownTime: 0
   Fact: 11
