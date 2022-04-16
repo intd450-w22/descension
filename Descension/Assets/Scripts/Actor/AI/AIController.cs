@@ -49,7 +49,6 @@ namespace Actor.AI
         private Transform _weaponTransform;
         
         // state
-        private bool _alive;
         private int _updateCount = 1;
         private int _animatorIsMovingId;
         private bool _colliderIsTrigger;
@@ -99,8 +98,8 @@ namespace Actor.AI
                 return _inRange;
             }
         }
-        
-        void Awake()
+
+        private void Awake()
         {
             _spriteRenderer = Actor.GetComponent<SpriteRenderer>();
             
@@ -108,7 +107,6 @@ namespace Actor.AI
             {
                 Transform.position = location;
                 SetDead();
-                RigidBody.simulated = false;
                 return;
             }
 
@@ -117,18 +115,13 @@ namespace Actor.AI
 
             _animatorIsMovingId = Animator.StringToHash("IsMoving");
             _colliderIsTrigger = Collider.isTrigger;
-            
-            _alive = true;
         }
 
-        void Start()
-        {
-            SetState(initialState);
-        }
-        
+        private void Start() => SetState(initialState);
+
         private void FixedUpdate()
         {
-            if (GameManager.IsFrozen || !_alive || ++_updateCount % updateInterval != 0 || !InRange) return;
+            if (GameManager.IsFrozen || ++_updateCount % updateInterval != 0 || !InRange) return;
             
             var velocity = Agent.velocity;
             _spriteRenderer.flipX = velocity.x < 0;
@@ -138,34 +131,33 @@ namespace Actor.AI
             else if (RigidBody.velocity.sqrMagnitude < 1) knocked = false;
         }
 
-        
-        void OnKilled()
+
+        private void OnKilled()
         {
             SpawnManager.SpawnRandom(Transform.position, drops);
-            
-            SetDead();
-            
             FactManager.IncrementFact(fact, 1);
+            SetDead(true);
+        }
 
+        private void SetDead(bool cache = false)
+        {
+            // lay down and disable collision
+            enabled = false;
+            Animator.enabled = false;
+            Agent.enabled = false;
+            Transform.Rotate(new Vector3(0,0,1), 90);
+            _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
+            
             // delay collision disable so sprite doesn't move through walls/rocks
             this.InvokeWhen(
                 () =>
                 {
                     RigidBody.simulated = false;
-                    GameManager.DestroyUnique(this, Transform.position);
+                    Collider.enabled = false;
+                    if (cache) GameManager.DestroyUnique(this, Transform.position);
                 }, 
                 () => RigidBody.velocity.sqrMagnitude < 1, 
                 1);
-        }
-
-        void SetDead()
-        {
-            // lay down and disable collision
-            _alive = false;
-            Animator.enabled = false;
-            Agent.enabled = false;
-            Transform.Rotate(new Vector3(0,0,1), 90);
-            _spriteRenderer.color = new Color(0.2f,0.2f,0.2f,1);
         }
         
         public void SetState(AIState newState)
@@ -183,7 +175,7 @@ namespace Actor.AI
         
         public void InflictDamage(float damage, Vector2 direction, float knockBack = 0)
         {
-            if (!_alive) return;
+            if (!enabled) return;
             
             GameDebug.Log($"Enemy hit for {damage} damage");
             

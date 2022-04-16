@@ -130,7 +130,7 @@ namespace Managers
         {
             for (int i = 0; i < slots.Count; ++i)
             {
-                if (slots[i].Quantity != -1)
+                if (slots[i]?.Quantity != -1)
                 {
                     EquipSlot(i);
                     return;
@@ -146,7 +146,7 @@ namespace Managers
         {
             for (int i = 0; i < slots.Count; ++i)
             {
-                if (slots[i] != null && slots[i].name == itemName)
+                if (slots[i]?.name == itemName)
                 {
                     EquipSlot(i);
                     return;
@@ -170,6 +170,7 @@ namespace Managers
             {
                 var itemName = slots[index].name;
                 slots[index].OnDrop();
+                slots[index] = new Equippable();
 
                 // equip item with same name if possible if this was an executable item (not ammunition)
                 if (index == equippedSlot) EquipFirstSlottedItem(itemName);
@@ -227,7 +228,7 @@ namespace Managers
         }
 
         // drops currently equipped item and picks up item
-        public static void SwapEquipped(EquippableItem item, ref int quantity) => Instance._SwapEquipped(item, ref quantity);
+        private static void SwapEquipped(EquippableItem item, ref int quantity) => Instance._SwapEquipped(item, ref quantity);
         void _SwapEquipped(EquippableItem item, ref int quantity)
         {
             int slot = equippedSlot;
@@ -238,7 +239,7 @@ namespace Managers
         }
         
         // remove item from slot and update UI
-        void ClearSlot(int slotIndex)
+        private void ClearSlot(int slotIndex)
         {
             slots[slotIndex].Quantity = -1;
         }
@@ -251,29 +252,28 @@ namespace Managers
             Instance.equippedSlot = -1;
         }
 
-        public static void ClearSlots() => Instance._ClearSlots();
         // remove all items from slots and update UI
-        
-        void _ClearSlots()
+        private static void ClearSlots() => Instance._ClearSlots();
+        private void _ClearSlots()
         {
-            for (int i = 0; i < slots.Count; ++i) ClearSlot(i);
+            for (var i = 0; i < slots.Count; ++i) ClearSlot(i);
         }
         
-        public static void ClearCachedSlots() => Instance._ClearSlots();
-        // remove all items from slots and update UI
-        void _ClearCachedSlots()
+        private static void ClearCachedSlots() => Instance._ClearSlots();
+        private void _ClearCachedSlots()
         {
-            for (int i = 0; i < cachedSlots.Count; ++i) cachedSlots[i].Clear();
+            for (var i = 0; i < cachedSlots.Count; ++i) cachedSlots[i] = new Equippable();
         }
 
         public static void SetCooldown() => Instance._SetCooldown();
-        public void _SetCooldown() => _cooldown = Time.time + globalCooldown;
+        private void _SetCooldown() => _cooldown = Time.time + globalCooldown;
 
         public static bool IsOnCooldown() => Instance._IsOnCooldown();
-        public bool _IsOnCooldown() => Time.time < _cooldown;
+        private bool _IsOnCooldown() => Time.time < _cooldown;
 
         public static void TryExecute() => Instance._TryExecute();
-        public void _TryExecute()
+
+        private void _TryExecute()
         {
             if (_IsOnCooldown() || !IsInRange(equippedSlot, slots.Count) || slots[equippedSlot].IsOnCooldown()) return;
             slots[equippedSlot].Execute();
