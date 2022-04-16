@@ -49,6 +49,7 @@ namespace Managers
             GameDebug.Log($"[FactManager] Setting {key} to {val}");
             if (key == FactKey.None.ToString() || key.IsNullOrEmpty()) return;
             Instance.Facts[key] = val;
+            OnFactUpdated();
         }
         public static void SetFact(FactKey key, int val) => SetFact(key.ToString(), val);
         
@@ -62,6 +63,13 @@ namespace Managers
         {
             var query = new Query(Instance.Facts);
             return rule.Evaluate(query);
+        }
+
+        public static void OnFactUpdated()
+        {
+            var codexController = UIManager.GetCodexController();
+            if (codexController.CheckFacts())
+                UIManager.GetHudController().ShowCodexNotification();
         }
     }
 }

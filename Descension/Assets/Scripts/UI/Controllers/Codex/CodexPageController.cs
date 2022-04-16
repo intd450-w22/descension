@@ -122,10 +122,18 @@ namespace UI.Controllers.Codex
             gameObject.SetActive(false);
         }
 
-        private void CheckFacts()
+        public bool CheckFacts()
         {
+            var updated = false;
             foreach (var item in _buttonControllers.Where(x => x.PageItem.Rule.Any()))
-                item.Visible = FactManager.Query(item.PageItem.Rule);
+            {
+                var query = FactManager.Query(item.PageItem.Rule);
+                updated |= query && !item.Visible;
+                item.Visible = query;
+            }
+            
+            Debug.Log(updated);
+            return updated;
         }
     }
 }
