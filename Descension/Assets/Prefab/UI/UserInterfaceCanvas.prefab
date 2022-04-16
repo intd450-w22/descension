@@ -2546,7 +2546,7 @@ MonoBehaviour:
   nextLevel: {fileID: 102900000, guid: 4fe4c1203f0c6184eb81568ea2a0b1a1, type: 3}
   _nextLevel: Level1
   NextUi: 4
-  TimeBeforeTransition: 15
+  TimeBeforeTransition: 10
 --- !u!1 &8120123445097108832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,6 +5970,10 @@ PrefabInstance:
     - target: {fileID: 2235020512124794068, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739186785827289104, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633238754976494631, guid: 8cff6e3efa7cadb4aa647e6386b24f87, type: 3}
       propertyPath: m_AnchorMax.y
