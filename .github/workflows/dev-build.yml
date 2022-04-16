@@ -1,5 +1,7 @@
 name: Unity CI/CD Development Build
 
+on: [workflow_dispatch]
+
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
