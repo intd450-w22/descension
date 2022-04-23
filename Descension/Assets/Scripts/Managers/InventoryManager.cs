@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Actor.Items.Pickups;
 using Actor.Player;
-using Items.Pickups;
-using UI.Controllers.ButtonController;
 using UnityEngine;
 using Util.EditorHelpers;
 using Util.Helpers;

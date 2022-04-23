@@ -1,11 +1,12 @@
 using Actor.Player;
 using Managers;
+using UI.Widgets;
 using UnityEditor;
 using UnityEngine;
 using Util.EditorHelpers;
 using Util.Enums;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Pause
 {
     public class ReturnToMenuButtonController : ButtonController
     {

@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using UI.Controllers.ButtonController;
-using UnityEngine;
+using UI.Shop;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UI.MenuUI
+namespace UI.Widgets
 {
     [Serializable]
     public class MultiButton : Button

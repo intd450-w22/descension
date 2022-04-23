@@ -1,8 +1,8 @@
-using Actor.Player;
 using Managers;
+using UI.Widgets;
 using Util.Enums;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Pause
 {
     public class ReloadSceneButtonController : ButtonController
     {

@@ -1,15 +1,14 @@
-using Actor.Interface;
-using Managers;
-using UnityEngine;
-using UI.Controllers;
-using Util.Enums;
 using System;
 using System.Collections.Generic;
+using Actor.Interface;
 using Actor.Player;
+using Managers;
+using UnityEngine;
+using Util.Enums;
 
-namespace Environment
+namespace Actor.Environment
 {
-    public class BombScript : AInteractable
+    public class Bomb : AInteractable
     {
         [Header("Configuration")]
         public KeyCode StartBombKey = KeyCode.T;
@@ -31,8 +30,8 @@ namespace Environment
         private bool _activatedBomb = false;
         private Action _endGame;
 
-        private static BombScript _instance;
-        public static BombScript Instance => _instance ? _instance : _instance = FindObjectOfType<BombScript>();
+        private static Bomb _instance;
+        public static Bomb Instance => _instance ? _instance : _instance = FindObjectOfType<Bomb>();
         
         public void AddExplosives()=> _hasExplosives = true;
         public void AddTrigger() => _hasTrigger = true;

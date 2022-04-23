@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Items.Pickups;
+using Actor.Items.Pickups;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;

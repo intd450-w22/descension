@@ -1,14 +1,10 @@
-using System;
+using System.Collections.Generic;
+using Actor.Interface;
 using Managers;
 using UnityEngine;
 using Util.Enums;
 
-using System.Collections.Generic;
-using Actor.Interface;
-using Actor.Player;
-using Util.Helpers;
-
-namespace Items
+namespace Actor.Environment
 {
     public class ItemShop : AInteractable
     {

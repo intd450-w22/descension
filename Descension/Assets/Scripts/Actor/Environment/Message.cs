@@ -1,11 +1,9 @@
 using Actor.Interface;
 using Managers;
-using UI.Controllers;
 using UnityEngine;
-using UnityEngine.UI;
 using Util.EditorHelpers;
 
-namespace Environment
+namespace Actor.Environment
 {
     public class Message : MonoBehaviour, IUnique
     {

@@ -1,9 +1,7 @@
-using Actor.Player;
-using Managers;
 using UnityEngine;
 using Util.Enums;
 
-namespace Actor.Objects
+namespace Actor.Projectiles
 {
     public abstract class Projectile : MonoBehaviour
     {

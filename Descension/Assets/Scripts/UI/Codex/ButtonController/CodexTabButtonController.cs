@@ -1,8 +1,8 @@
 ﻿using Managers;
 
-namespace UI.Controllers.Codex.ButtonController
+namespace UI.Codex.ButtonController
 {
-    public class CodexTabButtonController : Controllers.ButtonController.ButtonController
+    public class CodexTabButtonController : Widgets.ButtonController
     {
         public CodexPageType codexTab;
         public bool IsActive;

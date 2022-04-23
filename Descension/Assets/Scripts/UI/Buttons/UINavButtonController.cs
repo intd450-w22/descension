@@ -1,8 +1,8 @@
-using System;
 using Managers;
+using UI.Widgets;
 using Util.Enums;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Buttons
 {
     public class UINavButtonController : ButtonController
     {

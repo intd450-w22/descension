@@ -2,7 +2,7 @@ using Managers;
 using UnityEngine;
 using Util.Helpers;
 
-namespace Environment
+namespace UI.HUD
 {
     public class floatingText : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-namespace Environment
+namespace Level
 {
     public class postProcessingScript : MonoBehaviour
     {

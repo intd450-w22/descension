@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Items.Pickups;
+using Actor.Items.Pickups;
 using Managers;
 using TMPro;
-using UI.Controllers.ButtonController;
 using UnityEngine;
 using Util.Helpers;
 
-namespace UI.Controllers.ShopUI
+namespace UI.Shop
 {
     public class ShopUIController : MonoBehaviour
     {

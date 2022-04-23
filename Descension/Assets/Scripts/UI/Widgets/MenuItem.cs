@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI.MenuUI
+namespace UI.Widgets
 {
     public class MenuItem : MonoBehaviour
     {

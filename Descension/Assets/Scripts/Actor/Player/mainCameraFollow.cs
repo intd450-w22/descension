@@ -1,8 +1,6 @@
-using Actor.Player;
-using Managers;
 using UnityEngine;
 
-namespace Environment
+namespace Actor.Player
 {
     public class mainCameraFollow : MonoBehaviour {
         public float speed = 0.125f;

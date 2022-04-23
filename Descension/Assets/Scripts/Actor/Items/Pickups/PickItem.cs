@@ -1,13 +1,12 @@
 using System;
+using Actor.Environment;
 using Actor.Player;
-using Environment;
 using Managers;
-using UnityEditor.UIElements;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class PickItem : EquippableItem
     {

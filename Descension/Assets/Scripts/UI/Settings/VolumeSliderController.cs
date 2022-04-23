@@ -2,7 +2,7 @@
 using Managers;
 using UnityEngine;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Settings
 {
     public class VolumeSliderController : MonoBehaviour
     {

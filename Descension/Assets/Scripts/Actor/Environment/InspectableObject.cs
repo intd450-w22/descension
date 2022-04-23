@@ -1,11 +1,10 @@
 using Actor.Interface;
-using Actor.Player;
 using Managers;
 using UnityEngine;
 using Util.EditorHelpers;
 using Util.Enums;
 
-namespace Environment
+namespace Actor.Environment
 {
     // public class InspectableObject : UniqueMonoBehaviour
     public class InspectableObject : AInteractable, IUnique

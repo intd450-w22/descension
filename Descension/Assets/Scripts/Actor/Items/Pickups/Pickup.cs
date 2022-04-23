@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Actor.Interface;
 using Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Util.EditorHelpers;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class Pickup : AInteractable, IUnique
     {

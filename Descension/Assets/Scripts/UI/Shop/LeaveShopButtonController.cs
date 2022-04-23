@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Items;
+using Actor.Environment;
 using Managers;
+using UI.Widgets;
 using Util.Enums;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Shop
 {
     public class LeaveShopButtonController : ButtonController
     {

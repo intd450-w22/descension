@@ -1,8 +1,8 @@
 ﻿using TMPro;
 
-namespace UI.Controllers.Codex.ButtonController
+namespace UI.Codex.ButtonController
 {
-    public class CodexItemButtonController : Controllers.ButtonController.ButtonController
+    public class CodexItemButtonController : Widgets.ButtonController
     {
         public bool Active
         {

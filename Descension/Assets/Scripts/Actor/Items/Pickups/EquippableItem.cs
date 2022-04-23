@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 using Util.Enums;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     // Inspector compatible component for creating pickups
     [Serializable]

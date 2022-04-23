@@ -4,7 +4,7 @@ using UnityEngine;
 using Util.EditorHelpers;
 using Util.Enums;
 
-namespace UI.Controllers.UIController
+namespace UI.UI
 {
     public class TimerUIController : UIController
     {

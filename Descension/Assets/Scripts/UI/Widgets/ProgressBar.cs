@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using Util.Helpers;
 
-namespace UI.MenuUI
+namespace UI.Widgets
 {
     public class ProgressBar : MonoBehaviour
     {

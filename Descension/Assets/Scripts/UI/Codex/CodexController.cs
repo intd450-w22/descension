@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UI.UI;
 using UnityEngine;
 using Util.Helpers;
 
-namespace UI.Controllers.Codex
+namespace UI.Codex
 {
-    public class CodexController : UIController.UIController
+    public class CodexController : UIController
     {
         [Header("Page Configuration")] 
         public List<CodexPage> CodexPages; // readonly

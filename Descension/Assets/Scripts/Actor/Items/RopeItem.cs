@@ -1,4 +1,3 @@
-using System;
 using Actor.Interface;
 using Actor.Player;
 using Managers;
@@ -7,7 +6,7 @@ using Util.EditorHelpers;
 using Util.Enums;
 using Random = UnityEngine.Random;
 
-namespace Items
+namespace Actor.Items
 {
     public class RopeItem : MonoBehaviour, IUnique
     {

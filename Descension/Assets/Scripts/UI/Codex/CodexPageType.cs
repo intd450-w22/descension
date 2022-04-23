@@ -1,4 +1,4 @@
-﻿namespace UI.Controllers.Codex
+﻿namespace UI.Codex
 {
     public enum CodexPageType
     {

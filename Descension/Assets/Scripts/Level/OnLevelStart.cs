@@ -1,10 +1,8 @@
-using Items.Pickups;
 using Actor.Player;
 using Managers;
 using UnityEngine;
-using Util.Helpers;
 
-namespace Environment
+namespace Level
 {
     public class OnLevelStart : MonoBehaviour
     {

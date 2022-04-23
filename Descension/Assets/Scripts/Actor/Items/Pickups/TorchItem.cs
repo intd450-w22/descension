@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class TorchItem : EquippableItem
     {

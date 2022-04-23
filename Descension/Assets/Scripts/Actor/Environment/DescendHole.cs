@@ -1,15 +1,15 @@
+using System;
 using Actor.Interface;
 using Actor.Player;
 using Managers;
 using UnityEditor;
-using Util.Enums;
 using UnityEngine;
 using Util.EditorHelpers;
-using System;
+using Util.Enums;
 using Util.Helpers;
 using static Util.Helpers.CalculationHelper;
 
-namespace Environment
+namespace Actor.Environment
 {
     public class DescendHole : MonoBehaviour, IUnique
     {

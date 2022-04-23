@@ -1,7 +1,6 @@
-using UI.MenuUI;
 using UnityEngine;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Widgets
 {
     [RequireComponent(typeof(UnityEngine.UI.Button))]
     public class ButtonController : MenuItem

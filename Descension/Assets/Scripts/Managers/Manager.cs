@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+namespace Managers
 {
-    private static Manager _instance;
-    private static Manager Instance => _instance ??= FindObjectOfType<Manager>();
-
-    void Awake()
+    public class Manager : MonoBehaviour
     {
-        if (_instance == null) _instance = this;
-        else if (_instance != this) Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        private static Manager _instance;
+        private static Manager Instance => _instance ??= FindObjectOfType<Manager>();
+
+        void Awake()
+        {
+            if (_instance == null) _instance = this;
+            else if (_instance != this) Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }

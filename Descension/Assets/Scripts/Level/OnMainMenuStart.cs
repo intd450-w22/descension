@@ -1,7 +1,7 @@
 using Managers;
 using UnityEngine;
 
-namespace Environment
+namespace Level
 {
     public class OnMainMenuStart : MonoBehaviour
     {

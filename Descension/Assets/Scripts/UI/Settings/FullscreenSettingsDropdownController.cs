@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using Util.Helpers;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Settings
 {
     
 

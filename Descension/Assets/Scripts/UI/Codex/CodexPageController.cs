@@ -2,12 +2,12 @@
 using System.Linq;
 using Managers;
 using TMPro;
-using UI.Controllers.Codex.ButtonController;
+using UI.Codex.ButtonController;
 using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
 
-namespace UI.Controllers.Codex
+namespace UI.Codex
 {
     public class CodexPageController : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-﻿using Items.Pickups;
+﻿using Actor.Items.Pickups;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
 
-namespace UI.MenuUI
+namespace UI.Widgets
 {
     public class HotbarSlot : MonoBehaviour
     {

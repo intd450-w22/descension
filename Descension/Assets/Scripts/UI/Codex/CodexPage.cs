@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Rules;
 using UnityEngine;
 
-namespace UI.Controllers.Codex
+namespace UI.Codex
 {
     // Inspector compatible component for creating pickups
     [Serializable]

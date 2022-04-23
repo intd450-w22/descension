@@ -1,6 +1,7 @@
 ﻿using Managers;
+using UI.Widgets;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Buttons
 {
     public class ReturnToPreviousButtonController : ButtonController
     {

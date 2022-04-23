@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Actor.Interface;
 using Managers;
-using UI.Controllers;
 using Util.AssetMenu;
 using Util.Enums;
 using Util.Helpers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Environment;
+using Level;
+using UI.HUD;
 
 namespace Actor.Player
 {

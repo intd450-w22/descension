@@ -1,13 +1,9 @@
-using System;
 using Managers;
 using TMPro;
-using UI.Controllers.ShopUI;
-using UI.MenuUI;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using UI.Widgets;
 using UnityEngine.UI;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Shop
 {
     public class ShopItemButtonController : MenuItem
     {

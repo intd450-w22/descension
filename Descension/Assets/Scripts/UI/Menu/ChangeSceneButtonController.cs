@@ -1,12 +1,11 @@
-﻿using System;
-using Managers;
+﻿using Managers;
+using UI.Widgets;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Util.EditorHelpers;
 using Util.Enums;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Menu
 {
     public class ChangeSceneButtonController : ButtonController
     {

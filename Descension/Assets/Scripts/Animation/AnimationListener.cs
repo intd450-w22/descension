@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Actor.AI
+namespace Animation
 {
     public class AnimationListener : MonoBehaviour
     {

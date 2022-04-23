@@ -1,12 +1,12 @@
 using System;
-using Actor.Objects;
 using Actor.Player;
+using Actor.Projectiles;
 using Managers;
 using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class BowItem : EquippableItem
     {

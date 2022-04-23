@@ -1,12 +1,11 @@
 using System;
+using Actor.Environment;
 using Actor.Player;
-using Environment;
 using Managers;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class TriggerItem : EquippableItem
     {
@@ -60,13 +59,13 @@ namespace Items.Pickups
         {
             base.Execute();
 
-            if (BombScript.Instance)
+            if (Bomb.Instance)
             {
-                var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
+                var distance = (Bomb.Instance.transform.position - PlayerController.Position).magnitude;
                 GameDebug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
-                    BombScript.Instance.AddTrigger();
+                    Bomb.Instance.AddTrigger();
                     DialogueManager.ShowPrompt(_addToBombMessage, _addToBombPromptTime);
                     Quantity = -1;
                 }

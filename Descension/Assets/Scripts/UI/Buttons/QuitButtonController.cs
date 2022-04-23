@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using UI.Widgets;
+using UnityEngine;
 
-namespace UI.Controllers.ButtonController
+namespace UI.Buttons
 {
     public class QuitButtonController : ButtonController
     {

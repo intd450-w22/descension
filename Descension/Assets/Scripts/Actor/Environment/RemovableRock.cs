@@ -1,11 +1,10 @@
 using Actor.Interface;
-using Items;
 using Managers;
 using UnityEngine;
 using Util.EditorHelpers;
 using Util.Helpers;
 
-namespace Environment
+namespace Actor.Environment
 {
     public class RemovableRock : MonoBehaviour, IUnique
     {

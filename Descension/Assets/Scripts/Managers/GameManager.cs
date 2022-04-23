@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Actor.Interface;
 using Actor.Player;
-using Environment;
-using Items;
-using Items.Pickups;
+using Level;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;

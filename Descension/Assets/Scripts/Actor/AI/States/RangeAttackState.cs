@@ -1,4 +1,4 @@
-using Actor.Objects;
+using Actor.Projectiles;
 using UnityEngine;
 using Util.Enums;
 

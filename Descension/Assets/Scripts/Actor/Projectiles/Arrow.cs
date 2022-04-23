@@ -4,7 +4,7 @@ using UnityEngine;
 using Util.Enums;
 using Util.Helpers;
 
-namespace Actor.Objects
+namespace Actor.Projectiles
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Arrow : Projectile

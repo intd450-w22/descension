@@ -1,9 +1,7 @@
 using System;
-using Actor.Player;
 using Managers;
-using UnityEngine;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class ArrowsItem : EquippableItem
     {

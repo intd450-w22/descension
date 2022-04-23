@@ -1,11 +1,11 @@
 using System;
+using Actor.Environment;
 using Actor.Player;
-using Environment;
 using Managers;
 using UnityEngine;
 using Util.Helpers;
 
-namespace Items.Pickups
+namespace Actor.Items.Pickups
 {
     public class ExplosivesItem : EquippableItem
     {
@@ -60,14 +60,14 @@ namespace Items.Pickups
         {
             base.Execute();
 
-            if (BombScript.Instance)
+            if (Bomb.Instance)
             {
-                var distance = (BombScript.Instance.transform.position - PlayerController.Position).magnitude;
+                var distance = (Bomb.Instance.transform.position - PlayerController.Position).magnitude;
                 GameDebug.Log("Distance: " + distance);
                 if (distance <= _range)
                 {
                     GameDebug.Log("In Range");
-                    BombScript.Instance.AddExplosives();
+                    Bomb.Instance.AddExplosives();
                     DialogueManager.ShowPrompt(_addToBombMessage, _addToBombPromptTime);
                     Quantity = -1;
                 }

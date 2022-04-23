@@ -1,48 +1,50 @@
 using System.Collections.Generic;
 using System.Linq;
-using Items.Pickups;
-using UI.MenuUI;
+using Actor.Items.Pickups;
 using UnityEngine;
 
-public class Hotbar : MonoBehaviour
+namespace UI.Widgets
 {
-    private List<HotbarSlot> _hotbarSlots;
-
-    void Awake()
+    public class Hotbar : MonoBehaviour
     {
-        _hotbarSlots = GetComponentsInChildren<HotbarSlot>().ToList();
-    }
+        private List<HotbarSlot> _hotbarSlots;
 
-    void Start()
-    {
-        DeactivateAll();
-    }
-
-    public void SetActive(int slot)
-    {
-        for (var i = 0; i < _hotbarSlots.Count; i++)
+        void Awake()
         {
-            if (i == slot)
-                _hotbarSlots[i].Activate();
-            else
-                _hotbarSlots[i].Deactivate();
+            _hotbarSlots = GetComponentsInChildren<HotbarSlot>().ToList();
         }
-    }
 
-    public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
+        void Start()
+        {
+            DeactivateAll();
+        }
+
+        public void SetActive(int slot)
+        {
+            for (var i = 0; i < _hotbarSlots.Count; i++)
+            {
+                if (i == slot)
+                    _hotbarSlots[i].Activate();
+                else
+                    _hotbarSlots[i].Deactivate();
+            }
+        }
+
+        public void DeactivateAll() => _hotbarSlots.ForEach(x => x.Deactivate());
     
-    public void PickupItem(Equippable item, int slot)
-    {
-        _hotbarSlots[slot].SetSprite(item.inventorySprite);
-        _hotbarSlots[slot].SetQuantity(item.Quantity);
-        _hotbarSlots[slot].SetOnQuantityUpdated(ref item.OnQuantityUpdated);
-    }
+        public void PickupItem(Equippable item, int slot)
+        {
+            _hotbarSlots[slot].SetSprite(item.inventorySprite);
+            _hotbarSlots[slot].SetQuantity(item.Quantity);
+            _hotbarSlots[slot].SetOnQuantityUpdated(ref item.OnQuantityUpdated);
+        }
 
-    public void DropItem(int slot)
-    {
-        _hotbarSlots[slot].ClearSprite();
-        _hotbarSlots[slot].ClearQuantity();
-        _hotbarSlots[slot].Deactivate();
-    }
+        public void DropItem(int slot)
+        {
+            _hotbarSlots[slot].ClearSprite();
+            _hotbarSlots[slot].ClearQuantity();
+            _hotbarSlots[slot].Deactivate();
+        }
 
+    }
 }

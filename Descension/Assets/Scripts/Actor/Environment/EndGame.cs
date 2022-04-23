@@ -1,9 +1,8 @@
 using Managers;
-using UI.Controllers;
-using Util.Enums;
 using UnityEngine;
+using Util.Enums;
 
-namespace Environment
+namespace Actor.Environment
 {
     public class EndGame : MonoBehaviour
     {

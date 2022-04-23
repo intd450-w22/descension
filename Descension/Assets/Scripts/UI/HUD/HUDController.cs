@@ -1,12 +1,12 @@
 using System;
 using Managers;
 using TMPro;
-using UI.MenuUI;
+using UI.Widgets;
 using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
 
-namespace UI.Controllers
+namespace UI.HUD
 {
     public class HUDController : MonoBehaviour
     {

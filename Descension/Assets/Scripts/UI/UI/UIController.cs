@@ -1,7 +1,7 @@
-using Util.Enums;
 using UnityEngine;
+using Util.Enums;
 
-namespace UI.Controllers.UIController
+namespace UI.UI
 {
     public class UIController : MonoBehaviour
     {
