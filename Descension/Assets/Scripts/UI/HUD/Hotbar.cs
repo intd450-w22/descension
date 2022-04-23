@@ -3,7 +3,7 @@ using System.Linq;
 using Actor.Items.Pickups;
 using UnityEngine;
 
-namespace UI.Widgets
+namespace UI.HUD
 {
     public class Hotbar : MonoBehaviour
     {

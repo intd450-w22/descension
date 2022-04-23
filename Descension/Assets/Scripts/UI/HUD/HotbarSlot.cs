@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Util.Helpers;
 
-namespace UI.Widgets
+namespace UI.HUD
 {
     public class HotbarSlot : MonoBehaviour
     {
