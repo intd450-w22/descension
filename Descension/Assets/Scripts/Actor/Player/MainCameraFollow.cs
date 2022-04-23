@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Actor.Player
 {
-    public class mainCameraFollow : MonoBehaviour {
+    public class MainCameraFollow : MonoBehaviour {
         public float speed = 0.125f;
 
         // zoom out from target

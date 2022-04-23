@@ -4,7 +4,7 @@ using Util.Helpers;
 
 namespace UI.HUD
 {
-    public class floatingText : MonoBehaviour
+    public class FloatingText : MonoBehaviour
     {
         [SerializeField] private float _timeToLive = 1.5f;
         [SerializeField] private float _speed = 0.02f;

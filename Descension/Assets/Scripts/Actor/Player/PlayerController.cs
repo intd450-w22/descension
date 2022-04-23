@@ -73,7 +73,7 @@ namespace Actor.Player
         private bool _torchToggle;
         private bool _torchIlluminated;  // prevents float comparison every frame
         private float _torchState = 0.9f;
-        private postProcessingScript _postProcessing;
+        private TorchPostProcessing _torchPostProcessing;
         private Animator _animator;
         private int _animatorIsMovingId;
         private SpriteRenderer _spriteRenderer;
@@ -108,7 +108,7 @@ namespace Actor.Player
                 _itemObject = gameObject.GetChildObject("Sprite").GetChildObject("Item").GetComponent<Transform>();
                 _itemObject.gameObject.SetActive(false);
                 _itemSpriteRenderer = _itemObject.GetComponent<SpriteRenderer>();
-                _postProcessing = FindObjectOfType<postProcessingScript>();
+                _torchPostProcessing = FindObjectOfType<TorchPostProcessing>();
                 
                 playerInput = GetComponent<PlayerInput>();
                 playerControls = new PlayerControls();
@@ -206,7 +206,7 @@ namespace Actor.Player
                 if (_torchIlluminated && _torchState < TorchVignetteIntensityOff) _torchState += TorchVignetteIntensityOn;
                 else _torchIlluminated = false;
             }
-            _postProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
+            _torchPostProcessing.SetVignetteIntensity(_torchState + (float) Math.Cos(Time.time * flickerSpeed) * flickerMagnitude);
         }
 
         #region Entity Interaction

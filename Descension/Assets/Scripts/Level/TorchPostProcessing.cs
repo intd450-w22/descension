@@ -3,7 +3,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Level
 {
-    public class postProcessingScript : MonoBehaviour
+    public class TorchPostProcessing : MonoBehaviour
     {
         public PostProcessVolume volume;
         private Vignette vignette;
