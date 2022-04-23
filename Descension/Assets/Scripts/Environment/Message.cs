@@ -15,17 +15,12 @@ namespace Environment
         
         public new string name;
         public string[] linesOfDialogue;
-        public Image dialogueBox;
-        public Text dialogueText;
 
-        public bool triggered = false;
-
-        private HUDController _hudController;
-
+        public bool triggered;
+        
         void Awake()
         {
             if (GameManager.IsUniqueDestroyed(this)) Destroy(gameObject);
-            else _hudController = UIManager.GetHudController();
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
