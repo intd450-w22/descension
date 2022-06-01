@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Actor.Interface;
-using Environment;
 using JetBrains.Annotations;
 using Managers;
 using UnityEditor;

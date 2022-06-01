@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using Util.Enums;
 using Util.Helpers;
-using static Actor.AI.AnimationListener;
-using static Actor.AI.AnimationListener.AnimationEvent;
+using static Animation.AnimationListener;
+using static Animation.AnimationListener.AnimationEvent;
 
 namespace Actor.AI.States
 {

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using UI.Controllers;
-using UI.Controllers.Codex;
-using UI.Controllers.ShopUI;
-using UI.Controllers.UIController;
+using UI.Codex;
+using UI.HUD;
+using UI.Shop;
+using UI.UI;
+using UI.Widgets;
 using Util.Enums;
 using UnityEngine;
 using Util.Helpers;

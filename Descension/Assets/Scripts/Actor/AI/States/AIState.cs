@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Actor.Player;
+using Animation;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;

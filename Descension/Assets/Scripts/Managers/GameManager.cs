@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Actor.Interface;
 using Actor.Player;
-using Environment;
-using Items;
-using Items.Pickups;
+using Level;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,11 +30,11 @@ namespace Managers
 
         void Start()
         {
-            _globalPostProcessing = FindObjectOfType<postProcessingScript>();
+            _globalTorchPostProcessing = FindObjectOfType<TorchPostProcessing>();
         }
 
-        private postProcessingScript _globalPostProcessing;
-        public static postProcessingScript GlobalPostProcessing => Instance._globalPostProcessing;
+        private TorchPostProcessing _globalTorchPostProcessing;
+        public static TorchPostProcessing GlobalTorchPostProcessing => Instance._globalTorchPostProcessing;
 
         [SerializeField] private bool _isPaused;
         public static bool IsPaused => Instance._isPaused;

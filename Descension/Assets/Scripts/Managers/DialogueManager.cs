@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Actor.Environment;
 using Actor.Player;
-using Items;
 using UnityEngine;
 using Util.Enums;
 
